@@ -1,0 +1,14 @@
+<% 
+    specialHelper = (linkPrefix, special, id) => {
+        let xhtmlSpecial = '';
+        let link       = linkPrefix + 'change-special/' + id + '/' + special ;
+        if(special === "active") {
+            xhtmlSpecial = '<span class="my-btn-state rounded-circle btn btn-sm btn-success"><i class="fas fa-check"></i></span>';
+        }else if (special === "inactive") {
+            xhtmlSpecial = '<span class="my-btn-state rounded-circle btn btn-sm btn-default"><i class="fas fa-check"></span>';
+        }
+
+        return `<a href="${link}">${xhtmlSpecial}</a>`;
+    }
+%>
+

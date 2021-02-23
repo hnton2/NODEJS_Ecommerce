@@ -1,0 +1,36 @@
+<% 
+    let arrDashboard = [
+        {name: 'Groups', count: totalGroups, icon: 'ion-ios-people', link: `${systemConfig.prefixAdmin}/groups`},
+        {name: 'Users', count: totalUsers, icon: 'ion-ios-person', link: `${systemConfig.prefixAdmin}/users`},
+        {name: 'Category', count: totalCategory, icon: 'ion-clipboard', link: `${systemConfig.prefixAdmin}/category`},
+        {name: 'Articles', count: totalUsers, icon: 'ion-ios-book', link: `${systemConfig.prefixAdmin}/articles`},
+        {name: 'Items', count: totalItems, icon: 'ion-clipboard', link: `${systemConfig.prefixAdmin}/items`},
+        {name: 'Rss', count: totalCategory, icon: 'ion-clipboard', link: `${systemConfig.prefixAdmin}/rss`}
+    ];
+    let xhtmlDashboard = '';
+    arrDashboard.forEach( (item) => {
+        xhtmlDashboard += `<div class="col-lg-3 col-6">
+            <div class="small-box bg-info">
+                <div class="inner">
+                    <h3>${item.count}</h3>
+                    <p>${item.name}</p>
+                </div>
+                <div class="icon text-white">
+                    <i class="ion ${item.icon}"></i>
+                </div>
+                <a href="${item.link}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>`;
+    });
+%>
+
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row justify-content-left">
+            <%- xhtmlDashboard %>
+        </div>
+    </div>
+</section>
+<!-- /.content -->

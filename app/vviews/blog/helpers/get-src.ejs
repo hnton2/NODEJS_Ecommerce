@@ -1,0 +1,11 @@
+<%
+    getSrc = (string) => {
+        var imgRex = /<img.*?src="(.*?)"[^>]+>/g;
+        var images = [];
+        let img;
+        while ((img = imgRex.exec(string))) {
+            images.push(img[1]);
+        }
+        return images;
+    }
+%>

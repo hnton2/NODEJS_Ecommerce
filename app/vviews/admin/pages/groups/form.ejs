@@ -1,0 +1,42 @@
+<% include ./../../elements/errors %>
+<% include ./../../helpers/selectBox %>
+<% include ./../../helpers/radioBox %>
+<% include ./../../helpers/input %>
+<% include ./../../helpers/textarea %>
+<% include ./../../helpers/form-input %>
+
+<% 
+	const collection = "groups";
+	const linkPrefix = systemConfig.prefixAdmin + `/${collection}/`;
+	
+	radio_object = [
+		{value: 'yes', name: 'Yes'},
+		{value: 'no', name: 'No'}
+	];
+
+	let elementsForm = [
+		{for: 'name', label: 'Name', input: inputHelper('name', group.name)},
+		{for: 'ordering', label: 'Ordering', input: inputHelper('ordering', group.ordering)},
+		{for: 'status', label: 'Status', input: selectBoxHelper('status', systemConfig.status_value, group.status)},
+		{for: 'group_acp', label: 'Group ACP', input: radioBoxHelper(radio_object, "group_acp", group.group_acp)},
+		{for: 'content', label: 'Content', input: textareaHelper('content', group.content)}
+	];
+
+	let xhtml = createFormHelper(elementsForm);
+%>
+
+
+<div class="card card-info card-outline">
+	<form action="<%= linkPrefix %>save/" method="POST" class="mb-0" >
+		<div class="card-body">
+			<%- xhtml %>
+		</div>
+		<div class="card-footer">
+			<div class="col-12 col-sm-8 offset-sm-2">
+				<input class="form-control" name="id" value="<%= group.id %>" type="hidden" >
+				<button type="submit" class="btn btn-sm btn-success mr-1"> Submit</button>
+				<a href="<%= linkPrefix %>" class="btn btn-sm btn-danger mr-1"> Cancel</a>
+			</div>
+		</div>
+	</form>
+</div>

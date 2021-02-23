@@ -1,0 +1,58 @@
+<% include ./../helpers/format-date %>
+<% include ./../helpers/change-alias %>
+<%
+    const folder_uploads = "uploads/articles/";
+    let s1 = 8;
+    let s2 = 4;
+    if(itemsSpecial.length === 1) {
+        s1 = 12;
+    } else if(itemsSpecial.length === 2) {
+        s1 = 6;
+        s2 = 6;
+    }
+%>
+<section class="top-post-area pt-10">
+    <div class="container no-padding">
+        <div class="row small-gutters">
+            <div class="col-lg-<%= s1 %> top-post-left">
+                <div class="feature-image-thumb relative">
+                    <div class="overlay overlay-bg"></div>
+                    <img class="img-fluid" src="<%= folder_uploads + itemsSpecial[0].thumb %>" alt="<%= itemsSpecial[0].name %>">
+                </div>
+                <div class="top-post-details">
+                    <ul class="tags">
+                        <li><a href="category/<%= change_alias(itemsSpecial[0].category.name) %>"><%= itemsSpecial[0].category.name %></a></li>
+                    </ul>
+                    <a href="article/<%= itemsSpecial[0].id %>">
+                        <h3><%= itemsSpecial[0].name %></h3>
+                    </a>
+                    <ul class="meta">
+                        <li><a href="#"><span class="lnr lnr-user"></span><%= itemsSpecial[0].created.name %></a></li>
+                        <li><a href="#"><span class="lnr lnr-calendar-full"></span><%= formatDate(itemsSpecial[0].created.time) %></a></li>
+                        <li><a href="#"> <span class="lnr lnr-bubble"></span>06 Comments</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-<%= s2 %> top-post-right">
+                <% for(let i = 1; i < itemsSpecial.length; i++) { %>
+                <div class="single-top-post mt-8">
+                    <div class="feature-image-thumb relative">
+                        <div class="overlay overlay-bg"></div>
+                        <img class="img-fluid" src="<%= folder_uploads + itemsSpecial[i].thumb %>" alt="<%= itemsSpecial[i].name %>">
+                    </div>
+                    <div class="top-post-details">
+                        <ul class="tags"><li><a href="category/<%= change_alias(itemsSpecial[0].category.name) %>"><%= itemsSpecial[i].category.name %></a></li> </ul>
+                        <a href="article/<%= itemsSpecial[i].id %>"><h4><%= itemsSpecial[i].name %></h4></a>
+                        <ul class="meta">
+                            <li><a href="#"><span class="lnr lnr-user"></span><%= itemsSpecial[i].created.name %></a></li>
+                            <li><a href="#"><span class="lnr lnr-calendar-full"></span><%= formatDate(itemsSpecial[i].created.time) %></a></li>
+                            <li><a href="#"><span class="lnr lnr-bubble"></span>06 Comments</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</section>

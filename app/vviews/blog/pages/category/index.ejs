@@ -1,0 +1,49 @@
+<% include ./../../helpers/format-date %>
+<% const folder_uploads = "uploads/articles/"; %>
+
+<div class="col-lg-8 post-list">
+    <!-- Start latest-post Area -->
+    <div class="latest-post-wrap">
+        <% if(itemsInCategory.length > 0) { %>
+        <h4 class="cat-title"><%= itemsInCategory[0].category.name %></h4>
+            <% itemsInCategory.forEach( (item) => { %>
+                <div class="single-latest-post row align-items-center">
+                    <div class="col-lg-5 post-left">
+                        <div class="feature-img relative">
+                            <div class="overlay overlay-bg"></div>
+                            <img class="img-fluid" src=<%= folder_uploads + item.thumb %> alt="<%= item.name %>">
+                        </div>
+                    </div>
+                    <div class="col-lg-7 post-right">
+                        <a href="#">
+                            <h4><%= item.name %></h4>
+                        </a>
+                        <ul class="meta">
+                            <li>
+                                <a href="#">
+                                    <span class="lnr lnr-user"></span><%= item.created.name %></a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="lnr lnr-calendar-full"></span><%= formatDate(item.created.time) %></a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="lnr lnr-bubble"></span>06 Comments</a>
+                            </li>
+                        </ul>
+                        <p class="excert">
+                            <%= item.summary %>
+                        </p>
+                    </div>
+                </div>
+                <div class="load-more">
+                    <a href="#" class="primary-btn">Load More Posts</a>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <tr ><td colspan="9"><h3>Không có dữ liệu</h3></td></tr>
+        <% } %>
+    </div>
+    <!-- End latest-post Area -->
+</div>

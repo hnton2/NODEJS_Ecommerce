@@ -1,0 +1,17 @@
+<% 
+    filterStatusHelper = (linkPrefix, statusFilter, params) => { 
+        let xhtmlResult = '';
+        statusFilter.forEach((item)=> {
+            let link = linkPrefix + 'status/' + item.value;
+            if(params.keyword !== "" && params.keyword !== undefined) link += '?keyword=' + params.keyword;
+            <!--if(params.groupID !== "" && params.groupID !== undefined) link += '?groupID=' + params.groupID;-->
+            
+            if(item.count != 0) {
+                xhtmlResult += `<a class="mr-1 btn btn-sm btn-${item.class}" href="${link}">
+                        ${item.name.toUpperCase()} <span class="badge badge-pill badge-light">${item.count}</span>  
+                    </a> `;
+            }
+        })
+        return xhtmlResult;
+    } 
+%>

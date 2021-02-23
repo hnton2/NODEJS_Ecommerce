@@ -1,0 +1,42 @@
+<% include ./../../helpers/format-date %>
+
+<div class="col-lg-8 post-list">
+    <!-- Start latest-post Area -->
+    <div class="latest-post-wrap">
+        <h4 class="cat-title">Giá Coin</h4>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">7d</th>
+                    <th scope="col">Market Cap</th>
+                    <th scope="col">Volume</th>
+                    <th scope="col">Circulating Supply</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <% if(items.length > 0) { %>
+                        <% items.forEach( (item, index) => { %>
+                            <tr>
+                                <th scope="row"><%= index+1 %></th>
+                                <td><%= item.name %></td>
+                                <td><%= item.quote.USD.price %></td>
+                                <td><%= item.quote.USD.percent_change_7d %></td>
+                                <td><%= item.quote.USD.market_cap %></td>
+                                <td><%= item.quote.USD.volume_24h %></td>
+                                <td><%= item.circulating_supply %></td>
+                            </tr>
+                        <% }) %>
+                    <% } else { %>
+                        <tr ><td colspan="9"><h3>Không có dữ liệu</h3></td></tr>
+                    <% } %>
+                </tbody>
+            </table>
+            <p class="lead">
+                Cập nhật lúc <%= updateTime %>
+            </p>
+    </div>
+    <!-- End latest-post Area -->
+</div>
