@@ -30,7 +30,16 @@ const capitalize = (str) => {
 	return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
+let countCollections = async (model) => {
+    let total = 0;
+	await model.count({}).then( (count) =>{ 
+		total = count;
+	});
+    return total;
+}
+
 module.exports = {
 	createFilterStatus: createFilterStatus,
-	capitalize: capitalize
+	capitalize: capitalize,
+	countCollections
 }

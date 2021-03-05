@@ -17,8 +17,9 @@ router.get('/:id', async (req, res, next) => {
   // Related  article
   await ArticleModel.listItemsFrontend(itemArticle, {task: 'items-related'}).then( (items) => {itemsRelated = items;});  
   res.render(`${folderView}index`, { 
-    pageTitle   : 'publishPage ',
+    pageTitle   : 'Article ',
     top_post: false,
+    layout_rss: false,
     layout: layoutBlog,
     itemArticle,
     itemsRelated

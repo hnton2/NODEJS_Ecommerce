@@ -125,7 +125,7 @@ module.exports = {
             return Model.updateOne({_id: id}, data);
         }
     },
-    deleteItems: async (id, user, option = null) => {
+    deleteItems: async (id, option = null) => {
         if(option.tasks === 'delete-one') {
             await Model.findById(id).then((item) => {
                 FileHelpers.remove(uploadFolder, item.thumb);

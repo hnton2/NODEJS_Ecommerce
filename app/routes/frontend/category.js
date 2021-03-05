@@ -21,8 +21,9 @@ router.get('/:slug', async (req, res, next) => {
   // Article in Category
   await ArticleModel.listItemsFrontend({id: idCategory}, {task: 'items-in-category'}).then( (items) => {itemsInCategory = items;});
   res.render(`${folderView}index`, { 
-    pageTitle   : 'publishPage ',
+    pageTitle   : 'Category ',
     top_post: false,
+    layout_rss: false,
     layout: layoutBlog,
     itemsInCategory,
   });

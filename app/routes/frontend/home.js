@@ -15,9 +15,10 @@ router.get('/', async (req, res, next) => {
   await ArticleModel.listItemsFrontend(null, {task: 'items-news'}).then( (items) => {itemsNews = items;});
   
   res.render(`${folderView}index`, {
-    pageTitle   : 'publishPage ',
-    layout: layoutBlog,
+    pageTitle   : 'Home ',
     top_post: true,
+    layout_rss: false,
+    layout: layoutBlog,
     itemsSpecial,
     itemsNews,
   });

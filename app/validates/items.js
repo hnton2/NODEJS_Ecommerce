@@ -1,5 +1,6 @@
 const util  = require('util');
 const notify= require(__path_configs + 'notify');
+const ItemsModel 	= require(__path_schemas + 'items');
 
 const options = {
     name: { min: 5, max: 30 },

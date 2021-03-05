@@ -52,7 +52,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
   cookie: {
-    maxAge: 5*60*1000
+    maxAge: 10*60*1000
   }
 }
 ));
@@ -98,19 +98,29 @@ app.use(function(req, res, next) {
 
 // error handler
 app.use(async(err, req, res, next) => {
+  const GroupsModel 		= require(__path_models + 'groups');
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  if(systemConfig.env == "dev") {
-  res.status(err.status || 500);
-  res.render(__path_views_admin +  'pages/error', { pageTitle   : 'Page Not Found ' });
-  }
-
-  if(systemConfig.env == "production") {
+  if(req.isAuthenticated()) {
+    // render the error page
+    await GroupsModel.getItems({id: req.user._doc.group.id}, {task: 'get-items-by-id'}).then((item) => {
+      if(item.group_acp === 'yes') {
+        res.status(err.status || 500);
+        res.render(__path_views_admin +  'pages/error', { pageTitle   : 'Page Not Found ' });
+      } else {
+        res.status(err.status || 500);
+        res.render(__path_views_blog +  'pages/error', {
+          pageTitle   : 'Page Not Found ',
+          top_post: false,
+          layout: __path_views_blog + 'frontend',
+        });
+      }
+    });
+  } else {
     res.status(err.status || 500);
     res.render(__path_views_blog +  'pages/error', {
+      pageTitle   : 'Page Not Found ',
       top_post: false,
       layout: __path_views_blog + 'frontend',
     });

@@ -16,7 +16,13 @@
 				<div class="container no-padding">
 					<div class="row">
 						<%- body %>
-                        <% include ./elements/sildebar %>
+						<% if(layout_rss == false){ %>
+							<% include ./elements/sidebar %>
+						<% } %>
+
+						<% if(layout_rss == true){ %>
+							<% include ./elements/sidebar-rss %>
+						<% } %>
 					</div>
 				</div>
 			</section>

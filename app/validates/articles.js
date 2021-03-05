@@ -3,8 +3,8 @@ const notify= require(__path_configs + 'notify');
 
 const options = {
     name: { min: 5, max: 100 },
-    slug: { min: 5, max: 30 },
-    summary: { min: 5, max: 100 },
+    slug: { min: 5, max: 50 },
+    summary: { min: 5, max: 200 },
     ordering: { min: 0, max: 100 },
     status: { value: 'allValue' },
     special: { value: 'allValue' },

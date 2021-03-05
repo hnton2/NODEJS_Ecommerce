@@ -11,8 +11,6 @@ router.use('/category', require('./category'));
 router.use('/article', require('./article'));
 router.use('/contact', require('./contact'));
 router.use('/about', require('./about'));
-router.use('/rss', require('./rss-sport'));
-router.use('/gold-price', require('./rss-gold-price'));
-router.use('/coin-price', require('./rss-coin-price'));
+router.use('/rss', require('./rss'));
 
 module.exports = router;

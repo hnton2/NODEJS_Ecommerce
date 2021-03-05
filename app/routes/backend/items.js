@@ -88,19 +88,25 @@ router.get(('/form(/:id)?'), (req, res, next) => {
 	if(id === '') { // ADD
 		res.render(`${folderView}form`, { pageTitle: pageTitleAdd, item, errors});
 	}else { // EDIT
-		MainModel.getItems(id).then( (item) =>{
+		MainModel.getItems({id: id}, {task: 'get-items-by-id'}).then( (item) =>{
 			res.render(`${folderView}form`, { pageTitle: pageTitleEdit, item, errors});
 		});	
 	}
 });
 
 // SAVE = ADD EDIT
-router.post('/save', (req, res, next) => {
+router.post('/save', async (req, res, next) => {
 	req.body = JSON.parse(JSON.stringify(req.body));
 	MainValidate.validator(req);
 
 	let item = Object.assign(req.body);
 	let errors = req.validationErrors();
+	await MainModel.getItems({name: item.name}, {task: 'get-items-by-name'}).then( (item) =>{
+		if(item.length > 0) {
+			errors.unshift({param: 'name', msg: 'Đã tồn tại'});
+		}
+	});
+	console.log(errors);
 	let taskCurrent = (typeof item !== "undefined" && item.id !== "") ? 'edit' : 'add';
 	let pageTitle = (taskCurrent === 'edit') ? pageTitleEdit : pageTitleAdd;
 

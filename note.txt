@@ -1,13 +1,13 @@
+validator phía client
 tạo col show article trong category: Choose Layout: 'list' or 'grid'
 node2 - chương 4 - 
     bài 5.2, 
     6.1
-    nút pre-next post 6.4
-kiểm tra tên group thêm mới có tồn tại chưa
-kiểm tra user, nếu là admin thì layout hiển thị là của admin
 thêm tag cho mỗi bài viết
 cấu hình thông tin website như link fb, email, số điện thoại, fanpage code,...
 search bài viết
-sửa tên cho từng trang
+article là slug
 
-url cho category và article là slug
+? kiểm tra tên group thêm mới có tồn tại chưa - items
+==================================================================
+thêm sidebar-rss
