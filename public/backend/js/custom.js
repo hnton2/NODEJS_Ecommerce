@@ -17,7 +17,7 @@ $(document).ready(function () {
         if (event.keyCode === 13) {
             $btnSearch.click();
         }
-    });
+    }); 
 
     // Search Event
     $btnSearch.click(function () {

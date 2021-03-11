@@ -21,7 +21,7 @@ module.exports = {
         return Model.findById(id);
     },
     listItemsFrontend: () => {
-        return Model.find({status:'active'}).select('link ordering').sort({ordering: 'desc'}).limit(1);
+        return Model.find({status:'active'}).select('name link ordering');
     },
     countItems: (params, option = null) => {
         let objWhere	 = {};

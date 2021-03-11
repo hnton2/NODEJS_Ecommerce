@@ -9,18 +9,27 @@ const layoutBlog    = __path_views_blog + 'frontend';
 router.get('/', async (req, res, next) => {
   let itemsSpecial = [];
   let itemsNews = [];
+  let allItems = [];
+
   // Special
   await ArticleModel.listItemsFrontend(null, {task: 'items-special'}).then( (items) => {itemsSpecial = items;});
+  // All Items
+  await ArticleModel.listItemsFrontend(null, {task: 'all-items'}).then( (items) => {allItems = items;});
   // Latest New
   await ArticleModel.listItemsFrontend(null, {task: 'items-news'}).then( (items) => {itemsNews = items;});
+
   
   res.render(`${folderView}index`, {
-    pageTitle   : 'Home ',
+    pageTitle   : 'Trang chủ',
     top_post: true,
+    trending_post: true,
     layout_rss: false,
+    layout_contact: false,
+    layout_article: false,
     layout: layoutBlog,
     itemsSpecial,
     itemsNews,
+    allItems,
   });
 });
 

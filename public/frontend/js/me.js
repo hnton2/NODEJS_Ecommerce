@@ -11,6 +11,36 @@ $(document).ready(function () {
         let data = JSON.parse(response);
         $("#box-coin").html(renderCoinTable(data));
     });
+    let pathname = window.location.pathname;
+    let arrMenu = pathname.split("/");
+    let currentMenu = arrMenu[1];
+    $('li.nav-item a[data-active="'+currentMenu+'"]').addClass('active');
+    if(currentMenu == 'article') {
+        $('div.container-fluid.pb-4.pt-4.paddding').attr('id', 'fh5co-single-content');
+        $('body').attr('class', 'single');
+    }
+
+    // search
+    let $inputSearchValue = $('input[name = keyword]');
+    let $btnSearch = $('button#btn_search');
+
+    $inputSearchValue.keyup(function (event) {
+        if (event.keyCode === 13) {
+            $btnSearch.click();
+        }
+    });
+
+    // Search Event
+    $btnSearch.click(function () {
+        let searchValue = $inputSearchValue.val().trim();
+        let link = '/search/';
+        if (searchValue !== '') {
+            link += 'keyword=' + searchValue.replace(/\s+/g, '+').toLowerCase();
+            window.location.href = link;
+        } else {
+            Swal.fire('Nhập nội dung cần tìm kiếm!');
+        }
+    });
 });
 
 function renderGoldTable(items) {

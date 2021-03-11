@@ -113,6 +113,9 @@ app.use(async(err, req, res, next) => {
         res.render(__path_views_blog +  'pages/error', {
           pageTitle   : 'Page Not Found ',
           top_post: false,
+          layout_rss: false,
+          layout_contact: false,
+          layout_article: false,
           layout: __path_views_blog + 'frontend',
         });
       }
@@ -122,6 +125,9 @@ app.use(async(err, req, res, next) => {
     res.render(__path_views_blog +  'pages/error', {
       pageTitle   : 'Page Not Found ',
       top_post: false,
+      layout_rss: false,
+      layout_contact: false,
+      layout_article: false,
       layout: __path_views_blog + 'frontend',
     });
   }

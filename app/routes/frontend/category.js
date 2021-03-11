@@ -17,13 +17,15 @@ router.get('/:slug', async (req, res, next) => {
 
   // Article in Category
   await CategoryModel.getItems({slug: slugCategory}, {task: 'get-items-by-slug'}).then( (items) => {idCategory = items[0].id;});
-  console.log(idCategory);
   // Article in Category
   await ArticleModel.listItemsFrontend({id: idCategory}, {task: 'items-in-category'}).then( (items) => {itemsInCategory = items;});
   res.render(`${folderView}index`, { 
-    pageTitle   : 'Category ',
+    pageTitle   : itemsInCategory[0].category.name,
     top_post: false,
+    trending_post: false,
     layout_rss: false,
+    layout_contact: false,
+    layout_article: false,
     layout: layoutBlog,
     itemsInCategory,
   });

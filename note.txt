@@ -7,7 +7,8 @@ thêm tag cho mỗi bài viết
 cấu hình thông tin website như link fb, email, số điện thoại, fanpage code,...
 search bài viết
 article là slug
-
+gắn tag cho từng bài viết
 ? kiểm tra tên group thêm mới có tồn tại chưa - items
-==================================================================
-thêm sidebar-rss
+quản lý phần slider
+
+lỗi nếu không nhập tìm kiếm

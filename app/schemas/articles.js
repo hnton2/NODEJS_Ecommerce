@@ -7,6 +7,7 @@ var schema = new mongoose.Schema({
     summary: String, 
     status: String,
     special: String,
+    trending: String,
     ordering: Number,
     category: {
         id: String,
@@ -25,5 +26,6 @@ var schema = new mongoose.Schema({
     content: String,
     thumb: String
 });
+schema.index({name: 'text', summary: 'text', content: 'text', 'category.name': 'text'});
 
 module.exports = mongoose.model(databaseConfig.col_articles, schema );

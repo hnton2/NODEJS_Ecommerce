@@ -8,5 +8,9 @@ module.exports = {
         {name: 'Choose Status', id: 'allValue'},
         {name: 'Active', id: 'active'},
         {name: 'InActive', id: 'inactive'},
-    ]
+    ],
+    radio_object: [
+		{value: 'yes', name: 'Yes'},
+		{value: 'no', name: 'No'}
+	],
 }

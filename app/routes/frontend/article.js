@@ -15,11 +15,14 @@ router.get('/:id', async (req, res, next) => {
   // Main article
   await ArticleModel.getMainArticle(idArticle, null).then( (items) => {itemArticle = items;});
   // Related  article
-  await ArticleModel.listItemsFrontend(itemArticle, {task: 'items-related'}).then( (items) => {itemsRelated = items;});  
-  res.render(`${folderView}index`, { 
-    pageTitle   : 'Article ',
+  await ArticleModel.listItemsFrontend(itemArticle, {task: 'items-related'}).then( (items) => {itemsRelated = items;});
+  res.render(`${folderView}index`, {
+    pageTitle   : itemArticle.name,
     top_post: false,
+    trending_post: false,
     layout_rss: false,
+    layout_contact: false,
+    layout_article: true,
     layout: layoutBlog,
     itemArticle,
     itemsRelated

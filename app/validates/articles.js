@@ -3,13 +3,14 @@ const notify= require(__path_configs + 'notify');
 
 const options = {
     name: { min: 5, max: 100 },
-    slug: { min: 5, max: 50 },
-    summary: { min: 5, max: 200 },
+    slug: { min: 5, max: 100 },
+    summary: { min: 5, max: 500 },
     ordering: { min: 0, max: 100 },
     status: { value: 'allValue' },
     special: { value: 'allValue' },
+    trending: { value: 'allValue' },
     category: { value: 'allValue' },
-    content: { min: 5, max: 5000 }
+    content: { min: 5, max: 20000 }
 }
 
 module.exports = {
@@ -32,6 +33,9 @@ module.exports = {
         // SPECIAL
         req.checkBody('special', notify.ERROR_STATUS)
             .isNotEqual(options.special.value);
+        // TRENDING
+        req.checkBody('trending', notify.ERROR_STATUS)
+            .isNotEqual(options.trending.value);
 
         // GROUP
         req.checkBody('category_id', notify.ERROR_CATEGORY)

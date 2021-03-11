@@ -14,7 +14,7 @@ module.exports = {
     
         return Model
 		.find(objWhere)
-		.select('name slug status ordering created modified category.name thumb special')
+		.select('name slug status ordering created modified category.name thumb special trending')
 		.sort(sort)
 		.skip((params.pagination.currentPage-1) * params.pagination.totalItemsPerPage)
 		.limit(params.pagination.totalItemsPerPage)
@@ -25,9 +25,22 @@ module.exports = {
         let limit = 3;
         let sort = {};
 
+        if(option.task == 'all-items'){
+            find = {status:'active'};
+            limit = 20;
+            sort = {'created.time': 'desc'};
+            select += ' summary';
+        }
         if(option.task == 'items-special'){
             find = {status:'active', special: 'active'};
             sort = {ordering: 'asc'};
+            limit = 5;
+        }
+
+        if(option.task == 'items-trending'){
+            find = {status:'active', trending: 'active'};
+            sort = {ordering: 'asc'};
+            limit = 8;
         }
 
         if(option.task == 'items-news'){
@@ -46,13 +59,19 @@ module.exports = {
             return Model.aggregate([
                 { $match: {status: 'active'}},
                 { $project: {_id: 1, name: 1, created: 1, thumb: 1} },
-                { $sample: {size: 3}}
+                { $sample: {size: 5}}
             ]);
         }
         if(option.task == 'items-related'){
             find = {status:'active', 'category.id': params.categoryId, '_id': {$ne: params.id} };
             sort = {ordering: 'asc'};
         }
+        if(option.task == 'items-search'){
+            return Model.find({$text: {$search: params.keyword}})
+                    .limit(5)
+                    .exec();
+        }
+
         return Model.find(find).select(select).limit(limit).sort(sort);
     },
     getMainArticle: (id, option = null) => {
@@ -94,6 +113,24 @@ module.exports = {
         else special = currentSpecial;
         let data = {
             special: special,
+            modified: {
+                user_id: user.id,
+                user_name: user.username,
+                time: Date.now()
+            }
+        };
+        if(option.tasks = 'change-multi'){
+            return Model.updateMany({_id: {$in: id }}, data);
+        } else if(option.tasks = 'change-one'){
+            return Model.updateOne({_id: id}, data);
+        }
+    },
+    changeTrending: (id, currentTrending, user, option = null) => {
+        let trending = '';
+        if(!Array.isArray(id)) trending = (currentTrending === "active") ? "inactive" : "active";
+        else trending = currentTrending;
+        let data = {
+            trending: trending,
             modified: {
                 user_id: user.id,
                 user_name: user.username,
@@ -164,6 +201,8 @@ module.exports = {
                 name: item.name,
                 slug: item.slug,
                 status: item.status,
+                special: item.special,
+                trending: item.trending,
                 summary: item.summary,
                 content: item.content,
                 thumb: item.thumb,

@@ -1,10 +1,10 @@
 <% 
-    statusHelper = (linkPrefix, status, id) => {
+    statusHelper = (linkPrefix, name, statusValue, id) => {
         let xhtmlStatus = '';
-        let link       = linkPrefix + 'change-status/' + id + '/' + status ;
-        if(status === "active") {
+        let link       = linkPrefix + `change-${name}/` + id + '/' + statusValue ;
+        if(statusValue === "active") {
             xhtmlStatus = '<span class="my-btn-state rounded-circle btn btn-sm btn-success"><i class="fas fa-check"></i></span>';
-        }else if (status === "inactive") {
+        }else if (statusValue === "inactive") {
             xhtmlStatus = '<span class="my-btn-state rounded-circle btn btn-sm btn-default"><i class="fas fa-check"></span>';
         }
 

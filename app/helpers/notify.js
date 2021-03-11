@@ -17,6 +17,12 @@ let showNotify = (req, res, linkIndex, params = null) => {
         case 'change-special-multi-success':
             notifyContent = util.format(notify.CHANGE_SPECIAL_MULTI_SUCCESS, params.n);
             break;
+        case 'change-trending-success':
+            notifyContent = notify.CHANGE_TRENDING_SUCCESS;
+            break;
+        case 'change-trending-multi-success':
+            notifyContent = util.format(notify.CHANGE_TRENDING_MULTI_SUCCESS, params.n);
+            break;
         case 'change-ordering-success':
             notifyContent = notify.CHANGE_ORDERING_SUCCESS;
             break;

@@ -1,5 +1,6 @@
 <% include ./../../elements/errors %>
 <% include ./../../helpers/selectBox %>
+<% include ./../../helpers/radioBox %>
 <% include ./../../helpers/input %>
 <% include ./../../helpers/textarea %>
 <% include ./../../helpers/form-input %>
@@ -12,6 +13,7 @@
 	const collection 	= "articles";
 	const linkPrefix	= systemConfig.prefixAdmin + `/${collection}/`;
 
+
 	let elementsForm = [
 		{for: 'name', label: 'Name', input: inputHelper('name', article.name, 'text', 'name_slug')},
 		{for: 'slug', label: 'Slug', input: inputHelper('slug', article.slug)},
@@ -20,6 +22,7 @@
 		{for: 'ordering', label: 'Ordering', input: inputHelper('ordering', article.ordering)},
 		{for: 'status', label: 'Status', input: selectBoxHelper('status', systemConfig.status_value, article.status)},
 		{for: 'special', label: 'Special', input: selectBoxHelper('special', systemConfig.status_value, article.special)},
+		{for: 'trending', label: 'Trending', input: selectBoxHelper('trending', systemConfig.status_value, article.trending)},
 		{for: 'category', label: 'Category', input: selectBoxHelper('category_id', categoryItems, article.category_id)},
 		{for: 'summary', label: 'Summary', input: inputHelper('summary', article.summary)},
 		{for: 'content', label: 'Content', input: textareaHelper('content', article.content)}

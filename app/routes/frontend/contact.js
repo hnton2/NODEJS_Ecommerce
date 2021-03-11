@@ -7,9 +7,12 @@ const layoutBlog    = __path_views_blog + 'frontend';
 /* GET home page. */
 router.get('/',   async (req, res, next) => {
   res.render(`${folderView}index`, { 
-    pageTitle   : 'Contact ',
+    pageTitle   : 'Liên hệ',
     top_post: false,
+    trending_post: false,
     layout_rss: false,
+    layout_contact: true,
+    layout_article: false,
     layout: layoutBlog,
   });
 

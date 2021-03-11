@@ -86,6 +86,25 @@ router.post('/change-special/:special', (req, res, next) => {
 	});
 });
 
+// Change trending
+router.get('/change-trending/:id/:status', (req, res, next) => {
+	let currentStatus	= ParamsHelpers.getParam(req.params, 'status', 'active'); 
+	let id				= ParamsHelpers.getParam(req.params, 'id', ''); 
+
+	MainModel.changeTrending(id, currentStatus, req.user, {tasks: 'change-one'}).then( (result) => {
+		NotifyHelpers.showNotify(req, res, linkIndex, {tasks: 'change-trending-success'});
+	});
+});
+
+// Change trending - Multi
+router.post('/change-trending/:status', (req, res, next) => {
+	let currentStatus	= ParamsHelpers.getParam(req.params, 'status', 'active'); 
+	
+	MainModel.changeTrending(req.body.cid, currentStatus, req.user, {tasks: 'change-multi'}).then( (result) => {
+		NotifyHelpers.showNotify(req, res, linkIndex, {n: result.n, tasks: 'change-trending-multi-success'});
+	});
+});
+
 // Change ordering - Multi
 router.post('/change-ordering', (req, res, next) => {
 	let cids 		= req.body.cid;
@@ -113,7 +132,7 @@ router.post('/delete', (req, res, next) => {
 // FORM
 router.get(('/form(/:id)?'), async (req, res, next) => {
 	let id		= ParamsHelpers.getParam(req.params, 'id', '');
-	let article	= {name: '', slug: '', ordering: 0, summary: '', status: 'allValue', special: 'allValue', content: '', category_id: '', category_name: ''};    // add category
+	let article	= {name: '', slug: '', ordering: 0, summary: '', status: 'allValue', special: 'allValue', trending: 'allValue', content: '', category_id: '', category_name: ''};    // add category
 	let errors  = null;
 	let categoryItems = [];
 	await CategoryModel.getItems(null, {task: 'get-name-items'}).then( (items) => {

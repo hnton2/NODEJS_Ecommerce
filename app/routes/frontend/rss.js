@@ -11,19 +11,18 @@ const layoutBlog    = __path_views_blog + 'frontend';
 
 router.get('/',  async (req, res, next) => {
   // RSS Sport
-  let linkSport = [];
-  await RSSModel.listItemsFrontend().then( (items) => {linkSport = items;});
-  // kiểm tra có link chưa ????
-  await RSSHelpers.xmlToJson(linkSport[0].link, (err, data) => {
-    if (err) { return console.err(err); }
-    let itemsSport = data.rss.channel[0].item;
-    res.render(`${folderView}index`, {
-      pageTitle   : 'RSS', 
-      top_post: false,
-      layout_rss: true,
-      layout: layoutBlog,
-      itemsSport
-    });
+  let linkRss = [];
+  await RSSModel.listItemsFrontend().then( (items) => {linkRss = items;});
+  let items = await RSSHelpers.getDataInURL(linkRss);
+  res.render(`${folderView}index`, {
+    pageTitle   : 'Tin tức tổng hợp', 
+    top_post: false,
+    trending_post: false,
+    layout_rss: true,
+    layout_contact: false,
+    layout_article: false,
+    layout: layoutBlog,
+    items
   });
 });
 

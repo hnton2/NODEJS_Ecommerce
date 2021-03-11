@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <% include ./elements/head %>
+</head>
+<body>
+    <% include ./elements/header %>
+    <% include ./elements/navbar %>
+    <% include ./elements/top_post/index %>
+
+    <div class="container-fluid pb-4 pt-4 paddding">
+        <div class="container paddding">
+            <div class="row mx-0">
+                <%- body %>
+                <% include ./elements/sidebar/index %>
+            </div>
+        </div>
+    </div>
+
+    <% if(top_post == false && layout_contact == false){ %>
+        <% include ./elements/trending_bar_v2 %>
+    <% } %>
+
+    <% include ./elements/footer %>
+    <% include ./elements/script %>
+</body>
+</html>
