@@ -24,6 +24,9 @@ module.exports = {
         if(option.task == 'get-name-items'){
             return Model.find({}, {_id: 1, name: 1});
         }
+        if(option.task == 'get-items-by-name'){
+            return Model.find({name : params.name});
+        }
     },
     countItems: (params, option = null) => {
         let objWhere	 = {};
@@ -60,7 +63,7 @@ module.exports = {
                 user_name: user.username,
                 time: Date.now()
             }
-        };
+        }; 
         if(Array.isArray(id)) {
             for(let index = 0; index < id.length; index ++){
                 data.ordering = parseInt(ordering[index]);

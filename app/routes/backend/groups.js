@@ -94,12 +94,17 @@ router.get(('/form(/:id)?'), (req, res, next) => {
 });
 
 // SAVE = ADD EDIT
-router.post('/save', (req, res, next) => {
+router.post('/save', async (req, res, next) => {
 	req.body = JSON.parse(JSON.stringify(req.body));
 	MainValidate.validator(req);
 
 	let group = Object.assign(req.body);
-	let errors = req.validationErrors();
+	let errors = req.validationErrors(); 
+	await MainModel.getItems({name: group.name}, {task: 'get-items-by-name'}).then( (item) =>{
+		if(item.length > 0) {
+			errors.unshift({param: 'name', msg: 'Tên đã tồn tại'});
+		}
+	});
 	let taskCurrent = (typeof group !== "undefined" && group.id !== "") ? 'edit' : 'add';
 	let pageTitle = (taskCurrent === 'edit') ? pageTitleEdit : pageTitleAdd;
 

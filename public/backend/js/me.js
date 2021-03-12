@@ -28,6 +28,8 @@ function readURL(input, output) {
     }
   }
 $(document).ready(function () {
+
+
     var ckbAll = $("#cbAll");
     var fmAdmin = $("#zt-form");
 
@@ -75,22 +77,7 @@ $(document).ready(function () {
     function activeMenu() {
         var arrPathname = window.location.pathname.split('/');
         var pattern = (typeof arrPathname[2] !== 'undefined') ? arrPathname[2] : '';
-
-        if (pattern != '') {
-            $('#side-menu li a').each(function (index) {
-                var subject = $(this).attr("href");
-                if (subject != "#" && subject.search(pattern) > 0) {
-                    $(this).closest("li").addClass("active");
-                    if ($(this).parents("ul").length > 1) {
-                        $("#side-menu ul").addClass('in').css("height", "auto");
-                        $("#side-menu ul").parent().addClass('active');
-                    }
-                    return;
-                }
-            });
-        } else {
-            $('#side-menu li').first().addClass("active");
-        }
+        $('li.nav-item a[data-active="'+pattern+'"]').addClass('active');
     }
 
     //

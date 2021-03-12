@@ -63,7 +63,7 @@ module.exports = {
             ]);
         }
         if(option.task == 'items-related'){
-            find = {status:'active', 'category.id': params.categoryId, '_id': {$ne: params.id} };
+            find = {status:'active', 'category.id': params.category.id, '_id': {$ne: params.id} };
             sort = {ordering: 'asc'};
         }
         if(option.task == 'items-search'){

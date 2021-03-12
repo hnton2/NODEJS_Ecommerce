@@ -106,7 +106,6 @@ router.post('/save', async (req, res, next) => {
 			errors.unshift({param: 'name', msg: 'Đã tồn tại'});
 		}
 	});
-	console.log(errors);
 	let taskCurrent = (typeof item !== "undefined" && item.id !== "") ? 'edit' : 'add';
 	let pageTitle = (taskCurrent === 'edit') ? pageTitleEdit : pageTitleAdd;
 

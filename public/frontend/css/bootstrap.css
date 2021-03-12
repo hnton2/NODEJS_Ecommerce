@@ -9156,6 +9156,7 @@ a.bg-inverse:focus, a.bg-inverse:hover {
 
 .text-white {
   color: #fff !important;
+  font-size: 16px;
 }
 
 .text-muted {

@@ -2,17 +2,17 @@
     let arrMenu = [
             {name: 'Groups', icon: 'fa-users', link: `${systemConfig.prefixAdmin}/groups`, data: 'groups'},
             {name: 'Users', icon: 'fa-user', link: `${systemConfig.prefixAdmin}/users`, data: 'users'},
-            {name: 'Category', icon: 'fa-thumbtack', link: `${systemConfig.prefixAdmin}/category`, data: 'category'},
+            {name: 'Category', icon: 'fa-table', link: `${systemConfig.prefixAdmin}/category`, data: 'category'},
             {name: 'Articles', icon: 'fa-book-open', link: `${systemConfig.prefixAdmin}/articles`, data: 'articles'},
-            {name: 'Items', icon: 'fa-tachometer-alt', link: `${systemConfig.prefixAdmin}/items`, data: 'items'},
-            {name: 'RSS', icon: 'fa-user', link: `${systemConfig.prefixAdmin}/rss`, data: 'rss'}
+            {name: 'Items', icon: 'fa-file', link: `${systemConfig.prefixAdmin}/items`, data: 'items'},
+            {name: 'RSS', icon: 'fa-plus-square', link: `${systemConfig.prefixAdmin}/rss`, data: 'rss'}
         ];
     let xhtml = `<li class="nav-item">
-        <a href="${systemConfig.prefixAdmin}/dashboard" class="nav-link" data-active="dashboard">
-            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <a href="${systemConfig.prefixAdmin}/dashboard" class="nav-link" data-active="dashboard">
+            <i class="nav-icon fas fa-thumbtack"></i>
             <p>Dashboard</p>
-        </a>
-    </li>`;
+            </a>
+        </li>`;
     arrMenu.forEach( (menu) => {
         xhtml += `<li class="nav-item">
                     <a href="${menu.link}" class="nav-link" data-active="${menu.data}">
@@ -58,8 +58,36 @@
         </div>
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <%- xhtml %>
+            <ul id="side-menu" class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item menu-open">
+                    <a href="#" class="nav-link active">
+                      <i class="nav-icon fas fa-tachometer-alt"></i>
+                      <p>
+                        Article Management
+                        <i class="right fas fa-angle-left"></i>
+                      </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <%- xhtml %>
+                    </ul>
+                </li>
+                <li class="nav-item menu-open">
+                    <a href="#" class="nav-link active">
+                      <i class="nav-icon fas fa-tachometer-alt"></i>
+                      <p>
+                        Sales Management
+                        <i class="right fas fa-angle-left"></i>
+                      </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="" class="nav-link" data-active="">
+                            <i class="nav-icon fas fa-thumbtack"></i>
+                            <p>Dashboard</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

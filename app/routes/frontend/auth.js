@@ -10,6 +10,7 @@ const StringHelpers  	= require(__path_helpers + 'string');
 const middlewareGetUserInfo  	        = require(__path_middleware + 'get-user-info');
 const middlewareGetCategoryForMenu  	= require(__path_middleware + 'get-category-for-menu');
 const middlewareGetRandomArticles	    = require(__path_middleware + 'get-random-articles');
+const middlewareGetTrendingArticles	    = require(__path_middleware + 'get-trending-articles');
 
 const folderView 		= __path_views_blog + 'pages/auth/';
 const layoutLogin   	= __path_views_blog + 'login';
@@ -34,8 +35,17 @@ router.get('/login', (req, res, next) => {
 });
 
 /* GET no-permission page. */
-router.get('/no-permission', middlewareGetUserInfo, middlewareGetCategoryForMenu, middlewareGetRandomArticles, function(req, res, next) {
-	res.render(`${folderView}no-permission`, { layout: layoutBlog, top_post: false });
+router.get('/no-permission', middlewareGetUserInfo, middlewareGetCategoryForMenu, middlewareGetRandomArticles, middlewareGetTrendingArticles, function(req, res, next) {
+	req.logout();
+	res.render(`${folderView}no-permission`, {
+		pageTitle   : 'No Permission',
+		layout: layoutBlog, 
+		top_post: false,
+		trending_post: false,
+		layout_rss: false,
+		layout_contact: false,
+		layout_article: false,
+	 });
 });
 
 /* POST login page. */

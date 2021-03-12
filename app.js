@@ -108,16 +108,6 @@ app.use(async(err, req, res, next) => {
       if(item.group_acp === 'yes') {
         res.status(err.status || 500);
         res.render(__path_views_admin +  'pages/error', { pageTitle   : 'Page Not Found ' });
-      } else {
-        res.status(err.status || 500);
-        res.render(__path_views_blog +  'pages/error', {
-          pageTitle   : 'Page Not Found ',
-          top_post: false,
-          layout_rss: false,
-          layout_contact: false,
-          layout_article: false,
-          layout: __path_views_blog + 'frontend',
-        });
       }
     });
   } else {

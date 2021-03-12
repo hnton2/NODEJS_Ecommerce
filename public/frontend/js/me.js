@@ -29,7 +29,6 @@ $(document).ready(function () {
             $btnSearch.click();
         }
     });
-
     // Search Event
     $btnSearch.click(function () {
         let searchValue = $inputSearchValue.val().trim();
@@ -39,6 +38,9 @@ $(document).ready(function () {
             window.location.href = link;
         } else {
             Swal.fire('Nhập nội dung cần tìm kiếm!');
+            $('form.search').submit(function() {
+                return false;
+              });
         }
     });
 });
