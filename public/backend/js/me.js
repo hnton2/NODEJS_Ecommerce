@@ -26,7 +26,27 @@ function readURL(input, output) {
       
       reader.readAsDataURL(input.files[0]); 
     }
-  }
+}
+
+function changeStatus (link) {
+    $.get(link, function( data) {
+        var btnStatus = $("a.status-" + data.id);
+        var btnRemove = 'btn-default';
+        var btnAdd = 'btn-success';
+        var statusValue = 'active';
+        if(data.currentStatus == 'active') {
+            btnRemove = 'btn-success';
+            btnAdd = 'btn-default';
+            statusValue = 'inactive';
+        }
+        var linkChange = btnStatus.attr("onclick").replace(data.currentStatus, statusValue);
+        $("a span#btn-status-" + data.id).addClass(btnAdd).removeClass(btnRemove);
+        btnStatus.notify(data.message, { position:"top", className: 'success' });
+        btnStatus.attr("onclick", linkChange);
+    });
+    return;
+}
+
 $(document).ready(function () {
 
 

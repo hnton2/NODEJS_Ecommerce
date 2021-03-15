@@ -1,4 +1,7 @@
-<% const folder_uploads = "uploads/articles/"; %>
+<% 
+    const folder_uploads = "uploads/articles/"; 
+    const linkPrefix = systemConfig.prefixBlog;
+%>
 <% include ./../helpers/format-date %>
 
 <div class="container-fluid fh5co_footer_bg pb-3">
@@ -32,7 +35,7 @@
                 <ul class="footer_menu">
                     <% if(itemsCategory.length > 0) { %>
                         <% itemsCategory.forEach ( (item)=>{ %>
-                            <li><a href="category/<%= item.slug %>" class=""><i class="fa fa-angle-right"></i>&nbsp;&nbsp;<%= item.name %></a></li>
+                            <li><a href="<%= linkPrefix %>/category/<%=  item.slug %>" class=""><i class="fa fa-angle-right"></i>&nbsp;&nbsp;<%= item.name %></a></li>
                         <% }) %>
                     <% } %>
                 </ul>
@@ -41,14 +44,14 @@
                 <div class="footer_main_title py-3"> Most Viewed Posts</div>
                 <% for(let i = 0; i < 3; i++) { %>
                     <div class="footer_makes_sub_font"> <%= formatDate(itemsRandom[i].created.time)%></div>
-                    <a href="#" class="footer_post pb-4"> <%= itemsRandom[i].name %> </a>
+                    <a href="<%= linkPrefix %>/article/<%= itemsRandom[i].id %>" class="footer_post pb-4"> <%= itemsRandom[i].name %> </a>
                 <% } %>
                 <div class="footer_position_absolute"><img src="frontend/images/footer_sub_tipik.png" alt="img" class="width_footer_sub_img"/></div>
             </div>
             <div class="col-12 col-md-12 col-lg-4 ">
                 <div class="footer_main_title py-3"> Last Modified Posts</div>
                 <% for(let i = 0; i < itemsTrending.length; i++) { %>
-                    <a href="article/<%= itemsTrending[i].id %>" class="footer_img_post_6"><img src="<%= folder_uploads + itemsTrending[i].thumb %>" alt="img"/></a>
+                    <a href="<%= linkPrefix %>/article/<%= itemsTrending[i].id %>" class="footer_img_post_6"><img src="<%= folder_uploads + itemsTrending[i].thumb %>" alt="img"/></a>
                 <% } %>
             </div>
         </div>
@@ -68,10 +71,10 @@
         <div class="row  ">
             <div class="col-12 col-md-6 py-4 Reserved"><a></a> </div>
             <div class="col-12 col-md-6 spdp_right py-4">
-                <a href="/" class="footer_last_part_menu">Home</a>
-                <a href="/about" class="footer_last_part_menu">About</a>
-                <a href="/contact" class="footer_last_part_menu">Contact</a>
-                <a href="/rss" class="footer_last_part_menu">Latest News</a></div>
+                <a href="<%= linkPrefix %>/" class="footer_last_part_menu">Home</a>
+                <a href="<%= linkPrefix %>/about" class="footer_last_part_menu">About</a>
+                <a href="<%= linkPrefix %>/contact" class="footer_last_part_menu">Contact</a>
+                <a href="<%= linkPrefix %>/rss" class="footer_last_part_menu">Latest News</a></div>
         </div>
     </div>
 </div>

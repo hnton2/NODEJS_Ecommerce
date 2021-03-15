@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <% include ./elements/head %>
+</head>
+<body class="ps-loading">
+    <% include ./elements/header %>
+    <% include ./elements/top_post/index %>
+
+    <main class="ps-main">  
+        <% include ./elements/top_post/index %>
+        <%- body %>
+        <% include ./elements/footer %>
+    </main>
+
+    <% include ./elements/script %>
+</body>
+</html>

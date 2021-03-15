@@ -1,0 +1,12 @@
+<% include ./../../helpers/format-date %>
+<% 
+    const folder_uploads = "uploads/articles/"; 
+%>
+
+<div id="fh5co-title-box" style="background-image: url(<%= folder_uploads + itemArticle.thumb %>);" data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="page-title">
+        <h2><%= itemArticle.name %></h2>
+        <span><%= formatDate(itemArticle.created.time) %></span>
+    </div>
+</div>

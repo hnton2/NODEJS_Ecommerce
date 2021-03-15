@@ -4,7 +4,7 @@ var router = express.Router();
 const ItemsModel 	= require(__path_schemas + 'items');
 const GroupsModel 	= require(__path_schemas + 'groups');
 const UsersModel 	= require(__path_schemas + 'users');
-const CategoryModel 	= require(__path_schemas + 'category');
+const CategoryModel 	= require(__path_schemas + 'article-category');
 const ArticlesModel 	= require(__path_schemas + 'articles');
 const RSSModel 	= require(__path_schemas + 'rss');
 

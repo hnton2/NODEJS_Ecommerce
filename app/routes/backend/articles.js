@@ -6,7 +6,7 @@ const folderImage 		= __path_uploads + `/${controllerName}/`;
 
 const systemConfig  	= require(__path_configs + 'system');
 const MainModel 		= require(__path_models + controllerName);
-const CategoryModel 	= require(__path_models + 'category');
+const CategoryModel 	= require(__path_models + 'article-category');
 const MainValidate		= require(__path_validates + controllerName);
 const UtilsHelpers 		= require(__path_helpers + 'utils');
 const ParamsHelpers 	= require(__path_helpers + 'params');

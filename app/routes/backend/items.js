@@ -42,7 +42,8 @@ router.get('/change-status/:id/:status', (req, res, next) => {
 	let id				= ParamsHelpers.getParam(req.params, 'id', ''); 
 	
 	MainModel.changeStatus(id, currentStatus, req.user, {tasks: 'change-one'}).then( (result) => {
-		NotifyHelpers.showNotify(req, res, linkIndex, {tasks: 'change-status-success'});
+		// NotifyHelpers.showNotify(req, res, linkIndex, {tasks: 'change-status-success'}); 
+		res.json({'currentStatus': currentStatus, 'message': 'Cập nhật thành công', 'id': id});
 	});
 });
 

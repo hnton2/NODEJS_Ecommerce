@@ -1,43 +1,19 @@
+<% include ./../helpers/menu-sidebar %>
 <%
-    let arrMenu = [
-            {name: 'Groups', icon: 'fa-users', link: `${systemConfig.prefixAdmin}/groups`, data: 'groups'},
-            {name: 'Users', icon: 'fa-user', link: `${systemConfig.prefixAdmin}/users`, data: 'users'},
-            {name: 'Category', icon: 'fa-table', link: `${systemConfig.prefixAdmin}/category`, data: 'category'},
-            {name: 'Articles', icon: 'fa-book-open', link: `${systemConfig.prefixAdmin}/articles`, data: 'articles'},
-            {name: 'Items', icon: 'fa-file', link: `${systemConfig.prefixAdmin}/items`, data: 'items'},
-            {name: 'RSS', icon: 'fa-plus-square', link: `${systemConfig.prefixAdmin}/rss`, data: 'rss'}
-        ];
-    let xhtml = `<li class="nav-item">
-            <a href="${systemConfig.prefixAdmin}/dashboard" class="nav-link" data-active="dashboard">
-            <i class="nav-icon fas fa-thumbtack"></i>
-            <p>Dashboard</p>
-            </a>
-        </li>`;
-    arrMenu.forEach( (menu) => {
-        xhtml += `<li class="nav-item">
-                    <a href="${menu.link}" class="nav-link" data-active="${menu.data}">
-                        <i class="nav-icon fas ${menu.icon}"></i>
-                        <p>${menu.name}<i class="fas fa-angle-left right"></i></p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="${menu.link}" class="nav-link" data-active="index">
-                                <i class="nav-icon fas fa-list-ul"></i>
-                                <p>List</p>
-                            </a>
-                        </li>
-                
-                        <li class="nav-item">
-                            <a href="${menu.link}/form" class="nav-link" data-active="form">
-                                <i class="nav-icon fas fa-edit"></i>
-                                <p>Form</p>
-                            </a>
-                        </li>
-                    </ul>
-            </li>`;
-    });
+    let articleManagement = [
+        {name: 'Category', icon: 'fa-table', link: `${systemConfig.prefixAdmin}/article-category`, activeValue: 'category'},
+        {name: 'Articles', icon: 'fa-book-open', link: `${systemConfig.prefixAdmin}/articles`, activeValue: 'articles'},
+        {name: 'Rss', icon: 'fa-tag', link: `${systemConfig.prefixAdmin}/rss`, activeValue: 'rss'},
+    ];
+    let userManagement = [
+        {name: 'Groups', icon: 'fa-users', link: `${systemConfig.prefixAdmin}/groups`, activeValue: 'groups'},
+        {name: 'Users', icon: 'fa-user', link: `${systemConfig.prefixAdmin}/users`, activeValue: 'users'},
+    ];
+    let shopManagement = [
+        {name: 'Category', icon: 'fa-th-list', link: `${systemConfig.prefixAdmin}/product-category`, activeValue: 'category-product'},
+        {name: 'Products', icon: 'fa-star', link: `${systemConfig.prefixAdmin}/products`, activeValue: 'users'},
+    ];
 %>
-
 <aside class="main-sidebar sidebar-dark-info elevation-4">
     <!-- Brand Logo -->
     <a href="/<%=systemConfig.prefixAdmin%>/" class="brand-link">
@@ -58,35 +34,19 @@
         </div>
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-            <ul id="side-menu" class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item menu-open">
-                    <a href="#" class="nav-link active">
-                      <i class="nav-icon fas fa-tachometer-alt"></i>
-                      <p>
-                        Article Management
-                        <i class="right fas fa-angle-left"></i>
-                      </p>
+                    <a href="/<%=systemConfig.prefixAdmin%>/dashboard" class="nav-link" data-active="dashboard">
+                      <i class="nav-icon fas fa-database"></i>
+                      <p>Dashboard</p>
                     </a>
-                    <ul class="nav nav-treeview">
-                        <%- xhtml %>
-                    </ul>
-                </li>
-                <li class="nav-item menu-open">
-                    <a href="#" class="nav-link active">
-                      <i class="nav-icon fas fa-tachometer-alt"></i>
-                      <p>
-                        Sales Management
-                        <i class="right fas fa-angle-left"></i>
-                      </p>
+                    <a href="/<%=systemConfig.prefixAdmin%>/items" class="nav-link" data-active="items">
+                        <i class="nav-icon fas fa-file"></i>
+                        <p>Items</p>
                     </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="" class="nav-link" data-active="">
-                            <i class="nav-icon fas fa-thumbtack"></i>
-                            <p>Dashboard</p>
-                            </a>
-                        </li>
-                    </ul>
+                    <%- menuSidebarHelper('Quản lý user', userManagement, 'fa-male') %>
+                    <%- menuSidebarHelper('Quản lý bài viết', articleManagement, 'fa-newspaper') %>
+                    <%- menuSidebarHelper('Quản lý sản phẩm', shopManagement, 'fa-shopping-cart') %>
                 </li>
             </ul>
         </nav>

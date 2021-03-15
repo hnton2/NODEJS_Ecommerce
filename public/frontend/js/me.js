@@ -13,7 +13,7 @@ $(document).ready(function () {
     });
     let pathname = window.location.pathname;
     let arrMenu = pathname.split("/");
-    let currentMenu = arrMenu[1];
+    let currentMenu = arrMenu[2];
     $('li.nav-item a[data-active="'+currentMenu+'"]').addClass('active');
     if(currentMenu == 'article') {
         $('div.container-fluid.pb-4.pt-4.paddding').attr('id', 'fh5co-single-content');

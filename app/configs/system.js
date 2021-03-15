@@ -1,7 +1,8 @@
 
 module.exports = {
     prefixAdmin: 'admin',
-    prefixBlog: '',
+    prefixBlog: 'blog',
+    prefixShop: '',
     format_date: 'DD-MM-YYYY',
     env: 'dev', // production dev
     status_value: [

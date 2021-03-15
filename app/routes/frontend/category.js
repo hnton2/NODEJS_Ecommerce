@@ -4,9 +4,9 @@ var router = express.Router();
 const ParamsHelpers 	= require(__path_helpers + 'params');
 
 const ArticleModel = require(__path_models + 'articles');
-const CategoryModel = require(__path_models + 'category');
+const CategoryModel = require(__path_models + 'article-category');
 
-const folderView	 = __path_views_blog + 'pages/category/';
+const folderView	 = __path_views_blog + 'pages/article-category/';
 const layoutBlog    = __path_views_blog + 'frontend';
 
 /* GET home page. */
