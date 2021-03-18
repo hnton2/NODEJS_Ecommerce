@@ -1,0 +1,26 @@
+<% include ./../../helpers/format-date %>
+<% const folder_uploads = "uploads/articles/"; %>
+<% 
+    const linkGold = systemConfig.prefixBlog + '/rss/get-gold';
+    const linkCoin = systemConfig.prefixBlog + '/rss/get-coin'; 
+%>
+<div class="col-md-4 animate-box" data-animate-effect="fadeInRight">
+    <div> 
+        <div class="fh5co_heading fh5co_heading_border_bottom pt-3 py-2 mb-4">Giá vàng</div>
+    </div>
+    <div class="clearfix"></div>
+    <div id="box-gold" data-url="<%- linkGold%>">
+        <div class="text-center">
+            <img style="width: 150px" src="frontend/images/loading.gif" alt="">
+        </div>
+    </div>
+    <div>
+        <div class="fh5co_heading fh5co_heading_border_bottom pt-3 py-2 mb-4 fs-250">Giá coin</div>
+    </div>
+    <div class="clearfix"></div>
+    <div id="box-coin" data-url="<%- linkCoin%>">
+        <div class="text-center">
+            <img style="width: 150px" src="frontend/images/loading.gif" alt="">
+        </div>
+    </div>
+</div>

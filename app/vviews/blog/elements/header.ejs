@@ -1,0 +1,43 @@
+<% 
+    const linkPrefix     = systemConfig.prefixBlog + '/article/';
+%>
+<div class="container-fluid fh5co_header_bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 fh5co_mediya_center"><a href="#" class="color_fff fh5co_mediya_setting">
+                <i class="fa fa-clock-o"></i>&nbsp;&nbsp;&nbsp;<%= moment().format('dddd, Do MMMM YYYY'); %></a>
+                <div class="d-inline-block fh5co_trading_posotion_relative">
+                    <a href="#" class="treding_btn">Trending</a>
+                </div>
+                <div class="d-inline-block fh5co_trading_posotion_relative" style="width: 700px;">
+                    <marquee>
+                        <% for(let i = 0; i < itemsTrending.length; i++) { %>
+
+                            <a href="<%= linkPrefix + itemsTrending[i].id %>" class="color_fff fh5co_mediya_setting" style="padding-left:40em">
+                                <%= itemsTrending[i].name %>
+                            </a>
+                            <% } %>
+
+                    </marquee>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-7 fh5co_padding_menu">
+                <img src="frontend/blog/images/logo.png" alt="img" class="fh5co_logo_width"/>
+            </div>
+            <div class="col-12 col-md-5 align-self-center fh5co_mediya_right">
+                <form class="search" action="blog/search" method="GET">
+                    <div class="search__wrapper">
+                      <input type="text" name="keyword" placeholder="Tìm kiếm..." class="search__field" value="">
+                      <button type="submit" class="fa fa-search search__icon" id="btn_search"></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> 

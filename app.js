@@ -29,11 +29,14 @@ global.__path_middleware       = __path_app + pathConfig.folder_middleware + '/'
 
 global.__path_views_admin   = __path_views + pathConfig.folder_views_admin + '/';
 global.__path_views_blog    = __path_views + pathConfig.folder_views_blog + '/';
+global.__path_views_shop    = __path_views + pathConfig.folder_views_shop + '/';
 global.__path_models        = __path_app + pathConfig.folder_models + '/';
 global.__path_public        = __base + pathConfig.folder_public + '/';
 global.__path_uploads       = __path_public + pathConfig.folder_uploads + '/';
 
 const systemConfig = require(__path_configs + 'system');
+const settingConfig = require(__path_configs + 'setting');
+
 require(__path_configs + 'passport')(passport);
 
 var app = express();
@@ -75,13 +78,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Local variable
 app.locals.systemConfig = systemConfig;
+app.locals.settingConfig = settingConfig;
 app.locals.moment = moment;
 app.locals.fs = fs;
 
 // Setup router
 app.use(`/${systemConfig.prefixAdmin}`, require(__path_routers + 'backend/index'));
-app.use(`/${systemConfig.prefixBlog}`, require(__path_routers + 'frontend/index'));
-app.use(`/${systemConfig.prefixShop}`, require(__path_routers + 'eShop/index'));
+app.use(`/${systemConfig.prefixBlog}`, require(__path_routers + 'frontend/blog/index'));
+app.use(`/${systemConfig.prefixShop}`, require(__path_routers + 'frontend/shop/index'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -90,24 +94,31 @@ app.use(function(req, res, next) {
 
 // error handler
 app.use(async(err, req, res, next) => {
-  const GroupsModel 		= require(__path_models + 'groups');
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-  if(req.isAuthenticated()) {
-    // render the error page
-    await GroupsModel.getItems({id: req.user._doc.group.id}, {task: 'get-items-by-id'}).then( (item) => {
-      if(item.group_acp === 'yes') {
-        res.status(err.status || 500);
-        res.render(__path_views_admin +  'pages/error', { pageTitle   : 'Page Not Found ' });
-      }
-    });
-  } else {
+  const userInfo  	= require(__path_middleware + 'get-user-info');
+
+  // render the error page
+  if(systemConfig.env == "dev") {
+    res.status(err.status || 500);
+    res.render(__path_views_admin +  'pages/error', { pageTitle   : 'Page Not Found ', userInfo });
+  }
+
+  // render the error page
+  if(systemConfig.env == "production") {
     res.status(err.status || 500);
     res.render(__path_views_blog +  'pages/error', {
-      layout: false
+      top_post: false,
+      layout: __path_views_blog + 'frontend',
+      top_post: false,
+      trending_post: false,
+      layout_rss: false,
+      layout_contact: false,
+      layout_article: false,
     });
   }
+  
 });
 
 module.exports = app;

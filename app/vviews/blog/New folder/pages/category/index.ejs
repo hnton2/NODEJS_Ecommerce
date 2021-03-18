@@ -1,0 +1,29 @@
+<% include ./../../helpers/format-date %>
+<% const folder_uploads = "uploads/articles/"; %>
+
+<div class="col-lg-8">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex align-items-center justify-content-between bg-light py-2 px-4 mb-3">
+                <h3 class="m-0"><%= pageTitle %></h3>
+                <a class="text-secondary font-weight-medium text-decoration-none" href=""></a>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <% itemsInCategory.forEach( (item) => { %>
+                <div class="position-relative mb-3">
+                    <img class="img-fluid w-100" src="<%= folder_uploads + item.thumb %>" alt="<%= item.name %>" style="object-fit: cover;">
+                    <div class="overlay position-relative bg-light">
+                        <div class="mb-2" style="font-size: 14px;">
+                            <a href=""><%= item.category.name %></a>
+                            <span class="px-1">/</span>
+                            <span><%= formatDate(item.created.time) %></span> 
+                        </div>
+                        <a class="h4" href=""><%= item.name %></a>
+                        <p class="m-0"><%= item.summary %></p>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+</div>

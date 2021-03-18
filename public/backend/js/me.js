@@ -28,9 +28,9 @@ function readURL(input, output) {
     }
 }
 
-function changeStatus (link) {
+function changeStatus (link, nameStatus) {
     $.get(link, function( data) {
-        var btnStatus = $("a.status-" + data.id);
+        var btnStatus = $("a."+ nameStatus + "-" + data.id);
         var btnRemove = 'btn-default';
         var btnAdd = 'btn-success';
         var statusValue = 'active';
@@ -40,7 +40,26 @@ function changeStatus (link) {
             statusValue = 'inactive';
         }
         var linkChange = btnStatus.attr("onclick").replace(data.currentStatus, statusValue);
-        $("a span#btn-status-" + data.id).addClass(btnAdd).removeClass(btnRemove);
+        $("a span#btn-" + nameStatus + "-" + data.id).addClass(btnAdd).removeClass(btnRemove);
+        btnStatus.notify(data.message, { position:"top", className: 'success' });
+        btnStatus.attr("onclick", linkChange);
+    });
+    return;
+}
+
+function changeGroupAcp (link) {
+    $.get(link, function( data) {
+        var btnStatus = $("a.group-acp-" + data.id);
+        var btnRemove = 'btn-default';
+        var btnAdd = 'btn-success';
+        var statusValue = 'yes';
+        if(data.currentStatus == 'yes') {
+            btnRemove = 'btn-success';
+            btnAdd = 'btn-default';
+            statusValue = 'no';
+        }
+        var linkChange = btnStatus.attr("onclick").replace(data.currentStatus, statusValue);
+        $("span#btn-group-acp-" + data.id).addClass(btnAdd).removeClass(btnRemove);
         btnStatus.notify(data.message, { position:"top", className: 'success' });
         btnStatus.attr("onclick", linkChange);
     });

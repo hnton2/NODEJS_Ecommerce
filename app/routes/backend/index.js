@@ -9,7 +9,7 @@ router.use('/dashboard', require('./dashboard'));
 router.use('/items', require('./items'));
 router.use('/groups', require('./groups'));
 router.use('/users', require('./users'));
-router.use('/article-category', require('./article-category'));
+router.use('/category', require('./category'));
 router.use('/articles', require('./articles'));
 router.use('/rss', require('./rss'));
 router.use('/product-category', require('./product-category'));

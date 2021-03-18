@@ -11,6 +11,7 @@ module.exports = {
     folder_public       : 'public',
     folder_uploads      : 'uploads',
     folder_views_admin  : 'admin',
-    folder_views_blog   : 'news',
+    folder_views_blog   : 'blog',
+    folder_views_shop   : 'shop',
     folder_middleware   : 'middleware'
 };

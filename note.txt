@@ -13,3 +13,8 @@ quản lý phần slider
 
 lỗi nếu không nhập tìm kiếm
 
+thêm số lượng article cho category
+kiểm tra link category
+thêm hình ảnh minh họa cho từng category
+thêm validator cho login form
+lỗi notify của group acp không đúng chỗ

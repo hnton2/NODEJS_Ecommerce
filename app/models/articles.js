@@ -47,6 +47,7 @@ module.exports = {
             find = {status:'active'};
             select += ' summary';
             sort = {'created.time': 'desc'};
+            limit = 6;
         }
 
         if(option.task == 'items-in-category'){

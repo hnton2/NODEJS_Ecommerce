@@ -3,12 +3,12 @@
         let xhtmlStatus = '';
         let link       = linkPrefix + `change-${name}/` + id + '/' + statusValue ;
         if(statusValue === "active") {
-            xhtmlStatus = `<span id="btn-status-${id}" class="my-btn-state rounded-circle btn btn-sm btn-success"><i class="fas fa-check"></i></span>`;
+            xhtmlStatus = `<span id="btn-${name}-${id}" class="my-btn-state rounded-circle btn btn-sm btn-success"><i class="fas fa-check"></i></span>`;
         }else if (statusValue === "inactive") {
-            xhtmlStatus = `<span id="btn-status-${id}" class="my-btn-state rounded-circle btn btn-sm btn-default"><i class="fas fa-check"></span>`;
+            xhtmlStatus = `<span id="btn-${name}-${id}" class="my-btn-state rounded-circle btn btn-sm btn-default"><i class="fas fa-check"></span>`;
         }
 
-        return `<a class="status-${id}" href="javascript:void(0)" onclick="changeStatus('${link}')">${xhtmlStatus}</a>`;
+        return `<a class="${name}-${id}" href="javascript:void(0)" onclick="changeStatus('${link}', '${name}')">${xhtmlStatus}</a>`;
     }
 %>
 

@@ -6,12 +6,13 @@ const folderImage 		= __path_uploads + `/${controllerName}/`;
 
 const systemConfig  	= require(__path_configs + 'system');
 const MainModel 		= require(__path_models + controllerName);
-const CategoryModel 	= require(__path_models + 'article-category');
+const CategoryModel 	= require(__path_models + 'category');
 const MainValidate		= require(__path_validates + controllerName);
 const UtilsHelpers 		= require(__path_helpers + 'utils');
 const ParamsHelpers 	= require(__path_helpers + 'params');
 const NotifyHelpers 	= require(__path_helpers + 'notify');
 const FileHelpers 		= require(__path_helpers + 'file');
+const notify  		= require(__path_configs + 'notify');
 
 const linkIndex		 	= '/' + systemConfig.prefixAdmin + `/${controllerName}/`;
 const pageTitleIndex 	= UtilsHelpers.capitalize(controllerName) + ' Management';
@@ -54,7 +55,9 @@ router.get('/change-status/:id/:status', (req, res, next) => {
 	let id				= ParamsHelpers.getParam(req.params, 'id', ''); 
 
 	MainModel.changeStatus(id, currentStatus, req.user, {tasks: 'change-one'}).then( (result) => {
-		NotifyHelpers.showNotify(req, res, linkIndex, {tasks: 'change-status-success'});
+		//NotifyHelpers.showNotify(req, res, linkIndex, {tasks: 'change-status-success'});
+		res.json({'currentStatus': currentStatus, 'message': notify.CHANGE_STATUS_SUCCESS, 'id': id});
+
 	});
 });
 
@@ -69,11 +72,12 @@ router.post('/change-status/:status', (req, res, next) => {
 
 // Change special
 router.get('/change-special/:id/:special', (req, res, next) => {
-	let currentSpecial	= ParamsHelpers.getParam(req.params, 'special', 'active'); 
+	let currentStatus	= ParamsHelpers.getParam(req.params, 'special', 'active'); 
 	let id				= ParamsHelpers.getParam(req.params, 'id', ''); 
 
-	MainModel.changeSpecial(id, currentSpecial, req.user, {tasks: 'change-one'}).then( (result) => {
-		NotifyHelpers.showNotify(req, res, linkIndex, {tasks: 'change-special-success'});
+	MainModel.changeSpecial(id, currentStatus, req.user, {tasks: 'change-one'}).then( (result) => {
+		//NotifyHelpers.showNotify(req, res, linkIndex, {tasks: 'change-special-success'});
+		res.json({'currentStatus': currentStatus, 'message': notify.CHANGE_STATUS_SUCCESS, 'id': id});
 	});
 });
 
@@ -92,7 +96,8 @@ router.get('/change-trending/:id/:status', (req, res, next) => {
 	let id				= ParamsHelpers.getParam(req.params, 'id', ''); 
 
 	MainModel.changeTrending(id, currentStatus, req.user, {tasks: 'change-one'}).then( (result) => {
-		NotifyHelpers.showNotify(req, res, linkIndex, {tasks: 'change-trending-success'});
+		//NotifyHelpers.showNotify(req, res, linkIndex, {tasks: 'change-trending-success'});
+		res.json({'currentStatus': currentStatus, 'message': notify.CHANGE_STATUS_SUCCESS, 'id': id});
 	});
 });
 

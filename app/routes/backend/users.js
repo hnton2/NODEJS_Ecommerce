@@ -12,6 +12,8 @@ const UtilsHelpers 		= require(__path_helpers + 'utils');
 const ParamsHelpers 	= require(__path_helpers + 'params');
 const NotifyHelpers 	= require(__path_helpers + 'notify');
 const FileHelpers 		= require(__path_helpers + 'file');
+const notify  		= require(__path_configs + 'notify');
+
 
 
 const linkIndex		 	= '/' + systemConfig.prefixAdmin + `/${controllerName}/`;
@@ -56,7 +58,8 @@ router.get('/change-status/:id/:status', (req, res, next) => {
 	let id				= ParamsHelpers.getParam(req.params, 'id', ''); 
 
 	MainModel.changeStatus(id, currentStatus, req.user, {tasks: 'change-one'}).then( (result) => {
-		NotifyHelpers.showNotify(req, res, linkIndex, {tasks: 'change-status-success'});
+		//NotifyHelpers.showNotify(req, res, linkIndex, {tasks: 'change-status-success'});
+		res.json({'currentStatus': currentStatus, 'message': notify.CHANGE_STATUS_SUCCESS, 'id': id});
 	});
 });
 
