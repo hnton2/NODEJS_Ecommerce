@@ -87,7 +87,7 @@ module.exports = {
         if(params.keyword !== '') objWhere.name = new RegExp(params.keyword, 'i');
         if(params.categoryID !== '') objWhere.categoryID = params.categoryID;
         
-        return Model.count(objWhere);
+        return Model.countDocuments(objWhere);
     },
     changeStatus: (id, currentStatus, user, option = null) => {
         let status = '';

@@ -7,6 +7,9 @@ const UsersModel 	= require(__path_schemas + 'users');
 const CategoryModel 	= require(__path_schemas + 'category');
 const ArticlesModel 	= require(__path_schemas + 'articles');
 const RSSModel 	= require(__path_schemas + 'rss');
+const ProductCategoryModel 	= require(__path_schemas + 'product-category');
+const ProductModel 	= require(__path_schemas + 'products');
+const ContactModel 	= require(__path_schemas + 'contact');
 
 const folderView	 = __path_views_admin + 'pages/dashboard/';
 const UtilsHelpers 	= require(__path_helpers + 'utils');
@@ -19,6 +22,9 @@ router.get('/', async function(req, res, next) {
   let totalArticles = await UtilsHelpers.countCollections(ArticlesModel);
   let totalItems = await UtilsHelpers.countCollections(ItemsModel);
   let totalRss = await UtilsHelpers.countCollections(RSSModel);
+  let totalProductCategory = await UtilsHelpers.countCollections(ProductCategoryModel);
+  let totalProduct = await UtilsHelpers.countCollections(ProductModel);
+  let totalContact = await UtilsHelpers.countCollections(ContactModel);
 
   res.render(`${folderView}index`, { 
     pageTitle: 'Dashboard Page',
@@ -28,7 +34,10 @@ router.get('/', async function(req, res, next) {
     totalUsers,
     totalCategory,
     totalArticles,
-    totalRss
+    totalRss,
+    totalProductCategory,
+    totalProduct,
+    totalContact,
   });
 });
 

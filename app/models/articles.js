@@ -27,7 +27,7 @@ module.exports = {
 
         if(option.task == 'all-items'){
             find = {status:'active'};
-            limit = 20;
+            limit = 12;
             sort = {'created.time': 'desc'};
             select += ' summary';
         }

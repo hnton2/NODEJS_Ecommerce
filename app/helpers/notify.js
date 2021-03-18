@@ -41,6 +41,9 @@ let showNotify = (req, res, linkIndex, params = null) => {
         case 'change-group-acp-success':
             notifyContent = notify.CHANGE_GROUP_ACP_SUCCESS;
             break;
+        case 'add-contact-success':
+            notifyContent = notify.ADD_CONTACT_SUCCESS;
+            break;
     }
 
     req.flash('success', notifyContent);

@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var RSSCombiner = require('rss-combiner');
+var weather = require('openweather-apis');
 const rp = require('request-promise');
 
 const RSSModel = require(__path_models + 'rss');
@@ -70,6 +71,18 @@ router.get('/get-coin',  async (req, res, next) => {
   }).catch((err) => {
     console.log('API call error:', err.message);
   });
+});
+
+router.get('/get-weather',  async (req, res, next) => {
+	
+	// or set city by ID (recommended by OpenWeatherMap)
+	weather.setCityId(1580578);
+	// check http://openweathermap.org/appid#get for get the APPID
+ 	weather.setAPPID('6ea1b70b5916cd3fb0824968a7a0cc18');
+  // get all the JSON file returned from server (rich of info)
+	weather.getAllWeather(function(err, JSONObj){
+    res.json(JSONObj);
+	});
 });
 
 module.exports = router;

@@ -7,6 +7,7 @@ const userInfo  	= require(__path_middleware + 'get-user-info');
 router.use('/', authentication, userInfo, require('./home'));
 router.use('/dashboard', require('./dashboard'));
 router.use('/items', require('./items'));
+router.use('/contact', require('./contact'));
 router.use('/groups', require('./groups'));
 router.use('/users', require('./users'));
 router.use('/category', require('./category'));

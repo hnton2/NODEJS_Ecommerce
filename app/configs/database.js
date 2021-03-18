@@ -10,6 +10,7 @@ module.exports = {
     col_category: 'category',
     col_articles: 'articles',
     col_rss: 'rss',
+    col_contact: 'contact',
     // db products
     database_products: 'db_eShop',
     col_product_category: 'category',

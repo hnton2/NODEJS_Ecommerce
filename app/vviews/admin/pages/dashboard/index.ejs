@@ -2,10 +2,13 @@
     let arrDashboard = [
         {name: 'Groups', count: totalGroups, icon: 'ion-ios-people', link: `${systemConfig.prefixAdmin}/groups`, background: 'info'},
         {name: 'Users', count: totalUsers, icon: 'ion-ios-person', link: `${systemConfig.prefixAdmin}/users`, background: 'info'},
-        {name: 'Category', count: totalCategory, icon: 'ion-clipboard', link: `${systemConfig.prefixAdmin}/category`, background: 'success'},
-        {name: 'Articles', count: totalArticles, icon: 'ion-ios-book', link: `${systemConfig.prefixAdmin}/articles`, background: 'success'},
+        {name: 'Category', count: totalCategory, icon: 'ion-clipboard', link: `${systemConfig.prefixAdmin}/category`, background: 'info'},
+        {name: 'Articles', count: totalArticles, icon: 'ion-ios-book', link: `${systemConfig.prefixAdmin}/articles`, background: 'info'},
+        {name: 'Rss', count: totalRss, icon: 'ion-clipboard', link: `${systemConfig.prefixAdmin}/rss`, background: 'success'},
+        {name: 'Contact', count: totalContact, icon: 'ion-clipboard', link: `${systemConfig.prefixAdmin}/contact`, background: 'success'},
+        {name: 'Product Category', count: totalProductCategory, icon: 'ion-clipboard', link: `${systemConfig.prefixAdmin}/product-category`, background: 'success'},
+        {name: 'Products', count: totalProduct, icon: 'ion-ios-book', link: `${systemConfig.prefixAdmin}/products`, background: 'success'},
         {name: 'Items', count: totalItems, icon: 'ion-clipboard', link: `${systemConfig.prefixAdmin}/items`, background: 'warning'},
-        {name: 'Rss', count: totalRss, icon: 'ion-clipboard', link: `${systemConfig.prefixAdmin}/rss`, background: 'warning'}
     ];
     let xhtmlDashboard = '';
     arrDashboard.forEach( (item) => {

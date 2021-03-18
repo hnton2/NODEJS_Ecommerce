@@ -1,6 +1,8 @@
 $(document).ready(function () {
     let linkGold = $("#box-gold").data("url");
     let linkCoin = $("#box-coin").data("url");
+    let linkWeather = $("#box-weather").data("url");
+
 
     $("#box-gold").load(linkGold, null, function(response, status) {
         let data = JSON.parse(response);
@@ -11,6 +13,13 @@ $(document).ready(function () {
         let data = JSON.parse(response);
         $("#box-coin").html(renderCoinTable(data));
     });
+
+    $("#box-weather").load(linkWeather, null, function(response, status) {
+        let data = JSON.parse(response);
+        $("#box-weather").html(renderWeather(data));
+    });
+
+
     let pathname = window.location.pathname;
     let arrMenu = pathname.split("/");
     let currentMenu = arrMenu[2];
@@ -43,7 +52,87 @@ $(document).ready(function () {
               });
         }
     });
+
+    // Subscribe button in footer
+    $('a#basic-addon12').click( function () {
+        var input = $('input#input-email');
+        localStorage.setItem('name', input.val());
+    });
+    if(currentMenu == 'contact') {
+        $('#fh5co_contact_form :input[name=email]').val(localStorage.getItem('name'));
+        localStorage.removeItem('name');
+    }
+
+    // Form contact
+    $('#fh5co_contact_form').submit( function() {
+        link ='blog/contact/save';
+        var $inputName = $('#fh5co_contact_form :input[name=name]');
+        var $inputEmail = $('#fh5co_contact_form :input[name=email]');
+        var $inputPhone = $('#fh5co_contact_form :input[name=phone]');
+        var $inputMessage = $('#fh5co_contact_form :input[name=message]');
+
+        if(!$inputName.val() || !$inputEmail.val() || !$inputPhone.val() || !$inputMessage.val()) {
+            if(!$inputName.val()) {
+                $('#fh5co_contact_form :input[name=name]').notify("Hãy nhập tên của bạn!", { position:"top", className: 'info' });
+            }
+            if(!$inputEmail.val()) {
+                $('#fh5co_contact_form :input[name=email]').notify("Hãy nhập địa chỉ email của bạn!", { position:"top", className: 'info' });
+            }
+            if(!$inputPhone.val()) {
+                $('#fh5co_contact_form :input[name=phone]').notify("Hãy nhập số điện thoại của bạn", { position:"top", className: 'info' });
+            }
+            if(!$inputMessage.val()) {
+                $('#fh5co_contact_form :input[name=message]').notify("Hãy nhập nội dung bạn muốn gửi!", { position:"top", className: 'info' });
+            }
+            $('#fh5co_contact_form').submit(function() {
+                return false;
+            });
+        } else {
+            window.location.href = link;
+        }
+
+    });
 });
+
+function renderWeather(items) {
+    let xhtml = `<div class="weather-card">
+            <div class="top">
+                <div class="wrapper">
+                    <div class="mynav">
+                        <a href="javascript:;"><span class="lnr lnr-chevron-left"></span></a>
+                        <a href="javascript:;"><span class="lnr lnr-cog"></span></a>
+                    </div>
+                    <h1 class="heading">${items.weather[0].main}</h1>
+                    <h3 class="location">Tp.Hồ Chí Minh <p>Việt Nam</p></h3>
+                    <p class="temp">
+                        <span class="temp-value">${items.main.temp}</span>
+                        <span class="deg">0</span>
+                        <a href="javascript:;"><span class="temp-type">C</span></a>
+                    </p>
+                </div>
+            </div>
+            <div class="bottom">
+                <div class="wrapper">
+                    <ul class="forecast">
+                        <a href="javascript:;"><span class="lnr lnr-chevron-up go-up"></span></a>
+                        <li class="active">
+                            <span class="date">Độ ẩm</span>
+                            <span class="lnr lnr-sun condition">
+                                <span class="temp">${items.main.humidity}<span class="temp-type"> g/m</span><span class="deg">3</span></span>
+                            </span>
+                        </li>
+                        <li class="active">
+                            <span class="date">Sức gió</span>
+                            <span class="lnr lnr-cloud condition">
+                                <span class="temp">${items.wind.speed}<span class="temp-type"> km/h</span></span>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>`;
+    return xhtml;
+}
 
 function renderGoldTable(items) {
     let xhtml = '';

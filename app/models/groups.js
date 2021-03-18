@@ -35,7 +35,7 @@ module.exports = {
         if(params.groupID !== 'all') objWhere.groupID = params.groupID;
 
 
-        return Model.count(objWhere);
+        return Model.countDocuments(objWhere);
     },
     changeStatus: (id, currentStatus, user, option = null) => {
         let status = '';

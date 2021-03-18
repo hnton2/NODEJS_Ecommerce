@@ -12,6 +12,9 @@ module.exports = {
     ADD_SUCCESS: 'Thêm mới phần tử thành công',
     EDIT_SUCCESS: 'Cập nhật thông tin phần tử thành công',
     ERROR_NAME: 'Chiều dài từ %d đến %d ký tự',
+    ERROR_EMAIL: 'Chiều dài từ %d đến %d ký tự',
+    ERROR_PHONE: 'Chiều dài từ %d đến %d ký tự',
+    ERROR_MESSAGE: 'Chiều dài từ %d đến %d ký tự',
     ERROR_SLUG: 'Chiều dài từ %d đến %d ký tự',
     ERROR_ORDERING: 'Phải là số nguyên lớn hơn %d và bé hơn %d',
     ERROR_STATUS: 'Phải là một giá trị khác rỗng',
@@ -22,5 +25,6 @@ module.exports = {
     ERROR_FILE_REQUIRE: 'Vui lòng chọn file upload',
     ERROR_FILE_EXTENSION: 'Phần mở rộng file không hợp lệ',
     ERROR_CATEGORY: 'Phải chọn một Category nhất định',
-    ERROR_LOGIN: 'Thông tin đăng nhập không chính xác'
+    ERROR_LOGIN: 'Thông tin đăng nhập không chính xác',
+    ADD_CONTACT_SUCCESS: 'Thông tin đã được gửi đi!'
 };

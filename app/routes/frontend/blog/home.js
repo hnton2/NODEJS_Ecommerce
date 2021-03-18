@@ -33,21 +33,4 @@ router.get('/', async (req, res, next) => {
     allItems,
   });
 });
-
-let idCategory = [];
-CategoryModel
-  .listItemsFrontend(null, {task: 'get-id-items'})
-  .then( (items) => { idCategory = items;});
-router.get('/get-article-in-category1',  async (req, res, next) => {
-  console.log(idCategory[0]._doc._id.toString());
-  console.log(idCategory[1]._doc._id.toString());
-  let itemsInCategory1 = [];
-  let itemsInCategory2 = [];
-  await ArticleModel.listItemsFrontend({id: idCategory[0]._doc._id.toString()}, {task: 'items-in-category'}).then( (items) => {itemsInCategory1 = items;});
-  await ArticleModel.listItemsFrontend({id: idCategory[1]._doc._id.toString()}, {task: 'items-in-category'}).then( (items) => {itemsInCategory2 = items;});
-  res.json({
-    items1: itemsInCategory1,
-    items2: itemsInCategory2
-  });
-});
 module.exports = router;

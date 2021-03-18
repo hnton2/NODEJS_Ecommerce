@@ -16,7 +16,7 @@ let createFilterStatus =  async (params, collection) => {
 		if(item.value === params.currentStatus) statusFilter[index].class = 'success';
 		
 		await Model
-		.count(objWhere)
+		.countDocuments(objWhere)
 		.then( (data) => {
 			statusFilter[index].count = data;
 		});
@@ -32,7 +32,7 @@ const capitalize = (str) => {
 
 let countCollections = async (model) => {
     let total = 0;
-	await model.count({}).then( (count) =>{ 
+	await model.countDocuments({}).then( (count) =>{ 
 		total = count;
 	});
     return total;
