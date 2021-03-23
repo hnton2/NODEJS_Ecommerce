@@ -8,8 +8,11 @@ const CategoryModel 	= require(__path_schemas + 'category');
 const ArticlesModel 	= require(__path_schemas + 'articles');
 const RSSModel 	= require(__path_schemas + 'rss');
 const ProductCategoryModel 	= require(__path_schemas + 'product-category');
-const ProductModel 	= require(__path_schemas + 'products');
+const ShoesModel 	= require(__path_schemas + 'shoes');
+const BrandModel 	= require(__path_schemas + 'brand');
 const ContactModel 	= require(__path_schemas + 'contact');
+const ClothingModel 	= require(__path_schemas + 'clothing');
+const SliderModel 	= require(__path_schemas + 'slider');
 
 const folderView	 = __path_views_admin + 'pages/dashboard/';
 const UtilsHelpers 	= require(__path_helpers + 'utils');
@@ -23,8 +26,12 @@ router.get('/', async function(req, res, next) {
   let totalItems = await UtilsHelpers.countCollections(ItemsModel);
   let totalRss = await UtilsHelpers.countCollections(RSSModel);
   let totalProductCategory = await UtilsHelpers.countCollections(ProductCategoryModel);
-  let totalProduct = await UtilsHelpers.countCollections(ProductModel);
+  let totalShoes = await UtilsHelpers.countCollections(ShoesModel);
   let totalContact = await UtilsHelpers.countCollections(ContactModel);
+  let totalBrand = await UtilsHelpers.countCollections(BrandModel);
+  let totalClothing = await UtilsHelpers.countCollections(ClothingModel);
+  let totalSlider = await UtilsHelpers.countCollections(SliderModel);
+
 
   res.render(`${folderView}index`, { 
     pageTitle: 'Dashboard Page',
@@ -36,8 +43,11 @@ router.get('/', async function(req, res, next) {
     totalArticles,
     totalRss,
     totalProductCategory,
-    totalProduct,
+    totalShoes,
     totalContact,
+    totalBrand,
+    totalClothing,
+    totalSlider
   });
 });
 

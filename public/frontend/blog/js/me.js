@@ -24,6 +24,7 @@ $(document).ready(function () {
     let arrMenu = pathname.split("/");
     let currentMenu = arrMenu[2];
     $('li.nav-item a[data-active="'+currentMenu+'"]').addClass('active');
+    
     if(currentMenu == 'article') {
         $('div.container-fluid.pb-4.pt-4.paddding').attr('id', 'fh5co-single-content');
         $('body').attr('class', 'single');

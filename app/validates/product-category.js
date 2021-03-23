@@ -2,11 +2,11 @@ const util  = require('util');
 const notify= require(__path_configs + 'notify');
 
 const options = {
-    name: { min: 5, max: 30 },
+    name: { min: 2, max: 30 },
     ordering: { min: 0, max: 100 },
     status: { value: 'allValue' },
-    slug: { min: 5, max: 30 },
-    content: { min: 5, max: 200 }
+    slug: { min: 2, max: 30 },
+    content: { min: 0, max: 200 }
 }
 
 module.exports = {

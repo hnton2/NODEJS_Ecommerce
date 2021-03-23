@@ -26,5 +26,8 @@ module.exports = {
     ERROR_FILE_EXTENSION: 'Phần mở rộng file không hợp lệ',
     ERROR_CATEGORY: 'Phải chọn một Category nhất định',
     ERROR_LOGIN: 'Thông tin đăng nhập không chính xác',
-    ADD_CONTACT_SUCCESS: 'Thông tin đã được gửi đi!'
+    ADD_CONTACT_SUCCESS: 'Thông tin đã được gửi đi!',
+    ERROR_PRICE: 'Giá tiền phải lớn hơn %d',
+    ERROR_QUANTITY: 'Số lượng phải lớn hơn %d',
+    ERROR_BRAND: 'Chiều dài khác rỗng'
 };

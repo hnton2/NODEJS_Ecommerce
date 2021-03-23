@@ -14,5 +14,8 @@ module.exports = {
     // db products
     database_products: 'db_eShop',
     col_product_category: 'category',
+    col_brand: 'brand',
     col_product: 'product',
+    col_clothing: 'clothing',
+    col_slider: 'slider',
 };

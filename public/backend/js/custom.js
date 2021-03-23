@@ -6,14 +6,14 @@ $(document).ready(function () {
 
     let $btnSearch = $('button#btn-search');
     let $btnClearSearch = $('button#btn-clear-search');
-    let $inputSearchValue = $('input[name = search_value]');
+    let $inputSearchValue = $('input[name = keyword]');
 
     var searchParams = new URLSearchParams(window.location.search);
     let moduleName = searchParams.get('module');
     let controllerName = searchParams.get('controller');
     var searchParamsEntries = searchParams.entries();
 
-    $inputSearchValue.keyup(function (event) {
+    $inputSearchValue.keyup(function (event) { 
         if (event.keyCode === 13) {
             $btnSearch.click();
         }

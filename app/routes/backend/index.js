@@ -14,5 +14,9 @@ router.use('/category', require('./category'));
 router.use('/articles', require('./articles'));
 router.use('/rss', require('./rss'));
 router.use('/product-category', require('./product-category'));
-router.use('/products', require('./products'));
+router.use('/brand', require('./brand'));
+router.use('/shoes', require('./shoes'));
+router.use('/clothing', require('./clothing'));
+router.use('/slider', require('./slider'));
+
 module.exports = router;

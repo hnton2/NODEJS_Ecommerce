@@ -80,7 +80,6 @@
 						<%- sortHelper(linkPrefix, 'Status', 'status', params.sortField, params.sortType) %>
 						<%- sortHelper(linkPrefix, 'Special', 'special', params.sortField, params.sortType) %>
 						<%- sortHelper(linkPrefix, 'Trending', 'trending', params.sortField, params.sortType) %>
-						<th class="text-center">Created</th>
 						<th class="text-center">Modified</th>
 						<th class="text-center">Action</th>
 					</tr>
@@ -94,9 +93,9 @@
 								</td>
 								<td class="text-center"><%= index+1 %></td>
 								<td class="text-sm-left" style="width:100px">
-									Name: <%- highlightHelper(item.name, params.keyword)%><br>
-									Slug: <%= item.slug%><br>
-									Thumb: <%- imageHelper(folderUpload, item.thumb, 'no-image.jpg', item.name) %>
+									<b>Name</b>: <%- highlightHelper(item.name, params.keyword)%><br>
+									<b>Slug</b>: <%= item.slug%><br>
+									<b>Thumb</b>: <%- imageHelper(folderUpload, item.thumb, 'no-image.jpg', item.name) %>
 								</td>
 								
 								<td class="text-center position-relative">
@@ -106,8 +105,11 @@
 								<td class="text-center position-relative"><%- statusHelper(linkPrefix, 'status', item.status, item.id) %></td>
 								<td class="text-center position-relative"><%- statusHelper(linkPrefix, 'special', item.special, item.id) %></td>
 								<td class="text-center position-relative"><%- statusHelper(linkPrefix, 'trending', item.trending, item.id) %></td>
-								<td class="text-center"><%- userHelper(item.created.user_name, item.created.time) %></td>
-								<td class="text-center"><%- userHelper(item.modified.user_name, item.modified.time) %></td>
+								<% if(item.modified.user_name === undefined) { %>
+									<td class="text-center"><%- userHelper(item.created.user_name, item.created.time) %></td>
+								<% } else { %>
+									<td class="text-center"><%- userHelper(item.modified.user_name, item.modified.time) %></td>
+								<% } %>
 								<td class="text-center">
 									<a href="<%= linkPrefix %>form/<%= item.id %>" type="button" class="rounded-circle btn btn-sm btn-info" title="Edit">
 										<i class="fas fa-pencil-alt"></i>

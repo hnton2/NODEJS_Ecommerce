@@ -4,17 +4,18 @@ node2 - chương 4 -
     bài 5.2, 
     6.1
 thêm tag cho mỗi bài viết
-cấu hình thông tin website như link fb, email, số điện thoại, fanpage code,...
-search bài viết
 article là slug
 gắn tag cho từng bài viết
-? kiểm tra tên group thêm mới có tồn tại chưa - items
 quản lý phần slider
-
-lỗi nếu không nhập tìm kiếm
-
 thêm số lượng article cho category
 kiểm tra link category
 thêm hình ảnh minh họa cho từng category
 thêm validator cho login form
 lỗi notify của group acp không đúng chỗ
+tối ưu file me
+giá tiền phải là float
+ajax admin
+
+array thumb old
+
+

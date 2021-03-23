@@ -1,0 +1,35 @@
+<% include ./../../elements/errors %>
+<% include ./../../helpers/selectBox %>
+<% include ./../../helpers/input %>
+<% include ./../../helpers/textarea %>
+<% include ./../../helpers/form-input %>
+
+<% 
+	const collection = "brand";
+	const linkPrefix = systemConfig.prefixAdmin + `/${collection}/`;
+
+	let elementsForm = [
+		{for: 'name', label: 'Name', input: inputHelper('name', item.name, 'text', 'name_slug')},
+		{for: 'slug', label: 'Slug', input: inputHelper('slug', item.slug)},
+		{for: 'ordering', label: 'Ordering', input: inputHelper('ordering', item.ordering)},
+		{for: 'status', label: 'Status', input: selectBoxHelper('status', systemConfig.status_value, item.status)},
+		{for: 'content', label: 'Content', input: textareaHelper('content', item.content)},
+	];
+
+	let xhtml = createFormHelper(elementsForm);
+%>
+
+<div class="card card-info card-outline">
+	<form action="<%= linkPrefix %>save/" method="POST" class="mb-0" >
+		<div class="card-body">
+			<%- xhtml %>
+		</div>
+		<div class="card-footer">
+			<div class="col-12 col-sm-8 offset-sm-2">
+				<input class="form-control" name="id" value="<%= item.id %>" type="hidden" >
+				<button type="submit" class="btn btn-sm btn-success mr-1"> Submit</button>
+				<a href="<%= linkPrefix %>" class="btn btn-sm btn-danger mr-1"> Cancel</a>
+			</div>
+		</div>
+	</form>
+</div>

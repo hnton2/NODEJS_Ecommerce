@@ -117,6 +117,7 @@ $(document).ready(function () {
         var arrPathname = window.location.pathname.split('/');
         var pattern = (typeof arrPathname[2] !== 'undefined') ? arrPathname[2] : '';
         $('li.nav-item a[data-active="'+pattern+'"]').addClass('active');
+        $('li.nav-item a[data-active="'+pattern+'"]').parent().parent().parent().addClass('nav-item menu-open'); 
     }
 
     //
@@ -224,8 +225,12 @@ $(document).ready(function () {
         $('input[name=category_name]').val($(this).find('option:selected').text());
     });
 
+    $('select[name=brand_id]').change(function() {
+        $('input[name=brand_name]').val($(this).find('option:selected').text());
+    });
+
     $('select[name=thumb]').change(function() {
-        $('input[name=thumb_old]').val($(this).find('option:selected').text());
+        $('input[name=thumb_old]').val($(this).find('option:selected').text()); 
     });
 
     $("input[name=thumb]").change(function() {
@@ -236,5 +241,24 @@ $(document).ready(function () {
         let thumb = $(this).find("input[name=thumb]");
         $(this).find("input[name=thumb]").remove();
         $(this).append(thumb).css({'display': 'none'});
+    });
+
+    // show multi image
+    let imagesPreview = function(input, placeToInsertImagePreview) {
+        let xhtml = '';
+        if (input.files) {
+            let filesAmount = input.files.length;
+            for (i = 0; i < filesAmount; i++) {
+                let reader = new FileReader();
+                reader.onload = function(event) {
+                    let imageTag = `<img src="${event.target.result}" alt="${event.target.result}" style="width: 100px;">`;
+                    $('<li>' + imageTag + '</li>').appendTo(placeToInsertImagePreview);
+                };
+                reader.readAsDataURL(input.files[i]);
+            }
+        };
+    };
+    $("#input-multi-files").on("change", function() {
+        imagesPreview(this, "ul#box-multi-image");
     });
 });
