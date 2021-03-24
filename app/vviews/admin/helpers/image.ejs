@@ -1,10 +1,9 @@
-
 <% 
     imageHelper = (folder, imageName, imageDefault, alt = "Image", className = "img-responsive img-avatar", size = 100) => {
-        let linkAvatar = folder + imageName;
-        if(!fs.existsSync('public' + linkAvatar)){
+        let linkFolder = 'uploads/' + folder;
+        if(fs.existsSync(__path_uploads + folder + imageName) == false) {
             imageName = imageDefault;
         }
-        return `<img class="${className}" style="width: ${size}px;" src="${folder + imageName}" alt="${alt}"  />`;
+        return `<img class="${className}" style="width: ${size}px;" src="${linkFolder + imageName}" alt="${alt}"  />`;
     }
 %>

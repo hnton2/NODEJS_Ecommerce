@@ -57,7 +57,7 @@
                         <ul class="mega-item">
                           <li><a href="<%= linkPrefix + 'category' %>">All Shoes</a></li>
                           <% itemsProductCategory.forEach ( (item)=>{ %>
-                            <li><a href="<%= linkPrefix + 'category' + item.slug %>"><%= item.name %></a></li>
+                            <li><a href="<%= linkPrefix + 'category/' + item.slug %>"><%= item.name %></a></li>
                           <% }) %>
                         </ul>
                       </div>

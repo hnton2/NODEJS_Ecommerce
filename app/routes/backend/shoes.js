@@ -78,6 +78,26 @@ router.post('/change-status/:status', (req, res, next) => {
 	});
 });
 
+// Change special
+router.get('/change-special/:id/:special', (req, res, next) => {
+	let currentStatus	= ParamsHelpers.getParam(req.params, 'special', 'active'); 
+	let id				= ParamsHelpers.getParam(req.params, 'id', ''); 
+
+	MainModel.changeSpecial(id, currentStatus, req.user, {tasks: 'change-one'}).then( (result) => {
+		//NotifyHelpers.showNotify(req, res, linkIndex, {tasks: 'change-special-success'});
+		res.json({'currentStatus': currentStatus, 'message': notify.CHANGE_STATUS_SUCCESS, 'id': id});
+	});
+});
+
+// Change special - Multi
+router.post('/change-special/:special', (req, res, next) => {
+	let currentSpecial	= ParamsHelpers.getParam(req.params, 'special', 'active'); 
+	
+	MainModel.changeSpecial(req.body.cid, currentSpecial, req.user, {tasks: 'change-multi'}).then( (result) => {
+		NotifyHelpers.showNotify(req, res, linkIndex, {n: result.n, tasks: 'change-special-multi-success'});
+	});
+});
+
 // Change ordering - Multi
 router.post('/change-ordering', (req, res, next) => {
 	let cids 		= req.body.cid;
@@ -156,8 +176,8 @@ router.post('/save', (req, res, next) => {
 				brandItems = items;
 				brandItems.unshift({_id: 'allValue', name: 'Choose brand'});
 			});
-/* 			if (taskCurrent == "edit") product.thumb = product.thumb_old;	// cần sửa lại
- */			res.render(`${folderView}form`, { pageTitle, product, errors, categoryItems, brandItems});
+ 			if (taskCurrent == "edit") product.thumb = product.thumb_old;	// cần sửa lại
+			res.render(`${folderView}form`, { pageTitle, product, errors, categoryItems, brandItems});
 		} else {
 			let notifyTask = (taskCurrent === 'add') ? 'add-success' : 'edit-success';
 			/* if(req.files == undefined){ // không có upload lại hình

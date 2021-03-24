@@ -5,17 +5,14 @@ node2 - chương 4 -
     6.1
 thêm tag cho mỗi bài viết
 article là slug
-gắn tag cho từng bài viết
-quản lý phần slider
 thêm số lượng article cho category
 kiểm tra link category
-thêm hình ảnh minh họa cho từng category
 thêm validator cho login form
-lỗi notify của group acp không đúng chỗ
 tối ưu file me
 giá tiền phải là float
 ajax admin
+đổi ck-editor
 
-array thumb old
 
-
+lỗi helpers/image
+    avatar_old
