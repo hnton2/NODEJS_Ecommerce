@@ -32,7 +32,7 @@ $(document).ready(function () {
 
     // search
     let $inputSearchValue = $('input[name = keyword]');
-    let $btnSearch = $('button#btn_search');
+    let $btnSearch = $('button#btn_search'); 
 
     $inputSearchValue.keyup(function (event) {
         if (event.keyCode === 13) {

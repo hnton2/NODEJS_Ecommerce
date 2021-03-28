@@ -1,0 +1,40 @@
+<% include ./../../helpers/format-date %>
+<% include ./../../helpers/format-summary %>
+
+<% 
+  const folder_uploads = "uploads/articles/"; 
+  const linkCategory = systemConfig.prefixShop + '/news-category/';
+  const linkNews = systemConfig.prefixShop + '/news/';
+%>
+<div class="ps-blog-grid pt-80 pb-80"> 
+  <div class="ps-container">
+    <div class="row">
+      <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 ">
+        <% itemsInCategory.forEach( (item) => { %>
+          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
+            <div class="ps-post mb-30">
+              <div class="ps-post__thumbnail"><a class="ps-post__overlay" href="<%= linkNews + item.id %>"></a><img src="<%= folder_uploads + item.thumb %>" style="width: 300px; height: 167px;" alt="<%= item.name %>" ></div>
+              <div class="ps-post__content"><a class="ps-post__title" href="<%= linkNews + item.id %>"><%= item.name %></a>
+                <p class="ps-post__meta"><span>By:<a class="mr-5" href="#">Alena Studio</a></span> -<span class="ml-5"><%= formatDate(item.created.time) %></span></p>
+                <p><%= formatSummaryHelper(item.summary) %>…</p><a class="ps-morelink" href="<%= linkNews + item.id %>">Read more<i class="fa fa-long-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+        <div class="mt-30">
+          <div class="ps-pagination">
+            <ul class="pagination">
+              <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
+              <li class="active"><a href="#">1</a></li>
+              <li><a href="#">2</a></li>
+              <li><a href="#">3</a></li>
+              <li><a href="#">...</a></li>
+              <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <% include ./../../elements/sidebar-news %>
+    </div>
+  </div>
+</div>

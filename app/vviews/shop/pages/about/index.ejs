@@ -1,71 +1,30 @@
+<% const folder_uploads = "uploads/users/"; %>
+
 <div class="ps-section ps-ourteam pt-80 pb-80">
 	<div class="ps-container">
-	  <div class="ps-section__header mb-50">
-		<h2 class="ps-section__title" data-mask="TEAM">- OUR STAFF</h2>
-	  </div>
-	  <div class="ps-section__content">
-		<div class="row">
-			  <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 ">
-				<div class="ps-user">
-				  <div class="ps-user__thumbnnail"><img src="frontend/shop/images/team/1.png" alt="">
-					<ul class="ps-user__social">
-					  <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-					  <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-					  <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-					</ul>
-				  </div>
-				  <div class="ps-user__content">
-					<h3>Mitchell Blair</h3>
-					<p>CEO &amp; FOUNDER</p>
-				  </div>
-				</div>
-			  </div>
-			  <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 ">
-				<div class="ps-user">
-				  <div class="ps-user__thumbnnail"><img src="frontend/shop/images/team/2.png" alt="">
-					<ul class="ps-user__social">
-					  <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-					  <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-					  <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-					</ul>
-				  </div>
-				  <div class="ps-user__content">
-					<h3>Nellie Cook</h3>
-					<p>DIRECTOR</p>
-				  </div>
-				</div>
-			  </div>
-			  <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 ">
-				<div class="ps-user">
-				  <div class="ps-user__thumbnnail"><img src="frontend/shop/images/team/3.png" alt="">
-					<ul class="ps-user__social">
-					  <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-					  <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-					  <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-					</ul>
-				  </div>
-				  <div class="ps-user__content">
-					<h3>Frances Austin</h3>
-					<p>Designer</p>
-				  </div>
-				</div>
-			  </div>
-			  <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 ">
-				<div class="ps-user">
-				  <div class="ps-user__thumbnnail"><img src="frontend/shop/images/team/4.png" alt="">
-					<ul class="ps-user__social">
-					  <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-					  <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-					  <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-					</ul>
-				  </div>
-				  <div class="ps-user__content">
-					<h3>Corey Greene</h3>
-					<p>Designer</p>
-				  </div>
-				</div>
-			  </div>
+		<div class="ps-section__header mb-50">
+			<h2 class="ps-section__title" data-mask="TEAM">OUR STAFF</h2>
 		</div>
+	  	<div class="ps-section__content">
+			<div class="row">
+				<% users.forEach( (item) => { %> 
+					<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 ">
+						<div class="ps-user">
+						<div class="ps-user__thumbnnail"><img src="<%= folder_uploads + item.avatar %>" style="width: 382px; height: 559px;" alt="">
+							<ul class="ps-user__social">
+							<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+							<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+							<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+							</ul>
+						</div>
+						<div class="ps-user__content">
+							<h3><%= item.name %></h3>
+							<p><%= item.group.name.toUpperCase() %></p>
+						</div>
+						</div>
+					</div>
+				<% }) %>
+			</div>
 	  </div>
 	</div>
   </div>
@@ -122,33 +81,5 @@
 			  </div>
 			</div>
 	  </div>
-	</div>
-  </div>
-  <div class="ps-home-contact">
-	<div id="contact-map" data-address="New York, NY" data-title="BAKERY LOCATION!" data-zoom="17"></div>
-	<div class="ps-home-contact__form">
-	  <header>
-		<h3>Contact Us</h3>
-		<p>Learn about our company profile, communityimpact, sustainable motivation, and more.</p>
-	  </header>
-	  <footer>
-		<form action="product-listing.html" method="post">
-		  <div class="form-group">
-			<label>Name<span>*</span></label>
-			<input class="form-control" type="text">
-		  </div>
-		  <div class="form-group">
-			<label>Email<span>*</span></label>
-			<input class="form-control" type="email">
-		  </div>
-		  <div class="form-group">
-			<label>Your message<span>*</span></label>
-			<textarea class="form-control" rows="4"></textarea>
-		  </div> 
-		  <div class="form-group text-center">
-			<button class="ps-btn">Send Message<i class="fa fa-angle-right"></i></button>
-		  </div>
-		</form>
-	  </footer>
 	</div>
   </div>

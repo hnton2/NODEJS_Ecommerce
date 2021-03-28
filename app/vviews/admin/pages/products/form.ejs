@@ -1,0 +1,46 @@
+<% include ./../../elements/errors %>
+<% include ./../../helpers/selectBox %>
+<% include ./../../helpers/radioBox %>
+<% include ./../../helpers/input %>
+<% include ./../../helpers/textarea %>
+<% include ./../../helpers/form-input %>
+<% include ./../../helpers/image %>
+<% include ./../../helpers/image %>
+
+
+<% 
+	const folderUpload 	= "uploads/products/";
+	const collection 	= "products";
+	const linkPrefix	= systemConfig.prefixAdmin + `/${collection}/`;
+
+
+	let elementsForm = [
+		{for: 'name', label: 'Name', input: inputHelper('name', product.name, 'text', 'name_slug')},
+		{for: 'slug', label: 'Slug', input: inputHelper('slug', product.slug)},
+		{for: 'thumb', label: 'Thumb', input: inputHelper('thumb', product.name, 'file')},
+		{for: 'showThumb', label: '', input: imageHelper(folderUpload, product.thumb, 'no-image.jpg', product.name, 'img-avatar-form preview-thumb')},
+		{for: 'ordering', label: 'Ordering', input: inputHelper('ordering', product.ordering)},
+		{for: 'status', label: 'Status', input: selectBoxHelper('status', systemConfig.status_value, product.status)},
+		{for: 'category', label: 'Category', input: selectBoxHelper('category_id', categoryItems, product.category_id)},
+		{for: 'content', label: 'Content', input: textareaHelper('content', product.content)}
+	];
+
+	let xhtml = createFormHelper(elementsForm);
+%>
+
+<div class="card card-info card-outline">
+	<form action="<%= linkPrefix %>save/" method="POST" class="mb-0" enctype="multipart/form-data" name="form-upload">
+		<div class="card-body">
+			<%- xhtml %>
+		</div>
+		<div class="card-footer">
+			<div class="col-12 col-sm-8 offset-sm-2">
+				<input class="form-control" name="id" value="<%= product.id %>" type="hidden" >
+				<input name="thumb_old" value="<%= product.thumb %>" type="hidden"  />
+				<input class="form-control" name="category_name" value="<%= product.category_name %>" type="hidden" >
+				<button type="submit" class="btn btn-sm btn-success mr-1"> Submit</button>
+				<a href="<%= linkPrefix %>" class="btn btn-sm btn-danger mr-1"> Cancel</a>
+			</div>
+		</div>
+	</form>
+</div>

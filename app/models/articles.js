@@ -20,21 +20,23 @@ module.exports = {
 		.limit(params.pagination.totalItemsPerPage)
     },
     listItemsFrontend: (params = null, option = null) => {
-        let find = {};
+        let find = {status:'active'};
         let select = 'name slug created category.name category.id thumb special';
         let limit = 3;
         let sort = {};
-
         if(option.task == 'all-items'){
-            find = {status:'active'};
-            limit = 12;
+            if(params.name !== undefined){
+                find.name = params.name;
+            }
+            limit = 50;
             sort = {'created.time': 'desc'};
             select += ' summary';
         }
         if(option.task == 'items-special'){
             find = {status:'active', special: 'active'};
             sort = {ordering: 'asc'};
-            limit = 5;
+            limit = 3;
+            select += ' summary';
         }
 
         if(option.task == 'items-trending'){

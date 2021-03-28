@@ -1,0 +1,83 @@
+<% include ./../helpers/format-date %>
+<% 
+  const folder_uploads = "uploads/articles/"; 
+  const linkCategory = systemConfig.prefixShop + '/news-category/';
+  const linkNews = systemConfig.prefixShop + '/news/';
+%>
+
+<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 ">
+    <aside class="ps-widget--sidebar ps-widget--search">
+      <form class="ps-search--widget" action="do_action" method="post">
+        <input class="form-control" type="text" placeholder="Search posts...">
+        <button><i class="ps-icon-search"></i></button>
+      </form>
+    </aside>
+    <aside class="ps-widget--sidebar">
+      <div class="ps-widget__header">
+        <h3>Archive</h3>
+      </div>
+      <div class="ps-widget__content">
+        <ul class="ps-list--arrow"> 
+          <% itemsCategory.forEach ( (item)=>{ %>
+            <li class="current"><a href="<%= linkCategory + item.slug %>"><%= item.name %></a></li>
+          <% }) %>
+        </ul>
+      </div>
+    </aside>
+    <aside class="ps-widget--sidebar">
+      <div class="ps-widget__header">
+        <h3>Ads Banner</h3>
+      </div>
+      <div class="ps-widget__content"><a href="#"><img src="frontend/shop/images/banner/banner1.png" style="width: 282px; height: 154px;" alt=""></a></div>
+    </aside> 
+    <aside class="ps-widget--sidebar">
+      <div class="ps-widget__header">
+        <h3>Recent Posts</h3>
+      </div>
+      <div class="ps-widget__content">
+        <% lastedItems.forEach ( (item)=>{ %>
+          <div class="ps-post--sidebar">
+            <div class="ps-post__thumbnail"><a href="#"></a><img src="<%= folder_uploads + item.thumb %>" alt=""></div>
+            <div class="ps-post__content"><a class="ps-post__title" href="#"><%= item.name %></a><span><%= formatDate(item.created.time) %></span></div>
+          </div>
+        <% }) %>
+      </div>
+    </aside>
+    <aside class="ps-widget--sidebar">
+      <div class="ps-widget__header">
+        <h3>Best Seller</h3>
+      </div>
+      <div class="ps-widget__content">
+        <div class="ps-shoe--sidebar">
+          <div class="ps-shoe__thumbnail"><a href="#"></a><img src="images/shoe/sidebar/1.jpg" alt=""></div>
+          <div class="ps-shoe__content"><a class="ps-shoe__title" href="#">Men's Sky</a>
+            <p><del> £253.00</del> £152.00</p><a class="ps-btn" href="#">PURCHASE</a>
+          </div>
+        </div>
+        <div class="ps-shoe--sidebar">
+          <div class="ps-shoe__thumbnail"><a href="#"></a><img src="images/shoe/sidebar/2.jpg" alt=""></div>
+          <div class="ps-shoe__content"><a class="ps-shoe__title" href="#">Nike Flight Bonafide</a>
+            <p><del> £253.00</del> £152.00</p><a class="ps-btn" href="#">PURCHASE</a>
+          </div>
+        </div>
+        <div class="ps-shoe--sidebar">
+          <div class="ps-shoe__thumbnail"><a href="#"></a><img src="images/shoe/sidebar/3.jpg" alt=""></div>
+          <div class="ps-shoe__content"><a class="ps-shoe__title" href="#">Nike Sock Dart QS</a>
+            <p><del> £253.00</del> £152.00</p><a class="ps-btn" href="#">PURCHASE</a>
+          </div>
+        </div>
+      </div>
+    </aside>
+    <aside class="ps-widget--sidebar">
+      <div class="ps-widget__header">
+        <h3>Brand</h3>
+      </div>
+      <div class="ps-widget__content">
+        <ul class="ps-tags">
+          <% itemsBrand.forEach ( (item)=>{ %>
+            <li><a href="#"><%= item.name %></a></li>
+          <% }) %>
+        </ul>
+      </div>
+    </aside>
+  </div>

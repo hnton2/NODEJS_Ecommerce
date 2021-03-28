@@ -1,4 +1,4 @@
-CKEDITOR.replace( 'content_ck' );
+CKEDITOR.replace( 'ck_editor');
 //Create slug input
 function change_alias(alias) {
     var str = alias;
@@ -68,15 +68,12 @@ function changeGroupAcp (link) {
 
 $(document).ready(function () {
 
-
     var ckbAll = $("#cbAll");
     var fmAdmin = $("#zt-form");
-
     // CKEDITOR
     if ($('textarea#content_ck').length) {
         CKEDITOR.replace('content_ck');
     }
-
     //call active menu
     activeMenu();
 

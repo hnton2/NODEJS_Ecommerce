@@ -15,7 +15,7 @@ const passport = require('passport');
 const pathConfig = require('./path');
 const { networkInterfaces } = require('os');
 
-
+    
 // Define Path
 global.__base               = __dirname + '/';
 global.__path_app           = __base + pathConfig.folder_app + '/';

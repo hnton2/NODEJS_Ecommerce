@@ -18,6 +18,14 @@ module.exports = {
 		.skip((params.pagination.currentPage-1) * params.pagination.totalItemsPerPage)
 		.limit(params.pagination.totalItemsPerPage)
     },
+    listItemsFrontend: (params = null, option = null) => {
+        let find = {};
+        let select = 'name avatar group.name';
+        let limit = 5;
+        let sort = {ordering: 'asc'};
+
+        return Model.find(find).select(select).limit(limit).sort(sort);
+    },
     getItems: (id, option = null) => {
         return Model.findById(id);
     },

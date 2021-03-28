@@ -33,7 +33,7 @@
     <nav class="navigation">
       <div class="container-fluid">
         <div class="navigation__column left">
-          <div class="header__logo"><a class="ps-logo" href="<%= linkPrefix %>"><img src="frontend/shop/images/logo.png" alt=""></a></div>
+          <div class="header__logo"><a class="ps-logo" href="<%= linkPrefix %>"><img src="frontend/shop/images/logo.png" style="width:350px" alt=""></a></div>
         </div>
         <div class="navigation__column center">
               <ul class="main-menu menu">
@@ -55,7 +55,7 @@
                       <div class="mega-column">
                         <h4 class="mega-heading">Shoes</h4>
                         <ul class="mega-item">
-                          <li><a href="<%= linkPrefix + 'category' %>">All Shoes</a></li>
+                          <li><a href="<%= linkPrefix + 'category' %>">All</a></li>
                           <% itemsProductCategory.forEach ( (item)=>{ %>
                             <li><a href="<%= linkPrefix + 'category/' + item.slug %>"><%= item.name %></a></li>
                           <% }) %>
@@ -81,15 +81,18 @@
                     </div>
                   </div>
                 </li>
-                <li class="menu-item menu-item-has-children dropdown" data-active="news"><a href="#">News</a>
+                <li class="menu-item menu-item-has-children dropdown" data-active="news-category"><a href="#">News</a>
                   <ul class="sub-menu">
-                    <li class="menu-item menu-item-has-children dropdown"><a href="blog-grid.html">Blog-grid</a>
+                    <li class="menu-item"><a href="<%= linkPrefix + 'news-category/all' %>">View all</a></li>
+                    <li class="menu-item menu-item-has-children dropdown"><a href="">Fashion</a>
                           <ul class="sub-menu">
-                            <li class="menu-item"><a href="blog-grid.html">Blog Grid 1</a></li>
-                            <li class="menu-item"><a href="blog-grid-2.html">Blog Grid 2</a></li>
+                            <% itemsCategory.forEach ( (item)=>{ %>
+                              <li class="menu-item"><a href="<%= linkPrefix + 'news-category/' + item.slug %>"><%= item.name %></a></li>
+                            <% }) %>
                           </ul>
                     </li>
-                    <li class="menu-item"><a href="blog-list.html">Blog List</a></li>
+                    <li class="menu-item"><a href="<%= linkPrefix + 'news-category/trending' %>">Trends</a></li>
+                    <li class="menu-item"><a href="<%= linkPrefix + 'news-rss' %>">Others</a></li>
                   </ul>
                 </li>
                 <li class="menu-item" data-active="about"><a href="<%= linkPrefix + 'about' %>">About</a></li>
@@ -97,9 +100,9 @@
               </ul>
         </div>
         <div class="navigation__column right">
-          <form class="ps-search--header" action="do_action" method="post">
-            <input class="form-control" type="text" placeholder="Search Product…">
-            <button><i class="ps-icon-search"></i></button>
+          <form class="ps-search--header query" action="<%=linkPrefix + 'news-category/all'%>" method="GET">
+            <input class="form-control" type="text" placeholder="Search Product…" name="keyword" value=""> <!-- ?????????? -->
+            <button type="submit" id="btn_search"><i class="ps-icon-search"></i></button> 
           </form>
           <div class="ps-cart"><a class="ps-cart__toggle" href="#"><span><i>20</i></span><i class="ps-icon-shopping-cart"></i></a>
             <div class="ps-cart__listing">

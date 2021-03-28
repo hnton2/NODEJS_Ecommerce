@@ -2,8 +2,8 @@ const util  = require('util');
 const notify= require(__path_configs + 'notify');
 
 const options = {
-    name: { min: 5, max: 100 },
-    slug: { min: 5, max: 100 },
+    name: { min: 5, max: 70 },
+    slug: { min: 5, max: 70 },
     summary: { min: 5, max: 500 },
     ordering: { min: 0, max: 100 },
     status: { value: 'allValue' },

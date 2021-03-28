@@ -11,8 +11,11 @@ thêm validator cho login form
 tối ưu file me
 giá tiền phải là float
 ajax admin
-đổi ck-editor
 
 
-lỗi helpers/image
-    avatar_old
+editor: chưa lấy ảnh từ máy được
+helper cho summary
+notify cho contact
+
+? Hỏi middleware index tại router shop
+
