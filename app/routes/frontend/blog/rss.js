@@ -50,7 +50,6 @@ router.get('/get-gold',  async (req, res, next) => {
   });
 });
 
-/* GET home page. */
 router.get('/get-coin',  async (req, res, next) => {
   const requestOptions = {
     method: 'GET',

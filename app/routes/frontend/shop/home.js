@@ -5,31 +5,34 @@ const SliderModel = require(__path_models + 'slider');
 const ShoesModel = require(__path_models + 'shoes');
 const ArticleModel = require(__path_models + 'articles');
 
-
 const folderView	 = __path_views_shop + 'pages/home/';
 const layoutShop    = __path_views_shop + 'frontend';
 
 /* GET home page. */
 router.get('/', async (req, res, next) => {
   let itemsSlider = [];
-  let allItems = [];
-  let itemsSpecial = [];
+  let lastedShoes = [];
+  let lastedNews = [];
+  let SpecialNews = [];
 
   // slider
   await SliderModel.listItemsFrontend().then( (items) => {itemsSlider = items;});
-  // allItems
-  await ShoesModel.listItemsFrontend(null, {task:'new-items'}).then( (items) => {allItems = items;});
+  // all shoes
+  await ShoesModel.listItemsFrontend(null, {task:'new-items'}).then( (items) => {lastedShoes = items;});
   // Special
-  await ArticleModel.listItemsFrontend(null, {task: 'items-special'}).then( (items) => {itemsSpecial = items;});
-
+  await ArticleModel.listItemsFrontend(null, {task: 'items-special'}).then( (items) => {SpecialNews = items;});
+  // all news
+  await ArticleModel.listItemsFrontend(null, {task:'items-news'}).then( (items) => {lastedNews = items;});
   res.render(`${folderView}index`, {
     pageTitle : 'Home',
     top_post: true,
     contact_layout: false,
+    sidebar_rss: false,
     layout: layoutShop,
     itemsSlider,
-    allItems,
-    itemsSpecial
+    lastedShoes,
+    SpecialNews,
+    lastedNews
   });
 });
 

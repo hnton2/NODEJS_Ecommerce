@@ -20,6 +20,7 @@ router.get('/:id', async (req, res, next) => {
     pageTitle   : itemMain.name,
     top_post: false,
     contact_layout: false,
+    sidebar_rss: false,
     layout: layoutShop,
     itemMain,
     itemsRelated

@@ -11,11 +11,27 @@ thêm validator cho login form
 tối ưu file me
 giá tiền phải là float
 ajax admin
+fix radio box cho status active - inactive
+editor: chưa lấy ảnh từ computer
 
-
-editor: chưa lấy ảnh từ máy được
-helper cho summary
+fix fileHelper
+ajax change status => ajax filter status
 notify cho contact
 chưa xóa được multi image
-? Hỏi middleware index tại router shop
+active choose new shoes(all, nike, adidas,....)
+liên hệ thêm google map
+highlight tìm kiếm
+trang 404
+admin: thêm chức năng lọc theo special
+tạo thêm quản lí banner
+phân trang ajax
+tạo thêm phần quản lí subscribe: mail, name, status, created -> ajax form ở frontend
+thêm color- size cho sản phẩm
+bổ sung đánh giá trong comment
+lỗi show chọn hình shoes không đúng
+thêm cột sale off cho sản phẩm
+Lỗi model: nhiều điều kiện trong listItemFrontend trùng nhau
 
+jquery tag-input
+jquery tag editor drag & drop between field
+jquery autocomplete

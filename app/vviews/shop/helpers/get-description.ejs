@@ -1,5 +1,5 @@
 <%
     getDescription = (string) => {
-        return string.substring(string.indexOf('/>') + 2);
+        return string.replace(/(<([^>]+)>)/igm,"").substr(0, 100);
     }
 %>

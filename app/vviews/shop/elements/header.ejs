@@ -6,8 +6,8 @@
     <div class="header__top">
       <div class="container-fluid">
         <div class="row">
-              <div class="col-lg-6 col-md-8 col-sm-6 col-xs-12 ">
-                <p>460 West 34th Street, 15th floor, New York  -  Hotline: 804-377-3580 - 804-399-3580</p>
+              <div class="col-lg-6 col-md-8 col-sm-6 col-xs-12 "> 
+                <p><%= settingConfig.address %> -  Hotline: <%= settingConfig.hotline %></p>
               </div>
               <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12 ">
                 <div class="header__actions"><a href="#">Login & Regiser</a>
@@ -38,7 +38,7 @@
         <div class="navigation__column center">
               <ul class="main-menu menu">
                 <li class="menu-item" data-active=""><a href="<%= linkPrefix %>">Home</a></li>
-                <li class="menu-item menu-item-has-children has-mega-menu" data-active="category"><a href="#">Category</a>
+                <li class="menu-item menu-item-has-children has-mega-menu" data-active="category"><a href="<%= linkPrefix + 'category' %>">Category</a>
                   <div class="mega-menu">
                     <div class="mega-wrap">
                       <div class="mega-column">
@@ -81,18 +81,19 @@
                     </div>
                   </div>
                 </li>
-                <li class="menu-item menu-item-has-children dropdown" data-active="news-category"><a href="#">News</a>
+                <li class="menu-item menu-item-has-children dropdown" data-active="news-category"><a href="#">Blog</a>
                   <ul class="sub-menu">
                     <li class="menu-item"><a href="<%= linkPrefix + 'news-category/all' %>">View all</a></li>
-                    <li class="menu-item menu-item-has-children dropdown"><a href="">Fashion</a>
-                          <ul class="sub-menu">
-                            <% itemsCategory.forEach ( (item)=>{ %>
-                              <li class="menu-item"><a href="<%= linkPrefix + 'news-category/' + item.slug %>"><%= item.name %></a></li>
-                            <% }) %>
-                          </ul>
-                    </li>
                     <li class="menu-item"><a href="<%= linkPrefix + 'news-category/trending' %>">Trends</a></li>
-                    <li class="menu-item"><a href="<%= linkPrefix + 'news-rss' %>">Others</a></li>
+                    <% itemsCategory.forEach ( (item)=>{ %>
+                      <li class="menu-item"><a href="<%= linkPrefix + 'news-category/' + item.slug %>"><%= item.name %></a></li>
+                    <% }) %>
+                  </ul>
+                </li>
+                <li class="menu-item menu-item-has-children dropdown" data-active="news-rss"><a href="#">News</a>
+                  <ul class="sub-menu">
+                    <li class="menu-item"><a href="<%= linkPrefix + 'news-rss' %>">Fashion news</a></li>
+                    <li class="menu-item"><a href="<%= linkPrefix + 'news-rss/local-news' %>">Local news</a></li>
                   </ul>
                 </li>
                 <li class="menu-item" data-active="about"><a href="<%= linkPrefix + 'about' %>">About</a></li>

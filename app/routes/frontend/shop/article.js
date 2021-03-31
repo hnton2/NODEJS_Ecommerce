@@ -21,9 +21,10 @@ router.get('/:slug', async (req, res, next) => {
   // Related  article
   await ArticleModel.listItemsFrontend(itemArticle[0], {task: 'items-related'}).then( (items) => {itemsRelated = items;});
   res.render(`${folderView}index`, {
-    pageTitle   : itemArticle.name,
+    pageTitle   : itemArticle[0].name,
     top_post: false,
     contact_layout: false,
+    sidebar_rss: false,
     layout: layoutShop,
     itemArticle,
     itemMainCategory,

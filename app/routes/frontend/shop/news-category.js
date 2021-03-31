@@ -36,6 +36,7 @@ router.get('/:category/', async (req, res, next) => {
     pageTitle   : title,
     top_post: false,
     contact_layout: false,
+    sidebar_rss: false,
     layout: layoutShop,
     itemsInCategory,
   });
