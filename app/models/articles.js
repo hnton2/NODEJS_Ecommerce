@@ -66,7 +66,7 @@ module.exports = {
             ]);
         }
         if(option.task == 'items-related'){
-            find = {status:'active', 'category.id': params.category.id, '_id': {$ne: params.id} };
+            find = {status:'active', 'category.id': params.category.id, '_id': {$ne: params.id} }; 
             sort = {ordering: 'asc'};
         }
         if(option.task == 'items-search'){
@@ -77,9 +77,9 @@ module.exports = {
 
         return Model.find(find).select(select).limit(limit).sort(sort);
     },
-    getMainArticle: (id, option = null) => {
+    getMainArticle: (slug, option = null) => {
         let select = 'name created category.name category.id thumb summary content';
-        return Model.findById(id).select(select);
+        return Model.find({slug: slug}).select(select);
     },
     getItems: (id, option = null) => {
         return Model.findById(id);
@@ -195,7 +195,7 @@ module.exports = {
             },
             item.category = {
 				id: item.category_id,
-				name: item.category_name
+				name: item.category_name,
             }
             return new Model(item).save();
         }else if(option.tasks === 'edit') {
@@ -216,14 +216,14 @@ module.exports = {
                 },
                 category: {
 					id: item.category_id,
-					name: item.category_name
+					name: item.category_name,
 				}
 			});
         } else if(option.tasks === 'change-category-name') {
             return Model.updateMany({'category.id': item.id}, {
                 category: {
                     id: item.id,
-					name: item.name
+					name: item.name,
 				}
             });
         }

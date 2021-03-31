@@ -137,7 +137,7 @@ router.post('/delete', (req, res, next) => {
 // FORM
 router.get(('/form(/:id)?'), async (req, res, next) => {
 	let id		= ParamsHelpers.getParam(req.params, 'id', '');
-	let article	= {name: '', slug: '', ordering: 0, summary: '', status: 'allValue', special: 'allValue', trending: 'allValue', content: '', category_id: '', category_name: ''};    // add category
+	let article	= {name: '', slug: '', ordering: 0, summary: '', status: 'allValue', special: 'allValue', trending: 'allValue', content: '', category_id: '', category_name: ''};
 	let errors  = null;
 	let categoryItems = [];
 	await CategoryModel.getItems(null, {task: 'get-name-items'}).then( (items) => {

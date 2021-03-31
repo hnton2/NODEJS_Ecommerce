@@ -1,8 +1,7 @@
 <% include ./../../helpers/format-date %>
 <% include ./../../helpers/get-src %>
+<% include ./../../helpers/get-description %>
 <% include ./../../helpers/format-summary %>
-
-<%- JSON.stringify(itemsRSS) %>
 
 <div class="ps-blog-grid pt-80 pb-80">
   <div class="ps-container">
@@ -10,10 +9,10 @@
       <% itemsRSS.forEach( (item) => { %>
         <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
           <div class="ps-post mb-30">
-            <div class="ps-post__thumbnail"><a class="ps-post__overlay" href="<%= item.url %>"></a><img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/elm040121fobcover-010-logo-1615838139.jpg?resize=980:*" alt="<%= item.title %>"></div>
+            <div class="ps-post__thumbnail"><a class="ps-post__overlay" href="<%= item.url %>"></a><img src="<%- getSrc(item.description) %>" style="width: 450px; height: 250px;" alt="<%= item.title %>"></div>
             <div class="ps-post__content"><a class="ps-post__title" href="<%= item.url %>"><%= item.title %></a>
               <p class="ps-post__meta"><span>By:<a class="mr-5" href="#">Alena Studio</a></span> -<span class="ml-5"><%= formatDate(item.date) %></span></p>
-              <p><%- formatSummaryHelper(item.description) %>…</p><a class="ps-morelink" href="<%= item.url %>">Read more<i class="fa fa-long-arrow-right"></i></a>
+              <p><%- formatSummaryHelper(getDescription(item.description)) %>…</p><a class="ps-morelink" href="<%= item.url %>">Read more<i class="fa fa-long-arrow-right"></i></a>
             </div>
           </div>
         </div>

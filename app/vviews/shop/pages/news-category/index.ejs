@@ -13,10 +13,10 @@
         <% itemsInCategory.forEach( (item) => { %>
           <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
             <div class="ps-post mb-30">
-              <div class="ps-post__thumbnail"><a class="ps-post__overlay" href="<%= linkNews + item.id %>"></a><img src="<%= folder_uploads + item.thumb %>" style="width: 300px; height: 167px;" alt="<%= item.name %>" ></div>
-              <div class="ps-post__content"><a class="ps-post__title" href="<%= linkNews + item.id %>"><%= item.name %></a>
+              <div class="ps-post__thumbnail"><a class="ps-post__overlay" href="<%= linkNews + item.slug %>"></a><img src="<%= folder_uploads + item.thumb %>" style="width: 300px; height: 167px;" alt="<%= item.name %>" ></div>
+              <div class="ps-post__content"><a class="ps-post__title" href="<%= linkNews + item.slug %>"><%= item.name %></a>
                 <p class="ps-post__meta"><span>By:<a class="mr-5" href="#">Alena Studio</a></span> -<span class="ml-5"><%= formatDate(item.created.time) %></span></p>
-                <p><%= formatSummaryHelper(item.summary) %>…</p><a class="ps-morelink" href="<%= linkNews + item.id %>">Read more<i class="fa fa-long-arrow-right"></i></a>
+                <p><%= formatSummaryHelper(item.summary) %>…</p><a class="ps-morelink" href="<%= linkNews + item.slug %>">Read more<i class="fa fa-long-arrow-right"></i></a>
               </div>
             </div>
           </div>

@@ -185,10 +185,7 @@ $(document).ready(function () {
         $('input[name=group_name]').val($(this).find('option:selected').text());
     });
 
-    // fill avatar_name when choose group
-    $('select[name=avatar]').change(function() {
-        $('input[name=image_old]').val($(this).find('option:selected').text());
-    });
+    
 
     $('select[name=filter-group]').change(function() {
         var path = window.location.pathname.split('/');
@@ -219,25 +216,21 @@ $(document).ready(function () {
     });
 
     $('select[name=category_id]').change(function() {
+        console.log($(this).find('option:selected'));
         $('input[name=category_name]').val($(this).find('option:selected').text());
     });
 
     $('select[name=brand_id]').change(function() {
         $('input[name=brand_name]').val($(this).find('option:selected').text());
-    });
-
-    $('select[name=thumb]').change(function() {
-        $('input[name=thumb_old]').val($(this).find('option:selected').text()); 
-    });
-
-    $("input[name=thumb]").change(function() {
-        readURL(this, 'img.preview-thumb');
-    });
+    }); 
 
     $('form[name=form-upload]').submit( function(event) {
         let thumb = $(this).find("input[name=thumb]");
         $(this).find("input[name=thumb]").remove();
         $(this).append(thumb).css({'display': 'none'});
+    });
+    $("input[name=thumb]").change(function() {
+        readURL(this, 'img.preview-thumb');
     });
 
     // show multi image

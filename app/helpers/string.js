@@ -7,6 +7,11 @@ let formatLink = (value ) => {
 	return value;
 }
 
+let getNameImage = (string) => {
+	return string.split(',');
+}
+
 module.exports = {
-	formatLink
+	formatLink,
+	getNameImage
 }

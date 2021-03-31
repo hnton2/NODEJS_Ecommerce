@@ -22,7 +22,7 @@ module.exports = {
             return Model.findById(params.id);
         }
         if(option.task == 'get-name-items'){
-            return Model.find({}, {_id: 1, name: 1});
+            return Model.find({}, {_id: 1, name: 1, slug: 1});
         }
         if(option.task == 'get-items-by-slug'){
             return Model.find({slug: params.slug}).select('name slug');

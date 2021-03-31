@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var RSSCombiner = require('rss-combiner');
 const rp = require('request-promise');
+const xml2js = require('xml2js');
+
 
 const RSSModel = require(__path_models + 'rss');
 const RSSHelpers = require(__path_helpers + 'rss');
@@ -20,12 +22,13 @@ router.get('/',  async (req, res, next) => {
   });
   var feedConfig = {
     title: 'Fashion News',
-    size: 10,
+    size: 40,
     feeds: linkRss,
     pubDate: new Date()
   };
   await RSSCombiner(feedConfig, function (err, combinedFeed) {
     if (err) return console.error(err);
+
     itemsRSS = combinedFeed.item().items;
     res.render(`${folderView}index`, {
       pageTitle   : 'Fashion News', 

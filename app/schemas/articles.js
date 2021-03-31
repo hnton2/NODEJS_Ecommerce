@@ -12,7 +12,7 @@ var schema = new mongoose.Schema({
     ordering: Number,
     category: {
         id: String,
-        name: String
+        name: String,
     },
     created: {
         user_id: String,

@@ -6,7 +6,7 @@
             let id       = (item.id == undefined) ? 'allValue' : item.id;
             xhtml += `<option value="${id}" ${selected} >${item.name}</option>`;
         });
-
+        
         return `<select name="${name}" class="custom-select custom-select-sm" >${xhtml}</select>`;
     }
 %>

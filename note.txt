@@ -16,6 +16,6 @@ ajax admin
 editor: chưa lấy ảnh từ máy được
 helper cho summary
 notify cho contact
-
+chưa xóa được multi image
 ? Hỏi middleware index tại router shop
 

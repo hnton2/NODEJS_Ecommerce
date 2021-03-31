@@ -13,6 +13,7 @@ const UtilsHelpers 		= require(__path_helpers + 'utils');
 const ParamsHelpers 	= require(__path_helpers + 'params');
 const NotifyHelpers 	= require(__path_helpers + 'notify');
 const FileHelpers 		= require(__path_helpers + 'file');
+const StringHelpers 		= require(__path_helpers + 'string');
 const notify  			= require(__path_configs + 'notify');
 
 
@@ -161,7 +162,7 @@ router.post('/save', (req, res, next) => {
 		let errors = MainValidate.validator(req, errUpload, taskCurrent);
 		if(errors.length > 0) { 
 			let pageTitle = (taskCurrent === 'edit') ? pageTitleEdit : pageTitleAdd;
-			if(req.files != undefined) {
+			if(req.files != undefined) {		// xóa hình khi form chưa hợp lệ
 				for(let idx = 0; idx < req.files.length; idx++) {
 					FileHelpers.remove(folderImage, req.files[idx].filename);
 				}
@@ -176,22 +177,34 @@ router.post('/save', (req, res, next) => {
 				brandItems = items;
 				brandItems.unshift({_id: 'allValue', name: 'Choose brand'});
 			});
- 			if (taskCurrent == "edit") product.thumb = product.thumb_old;	// cần sửa lại
+ 			if (taskCurrent == "edit") product.thumb = StringHelpers.getNameImage(product.thumb_old);	// cần sửa lại
 			res.render(`${folderView}form`, { pageTitle, product, errors, categoryItems, brandItems});
 		} else {
 			let notifyTask = (taskCurrent === 'add') ? 'add-success' : 'edit-success';
-			/* if(req.files == undefined){ // không có upload lại hình
-				product.thumb = product.thumb_old;
-			}else{
-				product.thumb = req.files.filename;
-				if(taskCurrent == "edit") FileHelpers.remove(folderImage, product.thumb_old);
-			} */
-			let arrayThumb = [];
-			for(let idx = 0; idx < req.files.length; idx++) {
-				arrayThumb.push(req.files[idx].filename);
+			console.log('re', req.files);
+			if(req.files.length <= 0){ // không có upload lại hình - chỉ edit thông tin
+				product.thumb = StringHelpers.getNameImage(product.thumb_old);
+			}else{	// edit lại thumb
+				let arrayThumb = [];
+				for(let idx = 0; idx < req.files.length; idx++) {
+					arrayThumb.push(req.files[idx].filename);
+				}
+				product.thumb = arrayThumb;
+				let thumbOldArray = StringHelpers.getNameImage(product.thumb_old);
+				console.log(thumbOldArray);
+				if(taskCurrent == "edit") {
+					for(let idx = 0; idx < thumbOldArray; idx++) {
+						FileHelpers.remove(folderImage, thumbOldArray[idx]);
+					}
+				}
 			}
-			product.thumb = arrayThumb;
-
+			if(req.files.length > 0){
+				let arrayThumb = [];
+				for(let idx = 0; idx < req.files.length; idx++) {
+					arrayThumb.push(req.files[idx].filename);
+				}
+				product.thumb = arrayThumb;
+			}
 			MainModel.saveItems(product, req.user, {tasks: taskCurrent}).then( (result) => {
 				NotifyHelpers.showNotify(req, res, linkIndex, {tasks: notifyTask});
 			});

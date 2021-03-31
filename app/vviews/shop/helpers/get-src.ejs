@@ -1,11 +1,15 @@
 <%
-    getSrc = (string) => {
-        var imgRex = /<img.*?src="(.*?)"[^>]+>/g;
-        var images = [];
-        let img;
-        while ((img = imgRex.exec(string))) {
-            images.push(img[1]);
+    getSrc = (link) => {
+        let linkImg = [];
+        let myRegex = /<img[^>]+src="(https:\/\/[^">]+)"/g;
+        
+        linkImg = myRegex.exec(link);
+        let xhtml = ``;
+        if(linkImg !== null){
+            let imgSrc = '';
+            imgSrc =  linkImg[1];        
+            xhtml = `${imgSrc}`;
         }
-        return images;
+        return xhtml;
     }
 %>

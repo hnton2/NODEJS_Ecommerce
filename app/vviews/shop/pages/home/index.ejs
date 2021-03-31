@@ -283,10 +283,10 @@
           <% for(let i = 0; i < itemsSpecial.length; i++) { %>
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
               <div class="ps-post">
-                <div class="ps-post__thumbnail"><a class="ps-post__overlay" href="<%= linkNews + itemsSpecial[i].id %>"></a><img src="<%= folder_upload_news + itemsSpecial[i].thumb %>" style="height: 235px; width: 450px;" alt=""></div>
-                <div class="ps-post__content"><a class="ps-post__title" href="<%= linkNews + itemsSpecial[i].id %>"><%= itemsSpecial[i].name %></a>
+                <div class="ps-post__thumbnail"><a class="ps-post__overlay" href="<%= linkNews + itemsSpecial[i].slug %>"></a><img src="<%= folder_upload_news + itemsSpecial[i].thumb %>" style="height: 235px; width: 450px;" alt=""></div>
+                <div class="ps-post__content"><a class="ps-post__title" href="<%= linkNews + itemsSpecial[i].slug %>"><%= itemsSpecial[i].name %></a>
                   <p class="ps-post__meta"><span>By:<a class="mr-5" href="#">Alena Studio</a></span> -<span class="ml-5"><%= formatDate(itemsSpecial[i].created.time) %></span></p>
-                  <p><%= formatSummaryHelper(itemsSpecial[i].summary) %>…</p><a class="ps-morelink" href="<%= linkNews + itemsSpecial[i].id %>">Read more<i class="fa fa-long-arrow-right"></i></a>
+                  <p><%= formatSummaryHelper(itemsSpecial[i].summary) %>…</p><a class="ps-morelink" href="<%= linkNews + itemsSpecial[i].slug %>">Read more<i class="fa fa-long-arrow-right"></i></a>
                 </div>
               </div>
             </div>
