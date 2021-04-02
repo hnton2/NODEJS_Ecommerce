@@ -82,7 +82,9 @@ module.exports = {
         return Model.find({slug: slug}).select(select);
     },
     getItems: (id, option = null) => {
-        return Model.findById(id);
+        if(option.task = 'get-category'){
+            return Model.findById(id).select('category.id category.name');
+        } else return Model.findById(id);
     },
     countItems: (params, option = null) => {
         let objWhere	 = {};

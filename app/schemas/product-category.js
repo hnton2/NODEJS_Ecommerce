@@ -6,6 +6,7 @@ var schema = new mongoose.Schema({
     name: String, 
     status: String,
     ordering: Number,
+    amount: Number,
     slug: String,
     created: {
         user_id: String,
@@ -19,5 +20,5 @@ var schema = new mongoose.Schema({
     },
     content: String
 });
-
+mongoose.set('useFindAndModify', false);
 module.exports = db.model(databaseConfig.col_product_category, schema );

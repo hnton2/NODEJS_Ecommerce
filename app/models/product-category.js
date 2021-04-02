@@ -12,7 +12,7 @@ module.exports = {
     
         return Model
 		.find(objWhere)
-		.select('name status ordering created modified slug')
+		.select('name status ordering created modified slug amount')
 		.sort(sort)
 		.skip((params.pagination.currentPage-1) * params.pagination.totalItemsPerPage)
 		.limit(params.pagination.totalItemsPerPage)
@@ -47,6 +47,9 @@ module.exports = {
         if(params.keyword !== '') objWhere.name = new RegExp(params.keyword, 'i');
 
         return Model.countDocuments(objWhere);
+    },
+    updateAmountOfItem: (id, state) => {
+        return Model.findOneAndUpdate({_id :id}, {$inc : {'amount' : state}}).exec();
     },
     changeStatus: (id, currentStatus, user, option = null) => {
         let status = '';

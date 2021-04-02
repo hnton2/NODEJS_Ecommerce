@@ -109,8 +109,11 @@ router.post('/change-ordering', (req, res, next) => {
 });
 
 // Delete
-router.get('/delete/:id', (req, res, next) => {
-	let id				= ParamsHelpers.getParam(req.params, 'id', ''); 	
+router.get('/delete/:id', async (req, res, next) => {
+	let id				= ParamsHelpers.getParam(req.params, 'id', '');
+	let idCategory = '';
+	await MainModel.getItems(id, {tasks: 'get-category'}).then( (item) => idCategory = item.category.id);
+	await CategoryModel.updateAmountOfItem(idCategory, -1).then( (result) => { });
 	MainModel.deleteItems(id, {tasks: 'delete-one'}).then( (result) => {
 		NotifyHelpers.showNotify(req, res, linkIndex, {tasks: 'delete-success'});
 	});
@@ -118,7 +121,13 @@ router.get('/delete/:id', (req, res, next) => {
 
 // Delete - Multi
 router.post('/delete', (req, res, next) => {
-	MainModel.deleteItems(req.body.cid, {tasks: 'delete-multi'}).then( (result) => {
+	let id = req.body.cid;
+	id.forEach( async (i) => {
+		let idCategory = '';
+		await MainModel.getItems(i, {tasks: 'get-category'}).then( (item) => idCategory = item.category.id);
+		await CategoryModel.updateAmountOfItem(idCategory, -1).then( (result) => { });
+	})
+	MainModel.deleteItems(id, {tasks: 'delete-multi'}).then( (result) => {
 		NotifyHelpers.showNotify(req, res, linkIndex, {n: result.n, tasks: 'delete-multi-success'});
 	});
 });
@@ -190,7 +199,6 @@ router.post('/save', (req, res, next) => {
 				}
 				product.thumb = arrayThumb;
 				let thumbOldArray = StringHelpers.getNameImage(product.thumb_old);
-				console.log(thumbOldArray);
 				if(taskCurrent == "edit") {
 					for(let i = 0; i < thumbOldArray.length; i++) {
 						FileHelpers.remove(folderImage, thumbOldArray[i]);
@@ -204,6 +212,15 @@ router.post('/save', (req, res, next) => {
 				}
 				product.thumb = arrayThumb;
 			}
+			if(taskCurrent == 'add') {
+				await CategoryModel.updateAmountOfItem(product.category_id, 1).then( (result) => { });
+			} else if (taskCurrent == 'edit') {
+				if(product.categoryID_old != product.category_id) { // cập nhật category
+					await CategoryModel.updateAmountOfItem(product.categoryID_old, -1).then( (result) => { });
+					await CategoryModel.updateAmountOfItem(product.category_id, 1).then( (result) => { });
+				}
+			}
+			
 			MainModel.saveItems(product, req.user, {tasks: taskCurrent}).then( (result) => {
 				NotifyHelpers.showNotify(req, res, linkIndex, {tasks: notifyTask});
 			});

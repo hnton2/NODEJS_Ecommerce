@@ -1,4 +1,5 @@
 const Model 	    = require(__path_schemas + 'shoes');
+const CategoryModel 	    = require(__path_schemas + 'product-category');
 const FileHelpers   = require(__path_helpers + 'file');
 const uploadFolder  = __path_uploads + 'shoes/';
 
@@ -10,7 +11,6 @@ module.exports = {
 	    if(params.categoryID !== 'allValue' && params.categoryID !== '') objWhere['category.id'] = params.categoryID;
         if(params.currentStatus !== 'all') objWhere.status = params.currentStatus;
         if(params.keyword !== '') objWhere.name = new RegExp(params.keyword, 'i');
-    
     
         return Model
 		.find(objWhere)
@@ -79,9 +79,9 @@ module.exports = {
 
         return Model.find(find).select(select).limit(limit).sort(sort);
     },
-    getMainArticle: (id) => {
-        let select = 'name brand category.name category.id price thumb content sale_off';
-        return Model.findById(id).select(select);
+    getMainArticle: (slug, option = null) => { 
+        let select = 'name slug brand category.name category.id price thumb content sale_off';
+        return Model.find({slug: slug}).select(select);
     },
     getItems: (id, option = null) => {
         return Model.findById(id);

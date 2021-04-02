@@ -12,10 +12,10 @@ giá tiền phải là float
 ajax admin
 fix radio box cho status active - inactive
 editor: chưa lấy ảnh từ computer
-fix fileHelper
 ajax change status => ajax filter status
 link footer lỗi
 active choose new shoes(all, nike, adidas,....)
+chưa có link cho category shoes ở category và home
 
 liên hệ thêm google map
 admin: thêm chức năng lọc theo special
@@ -24,7 +24,7 @@ phân trang ajax
 tạo thêm phần quản lí subscribe: mail, name, status, created -> ajax form ở frontend
 thêm color- size cho sản phẩm
 bổ sung đánh giá trong comment
-lỗi show chọn hình shoes không đúng
+
 
 jquery tag-input
 jquery tag editor drag & drop between field

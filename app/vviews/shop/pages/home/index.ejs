@@ -34,7 +34,7 @@
                     <% } %>
                     <a class="ps-shoe__favorite" href="#"><i class="ps-icon-heart"></i></a>
                     <img src="<%= folder_upload_shoes + item.thumb[1] %>" alt="">
-                    <a class="ps-shoe__overlay" href="<%= linkShoes + item.id %>"></a>
+                    <a class="ps-shoe__overlay" href="<%= linkShoes + item.slug %>"></a>
                   </div>
                   <div class="ps-shoe__content">
                     <div class="ps-shoe__variants">
@@ -52,7 +52,7 @@
                         <option value="2">5</option>
                       </select>
                     </div>
-                    <div class="ps-shoe__detail"><a class="ps-shoe__name" href="<%= linkShoes + item.id %>"><%= item.name %></a>
+                    <div class="ps-shoe__detail"><a class="ps-shoe__name" href="<%= linkShoes + item.slug %>"><%= item.name %></a>
                       <p class="ps-shoe__categories"><a href="#"><%= item.category.name %> shoes</a>,<a href="#"> <%= item.brand.name %></a></p>
                       <span class="ps-shoe__price">
                         <% if(item.sale_off > 0) { %>
@@ -99,7 +99,7 @@
                 <% } %>
                 <a class="ps-shoe__favorite" href="#"><i class="ps-icon-heart"></i></a>
                 <img src="<%= folder_upload_shoes + item.thumb[1] %>" alt="">
-                <a class="ps-shoe__overlay" href="<%= linkShoes + item.id %>"></a>
+                <a class="ps-shoe__overlay" href="<%= linkShoes + item.slug %>"></a>
               </div>
               <div class="ps-shoe__content">
                 <div class="ps-shoe__variants">
@@ -117,7 +117,7 @@
                     <option value="2">5</option>
                   </select>
                 </div>
-                <div class="ps-shoe__detail"><a class="ps-shoe__name" href="<%= linkShoes + item.id %>"><%= item.name %></a>
+                <div class="ps-shoe__detail"><a class="ps-shoe__name" href="<%= linkShoes + item.slug %>"><%= item.name %></a>
                   <p class="ps-shoe__categories"><a href="#"><%= item.category.name %>shoes</a>,<a href="#"> <%= item.brand.name %></a></p>
                   <span class="ps-shoe__price"> 
                     <% if(item.sale_off > 0) { %>
