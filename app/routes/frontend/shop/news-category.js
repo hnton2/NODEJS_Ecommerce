@@ -31,6 +31,7 @@ router.get('/:category/', async (req, res, next) => {
     objWhere.id = idCategory;
   }
   await ArticleModel.listItemsFrontend(objWhere, {task: taskCategory}).then( (item) => {itemsInCategory = item;});
+  if(query !== '') title = 'Search results for the word "' + query + '"';
 
   res.render(`${folderView}index`, { 
     pageTitle   : title,
@@ -39,6 +40,7 @@ router.get('/:category/', async (req, res, next) => {
     sidebar_rss: false,
     layout: layoutShop,
     itemsInCategory,
+    query
   });
 
 });

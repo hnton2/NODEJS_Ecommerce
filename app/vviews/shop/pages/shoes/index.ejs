@@ -24,6 +24,8 @@
             <div class="item"><img class="zoom" src="<%= folder_upload + itemMain.thumb[1] %>" alt="" data-zoom-image="<%= folder_upload + itemMain.thumb[1] %>"></div>
             <div class="item"><img class="zoom" src="<%= folder_upload + itemMain.thumb[0] %>" alt="" data-zoom-image="<%= folder_upload + itemMain.thumb[0] %>"></div>
             <div class="item"><img class="zoom" src="<%= folder_upload + itemMain.thumb[2] %>" alt="" data-zoom-image="<%= folder_upload + itemMain.thumb[2] %>"></div>
+            <div class="item"><img class="zoom" src="<%= folder_upload + itemMain.thumb[3] %>" alt="" data-zoom-image="<%= folder_upload + itemMain.thumb[3] %>"></div>
+            <div class="item"><img class="zoom" src="<%= folder_upload + itemMain.thumb[4] %>" alt="" data-zoom-image="<%= folder_upload + itemMain.thumb[4] %>"></div>
           </div>
         </div>
         <div class="ps-product__thumbnail--mobile">
@@ -41,8 +43,14 @@
             </select><a href="#">(Read all 8 reviews)</a>
           </div>
           <h1><%= itemMain.name %></h1>
-          <p class="ps-product__category"><a href="#"> <%= itemMain.category.name %> shoes</a>,<a href="#"> <%= itemMain.brand %></a></p>
-          <h3 class="ps-product__price">$ <%= itemMain.price %> <del>$ 330</del></h3>
+          <p class="ps-product__category"><a href="#"> <%= itemMain.category.name %> shoes</a>,<a href="#"> <%= itemMain.brand.name %></a></p>
+          <h3 class="ps-product__price">
+            <% if(itemMain.sale_off > 0) { %>
+              <del>$<%= itemMain.price %></del> $<%= itemMain.price - (itemMain.price * (itemMain.sale_off/100)) %>
+            <% } else { %>
+              $<%= itemMain.price%>
+            <% } %>
+          </h3>
           <div class="ps-product__block ps-product__quickview">
             <h4>QUICK REVIEW</h4>
             <p><%- itemMain.content %></p>

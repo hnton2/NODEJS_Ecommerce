@@ -1,7 +1,25 @@
 <% 
     const linkPrefix     = systemConfig.prefixShop + '/';
 %>
-<div class="ps-footer bg--cover" data-background="images/background/parallax.jpg">
+<div class="ps-subscribe">
+  <div class="ps-container">
+    <div class="row">
+          <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 ">
+            <h3><i class="fa fa-envelope"></i>Sign up to Newsletter</h3>
+          </div>
+          <div class="col-lg-5 col-md-7 col-sm-12 col-xs-12 ">
+            <form class="ps-subscribe__form" action="do_action" method="post">
+              <input class="form-control" type="text" placeholder="">
+              <button>Sign up now</button>
+            </form>
+          </div>
+          <div class="col-lg-4 col-md-5 col-sm-12 col-xs-12 ">
+            <p>...and receive  <span>$20</span>  coupon for first shopping.</p>
+          </div>
+    </div>
+  </div>
+</div>
+<div class="ps-footer bg--cover" data-background="frontend/shop/images/background/parallax.jpg">
   <div class="ps-footer__content">
     <div class="ps-container">
       <div class="row">
@@ -80,7 +98,7 @@
     <div class="ps-container">
       <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
-          <p>&copy; <a href="#">FASHION SHOP</a>, Inc. All rights Resevered. Design by <a href="#"> Alena Studio</a></p>
+          <p>&copy; FASHION SHOP, Inc. All rights Resevered. Design by <a href="#"> Alena Studio</a></p>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
           <ul class="ps-social">

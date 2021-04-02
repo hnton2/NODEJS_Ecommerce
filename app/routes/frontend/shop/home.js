@@ -13,14 +13,17 @@ router.get('/', async (req, res, next) => {
   let itemsSlider = [];
   let lastedShoes = [];
   let lastedNews = [];
-  let SpecialNews = [];
+  let specialNews = [];
+  let specialShoes = [];
 
   // slider
   await SliderModel.listItemsFrontend().then( (items) => {itemsSlider = items;});
   // all shoes
   await ShoesModel.listItemsFrontend(null, {task:'new-items'}).then( (items) => {lastedShoes = items;});
   // Special
-  await ArticleModel.listItemsFrontend(null, {task: 'items-special'}).then( (items) => {SpecialNews = items;});
+  await ShoesModel.listItemsFrontend(null, {task: 'items-special'}).then( (items) => {specialShoes = items;});
+  // Special
+  await ArticleModel.listItemsFrontend(null, {task: 'items-special'}).then( (items) => {specialNews = items;});
   // all news
   await ArticleModel.listItemsFrontend(null, {task:'items-news'}).then( (items) => {lastedNews = items;});
   res.render(`${folderView}index`, {
@@ -31,8 +34,9 @@ router.get('/', async (req, res, next) => {
     layout: layoutShop,
     itemsSlider,
     lastedShoes,
-    SpecialNews,
-    lastedNews
+    specialNews,
+    lastedNews,
+    specialShoes
   });
 });
 

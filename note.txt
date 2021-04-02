@@ -4,7 +4,6 @@ node2 - chương 4 -
     bài 5.2, 
     6.1
 thêm tag cho mỗi bài viết
-article là slug
 thêm số lượng article cho category
 kiểm tra link category
 thêm validator cho login form
@@ -13,15 +12,12 @@ giá tiền phải là float
 ajax admin
 fix radio box cho status active - inactive
 editor: chưa lấy ảnh từ computer
-
 fix fileHelper
 ajax change status => ajax filter status
-notify cho contact
-chưa xóa được multi image
+link footer lỗi
 active choose new shoes(all, nike, adidas,....)
+
 liên hệ thêm google map
-highlight tìm kiếm
-trang 404
 admin: thêm chức năng lọc theo special
 tạo thêm quản lí banner
 phân trang ajax
@@ -29,8 +25,6 @@ tạo thêm phần quản lí subscribe: mail, name, status, created -> ajax for
 thêm color- size cho sản phẩm
 bổ sung đánh giá trong comment
 lỗi show chọn hình shoes không đúng
-thêm cột sale off cho sản phẩm
-Lỗi model: nhiều điều kiện trong listItemFrontend trùng nhau
 
 jquery tag-input
 jquery tag editor drag & drop between field

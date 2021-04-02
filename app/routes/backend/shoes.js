@@ -126,7 +126,7 @@ router.post('/delete', (req, res, next) => {
 // FORM
 router.get(('/form(/:id)?'), async (req, res, next) => {
 	let id		= ParamsHelpers.getParam(req.params, 'id', '');
-	let product	= {name: '', slug: '', brand: '', ordering: 0, status: 'allValue', special: 'allValue', content: '', category_id: '', category_name: '', brand_id: '', brand_name: '', quantity: 0, price: 0};
+	let product	= {name: '', slug: '', brand: '', ordering: 0, status: 'allValue', special: 'allValue', content: '', category_id: '', category_name: '', brand_id: '', brand_name: '', quantity: 0, price: 0, sale_off: 0};
 	let errors  = null;
 	let categoryItems = [];
 	await CategoryModel.getItems(null, {task: 'get-name-items'}).then( (items) => {
@@ -181,7 +181,6 @@ router.post('/save', (req, res, next) => {
 			res.render(`${folderView}form`, { pageTitle, product, errors, categoryItems, brandItems});
 		} else {
 			let notifyTask = (taskCurrent === 'add') ? 'add-success' : 'edit-success';
-			console.log('re', req.files);
 			if(req.files.length <= 0){ // không có upload lại hình - chỉ edit thông tin
 				product.thumb = StringHelpers.getNameImage(product.thumb_old);
 			}else{	// edit lại thumb
@@ -193,8 +192,8 @@ router.post('/save', (req, res, next) => {
 				let thumbOldArray = StringHelpers.getNameImage(product.thumb_old);
 				console.log(thumbOldArray);
 				if(taskCurrent == "edit") {
-					for(let idx = 0; idx < thumbOldArray; idx++) {
-						FileHelpers.remove(folderImage, thumbOldArray[idx]);
+					for(let i = 0; i < thumbOldArray.length; i++) {
+						FileHelpers.remove(folderImage, thumbOldArray[i]);
 					}
 				}
 			}

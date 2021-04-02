@@ -21,7 +21,7 @@ module.exports = {
     },
     listItemsFrontend: (params = null, option = null) => {
         let find = {status:'active'};
-        let select = 'name slug created category.name category.id thumb special';
+        let select = 'name slug created category.name category.id thumb';
         let limit = 3;
         let sort = {};
         if(option.task == 'all-items'){

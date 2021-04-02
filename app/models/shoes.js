@@ -14,14 +14,14 @@ module.exports = {
     
         return Model
 		.find(objWhere)
-		.select('name slug status special ordering created modified category.name price quantity brand thumb')
+		.select('name slug status special ordering created modified category.name price quantity sale_off brand thumb')
 		.sort(sort)
 		.skip((params.pagination.currentPage-1) * params.pagination.totalItemsPerPage)
 		.limit(params.pagination.totalItemsPerPage)
     },
     listItemsFrontend: (params = null, option = null) => {
         let find = {};
-        let select = 'name slug created category.name category.id thumb brand price';
+        let select = 'name slug created category.name category.id thumb brand price sale_off';
         let limit = 3;
         let sort = {};
 
@@ -80,7 +80,7 @@ module.exports = {
         return Model.find(find).select(select).limit(limit).sort(sort);
     },
     getMainArticle: (id) => {
-        let select = 'name brand category.name category.id price thumb content';
+        let select = 'name brand category.name category.id price thumb content sale_off';
         return Model.findById(id).select(select);
     },
     getItems: (id, option = null) => {
@@ -170,19 +170,25 @@ module.exports = {
     deleteItems: async (id, option = null) => {
         if(option.tasks === 'delete-one') {
             await Model.findById(id).then((item) => {
-                FileHelpers.remove(uploadFolder, item.thumb);
+                for(let idx = 0; idx < item.thumb.length; idx++) {
+					FileHelpers.remove(uploadFolder, item.thumb[idx]);
+				}
             });
             return Model.deleteOne({_id: id});
         } else if(option.tasks === 'delete-multi') {
             if(Array.isArray(id)){
                 for(let index = 0; index < id.length; index++){
                     await Model.findById(id[index]).then((item) => {
-                        FileHelpers.remove(uploadFolder, item.thumb);
+                        for(let idx = 0; idx < item.thumb.length; idx++) {
+                            FileHelpers.remove(uploadFolder, item.thumb[idx]);
+                        }
                     }); 
                 }
             }else{
                 await Model.findById(id).then((item) => {
-                    FileHelpers.remove(uploadFolder, item.thumb);
+                    for(let idx = 0; idx < item.thumb.length; idx++) {
+                        FileHelpers.remove(uploadFolder, item.thumb[idx]);
+                    }
                 });
             }
             return Model.remove({_id: {$in: id}});
@@ -210,8 +216,10 @@ module.exports = {
                 name: item.name,
                 slug: item.slug,
                 status: item.status,
+                special: item.special,
                 price: item.price,
                 quantity: item.quantity,
+                sale_off: item.sale_off,
                 content: item.content,
                 thumb: item.thumb,
 				modified: {

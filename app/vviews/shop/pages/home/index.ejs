@@ -7,6 +7,7 @@
     const folder_upload_shoes = 'uploads/shoes/';
     const folder_upload_news = 'uploads/articles/';
 %>
+
 <div class="ps-section--features-product ps-section masonry-root pt-100 pb-100"> 
   <div class="ps-container">
     <div class="ps-section__header mb-50">
@@ -28,6 +29,9 @@
                 <div class="ps-shoe mb-30">
                   <div class="ps-shoe__thumbnail">
                     <div class="ps-badge"><span>New</span></div>
+                    <% if(item.sale_off > 0) { %>
+                      <div class="ps-badge ps-badge--sale ps-badge--2nd"><span>-<%= item.sale_off %>%</span></div>
+                    <% } %>
                     <a class="ps-shoe__favorite" href="#"><i class="ps-icon-heart"></i></a>
                     <img src="<%= folder_upload_shoes + item.thumb[1] %>" alt="">
                     <a class="ps-shoe__overlay" href="<%= linkShoes + item.id %>"></a>
@@ -49,9 +53,13 @@
                       </select>
                     </div>
                     <div class="ps-shoe__detail"><a class="ps-shoe__name" href="<%= linkShoes + item.id %>"><%= item.name %></a>
-                      <p class="ps-shoe__categories"><a href="#"><%= item.category.name %> shoes</a>,<a href="#"> <%= item.brand %></a></p>
+                      <p class="ps-shoe__categories"><a href="#"><%= item.category.name %> shoes</a>,<a href="#"> <%= item.brand.name %></a></p>
                       <span class="ps-shoe__price">
-                        <del>250</del> $ <%= item.price %>
+                        <% if(item.sale_off > 0) { %>
+                        <del>$<%= item.price %></del> $<%= item.price - (item.price * (item.sale_off/100)) %>
+                        <% } else { %>
+                          $<%= item.price%>
+                        <% } %>
                       </span>
                     </div>
                   </div>
@@ -82,138 +90,47 @@
     </div>
     <div class="ps-section__content">
       <div class="ps-owl--colection owl-slider" data-owl-auto="true" data-owl-loop="true" data-owl-speed="5000" data-owl-gap="30" data-owl-nav="false" data-owl-dots="false" data-owl-item="4" data-owl-item-xs="1" data-owl-item-sm="2" data-owl-item-md="3" data-owl-item-lg="4" data-owl-duration="1000" data-owl-mousedrag="on">
-        <div class="ps-shoes--carousel">
-          <div class="ps-shoe">
-            <div class="ps-shoe__thumbnail">
-              <div class="ps-badge"><span>New</span></div><a class="ps-shoe__favorite" href="#"><i class="ps-icon-heart"></i></a><img src="frontend/shop/images/shoe/1.jpg" alt=""><a class="ps-shoe__overlay" href="product-detail.html"></a>
-            </div>
-            <div class="ps-shoe__content">
-              <div class="ps-shoe__variants">
-                <div class="ps-shoe__variant normal"><img src="frontend/shop/images/shoe/2.jpg" alt=""><img src="frontend/shop/images/shoe/3.jpg" alt=""><img src="frontend/shop/images/shoe/4.jpg" alt=""><img src="frontend/shop/images/shoe/5.jpg" alt=""></div>
-                <select class="ps-rating ps-shoe__rating">
-                  <option value="1">1</option>
-                  <option value="1">2</option>
-                  <option value="1">3</option>
-                  <option value="1">4</option>
-                  <option value="2">5</option>
-                </select>
+        <% specialShoes.forEach( (item) => { %>
+          <div class="ps-shoes--carousel">
+            <div class="ps-shoe">
+              <div class="ps-shoe__thumbnail">
+                <% if(item.sale_off > 0) { %>
+                  <div class="ps-badge ps-badge--sale"><span>-<%= item.sale_off %>%</span></div>
+                <% } %>
+                <a class="ps-shoe__favorite" href="#"><i class="ps-icon-heart"></i></a>
+                <img src="<%= folder_upload_shoes + item.thumb[1] %>" alt="">
+                <a class="ps-shoe__overlay" href="<%= linkShoes + item.id %>"></a>
               </div>
-              <div class="ps-shoe__detail"><a class="ps-shoe__name" href="product-detai.html">Air Jordan 7 Retro</a>
-                <p class="ps-shoe__categories"><a href="#">Men shoes</a>,<a href="#"> Nike</a>,<a href="#"> Jordan</a></p><span class="ps-shoe__price"> £ 120</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="ps-shoes--carousel">
-          <div class="ps-shoe">
-            <div class="ps-shoe__thumbnail">
-              <div class="ps-badge"><span>New</span></div>
-              <div class="ps-badge ps-badge--sale ps-badge--2nd"><span>-35%</span></div><a class="ps-shoe__favorite" href="#"><i class="ps-icon-heart"></i></a><img src="frontend/shop/images/shoe/2.jpg" alt=""><a class="ps-shoe__overlay" href="product-detail.html"></a>
-            </div>
-            <div class="ps-shoe__content">
-              <div class="ps-shoe__variants">
-                <div class="ps-shoe__variant normal"><img src="frontend/shop/images/shoe/2.jpg" alt=""><img src="frontend/shop/images/shoe/3.jpg" alt=""><img src="frontend/shop/images/shoe/4.jpg" alt=""><img src="frontend/shop/images/shoe/5.jpg" alt=""></div>
-                <select class="ps-rating ps-shoe__rating">
-                  <option value="1">1</option>
-                  <option value="1">2</option>
-                  <option value="1">3</option>
-                  <option value="1">4</option>
-                  <option value="2">5</option>
-                </select>
-              </div>
-              <div class="ps-shoe__detail"><a class="ps-shoe__name" href="product-detai.html">Air Jordan 7 Retro</a>
-                <p class="ps-shoe__categories"><a href="#">Men shoes</a>,<a href="#"> Nike</a>,<a href="#"> Jordan</a></p><span class="ps-shoe__price">
-                  <del>£220</del> £ 120</span>
+              <div class="ps-shoe__content">
+                <div class="ps-shoe__variants">
+                  <div class="ps-shoe__variant normal">
+                    <img src="<%= folder_upload_shoes + item.thumb[0] %>" alt="">
+                    <img src="<%= folder_upload_shoes + item.thumb[1] %>" alt="">
+                    <img src="<%= folder_upload_shoes + item.thumb[2] %>" alt="">
+                    <img src="<%= folder_upload_shoes + item.thumb[3] %>" alt="">
+                  </div>
+                  <select class="ps-rating ps-shoe__rating">
+                    <option value="1">1</option>
+                    <option value="1">2</option>
+                    <option value="1">3</option>
+                    <option value="1">4</option>
+                    <option value="2">5</option>
+                  </select>
+                </div>
+                <div class="ps-shoe__detail"><a class="ps-shoe__name" href="<%= linkShoes + item.id %>"><%= item.name %></a>
+                  <p class="ps-shoe__categories"><a href="#"><%= item.category.name %>shoes</a>,<a href="#"> <%= item.brand.name %></a></p>
+                  <span class="ps-shoe__price"> 
+                    <% if(item.sale_off > 0) { %>
+                    <del>$<%= item.price %></del> $<%= item.price - (item.price * (item.sale_off/100)) %>
+                    <% } else { %>
+                      $<%= item.price%>
+                    <% } %>
+                  </span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="ps-shoes--carousel">
-          <div class="ps-shoe">
-            <div class="ps-shoe__thumbnail">
-              <div class="ps-badge"><span>New</span></div><a class="ps-shoe__favorite" href="#"><i class="ps-icon-heart"></i></a><img src="frontend/shop/images/shoe/3.jpg" alt=""><a class="ps-shoe__overlay" href="product-detail.html"></a>
-            </div>
-            <div class="ps-shoe__content">
-              <div class="ps-shoe__variants">
-                <div class="ps-shoe__variant normal"><img src="frontend/shop/images/shoe/2.jpg" alt=""><img src="frontend/shop/images/shoe/3.jpg" alt=""><img src="frontend/shop/images/shoe/4.jpg" alt=""><img src="frontend/shop/images/shoe/5.jpg" alt=""></div>
-                <select class="ps-rating ps-shoe__rating">
-                  <option value="1">1</option>
-                  <option value="1">2</option>
-                  <option value="1">3</option>
-                  <option value="1">4</option>
-                  <option value="2">5</option>
-                </select>
-              </div>
-              <div class="ps-shoe__detail"><a class="ps-shoe__name" href="product-detai.html">Air Jordan 7 Retro</a>
-                <p class="ps-shoe__categories"><a href="#">Men shoes</a>,<a href="#"> Nike</a>,<a href="#"> Jordan</a></p><span class="ps-shoe__price"> £ 120</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="ps-shoes--carousel">
-          <div class="ps-shoe">
-            <div class="ps-shoe__thumbnail"><a class="ps-shoe__favorite" href="#"><i class="ps-icon-heart"></i></a><img src="frontend/shop/images/shoe/4.jpg" alt=""><a class="ps-shoe__overlay" href="product-detail.html"></a>
-            </div>
-            <div class="ps-shoe__content">
-              <div class="ps-shoe__variants">
-                <div class="ps-shoe__variant normal"><img src="frontend/shop/images/shoe/2.jpg" alt=""><img src="frontend/shop/images/shoe/3.jpg" alt=""><img src="frontend/shop/images/shoe/4.jpg" alt=""><img src="frontend/shop/images/shoe/5.jpg" alt=""></div>
-                <select class="ps-rating ps-shoe__rating">
-                  <option value="1">1</option>
-                  <option value="1">2</option>
-                  <option value="1">3</option>
-                  <option value="1">4</option>
-                  <option value="2">5</option>
-                </select>
-              </div>
-              <div class="ps-shoe__detail"><a class="ps-shoe__name" href="product-detai.html">Air Jordan 7 Retro</a>
-                <p class="ps-shoe__categories"><a href="#">Men shoes</a>,<a href="#"> Nike</a>,<a href="#"> Jordan</a></p><span class="ps-shoe__price"> £ 120</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="ps-shoes--carousel">
-          <div class="ps-shoe">
-            <div class="ps-shoe__thumbnail">
-              <div class="ps-badge"><span>New</span></div><a class="ps-shoe__favorite" href="#"><i class="ps-icon-heart"></i></a><img src="frontend/shop/images/shoe/5.jpg" alt=""><a class="ps-shoe__overlay" href="product-detail.html"></a>
-            </div>
-            <div class="ps-shoe__content">
-              <div class="ps-shoe__variants">
-                <div class="ps-shoe__variant normal"><img src="frontend/shop/images/shoe/2.jpg" alt=""><img src="frontend/shop/images/shoe/3.jpg" alt=""><img src="frontend/shop/images/shoe/4.jpg" alt=""><img src="frontend/shop/images/shoe/5.jpg" alt=""></div>
-                <select class="ps-rating ps-shoe__rating">
-                  <option value="1">1</option>
-                  <option value="1">2</option>
-                  <option value="1">3</option>
-                  <option value="1">4</option>
-                  <option value="2">5</option>
-                </select>
-              </div>
-              <div class="ps-shoe__detail"><a class="ps-shoe__name" href="product-detai.html">Air Jordan 7 Retro</a>
-                <p class="ps-shoe__categories"><a href="#">Men shoes</a>,<a href="#"> Nike</a>,<a href="#"> Jordan</a></p><span class="ps-shoe__price"> £ 120</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="ps-shoes--carousel">
-          <div class="ps-shoe">
-            <div class="ps-shoe__thumbnail"><a class="ps-shoe__favorite" href="#"><i class="ps-icon-heart"></i></a><img src="frontend/shop/images/shoe/6.jpg" alt=""><a class="ps-shoe__overlay" href="product-detail.html"></a>
-            </div>
-            <div class="ps-shoe__content">
-              <div class="ps-shoe__variants">
-                <div class="ps-shoe__variant normal"><img src="frontend/shop/images/shoe/2.jpg" alt=""><img src="frontend/shop/images/shoe/3.jpg" alt=""><img src="frontend/shop/images/shoe/4.jpg" alt=""><img src="frontend/shop/images/shoe/5.jpg" alt=""></div>
-                <select class="ps-rating ps-shoe__rating">
-                  <option value="1">1</option>
-                  <option value="1">2</option>
-                  <option value="1">3</option>
-                  <option value="1">4</option>
-                  <option value="2">5</option>
-                </select>
-              </div>
-              <div class="ps-shoe__detail"><a class="ps-shoe__name" href="product-detai.html">Air Jordan 7 Retro</a>
-                <p class="ps-shoe__categories"><a href="#">Men shoes</a>,<a href="#"> Nike</a>,<a href="#"> Jordan</a></p><span class="ps-shoe__price"> £ 120</span>
-              </div>
-            </div>
-          </div>
-        </div>
+        <% }) %>
       </div>
     </div>
   </div>
@@ -286,13 +203,13 @@
     </div>
     <div class="ps-section__content">
       <div class="ps-owl--colection owl-slider" data-owl-auto="true" data-owl-loop="true" data-owl-speed="5000" data-owl-gap="30" data-owl-nav="false" data-owl-dots="false" data-owl-item="4" data-owl-item-xs="1" data-owl-item-sm="2" data-owl-item-md="3" data-owl-item-lg="4" data-owl-duration="1000" data-owl-mousedrag="on">
-        <% for(let i = 0; i < SpecialNews.length; i++) { %>
+        <% for(let i = 0; i < specialNews.length; i++) { %>
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
             <div class="ps-post">
-              <div class="ps-post__thumbnail"><a class="ps-post__overlay" href="<%= linkNews + SpecialNews[i].slug %>"></a><img src="<%= folder_upload_news + SpecialNews[i].thumb %>" style="height: 235px; width: 450px;" alt=""></div>
-              <div class="ps-post__content"><a class="ps-post__title" href="<%= linkNews + SpecialNews[i].slug %>"><%= SpecialNews[i].name %></a>
-                <p class="ps-post__meta"><span>By:<a class="mr-5" href="#">Alena Studio</a></span> -<span class="ml-5"><%= formatDate(SpecialNews[i].created.time) %></span></p>
-                <p><%= formatSummaryHelper(SpecialNews[i].summary) %>…</p><a class="ps-morelink" href="<%= linkNews + SpecialNews[i].slug %>">Read more<i class="fa fa-long-arrow-right"></i></a>
+              <div class="ps-post__thumbnail"><a class="ps-post__overlay" href="<%= linkNews + specialNews[i].slug %>"></a><img src="<%= folder_upload_news + specialNews[i].thumb %>" style="height: 235px; width: 450px;" alt=""></div>
+              <div class="ps-post__content"><a class="ps-post__title" href="<%= linkNews + specialNews[i].slug %>"><%= specialNews[i].name %></a>
+                <p class="ps-post__meta"><span>By:<a class="mr-5" href="#">Alena Studio</a></span> -<span class="ml-5"><%= formatDate(specialNews[i].created.time) %></span></p>
+                <p><%= formatSummaryHelper(specialNews[i].summary) %>…</p><a class="ps-morelink" href="<%= linkNews + specialNews[i].slug %>">Read more<i class="fa fa-long-arrow-right"></i></a>
               </div>
             </div>
           </div>
@@ -301,7 +218,7 @@
     </div>
   </div>
 </div>
-<div class="ps-section ps-home-blog pt-40 pb-40">
+<div class="ps-section ps-home-blog pt-20 pb-40">
   <div class="ps-container">
     <div class="ps-section__header mb-50">
       <h2 class="ps-section__title" data-mask="News">LASTED NEWS</h2>

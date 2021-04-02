@@ -32,12 +32,12 @@ module.exports = {
             .isInt({gt: options.ordering.min, lt: options.ordering.max});
         
         // PRICE
-        req.checkBody('price', util.format(notify.ERROR_PRICE, options.ordering.min, options.ordering.max))
-        .isInt({gt: options.ordering.min});
-        
+        req.checkBody('price', util.format(notify.ERROR_PRICE, options.price.min))
+        .isInt({gt: options.price.min});
+
         // QUANTITY
-        req.checkBody('quantity', util.format(notify.ERROR_QUANTITY, options.ordering.min, options.ordering.max))
-            .isInt({gt: options.ordering.min});
+        req.checkBody('quantity', util.format(notify.ERROR_QUANTITY, options.quantity.min))
+            .isInt({gt: options.quantity.min});        
         
         // STATUS
         req.checkBody('status', notify.ERROR_STATUS)

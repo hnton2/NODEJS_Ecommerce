@@ -6570,5 +6570,12 @@ html .bg--parallax {
 *:focus {
   outline: none
 }
-
 /*-- End CSS weather */
+.highlight {
+  font-family: "Archivo Narrow", sans-serif;
+  font-size: 18px;
+  font-weight: 900;
+  color: #6495ED;
+  text-transform: uppercase;
+  line-height: 1.3em;
+}

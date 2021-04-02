@@ -10,6 +10,7 @@ var schema = new mongoose.Schema({
         name: String
     },
     price: Number,
+    sale_off: Number,
     quantity: Number,
     status: String,
     special: String,

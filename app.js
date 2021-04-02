@@ -108,17 +108,11 @@ app.use(async(err, req, res, next) => {
   // render the error page
   if(systemConfig.env == "production") {
     res.status(err.status || 500);
-    res.render(__path_views_blog +  'pages/error', {
-      top_post: false,
-      layout: __path_views_blog + 'frontend',
-      top_post: false,
-      trending_post: false,
-      layout_rss: false,
-      layout_contact: false,
-      layout_article: false,
+    res.render(__path_views_shop +  'pages/error', {
+      pageTitle : 'Error 404',
+      layout: false,
     });
   }
-  
 });
 
 module.exports = app;

@@ -75,7 +75,8 @@
 						<th class="text-center">ID</th>
 						<th class="text-center">Info</th>
 						<%- sortHelper(linkPrefix, 'Ordering', 'ordering', params.sortField, params.sortType) %>
-						<%- sortHelper(linkPrefix, 'Price', 'price', params.sortField, params.sortType) %>
+						<%- sortHelper(linkPrefix, 'Price ($)', 'price', params.sortField, params.sortType) %>
+						<%- sortHelper(linkPrefix, 'Sale off (%)', 'sale_off', params.sortField, params.sortType) %>
 						<%- sortHelper(linkPrefix, 'Quantity', 'quantity', params.sortField, params.sortType) %>
 						<%- sortHelper(linkPrefix, 'Status', 'status', params.sortField, params.sortType) %>
 						<%- sortHelper(linkPrefix, 'Special', 'special', params.sortField, params.sortType) %>
@@ -104,7 +105,11 @@
 								</td>
 								<td class="text-center position-relative">
 									<input type="number" name="price<%= item.id %>" value="<%= item.price %>" class="ordering form-control form-control-sm m-auto text-center" style="width: 65px" id="price<%= item.id %>" data-id="<%= item.id %>" min="1">
-								</td><td class="text-center position-relative">
+								</td>
+								<td class="text-center position-relative">
+									<input type="number" name="sale_off<%= item.id %>" value="<%= item.sale_off %>" class="ordering form-control form-control-sm m-auto text-center" style="width: 65px" id="sale_off<%= item.id %>" data-id="<%= item.id %>" min="1">
+								</td>
+								<td class="text-center position-relative">
 									<input type="number" name="quantity<%= item.id %>" value="<%= item.quantity %>" class="ordering form-control form-control-sm m-auto text-center" style="width: 65px" id="quantity<%= item.id %>" data-id="<%= item.id %>" min="1">
 								</td>
 								<td class="text-center position-relative"><%- statusHelper(linkPrefix, 'status', item.status, item.id) %></td>

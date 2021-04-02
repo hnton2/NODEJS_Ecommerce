@@ -26,8 +26,42 @@ $(document).ready(function () {
         let data = JSON.parse(response);
         $("#box-weather").html(renderWeather(data));
     });
-});
 
+    $("#example").bsFormAlerts({"id": "example"});
+    $(".ps-contact__form").submit(function(event ) {
+        var inputName = $('#name-input').val();
+        var inputEmail = $('#email-input').val();
+        var inputPhone = $('#phone-input').val();
+        $(document).trigger("clear-alert-id.example");
+        if (inputName.length <= 0 ) {
+            $(document).trigger("set-alert-id-example", [
+                {
+                    "message": "This is an info alert",
+                    "priority": "info"
+                }
+            ]);
+        }
+        if (inputEmail.length <= 0 ) {
+            $(document).trigger("set-alert-id-example", [
+                {
+                    "message": "This is an info alert",
+                    "priority": "info"
+                }
+            ]);
+        }
+        if (inputPhone.length <= 0) {
+            $(document).trigger("set-alert-id-example", [
+                {
+                    "message": "This is an info alert",
+                    "priority": "info"
+                }
+            ]);
+        }
+        if(inputName.length <= 0 || inputEmail.length <= 0 || inputPhone.length <= 0) {
+            event.preventDefault();
+        }
+    });
+}); 
 
 function renderWeather(items) {
     let xhtml = `<div class="container-fluid">
