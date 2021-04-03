@@ -13,6 +13,8 @@ const BrandModel 	= require(__path_schemas + 'brand');
 const ContactModel 	= require(__path_schemas + 'contact');
 const ClothingModel 	= require(__path_schemas + 'clothing');
 const SliderModel 	= require(__path_schemas + 'slider');
+const BannerModel 	= require(__path_schemas + 'banner');
+const SubscribeModel 	= require(__path_schemas + 'subscribe');
 
 const folderView	 = __path_views_admin + 'pages/dashboard/';
 const UtilsHelpers 	= require(__path_helpers + 'utils');
@@ -31,11 +33,11 @@ router.get('/', async function(req, res, next) {
   let totalBrand = await UtilsHelpers.countCollections(BrandModel);
   let totalClothing = await UtilsHelpers.countCollections(ClothingModel);
   let totalSlider = await UtilsHelpers.countCollections(SliderModel);
-
+  let totalBanner = await UtilsHelpers.countCollections(BannerModel);
+  let totalSubscribe = await UtilsHelpers.countCollections(SubscribeModel);
 
   res.render(`${folderView}index`, { 
-    pageTitle: 'Dashboard Page',
-    'courseName': '<p>NodeJS</p>',
+    pageTitle: 'Dashboard',
     totalItems,
     totalGroups,
     totalUsers,
@@ -47,7 +49,9 @@ router.get('/', async function(req, res, next) {
     totalContact,
     totalBrand,
     totalClothing,
-    totalSlider
+    totalSlider,
+    totalBanner,
+    totalSubscribe,
   });
 });
 

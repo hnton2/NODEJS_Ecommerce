@@ -18,5 +18,7 @@ router.use('/brand', require('./brand'));
 router.use('/shoes', require('./shoes'));
 router.use('/clothing', require('./clothing'));
 router.use('/slider', require('./slider'));
+router.use('/banner', require('./banner'));
+router.use('/subscribe', require('./subscribe'));
 
 module.exports = router;

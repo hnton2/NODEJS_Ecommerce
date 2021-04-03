@@ -4,18 +4,22 @@
         {name: 'Category', icon: 'fa-table', link: `${systemConfig.prefixAdmin}/category`, activeValue: 'category'},
         {name: 'Articles', icon: 'fa-book-open', link: `${systemConfig.prefixAdmin}/articles`, activeValue: 'articles'},
         {name: 'Rss', icon: 'fa-tag', link: `${systemConfig.prefixAdmin}/rss`, activeValue: 'rss'},
-        {name: 'Contact', icon: 'fa-user-plus', link: `${systemConfig.prefixAdmin}/contact`, activeValue: 'contact'},
     ];
     let userManagement = [
         {name: 'Groups', icon: 'fa-users', link: `${systemConfig.prefixAdmin}/groups`, activeValue: 'groups'},
         {name: 'Users', icon: 'fa-user', link: `${systemConfig.prefixAdmin}/users`, activeValue: 'users'},
     ];
     let shopManagement = [
-        {name: 'Slider', icon: 'fa-star', link: `${systemConfig.prefixAdmin}/slider`, activeValue: 'slider'},
+        {name: 'Slider', icon: 'fa-map', link: `${systemConfig.prefixAdmin}/slider`, activeValue: 'slider'},
+        {name: 'Banner', icon: 'fa-book', link: `${systemConfig.prefixAdmin}/banner`, activeValue: 'banner'},
         {name: 'Category', icon: 'fa-th-list', link: `${systemConfig.prefixAdmin}/product-category`, activeValue: 'category-product'},
         {name: 'Brand', icon: 'fa-bookmark', link: `${systemConfig.prefixAdmin}/brand`, activeValue: 'brand'},
         {name: 'Shoes', icon: 'fa-star', link: `${systemConfig.prefixAdmin}/shoes`, activeValue: 'shoes'},
         {name: 'Clothing', icon: 'fa-star', link: `${systemConfig.prefixAdmin}/clothing`, activeValue: 'clothing'},
+    ];
+    let customerManagement = [
+        {name: 'Contact', icon: 'fa-user-plus', link: `${systemConfig.prefixAdmin}/contact`, activeValue: 'contact'},
+        {name: 'Subscribe', icon: 'fa-user-plus', link: `${systemConfig.prefixAdmin}/subscribe`, activeValue: 'subscribe'},
     ];
 %>
 <aside class="main-sidebar sidebar-dark-info elevation-4">
@@ -51,6 +55,7 @@
                     <%- menuSidebarHelper('Quản lý user', userManagement, 'fa-male') %>
                     <%- menuSidebarHelper('Quản lý bài viết', articleManagement, 'fa-newspaper') %>
                     <%- menuSidebarHelper('Quản lý sản phẩm', shopManagement, 'fa-shopping-cart') %>
+                    <%- menuSidebarHelper('Quản lý khách hàng', customerManagement, 'fa-male') %>
                 </li>
             </ul>
         </nav>

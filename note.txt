@@ -16,12 +16,10 @@ ajax change status => ajax filter status
 link footer lỗi
 active choose new shoes(all, nike, adidas,....)
 chưa có link cho category shoes ở category và home
+subscribe: sử dụng phương thức post, làm sao để trả về json?
 
-liên hệ thêm google map
 admin: thêm chức năng lọc theo special
-tạo thêm quản lí banner
 phân trang ajax
-tạo thêm phần quản lí subscribe: mail, name, status, created -> ajax form ở frontend
 thêm color- size cho sản phẩm
 bổ sung đánh giá trong comment
 
@@ -30,6 +28,7 @@ jquery tag-input
 jquery tag editor drag & drop between field
 jquery autocomplete
 
+lỗi đổ ajax product category
 
 
 

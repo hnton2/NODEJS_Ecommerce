@@ -73,8 +73,9 @@
   </div>
 </div>
 <div class="ps-section--offer">
-  <div class="ps-column"><a class="ps-offer" href="#"><img src="frontend/shop/images/banner/banner1.png" style="height: 477px; width: 1530px;" alt=""></a></div>
-  <div class="ps-column"><a class="ps-offer" href="#"><img src="frontend/shop/images/banner/banner2.png" style="height: 477px; width: 1530px;" alt=""></a></div>
+  <% itemsBanner.forEach( (item) => { %>
+    <div class="ps-column"><a class="ps-offer" href="<%= item.link %>"><img src="uploads/banner/<%= item.thumb %>" style="height: 477px; width: 1530px;" alt=""></a></div>
+  <% }) %>
 </div>
 <div class="ps-section ps-section--top-sales ps-owl-root pt-80 pb-80">
   <div class="ps-container">

@@ -1,5 +1,6 @@
 <% 
-    const linkPrefix     = systemConfig.prefixShop + '/';
+    const linkPrefix      = systemConfig.prefixShop + '/';
+    const linkSubscribe      = systemConfig.prefixShop + '/subscribe';
 %>
 <div class="ps-subscribe">
   <div class="ps-container">
@@ -8,8 +9,9 @@
             <h3><i class="fa fa-envelope"></i>Sign up to Newsletter</h3>
           </div>
           <div class="col-lg-5 col-md-7 col-sm-12 col-xs-12 ">
-            <form class="ps-subscribe__form" action="do_action" method="post">
-              <input class="form-control" type="text" placeholder="">
+            <span data-alertid="example"></span>
+            <form class="ps-subscribe__form" action="<%= linkSubscribe %>" method="POST">
+              <input class="form-control" type="text" id="email-subscribe" name='email' placeholder="Enter your email...">
               <button>Sign up now</button>
             </form>
           </div>
@@ -19,7 +21,7 @@
     </div>
   </div>
 </div>
-<div class="ps-footer bg--cover" data-background="frontend/shop/images/background/parallax.jpg">
+<div class="ps-footer bg--cover" data-background="">
   <div class="ps-footer__content">
     <div class="ps-container">
       <div class="row">

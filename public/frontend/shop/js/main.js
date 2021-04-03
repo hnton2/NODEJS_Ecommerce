@@ -677,7 +677,7 @@
         menuBtnToggle();
         subMenuToggle();
         owlCarousel($('.owl-slider'));
-        mapConfig();
+        // mapConfig();
         // setHeightProduct();
         navigateOwlCarousel();
         countDown();

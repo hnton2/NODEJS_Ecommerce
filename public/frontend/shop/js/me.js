@@ -52,7 +52,7 @@ $(document).ready(function () {
         if (inputName.length <= 0 ) {
             $(document).trigger("set-alert-id-example", [
                 {
-                    "message": "This is an info alert",
+                    "message": "Please enter your name! ",
                     "priority": "info"
                 }
             ]);
@@ -60,7 +60,7 @@ $(document).ready(function () {
         if (inputEmail.length <= 0 ) {
             $(document).trigger("set-alert-id-example", [
                 {
-                    "message": "This is an info alert",
+                    "message": "Please enter your email! ",
                     "priority": "info"
                 }
             ]);
@@ -68,13 +68,37 @@ $(document).ready(function () {
         if (inputPhone.length <= 0) {
             $(document).trigger("set-alert-id-example", [
                 {
-                    "message": "This is an info alert",
+                    "message": "Please enter your phone number! ",
                     "priority": "info"
                 }
             ]);
         }
         if(inputName.length <= 0 || inputEmail.length <= 0 || inputPhone.length <= 0) {
             event.preventDefault();
+        }
+    });
+    // subscribe
+    $(".ps-subscribe__form").submit(function(event ) {
+        var inputEmail = $('#email-subscribe').val();
+        $(document).trigger("clear-alert-id.example");
+        if (inputEmail.length <= 0 ) {
+            $(document).trigger("set-alert-id-example", [
+                {
+                    "message": "Please enter your name!",
+                    "priority": "info"
+                }
+            ]);
+            event.preventDefault();
+        } else {
+            event.preventDefault();
+            $.ajax({
+                url: '/subscribe',
+                type: 'post',
+                data:$('#email-subscribe').serialize(),
+                success:function(){
+                    $('#email-subscribe').notify('Sign up success!', { position:"top", className: 'success' });
+                }
+            });
         }
     });
     // sort by product

@@ -1,0 +1,41 @@
+<% include ./../../elements/errors %>
+<% include ./../../helpers/selectBox %>
+<% include ./../../helpers/input %>
+<% include ./../../helpers/textarea %>
+<% include ./../../helpers/form-input %>
+<% include ./../../helpers/image %>
+<% include ./../../helpers/image %>
+
+
+<% 
+	const folderUpload 	= "banner/";
+	const collection 	= "banner";
+	const linkPrefix	= systemConfig.prefixAdmin + `/${collection}/`;
+
+	let elementsForm = [
+		{for: 'link', label: 'Link', input: inputHelper('link', item.link)},
+		{for: 'thumb', label: 'Thumb', input: inputHelper('thumb', item.name, 'file')},
+		{for: 'showAvatar', label: '', input: imageHelper(folderUpload, item.thumb, 'no-avatar.png', item.name, 'img-avatar-form preview-thumb', 100)},
+		{for: 'status', label: 'Status', input: selectBoxHelper('status', systemConfig.status_value, item.status)},
+		{for: 'ordering', label: 'Ordering', input: inputHelper('ordering', item.ordering)},
+		{for: 'content', label: 'Content', input: textareaHelper('content', item.content)}
+	];
+
+	let xhtml = createFormHelper(elementsForm);
+%>
+
+<div class="card card-info card-outline">
+	<form action="<%= linkPrefix %>save/" method="POST" class="mb-0" enctype="multipart/form-data" name="form-upload">
+		<div class="card-body">
+			<%- xhtml %>
+		</div>
+		<div class="card-footer">
+			<div class="col-12 col-sm-8 offset-sm-2">
+				<input class="form-control" name="id" value="<%= item.id %>" type="hidden" >
+				<input name="thumb_old" value="<%= item.thumb %>" type="hidden"  />
+				<button type="submit" class="btn btn-sm btn-success mr-1"> Submit</button>
+				<a href="<%= linkPrefix %>" class="btn btn-sm btn-danger mr-1"> Cancel</a>
+			</div>
+		</div>
+	</form>
+</div>

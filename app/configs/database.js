@@ -18,4 +18,6 @@ module.exports = {
     col_product: 'product',
     col_clothing: 'clothing',
     col_slider: 'slider',
+    col_banner: 'banner',
+    col_subscribe: 'subscribe',
 };

@@ -29,5 +29,6 @@ module.exports = {
     ADD_CONTACT_SUCCESS: 'Thông tin đã được gửi đi!',
     ERROR_PRICE: 'Giá tiền phải lớn hơn %d',
     ERROR_QUANTITY: 'Số lượng phải lớn hơn %d',
-    ERROR_BRAND: 'Chiều dài khác rỗng'
+    ERROR_BRAND: 'Chiều dài khác rỗng',
+    SUBSCRIBE_SUCCESS: 'Sign up success',
 };
