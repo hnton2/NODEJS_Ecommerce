@@ -3,6 +3,7 @@
   const folder_uploads = "uploads/articles/"; 
   const linkCategory = systemConfig.prefixShop + '/news-category/';
   const linkNews = systemConfig.prefixShop + '/news/';
+  const linkProductCategory = systemConfig.prefixShop + '/category/';
 %>
 
 <div class="ps-sidebar" data-mh="product-listing">
@@ -12,8 +13,8 @@
     </div>
     <div class="ps-widget__content">
       <ul class="ps-list--checked">
-        <% itemsProductCategory.forEach ( (item)=>{ %>
-          <li class="current"><a href="#"><%= item.name %>(76)</a></li>
+        <% itemsProductCategory.forEach ( (item)=>{ %> 
+          <li id="<%= item.id %>"><a href="javascript:void(0)" onclick="changeCategory('<%= linkProductCategory + item.slug %>', '<%= item.id %>')"><%= item.name %> (<%= item.amount %>)</a></li>
         <% }) %>
       </ul>
     </div>

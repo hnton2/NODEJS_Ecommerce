@@ -30,7 +30,7 @@ module.exports = {
     },
     listItemsFrontend: (params = null, option = null) => {
         let find = {};
-        let select = 'name slug';
+        let select = 'name slug amount';
         let limit = 10;
         let sort = {};
 

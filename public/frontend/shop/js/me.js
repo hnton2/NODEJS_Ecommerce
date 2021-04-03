@@ -5,15 +5,30 @@ $(document).ready(function () {
     let currentMenu = arrMenu[1];
     $('li.menu-item[data-active="'+currentMenu+'"]').addClass('current-menu-item');
 
+    //save filter-category when refresh category
+    if(currentMenu == 'category') {
+        if (localStorage.getItem("filter-category") !== null) {
+            let filterObj = JSON.parse(localStorage.getItem('filter-category'));
+            $('#product-area').empty();
+            $('#product-area').append('<div class="ps-widget__content"><div><div class="text-center"><img style="width: 150px" src="frontend/shop/images/loading.gif" alt=""></div></div></div>');
+            
+            $('ul.ps-list--checked li').removeClass('current');
+            if(filterObj.id !== '') $('ul.ps-list--checked li#' + filterObj.id).addClass('current'); 
+            $("#product-area").load(filterObj.link, null, function(response, status) {
+                localStorage.setItem("filter-category", JSON.stringify(filterObj));
+                let data = JSON.parse(response);
+                $('#product-area').empty();
+                $("#product-area").html(renderProduct(data));
+            });
+        }
+    }
+
     // rss
     let linkGold = $("#box-gold").data("url");
     let linkCoin = $("#box-coin").data("url");
     let linkWeather = $("#box-weather").data("url");
-
-
     $("#box-gold").load(linkGold, null, function(response, status) {
         let data = JSON.parse(response);
-        console.log(data);
         $("#box-gold").html(renderGoldTable(data));
     });
     
@@ -27,6 +42,7 @@ $(document).ready(function () {
         $("#box-weather").html(renderWeather(data));
     });
 
+    // notify for contact
     $("#example").bsFormAlerts({"id": "example"});
     $(".ps-contact__form").submit(function(event ) {
         var inputName = $('#name-input').val();
@@ -61,6 +77,12 @@ $(document).ready(function () {
             event.preventDefault();
         }
     });
+    // sort by product
+    /* $('select[name=sort-by-product]').change(function() {
+        var path = window.location.pathname.split('/');
+        var linkRedirect = '/' + path[1] + '/' + path[2] + '/filter-category/' + $(this).val();
+        window.location.pathname = linkRedirect;
+    }); */
 }); 
 
 function renderWeather(items) {
@@ -120,7 +142,6 @@ function renderCoinTable(items) {
     let xhtml = '';
     items.forEach(
         (item) => {
-            console.log(item);
             let price = Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(item.quote.USD.price);
             let textColor = item.quote.USD.percent_change_24h > 0 ? 'text-success' : 'text-danger';
             let percentChange = Intl.NumberFormat("en-US", { maximumFractionDigits: 2 }).format(item.quote.USD.percent_change_24h) + "%";
@@ -143,4 +164,78 @@ function renderCoinTable(items) {
                 ${xhtml}
             </tbody>
         </table>`;
+}
+
+function changeCategory(link, id) {
+    let filterObj = {};
+    $('#product-area').empty();
+    $('#product-area').append('<div class="ps-widget__content"><div><div class="text-center"><img style="width: 150px" src="frontend/shop/images/loading.gif" alt=""></div></div></div>');
+    
+    if($('ul.ps-list--checked li#' + id).hasClass( 'current' )){
+        $('ul.ps-list--checked li#' + id).removeClass('current');
+        $("#product-area").load('/category/all/shoes', null, function(response, status) {
+            filterObj.id = '';
+            filterObj.link = '/category/all/shoes';
+            localStorage.setItem("filter-category", JSON.stringify(filterObj));
+            let data = JSON.parse(response);
+            $('#product-area').empty();
+            $("#product-area").html(renderProduct(data));
+        });
+    } else {
+        $('ul.ps-list--checked li').removeClass('current');
+        $('ul.ps-list--checked li#' + id).addClass('current'); 
+        $("#product-area").load(link, null, function(response, status) {
+            filterObj.id = id;
+            filterObj.link = link;
+            localStorage.setItem("filter-category", JSON.stringify(filterObj));
+            let data = JSON.parse(response);
+            $('#product-area').empty();
+            $("#product-area").html(renderProduct(data));
+        });
+    }
+
+}
+
+function renderProduct (item) {
+    let folder_upload = 'uploads/shoes/';
+    let linkShoes ='/shoes/';
+    let xhtml = '';
+    item.forEach( (item) => {
+        xhtml += `<div class="ps-product__column">
+        <div class="ps-shoe mb-30">
+          <div class="ps-shoe__thumbnail">`;
+        if(item.sale_off > 0) {
+            xhtml += `<div class="ps-badge ps-badge--sale"><span>-${item.sale_off}%</span></div>`;
+        }
+        xhtml += `
+            <a class="ps-shoe__favorite" href="#"><i class="ps-icon-heart"></i></a>
+            <img src="${folder_upload + item.thumb[1]}" alt=""><a class="ps-shoe__overlay" href="${linkShoes + item.slug}"></a>
+          </div>
+          <div class="ps-shoe__content">
+            <div class="ps-shoe__variants">
+              <div class="ps-shoe__variant normal">
+                <img src="${folder_upload + item.thumb[0]}" alt="">
+                <img src="${folder_upload + item.thumb[1]}" alt="">
+                <img src="${folder_upload + item.thumb[2]}" alt="">
+                <img src="${folder_upload + item.thumb[3]}" alt="">
+              </div>
+              <select class="ps-rating ps-shoe__rating">
+                <option value="1">1</option>
+                <option value="1">2</option>
+                <option value="1">3</option>
+                <option value="1">4</option>
+                <option value="2">5</option>
+              </select>
+            </div>
+            <div class="ps-shoe__detail"><a class="ps-shoe__name" href="${linkShoes + item.id}">${item.name}</a>
+              <p class="ps-shoe__categories"><a href="#">${item.category.name} shoes</a>,<a href="#"> ${item.brand.name}</a></p>
+              <span class="ps-shoe__price">`;
+        if(item.sale_off > 0) {
+            xhtml+= `<del>$${item.price}</del> $${item.price - (item.price * (item.sale_off/100))}`;
+        } else {
+            xhtml += `$${item.price}`;
+        }
+        xhtml += `</span></div></div></div></div>`;
+    });
+    return xhtml;
 }

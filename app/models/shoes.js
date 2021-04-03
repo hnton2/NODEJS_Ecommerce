@@ -57,6 +57,7 @@ module.exports = {
         if(option.task == 'items-in-category'){
             find = {status:'active', 'category.id': params.id};
             select += ' content';
+            limit = 0;
             sort = {ordering: 'asc'};
         }
 
