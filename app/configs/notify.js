@@ -31,4 +31,6 @@ module.exports = {
     ERROR_QUANTITY: 'Số lượng phải lớn hơn %d',
     ERROR_BRAND: 'Chiều dài khác rỗng',
     SUBSCRIBE_SUCCESS: 'Sign up success',
+    ERROR_SIZE: 'Size phải khác rỗng',
+    ERROR_COLOR: 'Color phải khác rỗng',
 };

@@ -19,7 +19,7 @@ router.get('/:category/', async (req, res, next) => {
   let query = ParamsHelpers.getParam(req.query, 'keyword', '');
   if(query !== '') objWhere.name = new RegExp(query, 'i');
   if(category === 'all') {
-    title = 'All';
+    title = 'News Category';
     taskCategory = 'all-items';
   } else if( category === 'trending') {
     title = 'Trends';

@@ -21,7 +21,7 @@ router.get('/:slug', async (req, res, next) => {
   await ShoesModel.listItemsFrontend(itemMain[0], {task: 'items-related'}).then( (items) => {itemsRelated = items;});
 
   res.render(`${folderView}index`, {
-    pageTitle   : itemMain.name,
+    pageTitle   : itemMain[0].name,
     top_post: false,
     contact_layout: false,
     sidebar_rss: false,

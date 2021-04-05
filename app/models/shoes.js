@@ -14,7 +14,7 @@ module.exports = {
     
         return Model
 		.find(objWhere)
-		.select('name slug status special ordering created modified category.name price quantity sale_off brand thumb')
+		.select('name slug status special ordering created modified category.name price quantity sale_off brand thumb size color tags')
 		.sort(sort)
 		.skip((params.pagination.currentPage-1) * params.pagination.totalItemsPerPage)
 		.limit(params.pagination.totalItemsPerPage)
@@ -223,6 +223,9 @@ module.exports = {
                 sale_off: item.sale_off,
                 content: item.content,
                 thumb: item.thumb,
+                size: item.size,
+                color: item.color,
+                tags: item.tags,
 				modified: {
 					user_id: user.id, 
 					user_name: user.username,

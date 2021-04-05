@@ -11,7 +11,7 @@
 	const folderUpload 	= "shoes/";
 	const collection 	= "shoes";
 	const linkPrefix	= systemConfig.prefixAdmin + `/${collection}/`;
-
+	const folder_upload 	= "uploads/shoes/";
 
 	let elementsForm = [
 		{for: 'name', label: 'Name', input: inputHelper('name', product.name, 'text', 'name_slug')},
@@ -19,8 +19,11 @@
 		{for: 'brand', label: 'Brand', input: selectBoxHelper('brand_id', brandItems, product.brand_id)},
 		{for: 'category', label: 'Category', input: selectBoxHelper('category_id', categoryItems, product.category_id)},
 		{for: 'thumb', label: 'Thumb', input: inputMultiImageHelper('thumb', product.name, 'input-multi-files')},
-		{for: 'showThumb', label: '', input: showMultiImageHelper('preview-images')},
+		{for: 'showThumb', label: '', input: showMultiImageHelper(folder_upload, product.thumb)},
 		{for: 'ordering', label: 'Ordering', input: inputHelper('ordering', product.ordering)},
+		{for: 'size', label: 'Size', input: inputHelper('size', product.size, 'text', 'tags-input')},
+		{for: 'color', label: 'Color', input: inputHelper('color', product.color, 'text', 'tags-input')},
+		{for: 'tags', label: 'Tags', input: inputHelper('tags', product.tags, 'text', 'tags-input')}, 
 		{for: 'price', label: 'Price', input: inputHelper('price', product.price)},
 		{for: 'sale_off', label: 'Sale off', input: inputHelper('sale_off', product.sale_off)},
 		{for: 'quantity', label: 'Quantity', input: inputHelper('quantity', product.quantity)},

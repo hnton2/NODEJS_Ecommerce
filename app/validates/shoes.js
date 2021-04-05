@@ -11,7 +11,9 @@ const options = {
     status: { value: 'allValue' },
     special: { value: 'allValue' },
     category: { value: 'allValue' },
-    content: { min: 5, max: 20000 }
+    content: { min: 5, max: 20000 },
+    size: { min: 1},
+    color: { min: 1},
 }
 
 module.exports = {
@@ -54,7 +56,14 @@ module.exports = {
         // CONTENT
         req.checkBody('content', util.format(notify.ERROR_NAME, options.content.min, options.content.max) )
             .isLength({ min: options.content.min, max: options.content.max });
-
+        
+        // SIZE
+        req.checkBody('size', util.format(notify.ERROR_SIZE, options.size.min))
+            .isLength({ min: options.size.min});
+        
+        // COLOR
+        req.checkBody('color', util.format(notify.ERROR_COLOR, options.color.min))
+            .isLength({ min: options.color.min});
 
         let errors = req.validationErrors() !== false ? req.validationErrors() : [];  
 		if (errUpload) {

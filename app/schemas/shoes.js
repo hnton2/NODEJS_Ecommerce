@@ -31,6 +31,9 @@ var schema = new mongoose.Schema({
     },
     content: String,
     thumb: [String],
+    tags: String,
+    size: String,
+    color: String,
 });
 schema.index({name: 'text', content: 'text', 'category.name': 'text', 'brand.name': 'text'});
 
