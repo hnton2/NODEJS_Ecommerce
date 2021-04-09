@@ -120,16 +120,25 @@ router.post('/change-ordering', (req, res, next) => {
 });
 
 // Delete
-router.get('/delete/:id', (req, res, next) => {
+router.get('/delete/:id', async (req, res, next) => {
 	let id				= ParamsHelpers.getParam(req.params, 'id', ''); 	
+	let idCategory = '';
+	await MainModel.getItems(id, null).then( (item) => idCategory = item.category.id);
+	await CategoryModel.updateAmountOfItem(idCategory, -1).then( (result) => { }); 
 	MainModel.deleteItems(id, {tasks: 'delete-one'}).then( (result) => {
 		NotifyHelpers.showNotify(req, res, linkIndex, {tasks: 'delete-success'});
 	});
 });
 
 // Delete - Multi
-router.post('/delete', (req, res, next) => {
-	MainModel.deleteItems(req.body.cid, {tasks: 'delete-multi'}).then( (result) => {
+router.post('/delete', (req, res, next) => { 
+	let id = req.body.cid;
+	id.forEach( async (i) => {
+		let idCategory = '';
+		await MainModel.getItems(i, null).then( (item) => idCategory = item.category.id);
+		await CategoryModel.updateAmountOfItem(idCategory, -1).then( (result) => { });
+	})
+	MainModel.deleteItems(id, {tasks: 'delete-multi'}).then( (result) => {
 		NotifyHelpers.showNotify(req, res, linkIndex, {n: result.n, tasks: 'delete-multi-success'});
 	});
 });
@@ -147,7 +156,7 @@ router.get(('/form(/:id)?'), async (req, res, next) => {
 	if(id === '') { // ADD
 		res.render(`${folderView}form`, { pageTitle: pageTitleAdd, article, categoryItems, errors });
 	}else { // EDIT
-		MainModel.getItems(id).then( (article) =>{
+		MainModel.getItems(id, null).then( (article) =>{
 			article.category_id = article.category.id;
 			article.category_name = article.category.name;
 			res.render(`${folderView}form`, { pageTitle: pageTitleEdit, article, categoryItems, errors });
@@ -168,7 +177,7 @@ router.post('/save', (req, res, next) => {
 			if(req.file != undefined) FileHelpers.remove(folderImage, req.file.filename);
 
 			let categoryItems = [];
-			await CategoryModel.getItems(null, {task: 'get-name-items'}).then( (items) => {
+			await CategoryModel.getItems(null, null).then( (items) => {
 				categoryItems = items;
 				categoryItems.unshift({_id: 'allValue', name: 'Choose category'});
 			});
@@ -181,6 +190,14 @@ router.post('/save', (req, res, next) => {
 			}else{
 				article.thumb = req.file.filename;
 				if(taskCurrent == "edit") FileHelpers.remove(folderImage, article.thumb_old);
+			}
+			if(taskCurrent == 'add') {
+				await CategoryModel.updateAmountOfItem(article.category_id, 1).then( (result) => { });
+			} else if (taskCurrent == 'edit') {
+				if(article.categoryID_old != article.category_id) { // cập nhật category
+					await CategoryModel.updateAmountOfItem(article.categoryID_old, -1).then( (result) => { });
+					await CategoryModel.updateAmountOfItem(article.category_id, 1).then( (result) => { });
+				}
 			}
 
 			MainModel.saveItems(article, req.user, {tasks: taskCurrent}).then( (result) => {

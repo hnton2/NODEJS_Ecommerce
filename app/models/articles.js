@@ -43,6 +43,7 @@ module.exports = {
             find = {status:'active', trending: 'active'};
             sort = {ordering: 'asc'};
             limit = 8;
+            select += ' summary';
         }
 
         if(option.task == 'items-news'){
@@ -77,14 +78,12 @@ module.exports = {
 
         return Model.find(find).select(select).limit(limit).sort(sort);
     },
-    getMainArticle: (slug, option = null) => {
-        let select = 'name created category.name category.id thumb summary content';
+    getMainItems: (slug, option = null) => {
+        let select = 'name created slug category.name category.id thumb summary content comments';
         return Model.find({slug: slug}).select(select);
     },
     getItems: (id, option = null) => {
-        if(option.task = 'get-category'){
-            return Model.findById(id).select('category.id category.name');
-        } else return Model.findById(id);
+        return Model.findById(id);
     },
     countItems: (params, option = null) => {
         let objWhere	 = {};
@@ -229,5 +228,11 @@ module.exports = {
 				}
             });
         }
-    }
+    },
+    saveReview: (id, item) => {
+        return Model.update(
+            { _id: id }, 
+            { $push: { comments: item } }
+        );
+    },
 }

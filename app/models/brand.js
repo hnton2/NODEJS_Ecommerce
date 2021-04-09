@@ -12,7 +12,7 @@ module.exports = {
     
         return Model
 		.find(objWhere)
-		.select('name status ordering created modified slug')
+		.select('name status ordering created modified slug amount')
 		.sort(sort)
 		.skip((params.pagination.currentPage-1) * params.pagination.totalItemsPerPage)
 		.limit(params.pagination.totalItemsPerPage)
@@ -30,7 +30,7 @@ module.exports = {
     },
     listItemsFrontend: (params = null, option = null) => {
         let find = {};
-        let select = 'name slug';
+        let select = 'name slug amount';
         let limit = 10;
         let sort = {};
 
@@ -40,6 +40,9 @@ module.exports = {
         }
 
         return Model.find(find).select(select).limit(limit).sort(sort);
+    },
+    updateAmountOfItem: (id, state) => {
+        return Model.findOneAndUpdate({_id :id}, {$inc : {'amount' : state}}).exec();
     },
     countItems: (params, option = null) => {
         let objWhere	 = {};

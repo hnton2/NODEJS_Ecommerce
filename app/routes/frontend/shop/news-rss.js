@@ -21,7 +21,7 @@ router.get('/',  async (req, res, next) => {
   });
   var feedConfig = {
     title: 'Fashion News',
-    size: 40,
+    size: 50,
     feeds: linkRss,
     pubDate: new Date()
   };
@@ -44,7 +44,7 @@ router.get('/local-news',  async (req, res, next) => {
   let itemsRSS = [];
   var feedConfig = {
     title: 'Local News',
-    size: 40,
+    size: 50,
     feeds: [
       'http://e.vnexpress.net/rss/sports.rss',
       'http://e.vnexpress.net/rss/perspectives.rss',

@@ -16,7 +16,7 @@
 
 	let elementsForm = [
 		{for: 'name', label: 'Name', input: inputHelper('name', article.name, 'text', 'name_slug')},
-		{for: 'slug', label: 'Slug', input: inputHelper('slug', article.slug)},
+		{for: 'slug', label: 'Slug', input: inputHelper('slug', article.slug)}, 
 		{for: 'thumb', label: 'Thumb', input: inputHelper('thumb', article.name, 'file')},
 		{for: 'showThumb', label: '', input: imageHelper(folderUpload, article.thumb, 'no-image.jpg', article.name, 'img-avatar-form preview-thumb')},
 		{for: 'ordering', label: 'Ordering', input: inputHelper('ordering', article.ordering)},
@@ -39,6 +39,7 @@
 			<div class="col-12 col-sm-8 offset-sm-2">
 				<input class="form-control" name="id" value="<%= article.id %>" type="hidden" >
 				<input name="thumb_old" value="<%= article.thumb %>" type="hidden"  />
+				<input name="categoryID_old" value="<%= article.category_id %>" type="hidden"  /> 
 				<input class="form-control" name="category_name" value="<%= article.category_name %>" type="hidden" >
 				<button type="submit" class="btn btn-sm btn-success mr-1"> Submit</button>
 				<a href="<%= linkPrefix %>" class="btn btn-sm btn-danger mr-1"> Cancel</a>

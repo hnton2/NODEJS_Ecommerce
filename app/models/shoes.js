@@ -57,7 +57,7 @@ module.exports = {
         if(option.task == 'items-in-category'){
             find = {status:'active', 'category.id': params.id};
             select += ' content';
-            limit = 0;
+            limit = 50;
             sort = {ordering: 'asc'};
         }
 
@@ -80,8 +80,8 @@ module.exports = {
 
         return Model.find(find).select(select).limit(limit).sort(sort);
     },
-    getMainArticle: (slug, option = null) => { 
-        let select = 'name slug brand category.name category.id price thumb content sale_off';
+    getMainItems: (slug, option = null) => { 
+        let select = 'name slug brand category.name category.id price thumb content sale_off tags color size reviews';
         return Model.find({slug: slug}).select(select);
     },
     getItems: (id, option = null) => {
@@ -252,5 +252,11 @@ module.exports = {
                 }
             });
         }
-    }
+    },
+    saveReview: (id, item) => {
+        return Model.update(
+            { _id: id }, 
+            { $push: { reviews: item } }
+        );
+    },
 }

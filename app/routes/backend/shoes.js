@@ -7,7 +7,7 @@ const folderImage 		= __path_uploads + `/${controllerName}/`;
 const systemConfig  	= require(__path_configs + 'system');
 const MainModel 		= require(__path_models + controllerName);
 const CategoryModel 	= require(__path_models + 'product-category');
-const BrandModel 	= require(__path_models + 'brand');
+const BrandModel 		= require(__path_models + 'brand');
 const MainValidate		= require(__path_validates + controllerName);
 const UtilsHelpers 		= require(__path_helpers + 'utils');
 const ParamsHelpers 	= require(__path_helpers + 'params');
@@ -112,7 +112,9 @@ router.post('/change-ordering', (req, res, next) => {
 router.get('/delete/:id', async (req, res, next) => {
 	let id				= ParamsHelpers.getParam(req.params, 'id', '');
 	let idCategory = '';
-	await MainModel.getItems(id, {tasks: 'get-category'}).then( (item) => idCategory = item.category.id);
+	let idBrand = '';
+	await MainModel.getItems(id, null).then( (item) => { idCategory = item.category.id; idBrand = item.brand.id;});
+	await BrandModel.updateAmountOfItem(idBrand, -1).then( (result) => { }); 
 	await CategoryModel.updateAmountOfItem(idCategory, -1).then( (result) => { });
 	MainModel.deleteItems(id, {tasks: 'delete-one'}).then( (result) => {
 		NotifyHelpers.showNotify(req, res, linkIndex, {tasks: 'delete-success'});
@@ -124,9 +126,11 @@ router.post('/delete', (req, res, next) => {
 	let id = req.body.cid;
 	id.forEach( async (i) => {
 		let idCategory = '';
-		await MainModel.getItems(i, {tasks: 'get-category'}).then( (item) => idCategory = item.category.id);
+		let idBrand = '';
+		await MainModel.getItems(i, null).then( (item) => { idCategory = item.category.id; idBrand = item.brand.id;});
+		await BrandModel.updateAmountOfItem(idBrand, -1).then( (result) => { }); 
 		await CategoryModel.updateAmountOfItem(idCategory, -1).then( (result) => { });
-	})
+	});
 	MainModel.deleteItems(id, {tasks: 'delete-multi'}).then( (result) => {
 		NotifyHelpers.showNotify(req, res, linkIndex, {n: result.n, tasks: 'delete-multi-success'});
 	});
@@ -215,8 +219,13 @@ router.post('/save', (req, res, next) => {
 				product.thumb = arrayThumb;
 			}
 			if(taskCurrent == 'add') {
+				await BrandModel.updateAmountOfItem(product.brand_id, 1).then( (result) => { }); 
 				await CategoryModel.updateAmountOfItem(product.category_id, 1).then( (result) => { });
 			} else if (taskCurrent == 'edit') {
+				if(product.brandID_old != product.brand_id) { // cập nhật category
+					await BrandModel.updateAmountOfItem(product.brandID_old, -1).then( (result) => { });
+					await BrandModel.updateAmountOfItem(product.brand_id, 1).then( (result) => { });
+				}
 				if(product.categoryID_old != product.category_id) { // cập nhật category
 					await CategoryModel.updateAmountOfItem(product.categoryID_old, -1).then( (result) => { });
 					await CategoryModel.updateAmountOfItem(product.category_id, 1).then( (result) => { });

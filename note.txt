@@ -20,7 +20,8 @@ tên product không được giống nhau
 sửa lại notify
 admin: thêm chức năng lọc theo special
 phân trang ajax
-thêm color- size cho sản phẩm
+chưa validator cho phần reviews
+chưa show được color ra frontend
 
 jquery autocomplete
 

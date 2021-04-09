@@ -34,6 +34,13 @@ var schema = new mongoose.Schema({
     tags: String,
     size: String,
     color: String,
+    reviews: [{
+        name: String,
+        email: String,
+        time: Date,
+        rating: String,
+        content: String
+    }],
 });
 schema.index({name: 'text', content: 'text', 'category.name': 'text', 'brand.name': 'text'});
 

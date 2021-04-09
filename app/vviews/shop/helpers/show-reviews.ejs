@@ -1,0 +1,28 @@
+<%
+    reviewsHelpers = (listReviews) => {
+        let xhtml = '';
+        listReviews.forEach( (item) => {
+          let arrRating = [2, 2, 2, 2, 2];
+          for(let i = 0; i < Number(item.rating); i++) {
+            arrRating[i] = 1;
+          }
+          xhtml += `<div class="ps-review">
+              <div class="ps-review__thumbnail"><img src="images/user/1.jpg" alt=""></div>
+              <div class="ps-review__content">
+                <header>
+                  <select class="ps-rating">
+                    <option value="${arrRating[0]}">1</option>
+                    <option value="${arrRating[1]}">2</option>
+                    <option value="${arrRating[2]}">3</option>
+                    <option value="${arrRating[3]}">4</option>
+                    <option value="${arrRating[4]}">5</option>
+                  </select>
+                  <p>By<a href=""> ${item.name}</a> - ${moment(item.time).format(systemConfig.format_date_2)}</p>
+                </header>
+                <p>${item.content}</p>
+              </div>
+            </div>`;
+        });
+        return xhtml;
+    }
+%>

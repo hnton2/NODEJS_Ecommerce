@@ -3,7 +3,14 @@ $(document).ready(function () {
     let pathname = window.location.pathname;
     let arrMenu = pathname.split("/");
     let currentMenu = arrMenu[1];
+    if(currentMenu.includes('category'))     $('li.menu-item[data-active=category]').addClass('current-menu-item');
     $('li.menu-item[data-active="'+currentMenu+'"]').addClass('current-menu-item');
+
+    // active sidebar product
+    if(currentMenu.includes('category-')){
+        currentSidebar = currentMenu.replace('category-', '');
+        $('ul.ps-list--checked li[data-name="'+ currentSidebar + '"]').addClass('current'); 
+    }
 
     //save filter-category when refresh category
     if(currentMenu == 'category') {

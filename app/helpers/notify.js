@@ -44,6 +44,9 @@ let showNotify = (req, res, linkIndex, params = null) => {
         case 'add-contact-success':
             notifyContent = notify.ADD_CONTACT_SUCCESS;
             break;
+        case 'add-review-success':
+            notifyContent = notify.ADD_REVIEW_SUCCESS;
+            break;
     }
 
     req.flash('success', notifyContent);

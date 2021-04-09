@@ -5,6 +5,7 @@ module.exports = {
     prefixShop: '',
     env: 'dev', // production dev
     format_date: 'DD-MM-YYYY',
+    format_date_2: 'MMMM Do YYYY, h:mm:ss a',
     status_value: [
         {name: 'Choose Status', id: 'allValue'},
         {name: 'Active', id: 'active'},

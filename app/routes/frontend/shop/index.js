@@ -13,7 +13,7 @@ router.use('/shoes', require('./shoes'));
 router.use('/contact', require('./contact'));
 router.use('/about', require('./about'));
 router.use('/news', require('./article'));
-router.use('/news-category', require('./news-category'));
+router.use('/c-news', require('./news-category'));
 router.use('/news-rss', require('./news-rss'));
 
 module.exports = router;

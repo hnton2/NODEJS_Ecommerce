@@ -14,7 +14,7 @@
     <div class="ps-widget__content">
       <ul class="ps-list--checked">
         <% itemsProductCategory.forEach ( (item)=>{ %> 
-          <li id="<%= item.id %>"><a href="javascript:void(0)" onclick="changeCategory('<%= linkProductCategory + item.slug %>', '<%= item.id %>')"><%= item.name %> (<%= item.amount %>)</a></li>
+          <li id="<%= item.id %>" data-name="<%= item.slug %>"><a href="javascript:void(0)" onclick="changeCategory('<%= linkProductCategory + item.slug %>', '<%= item.id %>')"><%= item.name %> (<%= item.amount %>)</a></li>
         <% }) %>
       </ul>
     </div>
@@ -35,7 +35,7 @@
     <div class="ps-widget__content">
       <ul class="ps-list--checked">
         <% itemsBrand.forEach ( (item)=>{ %>
-          <li class="current"><a href=""><%= item.name %>(521)</a></li>
+          <li><a href=""><%= item.name %> (<%= item.amount %>)</a></li>
         <% }) %>
       </ul>
     </div>

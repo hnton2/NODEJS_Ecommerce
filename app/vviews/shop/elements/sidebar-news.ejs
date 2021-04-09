@@ -1,7 +1,7 @@
 <% include ./../helpers/format-date %>
 <% 
   const folder_uploads = "uploads/articles/"; 
-  const linkCategory = systemConfig.prefixShop + '/news-category/';
+  const linkCategory = systemConfig.prefixShop + '/c-news/';
   const linkNews = systemConfig.prefixShop + '/news/';
 %>
 
@@ -20,7 +20,7 @@
     <div class="ps-widget__content">
       <ul class="ps-list--arrow"> 
         <% itemsCategory.forEach ( (item)=>{ %>
-          <li class="current"><a href="<%= linkCategory + item.slug %>"><%= item.name %></a></li>
+          <li class="current"><a href="<%= linkCategory + item.slug %>"><%= item.name %> (<%= item.amount %>)</a></li>
         <% }) %>
       </ul>
     </div>

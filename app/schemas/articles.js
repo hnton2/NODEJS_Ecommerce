@@ -25,7 +25,13 @@ var schema = new mongoose.Schema({
         time: Date
     },
     content: String,
-    thumb: String
+    thumb: String,
+    comments: [{
+        name: String,
+        email: String,
+        time: Date,
+        content: String
+    }],
 });
 schema.index({name: 'text', summary: 'text', content: 'text', 'category.name': 'text'});
 

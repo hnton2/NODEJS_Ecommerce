@@ -1,0 +1,17 @@
+<%
+  commentsHelpers = (listComments) => {
+    let xhtml = '';
+    listComments.forEach( (item) => {
+      xhtml += `<div class="ps-comment">
+        <div class="ps-comment__thumbnail"><img src="images/user/2.jpg" alt=""></div>
+        <div class="ps-comment__content">
+          <header>
+            <h4>${item.name}<span>(${moment(item.time).format(systemConfig.format_date_2)})</span></h4>
+          </header>
+          <p>${item.content}</p>
+        </div>
+      </div>`;
+    });
+    return xhtml;
+  }
+%>

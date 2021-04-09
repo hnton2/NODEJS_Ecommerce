@@ -7,8 +7,11 @@ const ShoesModel = require(__path_models + 'shoes');
 const ArticleModel = require(__path_models + 'articles');
 const SubscribeModel = require(__path_models + 'subscribe');
 const notify = require(__path_configs + 'notify');
+const CategoryModel = require(__path_models + 'product-category');
+const ParamsHelpers 	= require(__path_helpers + 'params');
 
 const folderView	 = __path_views_shop + 'pages/home/';
+const folderView2	 = __path_views_shop + 'pages/category/';
 const layoutShop    = __path_views_shop + 'frontend';
 
 /* GET home page. */
@@ -60,6 +63,27 @@ router.post('/subscribe', async (req, res, next) => {
 	SubscribeModel.saveItems(item, null).then( (result) => {
     res.json({'message': notify.SUBSCRIBE_SUCCESS});
 	});
+});
+
+router.get('/category-:slug', async (req, res, next) => {
+  let slugCategory = ParamsHelpers.getParam(req.params, 'slug', '');
+  let idCategory = '';
+  let titleCategory = '';
+  let itemsInCategory = [];
+  
+  // find id of category
+  await CategoryModel.getItems({slug: slugCategory}, {task: 'get-items-by-slug'}).then( (items) => {idCategory = items[0].id; titleCategory = items[0].name;});
+  // Article in Category
+  await ShoesModel.listItemsFrontend({id: idCategory}, {task: 'items-in-category'}).then( (items) => {itemsInCategory = items;});
+  res.render(`${folderView2}index`, { 
+    pageTitle : titleCategory,
+    pageTitle : 'Shoes',
+    top_post: false,
+    contact_layout: false,
+    sidebar_rss: false,
+    layout: layoutShop,
+    itemsInCategory,
+  });
 });
 
 module.exports = router;

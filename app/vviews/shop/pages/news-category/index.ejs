@@ -12,7 +12,7 @@
     <div class="row">
       <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 ">
         <% itemsInCategory.forEach( (item) => { %>
-          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
+          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="width: 350px; height: 438.78px;">
             <div class="ps-post mb-30">
               <div class="ps-post__thumbnail"><a class="ps-post__overlay" href="<%= linkNews + item.slug %>"></a><img src="<%= folder_uploads + item.thumb %>" style="width: 300px; height: 167px;" alt="<%= item.name %>" ></div>
               <div class="ps-post__content"><a class="ps-post__title" href="<%= linkNews + item.slug %>"><%- highlightHelper(item.name, query) %></a>
