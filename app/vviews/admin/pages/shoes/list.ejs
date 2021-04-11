@@ -78,8 +78,7 @@
 						<%- sortHelper(linkPrefix, 'Special', 'special', params.sortField, params.sortType) %>
 						<%- sortHelper(linkPrefix, 'Ordering', 'ordering', params.sortField, params.sortType) %>
 						<%- sortHelper(linkPrefix, 'Category', 'category.name', params.sortField, params.sortType) %>
-						<%- sortHelper(linkPrefix, 'Detail ($)', 'price', params.sortField, params.sortType) %>
-						<th class="text-center">Tags</th>
+						<%- sortHelper(linkPrefix, 'Detail', 'price', params.sortField, params.sortType) %>
 						<th class="text-center">Modified</th>
 						<th class="text-center">Action</th>
 					</tr>
@@ -96,7 +95,7 @@
 									<b>Name</b>: <%- highlightHelper(item.name, params.keyword)%><br>
 									<b>Slug</b>: <%= item.slug%><br>
 									<b>Brand</b>: <%= item.brand.name %> <br>
-									<b>Thumb</b>: <%- imageHelper(folderUpload, item.thumb[0], 'no-image.jpg', item.name) %>
+									<b>Thumb</b>: <%- imageHelper(folderUpload, item.thumb[1], 'no-image.jpg', item.name) %>
 								</td>
 								<td class="text-center position-relative"><%- statusHelper(linkPrefix, 'status', item.status, item.id) %></td>
 								<td class="text-center position-relative"><%- statusHelper(linkPrefix, 'special', item.special, item.id) %></td>
@@ -110,8 +109,8 @@
 									<b>Quantity</b>: <%= item.quantity %> <br>
 									<b>Size</b>: <%= item.size %> <br>
 									<b>Color</b>: <%= item.color %> <br>
+									<b>Tags</b>: <%= item.tags %>
 								</td>
-								<td class="text-center"><%= item.tags %></td>
 								<% if(item.modified.user_name === undefined) { %>
 									<td class="text-center"><%- userHelper(item.created.user_name, item.created.time) %></td>
 								<% } else { %>

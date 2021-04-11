@@ -1,13 +1,14 @@
-validator phía client
-tạo col show article trong category: Choose Layout: 'list' or 'grid'
 node2 - chương 4 - 
     bài 5.2, 
     6.1
+
+validator phía client
+tạo col show article trong category: Choose Layout: 'list' or 'grid'
 thêm tag cho mỗi bài viết
 thêm số lượng article cho category
 kiểm tra link category
 thêm validator cho login form
-tối ưu file me
+sửa lại file me.js trong backend
 giá tiền phải là float
 ajax admin
 fix radio box cho status active - inactive
@@ -22,9 +23,18 @@ admin: thêm chức năng lọc theo special
 phân trang ajax
 chưa validator cho phần reviews
 chưa show được color ra frontend
+chưa xóa được product trên cart ở header
 
 jquery autocomplete
 
-lỗi đổ ajax product category
-subscribe: sử dụng phương thức post, làm sao để trả về json?
+email: nodemailer
 
+cart:
+
+mã giảm giá: id, tên, tiền, thời gian, số lượng, số lượng đã sử dụng,
+    nếu mã tồn tại
+
+phí vận chuyển: id, tp, giá tiền, trạng thái -> search gg 
+    selectbox: value: giá, name: tỉnh thành
+
+xong khi đặt hàng: tạo mã đơn hàng, thông tin người mua, sp mua, phí vận chuyển, mã giảm giá, tổng, status(chưa giao, đã giao)

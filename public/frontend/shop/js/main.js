@@ -276,7 +276,7 @@
         });
     }
 
-    function mapConfig() {
+    /* function mapConfig() {
         $.gmap3({
             key: 'AIzaSyAx39JFH5nhxze1ZydH-Kl8xXM3OK4fvcg'
         });
@@ -344,7 +344,7 @@
         else {
             console.log("Notice: Don't have map on this page!!!");
         }
-    }
+    } */
 
     function productVariantsAjax() {
         var selector = $('.ps-btn'),

@@ -14,7 +14,7 @@
     <div class="ps-widget__content">
       <ul class="ps-list--checked">
         <% itemsProductCategory.forEach ( (item)=>{ %> 
-          <li id="<%= item.id %>" data-name="<%= item.slug %>"><a href="javascript:void(0)" onclick="changeCategory('<%= linkProductCategory + item.slug %>', '<%= item.id %>')"><%= item.name %> (<%= item.amount %>)</a></li>
+          <li data-name="<%= item.slug %>"><a href="<%= linkProductCategory + item.slug %>" ><%= item.name %> (<%= item.amount %>)</a></li>
         <% }) %>
       </ul>
     </div>
@@ -24,8 +24,9 @@
       <h3>Shop by Price</h3>
     </div>
     <div class="ps-widget__content">
-      <div class="ac-slider" data-default-min="300" data-default-max="2000" data-max="3450" data-step="50" data-unit="$"></div>
-      <p class="ac-slider__meta">Price:<span class="ac-slider__value ac-slider__min"></span>-<span class="ac-slider__value ac-slider__max"></span></p><a class="ac-slider__filter ps-btn" href="#">Filter</a>
+      <div class="ac-slider" data-default-min="40" data-default-max="200" data-max="500" data-step="10" data-unit="$"></div>
+      <p class="ac-slider__meta">Price:<span class="ac-slider__value ac-slider__min"></span>-<span class="ac-slider__value ac-slider__max"></span></p>
+      <a class="ac-slider__filter ps-btn" href="javascript:void(0)" onclick="filterPrice()">Filter</a>
     </div>
   </aside>
   <aside class="ps-widget--sidebar ps-widget--category">

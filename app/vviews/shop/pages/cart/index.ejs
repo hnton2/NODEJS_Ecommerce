@@ -1,79 +1,63 @@
+<% 
+  const folder_upload = 'uploads/shoes/';
+  const linkShoes    = systemConfig.prefixShop + '/shoes/';
+  let total = 0;
+%>
 <div class="ps-content pt-80 pb-80"> 
 	<div class="ps-container">
-	  <div class="ps-cart-listing">
-		<table class="table ps-cart__table">
-		  <thead>
-			<tr>
-			  <th>All Products</th>
-			  <th>Price</th>
-			  <th>Quantity</th>
-			  <th>Total</th>
-			  <th></th>
-			</tr>
-		  </thead>
-		  <tbody>
-			<tr>
-			  <td><a class="ps-product__preview" href="product-detail.html"><img class="mr-15" src="images/product/cart-preview/1.jpg" alt=""> air jordan One mid</a></td>
-			  <td>$150</td>
-			  <td>
-				<div class="form-group--number">
-				  <button class="minus"><span>-</span></button>
-				  <input class="form-control" type="text" value="2">
-				  <button class="plus"><span>+</span></button>
+	  	<div class="ps-cart-listing">
+			<table class="table ps-cart__table">
+				<thead>
+					<tr>
+					<th>All Products</th>
+					<th>Size</th>
+					<th>Price</th>
+					<th>Quantity</th>
+					<th>Total</th>
+					<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<% items.forEach( (item) => { %>
+						<% total += item.price * item.quantity %>
+						<tr>
+							<td>
+								<a class="ps-product__preview" href="<%= linkShoes + item.slug %>">
+									<img class="mr-15" src="<%= folder_upload + item.thumb %>" style="width: 100px; height: 100px;" alt=""><%= item.name %>
+								</a>
+							</td>
+							<td><%= item.size %></td>
+							<td><div id="price-<%= item.id %>">$<%= item.price %></div></td>
+							<td>
+								<div class="form-group--number">
+								<a href="/cart/change-quantity-decrease/<%= item.id %>"><button class="minus"><span>-</span></button></a>
+								<input id="quantity-<%= item.id %>" class="form-control" type="text" value="<%= item.quantity %>">
+								<a href="/cart/change-quantity-increase/<%= item.id %>"><button class="plus"><span>+</span></button></a>
+								</div>
+							</td>
+							<td><div id="total-<%= item.id %>">$<%= item.price * item.quantity %></div></td>
+							<td>
+								<a class="ps-remove" href="/cart/delete/<%= item.id %>"></a>
+							</td>
+						</tr>
+					<% }) %>
+				</tbody>
+			</table>
+			<div class="ps-cart__actions">
+				<div class="ps-cart__promotion">
+					<div class="form-group">
+						<div class="ps-form--icon"><i class="fa fa-angle-right"></i>
+						<input class="form-control" type="text" placeholder="Promo Code">
+						</div>
+					</div>
+					<div class="form-group">
+						<a class="ps-btn" href="/category">Continue Shopping<i class="ps-icon-next"></i></a>
+					</div>
 				</div>
-			  </td>
-			  <td>$300</td>
-			  <td>
-				<div class="ps-remove"></div>
-			  </td>
-			</tr>
-			<tr>
-			  <td><a class="ps-product__preview" href="product-detail.html"><img class="mr-15" src="images/product/cart-preview/2.jpg" alt=""> The Crusty Croissant</a></td>
-			  <td>$150</td>
-			  <td>
-				<div class="form-group--number">
-				  <button class="minus"><span>-</span></button>
-				  <input class="form-control" type="text" value="2">
-				  <button class="plus"><span>+</span></button>
+				<div class="ps-cart__total">
+					<h3>Total Price: <span> <%= total %> $</span></h3><a class="ps-btn" href="checkout.html">Process to checkout<i class="ps-icon-next"></i></a>
 				</div>
-			  </td>
-			  <td>$300</td>
-			  <td>
-				<div class="ps-remove"></div>
-			  </td>
-			</tr>
-			<tr>
-			  <td><a class="ps-product__preview" href="product-detail.html"><img class="mr-15" src="images/product/cart-preview/3.jpg" alt="">The Rolling Pin</a></td>
-			  <td>$150</td>
-			  <td>
-				<div class="form-group--number">
-				  <button class="minus"><span>-</span></button>
-				  <input class="form-control" type="text" value="2">
-				  <button class="plus"><span>+</span></button>
-				</div>
-			  </td>
-			  <td>$300</td>
-			  <td>
-				<div class="ps-remove"></div>
-			  </td>
-			</tr>
-		  </tbody>
-		</table>
-		<div class="ps-cart__actions">
-		  <div class="ps-cart__promotion">
-			<div class="form-group">
-			  <div class="ps-form--icon"><i class="fa fa-angle-right"></i>
-				<input class="form-control" type="text" placeholder="Promo Code">
-			  </div>
 			</div>
-			<div class="form-group">
-			  <button class="ps-btn ps-btn--gray">Continue Shopping</button>
-			</div>
-		  </div>
-		  <div class="ps-cart__total">
-			<h3>Total Price: <span> 2599.00 $</span></h3><a class="ps-btn" href="checkout.html">Process to checkout<i class="ps-icon-next"></i></a>
-		  </div>
-		</div>
-	  </div>
+	  	</div>
 	</div>
-  </div>
+</div>

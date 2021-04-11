@@ -6,27 +6,47 @@ $(document).ready(function () {
     if(currentMenu.includes('category'))     $('li.menu-item[data-active=category]').addClass('current-menu-item');
     $('li.menu-item[data-active="'+currentMenu+'"]').addClass('current-menu-item');
 
-    // active sidebar product
-    if(currentMenu.includes('category-')){
-        currentSidebar = currentMenu.replace('category-', '');
-        $('ul.ps-list--checked li[data-name="'+ currentSidebar + '"]').addClass('current'); 
+    // active filter by price
+    if(arrMenu[2]){
+        if(arrMenu[2].includes('filter-category')){
+            var el = $('.ac-slider');
+            var min = el.siblings().find('.ac-slider__min');
+            var max = el.siblings().find('.ac-slider__max');
+            var defaultMinValue = arrMenu[3].split('-')[0];
+            var defaultMaxValue = arrMenu[3].split('-')[1];
+            var maxValue = el.data('max');
+            var step = el.data('step');
+
+            if (el.length > 0) {
+                el.slider({
+                    min: 0,
+                    max: maxValue,
+                    step: step,
+                    range: true,
+                    values: [defaultMinValue, defaultMaxValue],
+                    slide: function(event, ui) {
+                        var $this = $(this),
+                            values = ui.values;
+
+                        min.text('$' + values[0]);
+                        max.text('$' + values[1]);
+                    }
+                });
+
+                var values = el.slider("option", "values");
+                min.text('$' + values[0]);
+                max.text('$' + values[1]);
+            }
+            else {
+                return false;
+            }
+        }
     }
 
-    //save filter-category when refresh category
+    // active menu sidebar category
     if(currentMenu == 'category') {
-        if (localStorage.getItem("filter-category") !== null) {
-            let filterObj = JSON.parse(localStorage.getItem('filter-category'));
-            $('#product-area').empty();
-            $('#product-area').append('<div class="ps-widget__content"><div><div class="text-center"><img style="width: 150px" src="frontend/shop/images/loading.gif" alt=""></div></div></div>');
-            
-            $('ul.ps-list--checked li').removeClass('current');
-            if(filterObj.id !== '') $('ul.ps-list--checked li#' + filterObj.id).addClass('current'); 
-            $("#product-area").load(filterObj.link, null, function(response, status) {
-                localStorage.setItem("filter-category", JSON.stringify(filterObj));
-                let data = JSON.parse(response);
-                $('#product-area').empty();
-                $("#product-area").html(renderProduct(data));
-            });
+        if(arrMenu[2]) {
+            $('ul.ps-list--checked li[data-name="'+ arrMenu[2] + '"]').addClass('current'); 
         }
     }
 
@@ -84,6 +104,7 @@ $(document).ready(function () {
             event.preventDefault();
         }
     });
+
     // subscribe
     $(".ps-subscribe__form").submit(function(event ) {
         var inputEmail = $('#email-subscribe').val();
@@ -102,19 +123,105 @@ $(document).ready(function () {
                 url: '/subscribe',
                 type: 'post',
                 data:$('#email-subscribe').serialize(),
-                success:function(){
-                    $('#email-subscribe').notify('Sign up success!', { position:"top", className: 'success' });
+                success:function(data){
+                    $('#email-subscribe').notify(data.message, { position:"top", className: 'success' });
                 }
             });
         }
     });
-    // sort by product
-    /* $('select[name=sort-by-product]').change(function() {
-        var path = window.location.pathname.split('/');
-        var linkRedirect = '/' + path[1] + '/' + path[2] + '/filter-category/' + $(this).val();
-        window.location.pathname = linkRedirect;
-    }); */
-}); 
+
+    //add product to cart
+    $("#cart_form").submit(function(event ) {
+        var quantity = $('#quantity_input').val();
+        var size = $('#size_select option:selected').val();
+        $(document).trigger("clear-alert-id.notify_cart");
+        if (Number(quantity) < 1 || Number(size) < 1 ) {
+            $(document).trigger("set-alert-id-notify_cart", [
+                {
+                    "message": "Please choose info product !!!",
+                    "priority": "info"
+                }
+            ]);
+            event.preventDefault();
+        } else {
+            event.preventDefault();
+            $.ajax({
+                url: '/cart/add-to-cart',
+                type: 'post',
+                data:$('form').serialize(),
+                success:function(data){
+                    $('.ps-cart__toggle').append(`<span><i>${data.length}</i></span>`);
+                    let total = 0;
+                    let numberItems = 0;
+                    let xhtml = `<div class="ps-cart__listing">
+                    <div class="ps-cart__content">`;
+
+                    data.forEach( (item) => {
+                        xhtml += `<div class="ps-cart-item"><a class="ps-cart-item__close" href="/cart/delete/${item.id}"></a>
+                          <div class="ps-cart-item__thumbnail"><a href="shoes/${item.slug}"></a><img src="uploads/shoes/${item.thumb}" alt=""></div>
+                          <div class="ps-cart-item__content"><a class="ps-cart-item__title" href="shoes/${item.slug}">${item.name}</a>
+                            <p><span>Quantity:<i>${item.quantity}</i></span><span>Price:<i>$${item.price}</i></span></p>
+                          </div>
+                        </div>`;
+                        total += Number(item.quantity) * Number(item.price);
+                        numberItems += Number(item.quantity);
+                    });
+                    xhtml += `</div>
+                    <div class="ps-cart__total">
+                        <p>Number of items:<span>${numberItems}</span></p>
+                        <p>Item Total:<span>$${total}</span></p>
+                    </div>
+                    <div class="ps-cart__footer"><a class="ps-btn" href="/cart">Check out<i class="ps-icon-arrow-left"></i></a></div>
+                    </div>`;
+
+                    $('.ps-cart').append(xhtml);
+                    Swal.fire({
+                        title: 'Add to cart success!',
+                        icon: 'success',
+                    });
+                }
+            });
+        }
+    });
+    // show product in cart in header (get from cookie)
+    if (typeof $.cookie('cart') !== 'undefined'){
+        let data = JSON.parse($.cookie('cart').slice(2));
+        $('.ps-cart__toggle').append(`<span><i>${data.length}</i></span>`);
+        let total = 0;
+        let numberItems = 0;
+        let xhtml = `<div class="ps-cart__listing">
+        <div class="ps-cart__content">`;
+
+        data.forEach( (item) => {
+            xhtml += `<div class="ps-cart-item"><a class="ps-cart-item__close" href="/cart/delete/${item.id}"></a>
+                <div class="ps-cart-item__thumbnail"><a href="shoes/${item.slug}"></a><img src="uploads/shoes/${item.thumb}" alt=""></div>
+                <div class="ps-cart-item__content"><a class="ps-cart-item__title" href="shoes/${item.slug}">${item.name}</a>
+                <p><span>Quantity:<i>${item.quantity}</i></span><span>Price:<i>$${item.price}</i></span></p>
+                </div>
+            </div>`;
+            total += Number(item.quantity) * Number(item.price);
+            numberItems += Number(item.quantity);
+        });
+        xhtml += `</div>
+        <div class="ps-cart__total">
+            <p>Number of items:<span>${numberItems}</span></p>
+            <p>Item Total:<span>$${total}</span></p>
+        </div>
+        <div class="ps-cart__footer"><a class="ps-btn" href="/cart">Check out<i class="ps-icon-arrow-left"></i></a></div>
+        </div>`;
+
+        $('.ps-cart').append(xhtml);
+    }
+
+});
+
+function changeQuantity(id, state) {
+    let counter = $('#quantity-' + id).val();
+    let price = $('#price-' + id).text().slice(1);
+    counter = Number(counter) + state ;
+    $('#quantity-' + id).val(counter);
+    $('#total-' + id).html('$' + price * Number(counter));
+}
 
 function renderWeather(items) {
     let xhtml = `<div class="container-fluid">
@@ -197,76 +304,16 @@ function renderCoinTable(items) {
         </table>`;
 }
 
-function changeCategory(link, id) {
-    let filterObj = {};
-    $('#product-area').empty();
-    $('#product-area').append('<div class="ps-widget__content"><div><div class="text-center"><img style="width: 150px" src="frontend/shop/images/loading.gif" alt=""></div></div></div>');
-    
-    if($('ul.ps-list--checked li#' + id).hasClass( 'current' )){
-        $('ul.ps-list--checked li#' + id).removeClass('current');
-        $("#product-area").load('/category/all/shoes', null, function(response, status) {
-            filterObj.id = '';
-            filterObj.link = '/category/all/shoes';
-            localStorage.setItem("filter-category", JSON.stringify(filterObj));
-            let data = JSON.parse(response);
-            $('#product-area').empty();
-            $("#product-area").html(renderProduct(data));
-        });
-    } else {
-        $('ul.ps-list--checked li').removeClass('current');
-        $('ul.ps-list--checked li#' + id).addClass('current'); 
-        $("#product-area").load(link, null, function(response, status) {
-            filterObj.id = id;
-            filterObj.link = link;
-            localStorage.setItem("filter-category", JSON.stringify(filterObj));
-            let data = JSON.parse(response);
-            $('#product-area').empty();
-            $("#product-area").html(renderProduct(data));
-        });
+function filterPrice() {
+    var el = $('.ac-slider');
+    if (el.length > 0) {
+        var values = el.slider("option", "values");
+        var linkRedirect = 'category/filter-category/' + values[0] + '-' + values[1];
+        console.log(values[0],'-', values[1]);
+
+        window.location.pathname = linkRedirect;
     }
-
-}
-
-function renderProduct (item) {
-    let folder_upload = 'uploads/shoes/';
-    let linkShoes ='/shoes/';
-    let xhtml = '';
-    item.forEach( (item) => {
-        xhtml += `<div class="ps-product__column">
-        <div class="ps-shoe mb-30">
-          <div class="ps-shoe__thumbnail">`;
-        if(item.sale_off > 0) {
-            xhtml += `<div class="ps-badge ps-badge--sale"><span>-${item.sale_off}%</span></div>`;
-        }
-        xhtml += `
-            <a class="ps-shoe__favorite" href="#"><i class="ps-icon-heart"></i></a>
-            <img src="${folder_upload + item.thumb[1]}" alt=""><a class="ps-shoe__overlay" href="${linkShoes + item.slug}"></a>
-          </div>
-          <div class="ps-shoe__content">
-            <div class="ps-shoe__variants">
-              <div class="ps-shoe__variant normal">
-                <img src="${folder_upload + item.thumb[0]}" alt="">
-                <img src="${folder_upload + item.thumb[1]}" alt="">
-                <img src="${folder_upload + item.thumb[2]}" alt="">
-                <img src="${folder_upload + item.thumb[3]}" alt="">
-              </div>
-              <select class="ps-rating ps-shoe__rating">
-                <option value="1">1</option>
-                <option value="1">2</option>
-                <option value="1">3</option>
-                <option value="1">4</option>
-                <option value="2">5</option>
-              </select>
-            </div>
-            <div class="ps-shoe__detail"><a class="ps-shoe__name" href="${linkShoes + item.id}">${item.name}</a>
-              <p class="ps-shoe__categories"><a href="#">${item.category.name} shoes</a>,<a href="#"> ${item.brand.name}</a></p>
-              <span class="ps-shoe__price">`;
-        if(item.sale_off > 0) {
-            xhtml+= `<del>$${item.price}</del> $${item.price - (item.price * (item.sale_off/100))}`;
-        } else {
-            xhtml += `$${item.price}`;
-        }
-        xhtml += `</span></div></div></div></div>`;
-    });
-    return xhtml;
+    else {
+        return false;
+    }
 }

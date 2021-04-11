@@ -72,6 +72,11 @@ module.exports = {
             find = {status:'active', 'category.id': params.category.id, '_id': {$ne: params.id} };
             sort = {ordering: 'asc'};
         }
+        if(option.task == 'filter-price'){
+            find = {status:'active', 'price': {$gt : params.min, $lt : params.max}};
+            limit = 50;
+            sort = {ordering: 'asc'};
+        }
         if(option.task == 'items-search'){
             return Model.find({$text: {$search: params.keyword}})
                     .limit(5)

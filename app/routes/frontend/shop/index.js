@@ -15,5 +15,6 @@ router.use('/about', require('./about'));
 router.use('/news', require('./article'));
 router.use('/c-news', require('./news-category'));
 router.use('/news-rss', require('./news-rss'));
+router.use('/cart', require('./cart'));
 
 module.exports = router;
