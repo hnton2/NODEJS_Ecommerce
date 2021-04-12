@@ -1,4 +1,40 @@
 $(document).ready(function () {
+    // choose location
+    var localpicker = new LocalPicker({
+		province: "ls_province",
+		district: "ls_district",
+		ward: "ls_ward",
+        provinceText: 'Choose province / city',
+        districtText: 'Choose district',
+        wardText: 'Choose ward',
+    });
+    $('select[name=ls_province]').change(function() {
+        let province = $(this).find('option:selected').text();
+        let fee = 0;
+        let totalBox = $('#total-price');
+        $('input[name=province]').val(province);
+        $.ajax({
+            url: '/checkout/get-shipping-fee',
+            type: 'get',
+            success:function(data){
+                data.forEach( (item) => {
+                    if(item.name === province) {
+                        fee = item.value;
+                        $('#shipping-fee').html('$ ' + fee);
+                        totalBox.html('$ ' + (Number(totalBox.text().slice(2)) + Number(fee)));
+                        $('input[name=shipping_fee]').val(fee);
+                    }
+                });
+            }
+        });
+    });
+    $('select[name=ls_district]').change(function() {
+        $('input[name=district]').val($(this).find('option:selected').text());
+    });
+    $('select[name=ls_ward]').change(function() {
+        $('input[name=ward]').val($(this).find('option:selected').text());
+    });
+
     //active menu
     let pathname = window.location.pathname;
     let arrMenu = pathname.split("/");
@@ -171,7 +207,7 @@ $(document).ready(function () {
                         <p>Number of items:<span>${numberItems}</span></p>
                         <p>Item Total:<span>$${total}</span></p>
                     </div>
-                    <div class="ps-cart__footer"><a class="ps-btn" href="/cart">Check out<i class="ps-icon-arrow-left"></i></a></div>
+                    <div class="ps-cart__footer"><a class="ps-btn" href="/checkout">Check out<i class="ps-icon-arrow-left"></i></a></div>
                     </div>`;
 
                     $('.ps-cart').append(xhtml);
@@ -207,7 +243,7 @@ $(document).ready(function () {
             <p>Number of items:<span>${numberItems}</span></p>
             <p>Item Total:<span>$${total}</span></p>
         </div>
-        <div class="ps-cart__footer"><a class="ps-btn" href="/cart">Check out<i class="ps-icon-arrow-left"></i></a></div>
+        <div class="ps-cart__footer"><a class="ps-btn" href="/checkout">Check out<i class="ps-icon-arrow-left"></i></a></div>
         </div>`;
 
         $('.ps-cart').append(xhtml);

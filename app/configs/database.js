@@ -20,4 +20,5 @@ module.exports = {
     col_slider: 'slider',
     col_banner: 'banner',
     col_subscribe: 'subscribe',
+    col_order: 'order',
 };

@@ -1,18 +1,12 @@
 var express = require('express');
 var router = express.Router();
 
-const SliderModel = require(__path_models + 'slider');
-const BannerModel = require(__path_models + 'banner');
 const ShoesModel = require(__path_models + 'shoes');
-const ArticleModel = require(__path_models + 'articles');
-const SubscribeModel = require(__path_models + 'subscribe');
-const notify = require(__path_configs + 'notify');
-const CategoryModel = require(__path_models + 'product-category');
 const ParamsHelpers 	= require(__path_helpers + 'params');
 
 const folderView	 = __path_views_shop + 'pages/cart/';
 const layoutShop    = __path_views_shop + 'frontend';
-const linkIndex     = '/cart/'
+const linkIndex     = '/cart/';
 
 router.post('/add-to-cart', async (req, res, next) => {
   let item = [];

@@ -29,12 +29,7 @@ jquery autocomplete
 
 email: nodemailer
 
-cart:
-
 mã giảm giá: id, tên, tiền, thời gian, số lượng, số lượng đã sử dụng,
     nếu mã tồn tại
-
-phí vận chuyển: id, tp, giá tiền, trạng thái -> search gg 
-    selectbox: value: giá, name: tỉnh thành
 
 xong khi đặt hàng: tạo mã đơn hàng, thông tin người mua, sp mua, phí vận chuyển, mã giảm giá, tổng, status(chưa giao, đã giao)

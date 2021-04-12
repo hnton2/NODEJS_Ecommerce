@@ -6637,3 +6637,11 @@ html .bg--parallax {
 .tag:hover::after {
    border-left-color: crimson; 
 }
+
+.margin-left-130 {
+  margin-left: 130px;
+  padding-top: 12px;
+  position: relative;
+  font-size: 18px;
+  color: white;
+}

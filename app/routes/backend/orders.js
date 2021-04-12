@@ -1,7 +1,7 @@
 var express = require('express');
 var router 	= express.Router();
 
-const controllerName 	= 'items';
+const controllerName 	= 'orders';
 
 const systemConfig  	= require(__path_configs + 'system');
 const MainModel 		= require(__path_models + controllerName);
@@ -9,7 +9,7 @@ const MainValidate		= require(__path_validates + controllerName);
 const UtilsHelpers 		= require(__path_helpers + 'utils');
 const ParamsHelpers 	= require(__path_helpers + 'params');
 const NotifyHelpers 	= require(__path_helpers + 'notify');
-const notify  		= require(__path_configs + 'notify');
+const notify  			= require(__path_configs + 'notify');
 
 const linkIndex		 	= '/' + systemConfig.prefixAdmin + `/${controllerName}/`;
 const pageTitleIndex 	= UtilsHelpers.capitalize(controllerName) + ' Management';
