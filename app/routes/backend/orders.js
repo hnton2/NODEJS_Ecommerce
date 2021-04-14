@@ -5,7 +5,6 @@ const controllerName 	= 'orders';
 
 const systemConfig  	= require(__path_configs + 'system');
 const MainModel 		= require(__path_models + controllerName);
-const MainValidate		= require(__path_validates + controllerName);
 const UtilsHelpers 		= require(__path_helpers + 'utils');
 const ParamsHelpers 	= require(__path_helpers + 'params');
 const NotifyHelpers 	= require(__path_helpers + 'notify');
@@ -38,11 +37,11 @@ router.get('(/status/:status)?', async (req, res, next) => {
 });
 
 // Change status
-router.get('/change-status/:id/:status', (req, res, next) => {
-	let currentStatus	= ParamsHelpers.getParam(req.params, 'status', 'active'); 
+router.post('/change-progress/:id/:status', (req, res, next) => {
+	let currentStatus	= ParamsHelpers.getParam(req.params, 'status', 'confirming'); 
 	let id				= ParamsHelpers.getParam(req.params, 'id', ''); 
 	
-	MainModel.changeStatus(id, currentStatus, req.user, {tasks: 'change-one'}).then( (result) => {
+	MainModel.changeProgress(id, currentStatus).then( (result) => {
 		// NotifyHelpers.showNotify(req, res, linkIndex, {tasks: 'change-status-success'}); 
 		res.json({'currentStatus': currentStatus, 'message': notify.CHANGE_STATUS_SUCCESS, 'id': id});
 	});
@@ -85,15 +84,10 @@ router.post('/delete', (req, res, next) => {
 // FORM
 router.get(('/form(/:id)?'), (req, res, next) => {
 	let id		= ParamsHelpers.getParam(req.params, 'id', '');
-	let item	= {name: '', ordering: 0, status: 'allValue', content: ''};
 	let errors   = null;
-	if(id === '') { // ADD
-		res.render(`${folderView}form`, { pageTitle: pageTitleAdd, item, errors});
-	}else { // EDIT
-		MainModel.getItems({id: id}, {task: 'get-items-by-id'}).then( (item) =>{
-			res.render(`${folderView}form`, { pageTitle: pageTitleEdit, item, errors});
-		});	
-	}
+	MainModel.getItems({id: id}, {task: 'get-items-by-id'}).then( (item) =>{
+		res.render(`${folderView}form`, { pageTitle: 'Invoice #' + item.code, item, errors});
+	});	
 });
 
 // SAVE = ADD EDIT

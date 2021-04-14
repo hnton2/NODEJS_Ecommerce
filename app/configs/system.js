@@ -15,4 +15,10 @@ module.exports = {
 		{value: 'yes', name: 'Yes'},
 		{value: 'no', name: 'No'}
 	],
+    orders_state_value: [ // chờ xác nhận, chờ lấy hàng, đang giao, đã giao, đã hủy
+		{id: 'confirming', name: 'Confirming'},
+        {id: 'delivery', name: 'Delivery'},
+        {id: 'delivered', name: 'Delivered'},
+        {id: 'cancelled', name: 'Cancelled'},
+	],
 }

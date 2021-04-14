@@ -67,12 +67,38 @@ function changeGroupAcp (link) {
 }
 
 $(document).ready(function () {
+
+    // order status
+    $('select[name=filter-progress]').change(function() {
+        var myId = $(this).attr('id');
+        var itemValue = $(this).val();
+
+        var path = window.location.pathname.split('/');
+        var linkRedirect = '/' + path[1] + '/' + path[2] + '/change-progress/' + myId + '/' + itemValue;
+        if(itemValue){
+            $.ajax({
+                type:'POST',
+                url:linkRedirect,
+                success:function(data){
+                    $('#' + myId).notify(data.message, { position:"top", className: 'success' });
+                }
+            }); 
+        }
+    });
     
     var ckbAll = $("#cbAll");
     var fmAdmin = $("#zt-form");
     // CKEDITOR
     if ($('textarea#content_ck').length) {
         CKEDITOR.replace('content_ck');
+    }
+
+    //active menu function
+    function activeMenu() {
+        var arrPathname = window.location.pathname.split('/');
+        var pattern = (typeof arrPathname[2] !== 'undefined') ? arrPathname[2] : '';
+        $('li.nav-item a[data-active="'+pattern+'"]').addClass('active');
+        $('li.nav-item a[data-active="'+pattern+'"]').parent().parent().parent().addClass('nav-item menu-open'); 
     }
     //call active menu
     activeMenu();
@@ -108,14 +134,6 @@ $(document).ready(function () {
     $('a.btn-delete').on('click', () => {
         if (!confirm("Are you sure you want to delete this item?")) return false;
     });
-
-    //active menu function
-    function activeMenu() {
-        var arrPathname = window.location.pathname.split('/');
-        var pattern = (typeof arrPathname[2] !== 'undefined') ? arrPathname[2] : '';
-        $('li.nav-item a[data-active="'+pattern+'"]').addClass('active');
-        $('li.nav-item a[data-active="'+pattern+'"]').parent().parent().parent().addClass('nav-item menu-open'); 
-    }
 
     //
     function change_form_action(slb_selector, form_selector, id_btn_action) {

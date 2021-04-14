@@ -4,7 +4,7 @@ var router = express.Router();
 const authentication  	= require(__path_middleware + 'auth');
 const userInfo  	= require(__path_middleware + 'get-user-info');
 
-router.use('/', authentication, userInfo, require('./home'));
+router.use('/', userInfo, require('./home'));
 router.use('/dashboard', require('./dashboard'));
 router.use('/items', require('./items'));
 router.use('/contact', require('./contact'));
@@ -20,5 +20,6 @@ router.use('/clothing', require('./clothing'));
 router.use('/slider', require('./slider'));
 router.use('/banner', require('./banner'));
 router.use('/subscribe', require('./subscribe'));
+router.use('/orders', require('./orders'));
 
 module.exports = router;

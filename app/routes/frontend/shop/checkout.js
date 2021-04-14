@@ -94,7 +94,7 @@ router.get('/get-shipping-fee',   async (req, res, next) => {
 
 
 router.post('/save', async (req, res, next) => {
-  let product = req.cookies.cart;
+  let product = JSON.parse(JSON.stringify(req.cookies.cart));
   req.body = JSON.parse(JSON.stringify(req.body));
   let user = req.body;
   await OrdersModel.saveItems(product, user).then( (result) => {

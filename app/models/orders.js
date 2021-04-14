@@ -1,5 +1,3 @@
-const { use } = require("../routes/frontend/shop/checkout");
-
 const Model 	= require(__path_schemas + 'orders');
 const StringHelpers   = require(__path_helpers + 'string');
 
@@ -34,23 +32,8 @@ module.exports = {
 
         return Model.countDocuments(objWhere);
     },
-    changeStatus: (id, currentStatus, user, option = null) => {
-        let status = '';
-        if(!Array.isArray(id)) status = (currentStatus === "active") ? "inactive" : "active";
-        else status = currentStatus;
-        let data = {
-            status: status,
-            modified: {
-                user_id: user.id,
-                user_name: user.username,
-                time: Date.now()
-            }
-        };
-        if(option.tasks = 'change-multi'){
-            return Model.updateMany({_id: {$in: id }}, data);
-        } else if(option.tasks = 'change-one'){
-            return Model.updateOne({_id: id}, data);
-        }
+    changeProgress: (id, currentStatus, option = null) => {
+        return Model.updateOne({_id: id}, {status: currentStatus});
     },
     changeOrdering: async (id, ordering, user, option = null) => {
         let data = {
@@ -78,7 +61,7 @@ module.exports = {
             return Model.remove({_id: {$in: id}});
         }
     },
-    saveItems: (product, user, option = null) => {
+    saveItems: (product, user) => {
         let item = {};
         let total = 0;
         item.product = product;
@@ -93,16 +76,17 @@ module.exports = {
         product.forEach( (item) => {
             total += item.price * item.quantity;
         });
+        item.status = 'confirming';
         item.total = total;
         item.user = {
             first_name: user.first_name, 
             last_name: user.last_name,
             email: user.email,
             phone: user.phone,
-            address: user.address + ' (' + user.ward + user.district + user.province + ')',
+            address: user.address + ', ' + user.ward + ', ' + user.district + ', ' + user.province,
             message: user.message,
         };
         return new Model(item).save();
-}
+    }
     
 }
