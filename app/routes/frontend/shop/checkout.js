@@ -2,11 +2,12 @@ var express = require('express');
 var router = express.Router();
 
 const OrdersModel = require(__path_models + 'orders');
-const ParamsHelpers 	= require(__path_helpers + 'params');
+const StringHelpers   = require(__path_helpers + 'string');
+const EmailHelpers		= require(__path_helpers + 'email');
 
 const folderView	 = __path_views_shop + 'pages/checkout/';
 const layoutShop    = __path_views_shop + 'frontend';
-const linkIndex     = '/';
+const linkIndex     = '/orders-tracking';
 
 
 router.get('/', async (req, res, next) => {
@@ -95,9 +96,12 @@ router.get('/get-shipping-fee',   async (req, res, next) => {
 
 router.post('/save', async (req, res, next) => {
   let product = JSON.parse(JSON.stringify(req.cookies.cart));
+  let invoiceCode = StringHelpers.generateCode(10);
   req.body = JSON.parse(JSON.stringify(req.body));
   let user = req.body;
-  await OrdersModel.saveItems(product, user).then( (result) => {
+
+  await OrdersModel.saveItems(invoiceCode, product, user).then( (result) => {
+    EmailHelpers.sendEmail(result.user.email, invoiceCode)
     res.clearCookie("cart");
     res.redirect(linkIndex);
   });

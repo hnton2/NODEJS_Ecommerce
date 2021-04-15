@@ -11,6 +11,7 @@ const expressLayouts = require('express-ejs-layouts');
 const moment = require('moment');
 const fs = require('fs');
 const passport = require('passport');
+const nodemailer = require('nodemailer');
 
 const pathConfig = require('./path');
 const { networkInterfaces } = require('os');

@@ -24,6 +24,9 @@ module.exports = {
         if(option.task == 'get-items-by-name'){
             return Model.find({name : params.name});
         }
+        if(option.task == 'get-items-by-code-order'){
+            return Model.find({code : params.code});
+        }
     },
     countItems: (params, option = null) => {
         let objWhere	 = {};
@@ -61,11 +64,11 @@ module.exports = {
             return Model.remove({_id: {$in: id}});
         }
     },
-    saveItems: (product, user) => {
+    saveItems: (idOrder, product, user) => {
         let item = {};
         let total = 0;
         item.product = product;
-        item.code = StringHelpers.generateCode(10);
+        item.code = idOrder;
         item.shipping_fee = user.shipping_fee;
         item.time = Date.now();
         if(user.promo_code !== undefined || user.promo_code !== null) {
@@ -76,7 +79,7 @@ module.exports = {
         product.forEach( (item) => {
             total += item.price * item.quantity;
         });
-        item.status = 'confirming';
+        item.status = 'accepted';
         item.total = total;
         item.user = {
             first_name: user.first_name, 
