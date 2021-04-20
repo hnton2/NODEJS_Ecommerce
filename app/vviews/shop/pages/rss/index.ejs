@@ -7,7 +7,7 @@
   <div class="ps-container">
     <div class="row">
       <% itemsRSS.forEach( (item) => { %> 
-        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="width:480px;height:461px;">
           <div class="ps-post mb-30">
             <div class="ps-post__thumbnail"><a class="ps-post__overlay" href="<%= item.url %>"></a><img src="<%- getSrc(item.description) %>" style="width: 450px; height: 250px;" alt="<%= item.title %>"></div>
             <div class="ps-post__content"><a class="ps-post__title" href="<%= item.url %>"><%= item.title %></a>

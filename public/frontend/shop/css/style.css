@@ -6638,8 +6638,8 @@ html .bg--parallax {
    border-left-color: crimson; 
 }
 
-.margin-left-130 {
-  margin-left: 130px;
+.margin-left-110 {
+  margin-left: 110px;
   padding-top: 12px;
   position: relative;
   font-size: 18px;
@@ -6729,4 +6729,10 @@ p {
   margin: 6px;
   padding: 10px;
   border-style: ridge;
+}
+
+.ps-oder {
+  margin: auto;
+  width: 60%;
+  padding: 10px;
 }

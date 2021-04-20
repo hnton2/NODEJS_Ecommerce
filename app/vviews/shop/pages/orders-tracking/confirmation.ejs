@@ -1,0 +1,27 @@
+<% include ./../../helpers/view-status %>
+<% include ./../../helpers/timeline-status %>
+
+<% 
+  const folder_uploads = "uploads/shoes/"; 
+  const linkTracking = systemConfig.prefixShop + '/orders-tracking/?code=';
+%>
+
+<div class="pt-80 pb-80">
+	<div class="ps-container">
+		<div class="ps-order pb-40">
+			<div class="pb-30">
+				<img src="frontend/shop/images/delivery-truck.png" width="300" height="300" style="display:block;margin-left:auto;margin-right:auto;" />
+			</div>
+			<div class="text-center">			
+				<h1 style="color: #2AC37D;">Thank You For Your Order!</h1>
+				<h3>YOUR ID ORDER: #<%= idOrder %></h3>
+				<p style="font-size: 18px;">Your order will arrive as soon as possible</p>
+			</div>
+		</div>
+		<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 ">
+		</div>
+		<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 ">
+			<a class="ps-btn" href="<%= linkTracking + idOrder %>">TRACK YOUR ORDER<i class="ps-icon-next"></i></a>
+		</div>
+	</div>
+</div>

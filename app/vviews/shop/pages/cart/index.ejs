@@ -1,6 +1,7 @@
 <% 
   const folder_upload = 'uploads/shoes/';
   const linkShoes    = systemConfig.prefixShop + '/shoes/';
+  const linkCheckout    = systemConfig.prefixShop + '/checkout/';
   let total = 0;
 %>
 <div class="ps-content pt-80 pb-80"> 
@@ -44,18 +45,20 @@
 				</tbody>
 			</table>
 			<div class="ps-cart__actions">
-				<div class="ps-cart__promotion">
-					<div class="form-group">
-						<div class="ps-form--icon"><i class="fa fa-angle-right"></i>
-						<input class="form-control" type="text" placeholder="Promo Code">
+				<div class="ps-cart__promotion" style="padding: 15px;">
+					<form action="<%= linkCheckout %>apply-promo-code" method="POST" id="form-promotion">
+						<div class="form-group">
+							<div class="ps-form--icon">
+								<span data-alertid="example"></span>
+								<input class="form-control" name="code" type="text" placeholder="Promo Code">
+							</div>
 						</div>
-					</div>
-					<div class="form-group">
-						<a class="ps-btn" href="/category">Continue Shopping<i class="ps-icon-next"></i></a>
-					</div>
+						<p id="notify-promotion" style="color: red;"></p>
+						<button type="submit" class="btn btn-success">Apply<i class="fa fa-check"></i></button>
+					</form>
 				</div>
 				<div class="ps-cart__total">
-					<h3>Total Price: <span> <%= total %> $</span></h3><a class="ps-btn" href="/checkout">Process to checkout<i class="ps-icon-next"></i></a>
+					<h3>Total Price: <span id="info-total-price"> <%= total %> $</span></h3><a class="ps-btn" href="<%= linkCheckout %>">Process to checkout<i class="ps-icon-next"></i></a>
 				</div>
 			</div>
 	  	</div>

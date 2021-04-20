@@ -59,7 +59,7 @@ router.get('/delete/:id', (req, res, next) => {
   res.redirect(linkIndex);
 });
 
-// Delete
+// change-quantity
 router.get('/change-quantity-:state/:id', (req, res, next) => {
 	let id				  = ParamsHelpers.getParam(req.params, 'id', '');
   let state				= ParamsHelpers.getParam(req.params, 'state', '');

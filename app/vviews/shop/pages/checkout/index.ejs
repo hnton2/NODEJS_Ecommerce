@@ -81,12 +81,18 @@
 							<div class="form-group cheque">
 								<div class="form-group form-group--inline">
 									<label><h4 style="color: #ffff;">Shipping fee:</h4></label>
-									<div class="margin-left-130" id="shipping-fee">$ 0</div>
+									<div class="margin-left-110" id="shipping-fee">$ 0</div>
 									<input class="form-control" name="shipping_fee" value="" type="hidden" >
 								</div>
+								<% if(sale_off > 0) { %>
+									<div class="form-group form-group--inline">
+										<label><h4 style="color: #ffff;">Promotional Code:</h4></label>
+										<div class="margin-left-110">$ <%= sale_off %></div>
+									</div>
+								<% }%>
 								<div class="form-group form-group--inline">
 									<label><h4 style="color: #ffff;">Total:</h4></label>
-									<div class="margin-left-130" id="total-price">$ <%= total %></div>
+									<div class="margin-left-110" id="total-price">$ <%= total - sale_off %></div>
 								</div>
 							</div>
 							<div class="form-group paypal">

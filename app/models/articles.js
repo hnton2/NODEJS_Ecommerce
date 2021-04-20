@@ -50,7 +50,7 @@ module.exports = {
             find = {status:'active'};
             select += ' summary';
             sort = {'created.time': 'desc'};
-            limit = 6;
+            limit = 8;
         }
 
         if(option.task == 'items-in-category'){
@@ -69,6 +69,7 @@ module.exports = {
         if(option.task == 'items-related'){
             find = {status:'active', 'category.id': params.category.id, '_id': {$ne: params.id} }; 
             sort = {ordering: 'asc'};
+            select += ' summary';
         }
         if(option.task == 'items-search'){
             return Model.find({$text: {$search: params.keyword}})

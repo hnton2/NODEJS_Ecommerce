@@ -25,7 +25,7 @@ router.get('/', async (req, res, next) => {
   // banner
   await BannerModel.listItemsFrontend().then( (items) => {itemsBanner = items;});
   // all shoes
-  await ShoesModel.listItemsFrontend(null, {task:'new-items'}).then( (items) => {lastedShoes = items;});
+  await ShoesModel.listItemsFrontend(null, {task:'all-items'}).then( (items) => {lastedShoes = items;});
   // Special
   await ShoesModel.listItemsFrontend(null, {task: 'items-special'}).then( (items) => {specialShoes = items;});
   // Special

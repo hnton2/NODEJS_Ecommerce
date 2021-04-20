@@ -249,6 +249,34 @@ $(document).ready(function () {
         $('.ps-cart').append(xhtml);
     }
 
+    // use promo code
+    $("#form-promotion").submit(function(event ) {
+        var input = $('input[name=code]').val();
+        $(document).trigger("clear-alert-id.example");
+        if (input.length <= 0 ) {
+            $(document).trigger("set-alert-id-example", [
+                {
+                    "message": "Please enter code promotion!",
+                    "priority": "info"
+                }
+            ]);
+            event.preventDefault();
+        } else {
+            event.preventDefault();
+            $.ajax({
+                url: '/checkout/apply-promo-code',
+                type: 'post',
+                data:$('input[name=code]').serialize(),
+                success:function(data){
+                    $('input[name=code]').notify(data.message, { position:"top", className: 'success' });
+                    let textTotal = $('span#info-total-price').text();
+                    let total = Number(textTotal.slice(1, textTotal.length - 2)) - data.saleOff;
+                    $('span#info-total-price').html(total + ' $');
+                    $('p#notify-promotion').html("You are using a promotional code worth " + data.saleOff + "$");
+                }
+            });
+        }
+    });
 });
 
 function changeQuantity(id, state) {

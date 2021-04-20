@@ -177,7 +177,7 @@ router.post('/save', (req, res, next) => {
 			if(req.file != undefined) FileHelpers.remove(folderImage, req.file.filename);
 
 			let categoryItems = [];
-			await CategoryModel.getItems(null, null).then( (items) => {
+			await CategoryModel.getItems(null, {task: 'get-name-items'}).then( (items) => {
 				categoryItems = items;
 				categoryItems.unshift({_id: 'allValue', name: 'Choose category'});
 			});

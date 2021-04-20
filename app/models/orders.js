@@ -64,17 +64,24 @@ module.exports = {
             return Model.remove({_id: {$in: id}});
         }
     },
-    saveItems: (idOrder, product, user) => {
+    saveItems: (idOrder, product, user, sale_off) => {
         let item = {};
         let total = 0;
         item.product = product;
         item.code = idOrder;
         item.shipping_fee = user.shipping_fee;
         item.time = Date.now();
-        if(user.promo_code !== undefined || user.promo_code !== null) {
-            item.promo_code = user.promo_code;
+        console.log(sale_off);
+        if(sale_off.length > 0) {
+            item.promo_code = {
+                name: sale_off.code,
+                value: sale_off.saleOff
+            }
         } else {
-            item.promo_code = '';
+            item.promo_code = {
+                name: 'None',
+                value: 0
+            }
         }
         product.forEach( (item) => {
             total += item.price * item.quantity;

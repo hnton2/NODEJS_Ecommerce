@@ -42,7 +42,7 @@
       <% lastedItems.forEach ( (item)=>{ %>
         <div class="ps-post--sidebar">
           <div class="ps-post__thumbnail"><a href="#"></a><img src="<%= folder_uploads + item.thumb %>" style="width: 60px;" alt=""></div>
-          <div class="ps-post__content"><a class="ps-post__title" href="<%= linkNews + item.slug %>"><%= item.name %></a><span><%= formatDate(item.created.time) %></span></div>
+          <div class="ps-post__content"><a class="ps-post__title" href="<%= linkNews + item.slug %>"><%= item.name %></a></div>
         </div>
       <% }) %>
     </div>

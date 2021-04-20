@@ -9,10 +9,9 @@
 <div class="ps-checkout pt-80 pb-80">
 	<div class="ps-container">
 		<div class="card-header">
-			<h3>Search order</h3>
 			<aside class="ps-widget--sidebar ps-widget--search">
 				<form class="ps-search--widget" action="/orders-tracking" method="get">
-				  <input class="form-control" name="code" value="<%= query %>" type="text" placeholder="ID your order..." style="border-radius:5px;height: 50px;">
+				  <input class="form-control" name="code" value="<%= query %>" type="text" placeholder="Enter ID Order..." style="border-radius:5px;height: 50px;">
 				  <button type="button"><i class="ps-icon-search"></i></button>
 				</form>
 			</aside>
@@ -26,7 +25,7 @@
 						<div class="col-md-3"> <strong>Customer name:</strong> <br> <%= item.user.first_name + ' ' + item.user.last_name %> | <i class="fa fa-phone"></i> <%= item.user.phone %> </div>
 						<div class="col-md-3"> <strong>Address:</strong> <br> <%= item.user.address %> </div>
 						<div class="col-md-3"> <strong>Status:</strong> <br> <%= viewStatusHelper(systemConfig.orders_state_value, item.status) %> </div>
-						<div class="col-md-3"> <strong>Total cost:</strong> <br> $ <%= item.total %> </div>
+						<div class="col-md-3"> <strong>Total cost:</strong> <br> $ <%= item.total - item.promo_code.value + item.shipping_fee %> </div>
 					</div>
 				</div>
 				<hr>
@@ -76,7 +75,7 @@
 					<% }) %>
 				</ul>
 				<hr>
-				<a href="<%= linkPrefix %>/category" class="btn btn-warning" data-abc="true"> <i class="fa fa-chevron-left"></i> Continue shopping</a>
+				<a href="<%= linkPrefix %>category" class="btn btn-warning" data-abc="true"> <i class="fa fa-chevron-left"></i> Continue shopping</a>
 			</div>
 		<% } %>
 	</div>

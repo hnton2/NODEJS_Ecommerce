@@ -1,4 +1,3 @@
-CKEDITOR.replace( 'ck_editor');
 //Create slug input
 function change_alias(alias) {
     var str = alias;
@@ -66,7 +65,27 @@ function changeGroupAcp (link) {
     return;
 }
 
+//active menu function
+function activeMenu() {
+    var arrPathname = window.location.pathname.split('/');
+    var pattern = (typeof arrPathname[2] !== 'undefined') ? arrPathname[2] : '';
+    $('li.nav-item a[data-active="'+pattern+'"]').addClass('active');
+    $('li.nav-item a[data-active="'+pattern+'"]').parent().parent().prev().addClass('active');    
+    $('li.nav-item a[data-active="'+pattern+'"]').parent().parent().parent().addClass('nav-item menu-open'); 
+}
+
 $(document).ready(function () {
+
+    // date-range picker
+    $('input[name="duration"]').daterangepicker({
+        opens: 'left',
+        locale: {
+            format: 'MMMM D, YYYY'
+        }
+    });
+
+    // Summernote
+    $('#summernote').summernote()
 
     // order status
     $('select[name=filter-progress]').change(function() {
@@ -88,18 +107,7 @@ $(document).ready(function () {
     
     var ckbAll = $("#cbAll");
     var fmAdmin = $("#zt-form");
-    // CKEDITOR
-    if ($('textarea#content_ck').length) {
-        CKEDITOR.replace('content_ck');
-    }
 
-    //active menu function
-    function activeMenu() {
-        var arrPathname = window.location.pathname.split('/');
-        var pattern = (typeof arrPathname[2] !== 'undefined') ? arrPathname[2] : '';
-        $('li.nav-item a[data-active="'+pattern+'"]').addClass('active');
-        $('li.nav-item a[data-active="'+pattern+'"]').parent().parent().parent().addClass('nav-item menu-open'); 
-    }
     //call active menu
     activeMenu();
 

@@ -70,7 +70,7 @@
 						<th class="text-center">Product</th>
 						<%- sortHelper(linkPrefix, 'Price', 'total', params.sortField, params.sortType, 'width:5%') %>
 						<th class="text-center">Register date</th>
-						<th class="text-center">Promo Code</th>
+						<th class="text-center">Promotional Code</th>
 						<th class="text-center">Action</th>
 					</tr>
 				</thead>
@@ -98,7 +98,7 @@
 									<b>Total</b>: <%= item.total + item.shipping_fee %><br>
 								</td>
 								<td class="text-center"><%= moment(item.time).format(systemConfig.format_date) %></td>
-								<td class="text-center"><%= item.promo_code %></td>
+								<td class="text-center"><%= item.promo_code.name + ' - $' + item.promo_code.value %></td>
 								<td class="text-center">
 									<a href="<%= linkPrefix %>form/<%= item.id %>" type="button" class="rounded-circle btn btn-sm btn-info" title="Edit">
 										<i class="fas fa-pencil-alt"></i>

@@ -1,5 +1,7 @@
 <% include ./../../helpers/format-date %>
 <% include ./../../helpers/show-comments %>
+<% include ./../../helpers/format-summary %>
+
 <% 
     const folder_uploads = "uploads/articles/";
     const linkNews    = systemConfig.prefixShop + '/news/';
@@ -7,83 +9,111 @@
 %>
 
 <div class="ps-blog-grid pt-80 pb-80"> 
-    <div class="ps-container">
+  <div class="ps-container">
+    <div class="row">
+      <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 ">
+        <div class="ps-post--detail">
+          <div class="ps-post__thumbnail"><img src="<%= folder_uploads + itemMain[0].thumb %>" alt=""></div>
+          <div class="ps-post__header">
+            <h3 class="ps-post__title"><%= itemMain[0].name %></h3>
+            <p class="ps-post__meta">Posted by <a href="">Alena Studio</a> on <%= formatDate(itemMain[0].created.time) %></p>
+          </div>
+          <div class="ps-post__content">
+            <blockquote>
+              <p><%= itemMain[0].summary %></p>
+            </blockquote>
+            <p><%- itemMain[0].content %></p>
+          </div>
+          <div class="ps-post__footer">
+            <p class="ps-post__tags"><i class="fa fa-tags"></i><a href="<%= linkCategory + itemMainCategory.slug %>"><%= itemMain[0].category.name %></a></p>
+            <div class="ps-post__actions"><span><i class="fa fa-comments"></i> 23 Comments</span><span><i class="fa fa-heart"></i>  likes</span>
+              <div class="ps-post__social"><i class="fa fa-share-alt"></i><a href="#">Share</a>
+                <ul>
+                  <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                  <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                  <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ps-author">
+          <div class="ps-author__thumbnail"><img src="images/user/1.jpg" alt=""></div>
+          <div class="ps-author__content">
+            <header>
+              <h4>MARK GREY</h4>
+              <p>WEB DESIGNER</p>
+            </header>
+            <p>The development of the mass spectrometer allowed the mass of atoms to be measured with increased accuracy. The device uses the launch and continued operation of the Hubble space telescope probably.</p>
+          </div>
+        </div>
+        <div class="ps-comments">
+          <h3>Comment (<%= itemMain[0].comments.length %>)</h3>
+          <%- commentsHelpers(itemMain[0].comments) %>
+          <!-- <div class="ps-comment ps-comment--reply">
+            <div class="ps-comment__thumbnail"><img src="images/user/3.jpg" alt=""></div>
+            <div class="ps-comment__content">
+              <header>
+                <h4>MARK GREY <span>(3 hours ago)</span></h4><a href="#">Reply<i class="ps-icon-arrow-left"></i></a>
+              </header>
+              <p>The development of the mass spectrometer allowed the mass of atoms to be measured with increased accuracy. The device uses  continue ace explore.</p>
+            </div>
+          </div> -->
+        </div>
+        <form class="ps-form--comment" action="<%= linkNews + 'comments/' + itemMain[0].slug  %>" method="post">
+          <h3>LEAVE A COMMENT</h3>
+          <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
+                  <div class="form-group">
+                    <input class="form-control" name="name" type="text" placeholder="Your Name">
+                  </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
+                  <div class="form-group">
+                    <input class="form-control" name="email" type="email" placeholder="E-mail">
+                  </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                  <div class="form-group">
+                    <textarea class="form-control" name="content" rows="6" placeholder="Text your message here..."></textarea>
+                  </div>
+                </div>
+          </div>
+          <div class="form-group">
+            <button class="ps-btn ps-btn--sm ps-contact__submit">Send Message<i class="ps-icon-next"></i></button>
+          </div>
+        </form>
+      </div>
+      <% include ./../../elements/sidebar-news %>
+    </div>
+  </div>
+</div>
+<div class="ps-section ps-section--top-sales ps-owl-root pt-40 pb-40">
+  <div class="ps-container">
+    <div class="ps-section__header mb-50">
       <div class="row">
         <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 ">
-          <div class="ps-post--detail">
-            <div class="ps-post__thumbnail"><img src="<%= folder_uploads + itemMain[0].thumb %>" alt=""></div>
-            <div class="ps-post__header">
-              <h3 class="ps-post__title"><%= itemMain[0].name %></h3>
-              <p class="ps-post__meta">Posted by <a href="">Alena Studio</a> on <%= formatDate(itemMain[0].created.time) %></p>
-            </div>
-            <div class="ps-post__content">
-              <blockquote>
-                <p><%= itemMain[0].summary %></p>
-              </blockquote>
-              <p><%- itemMain[0].content %></p>
-            </div>
-            <div class="ps-post__footer">
-              <p class="ps-post__tags"><i class="fa fa-tags"></i><a href="<%= linkCategory + itemMainCategory.slug %>"><%= itemMain[0].category.name %></a></p>
-              <div class="ps-post__actions"><span><i class="fa fa-comments"></i> 23 Comments</span><span><i class="fa fa-heart"></i>  likes</span>
-                <div class="ps-post__social"><i class="fa fa-share-alt"></i><a href="#">Share</a>
-                  <ul>
-                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="ps-author">
-            <div class="ps-author__thumbnail"><img src="images/user/1.jpg" alt=""></div>
-            <div class="ps-author__content">
-              <header>
-                <h4>MARK GREY</h4>
-                <p>WEB DESIGNER</p>
-              </header>
-              <p>The development of the mass spectrometer allowed the mass of atoms to be measured with increased accuracy. The device uses the launch and continued operation of the Hubble space telescope probably.</p>
-            </div>
-          </div>
-          <div class="ps-comments">
-            <h3>Comment (<%= itemMain[0].comments.length %>)</h3>
-            <%- commentsHelpers(itemMain[0].comments) %>
-            <!-- <div class="ps-comment ps-comment--reply">
-              <div class="ps-comment__thumbnail"><img src="images/user/3.jpg" alt=""></div>
-              <div class="ps-comment__content">
-                <header>
-                  <h4>MARK GREY <span>(3 hours ago)</span></h4><a href="#">Reply<i class="ps-icon-arrow-left"></i></a>
-                </header>
-                <p>The development of the mass spectrometer allowed the mass of atoms to be measured with increased accuracy. The device uses  continue ace explore.</p>
-              </div>
-            </div> -->
-          </div>
-          <form class="ps-form--comment" action="<%= linkNews + 'comments/' + itemMain[0].slug  %>" method="post">
-            <h3>LEAVE A COMMENT</h3>
-            <div class="row">
-                  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
-                    <div class="form-group">
-                      <input class="form-control" name="name" type="text" placeholder="Your Name">
-                    </div>
-                  </div>
-                  <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
-                    <div class="form-group">
-                      <input class="form-control" name="email" type="email" placeholder="E-mail">
-                    </div>
-                  </div>
-                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
-                    <div class="form-group">
-                      <textarea class="form-control" name="content" rows="6" placeholder="Text your message here..."></textarea>
-                    </div>
-                  </div>
-            </div>
-            <div class="form-group">
-              <button class="ps-btn ps-btn--sm ps-contact__submit">Send Message<i class="ps-icon-next"></i></button>
-            </div>
-          </form>
+          <h3 class="ps-section__title" data-mask="Related item"> RELATED NEWS</h3>
         </div>
-        <% include ./../../elements/sidebar-news %>
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 ">
+          <div class="ps-owl-actions"><a class="ps-prev" href="#"><i class="ps-icon-arrow-right"></i>Prev</a><a class="ps-next" href="#">Next<i class="ps-icon-arrow-left"></i></a></div>
+        </div>
+      </div>
+    </div>
+    <div class="ps-section__content">
+      <div class="ps-owl--colection owl-slider" data-owl-auto="true" data-owl-loop="true" data-owl-speed="5000" data-owl-gap="30" data-owl-nav="false" data-owl-dots="false" data-owl-item="4" data-owl-item-xs="1" data-owl-item-sm="2" data-owl-item-md="3" data-owl-item-lg="4" data-owl-duration="1000" data-owl-mousedrag="on">
+        <% for(let i = 0; i < itemsRelated.length; i++) { %>
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+            <div class="ps-post">
+              <div class="ps-post__thumbnail"><a class="ps-post__overlay" href="<%= linkNews + itemsRelated[i].slug %>"></a><img src="<%= folder_uploads + itemsRelated[i].thumb %>" style="height: 235px; width: 450px;" alt=""></div>
+              <div class="ps-post__content"><a class="ps-post__title" href="<%= linkNews + itemsRelated[i].slug %>"><%= itemsRelated[i].name %></a>
+                <p class="ps-post__meta"><span>By:<a class="mr-5" href="#">Alena Studio</a></span> -<span class="ml-5"><%= formatDate(itemsRelated[i].created.time) %></span></p>
+                <p><%= formatSummaryHelper(itemsRelated[i].summary) %>…</p><a class="ps-morelink" href="<%= linkNews + itemsRelated[i].slug %>">Read more<i class="fa fa-long-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+        <% } %>
       </div>
     </div>
   </div>
-        
+</div>

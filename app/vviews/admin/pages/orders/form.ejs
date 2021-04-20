@@ -65,13 +65,15 @@
 				  </tr>
 				  </thead>
 				  <tbody>
-				  <tr>
-					<td><%= item.product[0].id %></td>
-					<td><%= item.product[0].name %></td>
-					<td><%= item.product[0].size %></td>
-					<td><%= item.product[0].quantity %></td>
-					<td>$<%= item.product[0].price %></td>
-				  </tr>
+					<% item.product.forEach( (data) => { %>
+						<tr>
+							<td><%= data.id %></td>
+							<td><%= data.name %></td>
+							<td><%= data.size %></td>
+							<td><%= data.quantity %></td>
+							<td>$<%= data.price %></td>
+						</tr>
+					<% }) %>
 				  </tbody>
 				</table>
 			  </div>
@@ -80,7 +82,7 @@
 			  <div class="col-6">
 				<p class="lead">Promo code:</p>
 				<p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
-					<%= item.promo_code %>
+					<%= item.promo_code.name %>
 				</p>
 				<p class="lead">Message:</p>
 				<p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
@@ -97,8 +99,12 @@
 					  <td>$<%= item.shipping_fee %></td>
 					</tr>
 					<tr>
+						<th>Promotional value :</th>
+						<td>$<%= item.promo_code.value %></td>
+					  </tr>
+					<tr>
 					  <th>Total:</th>
-					  <td>$<%= item.total + item.shipping_fee %></td>
+					  <td>$<%= item.total + item.shipping_fee - item.promo_code.value %></td>
 					</tr>
 				  </tbody></table>
 				</div>
