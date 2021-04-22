@@ -26,7 +26,7 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-info elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="/<%=systemConfig.prefixAdmin%>/" class="brand-link">
         <img src="backend/images/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">ZendVN</span>
     </a>
@@ -73,6 +73,15 @@
             <i class="nav-icon fas fa-file"></i>
             <p>
               Quản lý đơn hàng
+              <span class="badge badge-info right">2</span>
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/<%=systemConfig.prefixAdmin%>/promo" class="nav-link" data-active="promo">
+            <i class="nav-icon fas ion-flash-off"></i>
+            <p>
+              Quản lý mã giảm giá
               <span class="badge badge-info right">2</span>
             </p>
           </a>

@@ -1,4 +1,4 @@
-const Model 	= require(__path_schemas + 'contact');
+const Model 	= require(__path_schemas + 'shipping');
 
 module.exports = {
     listItems: (params, options = null) => {
@@ -9,25 +9,17 @@ module.exports = {
         if(params.currentStatus !== 'all') objWhere.status = params.currentStatus;
         if(params.keyword !== '') objWhere.name = new RegExp(params.keyword, 'i');
     
-    
         return Model
 		.find(objWhere)
-		.select('name status email phone message register_time')
+		.select('name code cost')
 		.sort(sort)
-		.skip((params.pagination.currentPage-1) * params.pagination.totalItemsPerPage)
-		.limit(params.pagination.totalItemsPerPage)
     },
     getItems: (params = null, option = null) => {
         if(option.task == 'get-items-by-id'){
             return Model.findById(params.id);
         }
         if(option.task == 'get-items-by-name'){
-            return Model.find({name : params.name}); 
-        }
-        if(option.task == 'lasted-item'){
-            sort = {'register_time': 'desc'};
-            limit = 5;
-            return Model.find().limit(limit).sort(sort);
+            return Model.find({name : params.name});
         }
     },
     countItems: (params, option = null) => {
@@ -37,12 +29,14 @@ module.exports = {
 
         return Model.countDocuments(objWhere);
     },
-    changeStatus: (id, currentStatus, option = null) => {
-        return Model.updateOne({_id: id}, {status: currentStatus});
-    },
-    changeOrdering: async (id, ordering, option = null) => {
+    changeOrdering: async (id, ordering, user, option = null) => {
         let data = {
             ordering: parseInt(ordering),
+            modified: {
+                user_id: user.id,
+                user_name: user.username,
+                time: Date.now()
+            }
         };
         if(Array.isArray(id)) {
             for(let index = 0; index < id.length; index ++){
@@ -61,17 +55,25 @@ module.exports = {
             return Model.remove({_id: {$in: id}});
         }
     },
-    saveItems: (item, option = null) => {
-        if(item.status == null) item.status = 'not-contacted';
+    saveItems: (item, user, option = null) => {
         if(option.tasks === 'add') {
-            item.register_time = Date.now()
+            item.created = {
+                user_id: user.id,
+				user_name: user.username,
+				time: Date.now()
+            }
             return new Model(item).save();
         }else if(option.tasks === 'edit') {
             return Model.updateOne({_id: item.id}, {
 				ordering: parseInt(item.ordering),
 				name: item.name,
 				status: item.status,
-				message: item.content,
+				content: item.content,
+				modified: {
+					user_id: user.id, 
+					user_name: user.username,
+					time: Date.now()
+				}   
 			});
         }
     }

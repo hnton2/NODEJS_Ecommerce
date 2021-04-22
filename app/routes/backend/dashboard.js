@@ -16,6 +16,7 @@ const SliderModel 	= require(__path_schemas + 'slider');
 const BannerModel 	= require(__path_schemas + 'banner');
 const SubscribeModel 	= require(__path_schemas + 'subscribe');
 const OrdersModel 	= require(__path_schemas + 'orders');
+const PromoModel 	= require(__path_schemas + 'promo');
 
 const folderView	 = __path_views_admin + 'pages/dashboard/';
 const UtilsHelpers 	= require(__path_helpers + 'utils');
@@ -37,6 +38,7 @@ router.get('/', async function(req, res, next) {
   let totalBanner = await UtilsHelpers.countCollections(BannerModel);
   let totalSubscribe = await UtilsHelpers.countCollections(SubscribeModel);
   let totalOrders = await UtilsHelpers.countCollections(OrdersModel);
+  let totalPromo = await UtilsHelpers.countCollections(PromoModel);
 
   res.render(`${folderView}index`, { 
     pageTitle: 'Dashboard',
@@ -55,6 +57,7 @@ router.get('/', async function(req, res, next) {
     totalBanner,
     totalSubscribe,
     totalOrders,
+    totalPromo
   });
 });
 

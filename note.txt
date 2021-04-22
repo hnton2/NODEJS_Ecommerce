@@ -23,13 +23,15 @@ admin: thêm chức năng lọc theo special
 phân trang ajax
 chưa validator cho phần reviews
 chưa show được color ra frontend
-chưa xóa được product trên cart ở header
 
 jquery autocomplete
 
 email: nodemailer
 
-mã giảm giá: id, tên, tiền, thời gian, số lượng, số lượng đã sử dụng,
-    nếu mã tồn tại
+fix mã giảm giá
+thêm admin phần shipping fee
+fix admin dashboard
 
-xong khi đặt hàng: tạo mã đơn hàng, thông tin người mua, sp mua, phí vận chuyển, mã giảm giá, tổng, status(chưa giao, đã giao)
+category {
+    id, name, slug
+}

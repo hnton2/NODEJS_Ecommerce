@@ -48,10 +48,10 @@ module.exports = {
             limit = 8;
         }
 
-        if(option.task == 'items-news'){
+        if(option.task == 'lasted-items'){
             find = {status:'active'};
-            select += ' content';
             sort = {'created.time': 'desc'};
+            limit = 5;
         }
 
         if(option.task == 'items-in-category'){
@@ -99,6 +99,12 @@ module.exports = {
         if(params.categoryID !== '') objWhere.categoryID = params.categoryID;
         
         return Model.countDocuments(objWhere);
+    },
+    countingInventory: () => {
+        return Model.aggregate([
+            { $match: {status: 'active'}},
+            { $group: { _id: null, quantity: { $sum: "$quantity" } } }
+        ]);
     },
     changeStatus: (id, currentStatus, user, option = null) => {
         let status = '';
@@ -223,9 +229,9 @@ module.exports = {
                 slug: item.slug,
                 status: item.status,
                 special: item.special,
-                price: item.price,
-                quantity: item.quantity,
-                sale_off: item.sale_off,
+                price: parseInt(item.price),
+                quantity: parseInt(item.quantity),
+                sale_off: parseInt(item.sale_off),
                 content: item.content,
                 thumb: item.thumb,
                 size: item.size,

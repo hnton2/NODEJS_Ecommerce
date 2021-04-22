@@ -87,13 +87,31 @@ $(document).ready(function () {
     // Summernote
     $('#summernote').summernote()
 
-    // order status
+    // change order status
     $('select[name=filter-progress]').change(function() {
         var myId = $(this).attr('id');
         var itemValue = $(this).val();
 
         var path = window.location.pathname.split('/');
         var linkRedirect = '/' + path[1] + '/' + path[2] + '/change-progress/' + myId + '/' + itemValue;
+        if(itemValue){
+            $.ajax({
+                type:'POST',
+                url:linkRedirect,
+                success:function(data){
+                    $('#' + myId).notify(data.message, { position:"top", className: 'success' });
+                }
+            }); 
+        }
+    });
+
+    // change contact status
+    $('select[name=filter-contact]').change(function() {
+        var myId = $(this).attr('id');
+        var itemValue = $(this).val();
+
+        var path = window.location.pathname.split('/');
+        var linkRedirect = '/' + path[1] + '/' + path[2] + '/change-status/' + myId + '/' + itemValue;
         if(itemValue){
             $.ajax({
                 type:'POST',
@@ -230,8 +248,6 @@ $(document).ready(function () {
     $("input[name=avatar]").change(function() {
         readURL(this, 'img.preview-avatar');
     });
-
-    //Articles
 
     $('select[name=filter-category]').change(function() {
         var path = window.location.pathname.split('/');

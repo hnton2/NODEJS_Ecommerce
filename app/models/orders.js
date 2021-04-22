@@ -27,6 +27,11 @@ module.exports = {
         if(option.task == 'get-items-by-code-order'){
             return Model.find({code : params.code});
         }
+        if(option.task == 'lasted-item'){
+            sort = {'time': 'desc'};
+            limit = 5;
+            return Model.find().limit(limit).sort(sort);
+        }
     },
     countItems: (params, option = null) => {
         let objWhere	 = {};
@@ -34,6 +39,11 @@ module.exports = {
         if(params.keyword !== '') objWhere.name = new RegExp(params.keyword, 'i');
 
         return Model.countDocuments(objWhere);
+    },
+    countingSales: () => {
+        return Model.aggregate([
+            { $group: { _id: null, total: { $sum: "$total" } } }
+        ]);
     },
     changeProgress: (id, currentStatus, option = null) => {
         return Model.updateOne({_id: id}, {status: currentStatus});
@@ -71,23 +81,23 @@ module.exports = {
         item.code = idOrder;
         item.shipping_fee = user.shipping_fee;
         item.time = Date.now();
-        console.log(sale_off);
-        if(sale_off.length > 0) {
+        product.forEach( (item) => {
+            total += item.price * item.quantity;
+        });
+        if(Object.keys(sale_off).length !== 0) {
             item.promo_code = {
                 name: sale_off.code,
                 value: sale_off.saleOff
             }
+            item.total = total + parseInt(user.shipping_fee) - parseInt(sale_off.saleOff);
         } else {
             item.promo_code = {
-                name: 'None',
+                name: "0",
                 value: 0
             }
+            item.total = total + parseInt(user.shipping_fee);
         }
-        product.forEach( (item) => {
-            total += item.price * item.quantity;
-        });
         item.status = 'accepted';
-        item.total = total;
         item.user = {
             first_name: user.first_name, 
             last_name: user.last_name,

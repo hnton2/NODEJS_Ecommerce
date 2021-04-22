@@ -38,7 +38,7 @@ var schema = new mongoose.Schema({
         name: String,
         email: String,
         time: Date,
-        rating: String,
+        rating: Number,
         content: String
     }],
 });

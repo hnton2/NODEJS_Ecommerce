@@ -6,7 +6,7 @@ const middlewareGetCategoryForMenu  	= require(__path_middleware + 'blog/get-cat
 const middlewareGetRandomArticles	    = require(__path_middleware + 'blog/get-random-articles');
 const middlewareGetTrendingArticles	    = require(__path_middleware + 'blog/get-trending-articles');
 
-router.use('/auth', require('./auth'));
+//router.use('/auth', require('./auth'));
 router.use('/', middlewareGetUserInfo, middlewareGetCategoryForMenu, 
             middlewareGetRandomArticles, middlewareGetTrendingArticles, require('./home'));
 router.use('/category', require('./category'));

@@ -6,7 +6,7 @@ const middlewareGetProductCategory	    = require(__path_middleware + 'shop/get-c
 const middlewareGetArticleCategory 	= require(__path_middleware + 'blog/get-category-for-menu');
 const middlewareGetLastedNews	= require(__path_middleware + 'blog/get-lasted-news');
 
-
+router.use('/auth', require('./auth'));
 router.use('/', middlewareGetBrand, middlewareGetProductCategory, middlewareGetArticleCategory, middlewareGetLastedNews, require('./home'));
 router.use('/category', require('./category'));
 router.use('/shoes', require('./shoes'));

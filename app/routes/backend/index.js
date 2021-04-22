@@ -21,5 +21,6 @@ router.use('/banner', require('./banner'));
 router.use('/subscribe', require('./subscribe'));
 router.use('/orders', require('./orders'));
 router.use('/promo', require('./promo'));
+router.use('/shipping', require('./shipping'));
 
 module.exports = router;

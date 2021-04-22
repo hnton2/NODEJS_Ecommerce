@@ -95,13 +95,14 @@ router.get('/get-shipping-fee',   async (req, res, next) => {
       {name: 'Tuyên Quang', value: '6'},
       {name: 'Vĩnh Long', value: '4'},
       {name: 'Vĩnh Phúc', value: '5'},
+      {name: 'Yên Bái', value: '8'},
   ];
   res.json(fee);
 });
 
 router.post('/save', async (req, res, next) => {
   let product = [];
-  let sale_off = [];
+  let sale_off = {};
 
   if(req.cookies.cart !== undefined) {
     product = JSON.parse(JSON.stringify(req.cookies.cart));

@@ -25,7 +25,7 @@
 						<div class="col-md-3"> <strong>Customer name:</strong> <br> <%= item.user.first_name + ' ' + item.user.last_name %> | <i class="fa fa-phone"></i> <%= item.user.phone %> </div>
 						<div class="col-md-3"> <strong>Address:</strong> <br> <%= item.user.address %> </div>
 						<div class="col-md-3"> <strong>Status:</strong> <br> <%= viewStatusHelper(systemConfig.orders_state_value, item.status) %> </div>
-						<div class="col-md-3"> <strong>Total cost:</strong> <br> $ <%= item.total - item.promo_code.value + item.shipping_fee %> </div>
+						<div class="col-md-3"> <strong>Total cost:</strong> <br> $ <%= item.total %> </div>
 					</div>
 				</div>
 				<hr>

@@ -8,6 +8,7 @@ var schema = new mongoose.Schema({
     phone: String,
     message: String,
     status: String,
+    register_time: Date,
 });
 
 module.exports = db.model(databaseConfig.col_contact, schema );

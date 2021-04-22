@@ -47,15 +47,6 @@ router.post('/change-progress/:id/:status', (req, res, next) => {
 	});
 });
 
-// Change status - Multi
-router.post('/change-status/:status', (req, res, next) => {
-	let currentStatus	= ParamsHelpers.getParam(req.params, 'status', 'active');
-	
-	MainModel.changeStatus(req.body.cid, currentStatus, req.user, {tasks: 'change-multi'}).then( (result) => {
-		NotifyHelpers.showNotify(req, res, linkIndex, {n: result.n, tasks: 'change-status-multi-success'});
-	});
-});
-
 // Change ordering - Multi
 router.post('/change-ordering', (req, res, next) => {
 	let cids 		= req.body.cid;

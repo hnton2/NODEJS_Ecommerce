@@ -1,0 +1,68 @@
+<% include ./../../helpers/filter-status %>
+<% include ./../../helpers/action %>
+<% include ./../../helpers/pagination %>
+<% include ./../../helpers/status %>
+<% include ./../../helpers/highlight %>
+<% include ./../../helpers/checkbox %>
+<% include ./../../helpers/info-user %>
+<% include ./../../helpers/sort %>
+<% 
+	const collection = "shipping";
+	const linkPrefix = systemConfig.prefixAdmin + `/${collection}/`;
+%>
+
+<% include ./../../elements/notify %>
+
+<div class="card card-primary">
+	<div class="card-header">
+		<h4 class="card-title">List Shipping Fee</h4>
+		<div class="card-tools">
+			<a href="<%= linkPrefix %>" class="btn btn-tool"><i class="fas fa-sync"></i></a>
+			<button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fas fa-minus"></i></button>
+		</div>
+	</div>
+
+	<div class="card-body">
+		<!--Control-->
+		<form role="form" class="table-responsive" id="zt-form" action="" method="post">
+
+			<%- actionHelper(linkPrefix) %>
+
+			<table class="table table-bordered table-hover text-nowrap btn-table mb-0">
+				<thead>
+					<tr>
+						<th class="text-center">
+							<div class="custom-control custom-checkbox">
+								<input class="custom-control-input" type="checkbox" id="cbAll">
+								<label for="cbAll" class="custom-control-label"></label>
+							</div>
+						</th>
+						<th class="text-center">ID</th>
+						<%- sortHelper(linkPrefix, 'Name', 'name', params.sortField, params.sortType, 'width:20%') %>
+						<%- sortHelper(linkPrefix, 'Area Code', 'code', params.sortField, params.sortType) %>
+						<%- sortHelper(linkPrefix, 'Fee', 'cost', params.sortField, params.sortType) %>
+					</tr>
+				</thead>
+				<tbody>
+					<% if(items.length > 0) { %>
+						<% items.forEach( (item, index) => { %>
+							<tr>
+								<td class="text-center">
+									<%- checkboxHelper(item.id)%>
+								</td>
+								<td class="text-center"><%= index+1 %></td>
+								<td class="text-center"><%- highlightHelper(item.name, params.keyword)%></td>
+								<td class="text-center position-relative"><%= item.code %></td>
+								<td class="text-center position-relative"><input type="number" name="ordering<%= item.id %>" value="<%= item.cost %>" class="ordering form-control form-control-sm m-auto text-center" style="width: 65px" id="ordering<%= item.id %>" data-id="<%= item.id %>" min="1"></td>
+							</tr>
+						<% }) %>
+					<% } else { %>
+						<tr ><td colspan="9"><h3>Không có dữ liệu</h3></td></tr>
+					<% } %>	
+				</tbody>
+			</table>
+		</form>
+	</div>
+	<div class="card-footer clearfix">
+	</div>
+</div>

@@ -8,7 +8,7 @@ $(document).ready(function () {
         districtText: 'Choose district',
         wardText: 'Choose ward',
     });
-    $('select[name=ls_province]').change(function() {
+    $('select[name=ls_province]').change(function() {       // change province and calculate shipping fee
         let province = $(this).find('option:selected').text();
         let fee = 0;
         let totalBox = $('#total-price');

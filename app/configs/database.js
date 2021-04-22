@@ -22,4 +22,5 @@ module.exports = {
     col_subscribe: 'subscribe',
     col_order: 'order',
     col_promo: 'promo',
+    col_shipping: 'shipping',
 };

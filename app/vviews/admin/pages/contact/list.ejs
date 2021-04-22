@@ -4,8 +4,9 @@
 <% include ./../../helpers/status %>
 <% include ./../../helpers/highlight %>
 <% include ./../../helpers/checkbox %>
-<% include ./../../helpers/info-user %>
 <% include ./../../helpers/sort %>
+<% include ./../../helpers/selectBox %>
+
 <% 
 	const collection = "contact";
 	const linkPrefix = systemConfig.prefixAdmin + `/${collection}/`;
@@ -66,9 +67,10 @@
 							</div>
 						</th>
 						<th class="text-center">ID</th>
-						<%- sortHelper(linkPrefix, 'Name', 'name', params.sortField, params.sortType, 'width:20%') %>
-						<%- sortHelper(linkPrefix, 'Email', 'email', params.sortField, params.sortType) %>
+						<%- sortHelper(linkPrefix, 'User', 'name', params.sortField, params.sortType, 'width:20%') %>
+						<%- sortHelper(linkPrefix, 'Message', 'message', params.sortField, params.sortType) %>
 						<%- sortHelper(linkPrefix, 'Phone', 'phone', params.sortField, params.sortType) %>
+						<th class="text-center">Register time</th>
 						<%- sortHelper(linkPrefix, 'Status', 'status', params.sortField, params.sortType) %>
 						<th class="text-center">Action</th>
 					</tr>
@@ -81,16 +83,17 @@
 									<%- checkboxHelper(item.id)%>
 								</td>
 								<td class="text-center"><%= index+1 %></td>
-								<td class="text-center"><%- highlightHelper(item.name, params.keyword)%></td>
-								<td class="text-center"><%= item.email %></td>
+								<td class="text-sm-left">
+									<b>Name:</b> <%- highlightHelper(item.name, params.keyword)%> <br>
+									<b>Email:</b> <%= item.email %>
+								</td>
+								<td class="text-center"><%= item.message %></td>
 								<td class="text-center"><%= item.phone %></td>
-								<td class="text-center position-relative"><%- statusHelper(linkPrefix, 'status', item.status, item.id) %></td>
+								<td class="text-center"><%= moment(item.register_time).format(systemConfig.format_date) %></td>
+								<td class="text-center position-relative"><%- selectBoxHelper('filter-contact', systemConfig.status_contact, item.status, item.id ) %></td>
 								<td class="text-center">
 									<a href="<%= linkPrefix %>form/<%= item.id %>" type="button" class="rounded-circle btn btn-sm btn-info" title="Edit">
 										<i class="fas fa-pencil-alt"></i>
-									</a>
-									<a href="<%= linkPrefix %>delete/<%= item.id %>" type="button" class="rounded-circle btn btn-sm btn-danger" title="Delete">
-										<i class="fas fa-trash-alt"></i>
 									</a>
 								</td>
 							</tr>

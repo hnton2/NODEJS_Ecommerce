@@ -1,0 +1,18 @@
+<%
+    nameStatusHelper = (items, id) => {
+        let bg = '';
+        let name = '';
+        items.forEach((item) =>{
+            if(id === item.id) {
+                if(item.name === 'Not contacted') {
+                    bg = 'danger';
+                } else if(item.name === 'Contacted') {
+                    bg = 'primary';
+                }
+                name = item.name;
+            }
+        });
+        return `<div class="bg-${bg} text-center">${name}</div>`;
+    }
+%>
+
