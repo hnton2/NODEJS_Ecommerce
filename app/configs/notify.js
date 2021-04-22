@@ -7,6 +7,7 @@ module.exports = {
     CHANGE_TRENDING_SUCCESS: 'Cập nhật trending thành công',
     CHANGE_TRENDING_MULTI_SUCCESS: 'Có %d phần tử được cập nhật trending thành công',
     CHANGE_ORDERING_SUCCESS: 'Cập nhật ordering thành công',
+    CHANGE_FEE_SUCCESS: 'Cập nhật phí vận chuyển thành công',
     DELETE_SUCCESS: 'Xóa phần tử thành công',
     DELETE_MULTI_SUCCESS: 'Có %d phần tử được xóa thành công',
     ADD_SUCCESS: 'Thêm mới phần tử thành công',

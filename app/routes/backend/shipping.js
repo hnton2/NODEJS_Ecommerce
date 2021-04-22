@@ -41,27 +41,13 @@ router.get('/', async (req, res, next) => {
 });
 
 // Change ordering - Multi
-router.post('/change-ordering', (req, res, next) => {
-	let cids 		= req.body.cid;
-	let orderings 	= req.body.ordering;
+router.post('/change-fee/:id/:value', (req, res, next) => {
+	let id 			= ParamsHelpers.getParam(req.params, 'id', '');
+	let value 		= ParamsHelpers.getParam(req.params, 'value', 0);
 	
-	MainModel.changeOrdering(cids, orderings,  req.user).then( (result) => {
-		NotifyHelpers.showNotify(req, res, linkIndex, {tasks: 'change-ordering-success'});
-	});
-});
-
-// Delete
-router.get('/delete/:id', (req, res, next) => {
-	let id				= ParamsHelpers.getParam(req.params, 'id', '');
-	MainModel.deleteItems(id, {tasks: 'delete-one'}).then( (result) => {
-		NotifyHelpers.showNotify(req, res, linkIndex, {tasks: 'delete-success'});
-	});
-});
-
-// Delete - Multi
-router.post('/delete', (req, res, next) => {
-	MainModel.deleteItems(req.body.cid, {tasks: 'delete-multi'}).then( (result) => {
-		NotifyHelpers.showNotify(req, res, linkIndex, {n: result.n, tasks: 'delete-multi-success'});
+	MainModel.changeShippingFee(id, value).then( (result) => {
+		//NotifyHelpers.showNotify(req, res, linkIndex, {tasks: 'change-ordering-success'});
+		res.json({'message': notify.CHANGE_FEE_SUCCESS});
 	});
 });
 

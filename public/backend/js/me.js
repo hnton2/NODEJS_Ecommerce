@@ -74,6 +74,19 @@ function activeMenu() {
     $('li.nav-item a[data-active="'+pattern+'"]').parent().parent().parent().addClass('nav-item menu-open'); 
 }
 
+function changeShippingFee(id) {
+    let feeBox = $('#shipping-' + id);
+    let link = 'admin/shipping/change-fee/' + id + '/' + feeBox.val();
+    $.ajax({
+        url: link,
+        type: 'post',
+        success:function(data){
+            feeBox.notify(data.message, { position:"top center", className: 'success' });
+        }
+    });
+    
+}
+
 $(document).ready(function () {
 
     // date-range picker
@@ -145,8 +158,6 @@ $(document).ready(function () {
     });
     // hiden notify
     hiddenNotify(".close-btn");
-
-
 
     $("input[name=cid]").click(function () {
         if ($(this).is(':checked')) {

@@ -9,17 +9,17 @@ $(document).ready(function () {
         wardText: 'Choose ward',
     });
     $('select[name=ls_province]').change(function() {       // change province and calculate shipping fee
-        let province = $(this).find('option:selected').text();
+        let province = $(this).find('option:selected');
         let fee = 0;
         let totalBox = $('#total-price');
-        $('input[name=province]').val(province);
+        $('input[name=province]').val(province.text());
         $.ajax({
             url: '/checkout/get-shipping-fee',
             type: 'get',
             success:function(data){
                 data.forEach( (item) => {
-                    if(item.name === province) {
-                        fee = item.value;
+                    if(item.code === province.val()) {
+                        fee = item.cost;
                         $('#shipping-fee').html('$ ' + fee);
                         totalBox.html('$ ' + (Number(totalBox.text().slice(2)) + Number(fee)));
                         $('input[name=shipping_fee]').val(fee);
