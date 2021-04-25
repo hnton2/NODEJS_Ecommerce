@@ -22,5 +22,6 @@ router.use('/subscribe', require('./subscribe'));
 router.use('/orders', require('./orders'));
 router.use('/promo', require('./promo'));
 router.use('/shipping', require('./shipping'));
+router.use('/config', require('./config'));
 
 module.exports = router;

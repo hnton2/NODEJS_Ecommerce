@@ -11,6 +11,7 @@ module.exports = {
     col_articles: 'articles',
     col_rss: 'rss',
     col_contact: 'contact',
+    col_config: 'config',
     // db products
     database_products: 'db_eShop',
     col_product_category: 'category',

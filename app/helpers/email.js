@@ -6,9 +6,12 @@ const settingConfig  		= require(__path_configs + 'setting');
 let sendEmail = (email, invoiceCode, message = 'Thank you for your purchase') => {
 	var transporter = nodemailer.createTransport({
 		service: 'gmail',
+		host: "smtp.ethereal.email",
+		port: 587,
+		secure: false, // true for 465, false for other ports
 		auth: {
-		user: settingConfig.email,
-		pass: settingConfig.password_email
+			user: settingConfig.email,
+			pass: settingConfig.password_email
 		}
 	});
 	var mailOptions = {

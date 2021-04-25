@@ -1,0 +1,47 @@
+<% include ./../../elements/errors %>
+<% include ./../../helpers/selectBox %>
+<% include ./../../helpers/input %>
+<% include ./../../helpers/textarea %>
+<% include ./../../helpers/form-input %>
+<% include ./../../helpers/image %>
+
+
+<% 
+	const folderUpload 	=  'config/';
+	const collection 	= "config";
+	const linkPrefix	= systemConfig.prefixAdmin + `/${collection}/`;
+
+	let elementsForm = [
+		{for: 'name_website', label: 'Name Website', input: inputHelper('name_website', item.name_website)},
+		{for: 'logo', label: 'Logo', input: inputHelper('logo', item.name, 'file')},
+		{for: 'showAvatar', label: '', input: imageHelper(folderUpload, item.logo, 'no-image.jpg', item.name, 'img-avatar-form preview-avatar', 100)},
+		{for: 'email', label: 'Email', input: inputHelper('email', item.email)},
+		{for: 'password_email', label: 'Password email', input: inputHelper('password_email', item.password_email)},
+		{for: 'hotline', label: 'Hotline', input: inputHelper('hotline', item.hotline)},
+		{for: 'address', label: 'Address', input: inputHelper('address', item.address)},
+		{for: 'facebook', label: 'Facebook', input: inputHelper('facebook', item.facebook)},
+		{for: 'instagram', label: 'Instagram', input: inputHelper('instagram', item.instagram)},
+		{for: 'twitter', label: 'Twitter', input: inputHelper('twitter', item.twitter)},
+		{for: 'map', label: 'Map', input: inputHelper('map', item.map)},
+		{for: 'about', label: 'About', input: textareaHelper('about', item.about)},
+	];
+
+	let xhtml = createFormHelper(elementsForm);
+%>
+
+<div class="card card-info card-outline">
+	<form action="<%= linkPrefix %>save/" method="POST" class="mb-0" enctype="multipart/form-data" name="form-upload">
+		<div class="card-body">
+			<%- xhtml %>
+		</div>
+		<div class="card-footer">
+			<div class="col-12 col-sm-8 offset-sm-2">
+				<input class="form-control" name="id" value="<%= item.id %>" type="hidden" >
+				<input name="image_old" value="<%= item.avatar %>" type="hidden"  />
+				<input class="form-control" name="group_name" value="<%= item.group_name %>" type="hidden" >
+				<button type="submit" class="btn btn-sm btn-success mr-1"> Submit</button>
+				<a href="<%= linkPrefix %>" class="btn btn-sm btn-danger mr-1"> Cancel</a>
+			</div>
+		</div>
+	</form>
+</div>

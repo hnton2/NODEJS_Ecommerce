@@ -82,6 +82,20 @@ router.post('/delete', (req, res, next) => {
 	});
 });
 
+// FORM
+router.get(('/form(/:id)?'), (req, res, next) => {
+	let id		= ParamsHelpers.getParam(req.params, 'id', '');
+	let item	= {name: '', ordering: 0, status: 'allValue', content: ''};
+	let errors   = null;
+	if(id === '') { // ADD
+		res.render(`${folderView}form`, { pageTitle: pageTitleAdd, item, errors});
+	}else { // EDIT
+		MainModel.getItems({id: id}, {task: 'get-items-by-id'}).then( (item) =>{
+			res.render(`${folderView}form`, { pageTitle: pageTitleEdit, item, errors});
+		});	
+	}
+});
+
 // SAVE = ADD EDIT
 router.post('/save', async (req, res, next) => {
 	req.body = JSON.parse(JSON.stringify(req.body));
