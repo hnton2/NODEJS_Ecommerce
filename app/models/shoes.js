@@ -19,6 +19,21 @@ module.exports = {
 		.skip((params.pagination.currentPage-1) * params.pagination.totalItemsPerPage)
 		.limit(params.pagination.totalItemsPerPage)
     },
+    listItemsInCategory: (params, option = null) => {
+        let sort 		 = {};
+        let find = {};
+        sort[params.sortField] = params.sortType;
+    
+        if(option.task === 'all-items') {
+            find = {status:'active'}
+        } else {
+            find = {status:'active', 'category.id': params.id}
+        }
+        return Model
+            .find(find)
+            .select('name slug created modified category.name price quantity sale_off brand thumb')
+            .sort(sort)
+    },
     listItemsFrontend: (params = null, option = null) => {
         let find = {};
         let select = 'name slug created category.name category.id thumb brand price sale_off';
@@ -270,4 +285,7 @@ module.exports = {
             { $push: { reviews: item } }
         );
     },
+    favoriteItem: (id) => {
+        return Model.findOneAndUpdate({_id :id}, {$inc : {'favorite' : 1}}).exec();
+    }
 }

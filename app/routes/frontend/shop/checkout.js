@@ -11,7 +11,6 @@ const folderView	 = __path_views_shop + 'pages/checkout/';
 const layoutShop    = __path_views_shop + 'frontend';
 const linkIndex     = '/orders-tracking/confirm';
 
-
 router.get('/', async (req, res, next) => {
   let items = [];
   let sale_off = 0;
@@ -52,7 +51,6 @@ router.post('/save', async (req, res, next) => {
   let invoiceCode = StringHelpers.generateCode(10);
   req.body = JSON.parse(JSON.stringify(req.body));
   let user = req.body;
-  
   await OrdersModel.saveItems(invoiceCode, product, user, sale_off).then( (result) => {
     EmailHelpers.sendEmail(result.user.email, invoiceCode)
     res.clearCookie("cart");

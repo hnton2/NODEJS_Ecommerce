@@ -169,11 +169,10 @@ router.get(('/form(/:id)?'), async (req, res, next) => {
 // SAVE = ADD EDIT
 router.post('/save', (req, res, next) => {
 	uploadAvatar(req, res, async (errUpload) => {
-
 		req.body = JSON.parse(JSON.stringify(req.body));
 		let product = Object.assign(req.body);
-		let taskCurrent = (typeof product !== "undefined" && product.id !== "") ? 'edit' : 'add';
 
+		let taskCurrent = (typeof product !== "undefined" && product.id !== "") ? 'edit' : 'add';
 		let errors = MainValidate.validator(req, errUpload, taskCurrent);
 		if(errors.length > 0) { 
 			let pageTitle = (taskCurrent === 'edit') ? pageTitleEdit : pageTitleAdd;
@@ -198,7 +197,7 @@ router.post('/save', (req, res, next) => {
 			let notifyTask = (taskCurrent === 'add') ? 'add-success' : 'edit-success';
 			if(req.files.length <= 0){ // không có upload lại hình - chỉ edit thông tin
 				product.thumb = StringHelpers.getNameImage(product.thumb_old);
-			}else{	// edit lại thumb
+			} else {	// edit lại thumb
 				let arrayThumb = [];
 				for(let idx = 0; idx < req.files.length; idx++) {
 					arrayThumb.push(req.files[idx].filename);

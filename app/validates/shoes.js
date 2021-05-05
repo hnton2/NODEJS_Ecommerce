@@ -60,7 +60,7 @@ module.exports = {
         // SIZE
         req.checkBody('size', util.format(notify.ERROR_SIZE, options.size.min))
             .isLength({ min: options.size.min});
-        
+
         // COLOR
         req.checkBody('color', util.format(notify.ERROR_COLOR, options.color.min))
             .isLength({ min: options.color.min});

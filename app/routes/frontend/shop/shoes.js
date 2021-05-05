@@ -8,6 +8,7 @@ const NotifyHelpers		= require(__path_helpers + 'notify');
 const StringHelpers		= require(__path_helpers + 'string');
 const systemConfig  	= require(__path_configs + 'system');
 
+const notify  		= require(__path_configs + 'notify');
 const folderView	 = __path_views_shop + 'pages/shoes/';
 const layoutShop    = __path_views_shop + 'frontend';
 /* GET home page. */
@@ -48,6 +49,15 @@ router.post('/review/:slug', async (req, res, next) => {
 	ShoesModel.saveReview(id, item).then( (result) => {
 		NotifyHelpers.showNotify(req, res, linkIndex, {tasks: 'add-review-success'});
 	});
+});
+
+
+router.post('/favorite/:id', async (req, res, next) => {
+  let id = ParamsHelpers.getParam(req.params, 'id', '');
+  ShoesModel.favoriteItem(id).then( (result) => {
+    res.json({message: notify.FAVORITE_SUCCESS});
+  })
+
 });
 
 module.exports = router;

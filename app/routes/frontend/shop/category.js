@@ -8,20 +8,25 @@ const ParamsHelpers 	= require(__path_helpers + 'params');
 const folderView	 = __path_views_shop + 'pages/category/';
 const layoutShop    = __path_views_shop + 'frontend';
 
-router.get('/(:slug)?', async (req, res, next) => {
+router.get('/:slug/:sort?', async (req, res, next) => {
   let slugCategory = ParamsHelpers.getParam(req.params, 'slug', '');
-  let idCategory = '';
+  let sort		= ParamsHelpers.getParam(req.params, 'sort', 'name-asc');
+
+  let params = {};
+  params.sortType = sort.split('-')[1];
+  params.sortField = sort.split('-')[0];
   let titleCategory = '';
   let itemsInCategory = [];
 
-  if(slugCategory !== '') {
+  if(slugCategory !== 'all') {
+    console.log(slugCategory);
     // find id of category
-    await CategoryModel.getItems({slug: slugCategory}, {task: 'get-items-by-slug'}).then( (items) => {idCategory = items[0].id; titleCategory = items[0].name;});
+    await CategoryModel.getItems({slug: slugCategory}, {task: 'get-items-by-slug'}).then( (items) => {params.id = items[0].id; titleCategory = items[0].name;});
     // Article in Category
-    await ShoesModel.listItemsFrontend({id: idCategory}, {task: 'items-in-category'}).then( (items) => {itemsInCategory = items;});
+    await ShoesModel.listItemsInCategory(params, {task: 'items-category'}).then( (items) => {itemsInCategory = items;});
   } else {
     titleCategory = 'All Shoes';
-    await ShoesModel.listItemsFrontend(null, {task: 'all-items'}).then( (items) => {itemsInCategory = items;});
+    await ShoesModel.listItemsInCategory(params, {task: 'all-items'}).then( (items) => {itemsInCategory = items;});
   }
   res.render(`${folderView}index`, { 
     pageTitle : titleCategory,

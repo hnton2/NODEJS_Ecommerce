@@ -26,14 +26,12 @@ chưa show được color ra frontend
 
 jquery autocomplete
 
-email: nodemailer
 
 fix mã giảm giá
-thêm admin phần shipping fee
 fix admin dashboard
 
 category {
     id, name, slug
 }
-hình thức thanh toán
-show mã giảm giá
+404
+lỗi edit upload image config admin

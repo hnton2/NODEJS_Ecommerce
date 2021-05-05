@@ -5,14 +5,14 @@
 <div class="ps-subscribe">
   <div class="ps-container">
     <div class="row">
-          <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 ">
-            <h3><i class="fa fa-envelope"></i>Sign up to Newsletter</h3>
+          <div class="col-lg-3 col-md-7 col-sm-12 col-xs-12 ">
+            <h4 style="color: aliceblue;"><i class="fa fa-envelope"></i>&nbsp;Sign up to Newsletter</h4>
           </div>
           <div class="col-lg-5 col-md-7 col-sm-12 col-xs-12 ">
             <span data-alertid="example"></span>
             <form class="ps-subscribe__form" action="<%= linkSubscribe %>" method="POST">
               <input class="form-control" type="text" id="email-subscribe" name='email' placeholder="Enter your email...">
-              <button>Sign up now</button>
+              <button>Subscribe now</button>
             </form>
           </div>
           <div class="col-lg-4 col-md-5 col-sm-12 col-xs-12 ">
@@ -25,19 +25,19 @@
   <div class="ps-footer__content">
     <div class="ps-container">
       <div class="row">
-        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 ">
+        <div class="col-lg-4 col-md-3 col-sm-12 col-xs-12 ">
           <aside class="ps-widget--footer ps-widget--info">
             <header>
               <h3 class="ps-widget__title">Address Office</h3>
             </header>
             <footer>
-              <p><strong><%= settingConfig.address %></strong></p>
-              <p>Email: <a href='#'><%= settingConfig.email %></a></p>
-              <p>Phone: +<%= settingConfig.hotline %></p>
+              <p><strong><%= webConfig.address %></strong></p>
+              <p>Email: <a href='#'><%= webConfig.email %></a></p>
+              <p>Phone: +<%= webConfig.hotline %></p>
             </footer>
           </aside>
         </div>
-        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 ">
+        <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 ">
           <!-- <aside class="ps-widget--footer ps-widget--info">
             <header>
               <h3 class="ps-widget__title">Address Office 2</h3>
@@ -100,14 +100,14 @@
     <div class="ps-container">
       <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
-          <p>&copy; FASHION SHOP, Inc. All rights Resevered. Design by <a href="#"> Alena Studio</a></p>
+          <p>&copy; <%= webConfig.name_website %>, Inc. All rights Resevered. Design by <a href="#"> Alena Studio</a></p>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
           <ul class="ps-social">
-            <li><a href="<%= settingConfig.facebook %>"><i class="fa fa-facebook"></i></a></li>
-            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-            <li><a href="<%= settingConfig.instagram %>"><i class="fa fa-instagram"></i></a></li>
+            <li><a href="<%= webConfig.facebook %>"><i class="fa fa-facebook"></i></a></li>
+            <li><a href="<%= webConfig.instagram %>"><i class="fa fa-google-plus"></i></a></li>
+            <li><a href="<%= webConfig.twitter %>"><i class="fa fa-twitter"></i></a></li>
+            <li><a href="<%= webConfig.instagram %>"><i class="fa fa-instagram"></i></a></li>
           </ul>
         </div>
       </div>

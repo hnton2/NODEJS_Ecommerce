@@ -1,8 +1,5 @@
 const nodemailer = require('nodemailer');
 
-const settingConfig  		= require(__path_configs + 'setting');
-
-
 let sendEmail = (email, invoiceCode, message = 'Thank you for your purchase') => {
 	var transporter = nodemailer.createTransport({
 		service: 'gmail',
@@ -11,7 +8,7 @@ let sendEmail = (email, invoiceCode, message = 'Thank you for your purchase') =>
 		secure: false, // true for 465, false for other ports
 		auth: {
 			user: settingConfig.email,
-			pass: settingConfig.password_email
+			pass: 'myzymuijergnmsjl'
 		}
 	});
 	var mailOptions = {

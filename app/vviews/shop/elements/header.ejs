@@ -1,17 +1,15 @@
-<% 
-    const linkPrefix     = systemConfig.prefixShop + '/';
-%>
+<% const linkPrefix     = systemConfig.prefixShop + '/' %>
 <div class="header--sidebar"></div>
 <header class="header">
     <div class="header__top">
       <div class="container-fluid">
         <div class="row">
               <div class="col-lg-6 col-md-8 col-sm-6 col-xs-12 "> 
-                <p><%= settingConfig.address %> -  Hotline: +<%= settingConfig.hotline %></p>
+                <p><%= webConfig.address %> -  Hotline: +<%= webConfig.hotline %></p>
               </div>
               <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12 ">
                 <div class="header__actions">
-                  <a href="#">Login & Regiser</a>
+                  <a href="#">Login & Register</a>
                   <a href="/orders-tracking">Tracking Order</a>
                   <a href="/contact">Contact</a>
                 </div>
@@ -22,12 +20,12 @@
     <nav class="navigation">
       <div class="container-fluid">
         <div class="navigation__column left">
-          <div class="header__logo"><a class="ps-logo" href="<%= linkPrefix %>"><img src="frontend/shop/images/logo.png" style="width:350px" alt=""></a></div>
+          <div class="header__logo"><a class="ps-logo" href="<%= linkPrefix %>"><img src="uploads/config/<%= webConfig.logo %>" style="width:350px" alt=""></a></div>
         </div>
         <div class="navigation__column center">
               <ul class="main-menu menu">
                 <li class="menu-item" data-active=""><a href="<%= linkPrefix %>">Home</a></li>
-                <li class="menu-item menu-item-has-children has-mega-menu" data-active="category"><a href="<%= linkPrefix + 'category' %>">Category</a>
+                <li class="menu-item menu-item-has-children has-mega-menu" data-active="category"><a href="<%= linkPrefix + 'category/all' %>">Category</a>
                   <div class="mega-menu">
                     <div class="mega-wrap">
                       <div class="mega-column">
@@ -44,7 +42,7 @@
                       <div class="mega-column">
                         <h4 class="mega-heading">Shoes</h4>
                         <ul class="mega-item">
-                          <li><a href="<%= linkPrefix + 'category' %>">All</a></li>
+                          <li><a href="<%= linkPrefix + 'category/all' %>">All</a></li>
                           <% itemsProductCategory.forEach ( (item)=>{ %>
                             <li><a href="<%= linkPrefix + 'category/' + item.slug %>"><%= item.name %></a></li>
                           <% }) %>

@@ -41,6 +41,7 @@ var schema = new mongoose.Schema({
         rating: Number,
         content: String
     }],
+    favorite: Number,
 });
 schema.index({name: 'text', content: 'text', 'category.name': 'text', 'brand.name': 'text'});
 

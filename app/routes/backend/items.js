@@ -103,7 +103,8 @@ router.post('/save', async (req, res, next) => {
 
 	let item = Object.assign(req.body);
 	let errors = req.validationErrors();
-	await MainModel.getItems({name: item.name}, {task: 'get-items-by-name'}).then( (item) =>{
+	
+	await MainModel.getItems({name: item.name}, {task: 'get-items-by-name'}).then( (item) => {
 		if(item.length > 0) {
 			errors.unshift({param: 'name', msg: 'Đã tồn tại'});
 		}

@@ -10,8 +10,6 @@
         {name: 'Users', icon: 'fa-user', link: `${systemConfig.prefixAdmin}/users`, activeValue: 'users'},
     ];
     let shopManagement = [
-        {name: 'Slider', icon: 'fa-map', link: `${systemConfig.prefixAdmin}/slider`, activeValue: 'slider'},
-        {name: 'Banner', icon: 'fa-book', link: `${systemConfig.prefixAdmin}/banner`, activeValue: 'banner'},
         {name: 'Category', icon: 'fa-th-list', link: `${systemConfig.prefixAdmin}/product-category`, activeValue: 'category-product'},
         {name: 'Brand', icon: 'fa-bookmark', link: `${systemConfig.prefixAdmin}/brand`, activeValue: 'brand'},
         {name: 'Shoes', icon: 'fa-star', link: `${systemConfig.prefixAdmin}/shoes`, activeValue: 'shoes'},
@@ -66,30 +64,46 @@
         <%- menuSidebarHelper('Quản lý user', userManagement, 'fa-male') %>
         <%- menuSidebarHelper('Quản lý bài viết', articleManagement, 'fa-newspaper') %>
         <%- menuSidebarHelper('Quản lý sản phẩm', shopManagement, 'fa-shopping-cart') %>
-        <%- menuSidebarHelper('Quản lý khách hàng', customerManagement, 'fa-male') %>
+        <li class="nav-item">
+          <a href="/<%=systemConfig.prefixAdmin%>/slider" class="nav-link" data-active="slider">
+            <i class="nav-icon fas fa-map"></i>
+            <p>Slider</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/<%=systemConfig.prefixAdmin%>/banner" class="nav-link" data-active="banner">
+            <i class="nav-icon fas fa-book"></i>
+            <p>Banner</p>
+          </a>
+        </li>
         <li class="nav-item">
           <a href="/<%=systemConfig.prefixAdmin%>/orders" class="nav-link" data-active="orders">
             <i class="nav-icon fas fa-file"></i>
-            <p>
-              Quản lý đơn hàng
-            </p>
+            <p>Quản lý đơn hàng</p>
           </a>
         </li>
         <li class="nav-item">
           <a href="/<%=systemConfig.prefixAdmin%>/promo" class="nav-link" data-active="promo">
             <i class="nav-icon fas ion-cash"></i>
-            <p>
-              Quản lý mã giảm giá
-            </p>
+            <p>Quản lý mã giảm giá</p>
           </a>
         </li>
         <li class="nav-item">
           <a href="/<%=systemConfig.prefixAdmin%>/shipping" class="nav-link" data-active="shipping">
             <i class="nav-icon fas ion-flash"></i>
-            <p>
-              Quản lý phí vận chuyển
-              <span class="badge badge-info right">63</span>
-            </p>
+            <p>Quản lý phí vận chuyển<span class="badge badge-info right">63</span></p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/<%=systemConfig.prefixAdmin%>/contact" class="nav-link" data-active="contact">
+            <i class="nav-icon fas fa-user"></i>
+            <p>Contact</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/<%=systemConfig.prefixAdmin%>/subscribe" class="nav-link" data-active="subscribe">
+            <i class="nav-icon fas fa-user-plus"></i>
+            <p>Subscribe</p>
           </a>
         </li>
       </ul>

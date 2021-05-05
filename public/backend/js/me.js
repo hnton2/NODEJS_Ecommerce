@@ -298,10 +298,11 @@ $(document).ready(function () {
             }
         };
     };
+    
     $("#input-multi-files").on("change", function() {
         imagesPreview(this, "ul#box-multi-image");
     });
-
+    
      //tags
      if($('input#tags-input').val() !== '') {    //edit
         $('input#tags-input[name=size]').tagEditor({ initialTags: $('input#tags-input[name=size]').val().split(',') });

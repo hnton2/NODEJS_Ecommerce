@@ -7,11 +7,12 @@
     <div class="ps-products" data-mh="product-listing">
       <div class="ps-product-action">
         <div class="ps-product__filter"> 
-          <select class="ps-select selectpicker">
-            <option value="1">Sort by</option>
-            <option value="2">Name</option>
-            <option value="3">Price (Low to High)</option>
-            <option value="3">Price (High to Low)</option>
+          <select name="sort-product" class="ps-select selectpicker">
+            <option value="0">Sort by</option>
+            <option value="name-asc">Name (a -> z)</option>
+            <option value="name-desc">Name (z -> a)</option>
+            <option value="price-asc">Price (Low to High)</option>
+            <option value="price-desc">Price (High to Low)</option>
           </select>
         </div>
         <div class="ps-pagination">
@@ -69,7 +70,7 @@
       </div>
       <div class="ps-product-action">
         <div class="ps-product__filter">
-          <select name="sort-by-product" class="ps-select selectpicker"> 
+          <select name="sort-product" class="ps-select selectpicker"> 
             <option value="0">Sort by</option>
             <option value="name-asc">Name (a -> z)</option>
             <option value="name-desc">Name (z -> a)</option>

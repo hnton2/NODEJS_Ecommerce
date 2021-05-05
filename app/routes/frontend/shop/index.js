@@ -1,13 +1,14 @@
 var express = require('express');
 var router = express.Router();
 
-const middlewareGetBrand   = require(__path_middleware + 'shop/get-brand-in-menu');
-const middlewareGetProductCategory	    = require(__path_middleware + 'shop/get-category-in-menu');
+const middlewareGetBrand            = require(__path_middleware + 'shop/get-brand-in-menu');
+const middlewareGetProductCategory	= require(__path_middleware + 'shop/get-category-in-menu');
 const middlewareGetArticleCategory 	= require(__path_middleware + 'blog/get-category-for-menu');
-const middlewareGetLastedNews	= require(__path_middleware + 'blog/get-lasted-news');
+const middlewareGetLastedNews	    = require(__path_middleware + 'blog/get-lasted-news');
+const middlewareWebConfig	        = require(__path_middleware + 'shop/web-config');
 
 router.use('/auth', require('./auth'));
-router.use('/', middlewareGetBrand, middlewareGetProductCategory, middlewareGetArticleCategory, middlewareGetLastedNews, require('./home'));
+router.use('/',middlewareWebConfig, middlewareGetBrand, middlewareGetProductCategory, middlewareGetArticleCategory, middlewareGetLastedNews, require('./home'));
 router.use('/category', require('./category'));
 router.use('/shoes', require('./shoes'));
 router.use('/contact', require('./contact'));

@@ -41,5 +41,5 @@ let countCollections = async (model) => {
 module.exports = {
 	createFilterStatus: createFilterStatus,
 	capitalize: capitalize,
-	countCollections
+	countCollections,
 }

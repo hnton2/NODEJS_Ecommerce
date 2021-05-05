@@ -16,7 +16,6 @@ const nodemailer = require('nodemailer');
 const pathConfig = require('./path');
 const { networkInterfaces } = require('os');
 
-    
 // Define Path
 global.__base               = __dirname + '/';
 global.__path_app           = __base + pathConfig.folder_app + '/';
@@ -36,7 +35,6 @@ global.__path_public        = __base + pathConfig.folder_public + '/';
 global.__path_uploads       = __path_public + pathConfig.folder_uploads + '/';
 
 const systemConfig = require(__path_configs + 'system');
-const settingConfig = require(__path_configs + 'setting');
 
 require(__path_configs + 'passport')(passport);
 
@@ -79,7 +77,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Local variable
 app.locals.systemConfig = systemConfig;
-app.locals.settingConfig = settingConfig;
 app.locals.moment = moment;
 app.locals.fs = fs;
 

@@ -32,7 +32,7 @@
                     <% if(item.sale_off > 0) { %>
                       <div class="ps-badge ps-badge--sale ps-badge--2nd"><span>-<%= item.sale_off %>%</span></div>
                     <% } %>
-                    <a class="ps-shoe__favorite" href="#"><i class="ps-icon-heart"></i></a>
+                    <a class="ps-shoe__favorite" href="javascript:void(0)" onclick="favoriteProduct('<%= item.id %>')"><i class="ps-icon-heart"></i></a>
                     <img src="<%= folder_upload_shoes + item.thumb[1] %>" alt="">
                     <a class="ps-shoe__overlay" href="<%= linkShoes + item.slug %>"></a>
                   </div>
@@ -176,7 +176,7 @@
 <div class="ps-section--features-product ps-section masonry-root pt-100 pb-30"> 
   <div class="ps-container">
     <div class="ps-section__header mb-50">
-      <h3 class="ps-section__title" data-mask="features">Hot news</h3>
+      <h3 class="ps-section__title" data-mask="features">News</h3>
       <ul class="ps-masonry__filter">
         <li class="current"><a href="#" data-filter="*">All <sup><%= lastedNews.length %></sup></a></li>
         <% itemsCategory.forEach ( (item)=>{ %>

@@ -1,4 +1,11 @@
 $(document).ready(function () {
+
+    $('select[name=sort-product]').change(function() {
+        var path = window.location.pathname.split('/');
+        console.log(path);
+        var linkRedirect = '/' + path[1] + '/' + path[2] + '/' + $(this).val();
+        window.location.pathname = linkRedirect;
+    });
     // choose location
     var localpicker = new LocalPicker({
 		province: "ls_province",
@@ -214,6 +221,8 @@ $(document).ready(function () {
                     Swal.fire({
                         title: 'Add to cart success!',
                         icon: 'success',
+                        showConfirmButton: false,
+                        timer: 1500
                     });
                 }
             });
@@ -278,6 +287,20 @@ $(document).ready(function () {
         }
     });
 });
+
+function favoriteProduct(id) {
+    link = '/shoes/favorite/' + id;
+    $.ajax({
+        url: link,
+        type: 'post',
+        success:function(data){
+            Swal.fire({
+                title: data.message,
+                icon: 'success',
+            });
+        }
+    });
+}
 
 function changeQuantity(id, state) {
     let counter = $('#quantity-' + id).val();

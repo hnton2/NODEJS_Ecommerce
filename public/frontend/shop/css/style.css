@@ -4351,7 +4351,7 @@ textarea.form-control {
         width: 70%; } }
 
 .ps-subscribe {
-  padding: 35px 0;
+  padding: 10px 0;
   background-color: #333; }
   .ps-subscribe h3 {
     font-family: "Archivo Narrow", sans-serif;
@@ -5237,7 +5237,7 @@ textarea.form-control {
     background-color: rgba(0, 0, 0, 0.85);
     z-index: 0; }
   .ps-footer__content {
-    padding: 20px 0; }
+    padding: 0px 0; }
   .ps-footer__copyright {
     padding: 10px 0;
     border-top: 1px solid #b3b3b3; }

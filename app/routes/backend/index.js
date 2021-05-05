@@ -3,7 +3,7 @@ var router = express.Router();
 
 const authentication  	= require(__path_middleware + 'auth');
 
-router.use('/', require('./home'));
+router.use('/',authentication, require('./home'));
 router.use('/dashboard', require('./dashboard'));
 router.use('/items', require('./items'));
 router.use('/contact', require('./contact'));

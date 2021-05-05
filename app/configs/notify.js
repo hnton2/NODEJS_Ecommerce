@@ -34,5 +34,6 @@ module.exports = {
     SUBSCRIBE_SUCCESS: 'Sign up success',
     ERROR_SIZE: 'Size phải khác rỗng',
     ERROR_COLOR: 'Color phải khác rỗng',
-    ADD_REVIEW_SUCCESS: 'Your review add success'
+    ADD_REVIEW_SUCCESS: 'Your review add success',
+    FAVORITE_SUCCESS: 'Favorite success'
 };
