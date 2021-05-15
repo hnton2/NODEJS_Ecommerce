@@ -1,11 +1,11 @@
 <% include ./../../helpers/show-reviews %>
+<% include ./../../helpers/rating-product %>
 
 <% 
   const folder_upload = 'uploads/shoes/'; 
   const linkPrefix     = systemConfig.prefixShop + '/';
   const linkShoes    = systemConfig.prefixShop + '/shoes/';
 %>
-
 <div class="test"> 
   <div class="container">
     <div class="row"> 
@@ -20,54 +20,43 @@
         <div class="ps-product__thumbnail">
           <div class="ps-product__preview">
             <div class="ps-product__variants">
-              <div class="item"><img src="<%= folder_upload + itemMain[0].thumb[1] %>" alt=""></div>
-              <div class="item"><img src="<%= folder_upload + itemMain[0].thumb[0] %>" alt=""></div>
-              <div class="item"><img src="<%= folder_upload + itemMain[0].thumb[2] %>" alt=""></div>
-              <div class="item"><img src="<%= folder_upload + itemMain[0].thumb[3] %>" alt=""></div>
-              <div class="item"><img src="<%= folder_upload + itemMain[0].thumb[4] %>" alt=""></div>
-            </div></div>
+              <% item.thumb.forEach( (image) => { %>
+                <div class="item"><img src="<%= folder_upload + image %>" alt=""></div>
+              <% }) %>
+            </div>
+          </div>
           <div class="ps-product__image">
-            <div class="item"><img class="zoom" src="<%= folder_upload + itemMain[0].thumb[1] %>" alt="" data-zoom-image="<%= folder_upload + itemMain[0].thumb[1] %>"></div>
-            <div class="item"><img class="zoom" src="<%= folder_upload + itemMain[0].thumb[0] %>" alt="" data-zoom-image="<%= folder_upload + itemMain[0].thumb[0] %>"></div>
-            <div class="item"><img class="zoom" src="<%= folder_upload + itemMain[0].thumb[2] %>" alt="" data-zoom-image="<%= folder_upload + itemMain[0].thumb[2] %>"></div>
-            <div class="item"><img class="zoom" src="<%= folder_upload + itemMain[0].thumb[3] %>" alt="" data-zoom-image="<%= folder_upload + itemMain[0].thumb[3] %>"></div>
-            <div class="item"><img class="zoom" src="<%= folder_upload + itemMain[0].thumb[4] %>" alt="" data-zoom-image="<%= folder_upload + itemMain[0].thumb[4] %>"></div>
+            <% item.thumb.forEach( (image) => { %>
+              <div class="item"><img class="zoom" src="<%= folder_upload + image %>" alt="" data-zoom-image="<%= folder_upload + image %>"></div>
+            <% }) %>
           </div>
         </div>
         <div class="ps-product__thumbnail--mobile">
-          <div class="ps-product__main-img"><img src="<%= folder_upload + itemMain[0].thumb[1] %>" alt=""></div>
+          <div class="ps-product__main-img"><img src="<%= folder_upload + item.thumb[0] %>" alt=""></div>
           <div class="ps-product__preview owl-slider" data-owl-auto="true" data-owl-loop="true" data-owl-speed="5000" data-owl-gap="20" data-owl-nav="true" data-owl-dots="false" data-owl-item="3" data-owl-item-xs="3" data-owl-item-sm="3" data-owl-item-md="3" data-owl-item-lg="3" data-owl-duration="1000" data-owl-mousedrag="on">
-            <img src="<%= folder_upload + itemMain[0].thumb[1] %>" alt="">
-            <img src="<%= folder_upload + itemMain[0].thumb[0] %>" alt="">
-            <img src="<%= folder_upload + itemMain[0].thumb[2] %>" alt="">
-            <img src="<%= folder_upload + itemMain[0].thumb[3] %>" alt="">
-            <img src="<%= folder_upload + itemMain[0].thumb[4] %>" alt="">
+            <% item.thumb.forEach( (image) => { %>
+              <img src="<%= folder_upload + image %>" alt="">
+            <% }) %>
           </div>
         </div>
         <form id="cart_form" action="<%= linkPrefix %>cart/add-to-cart" method="POST">
           <div class="ps-product__info">
             <div class="ps-product__rating">
-              <select class="ps-rating">
-                <option value="1">1</option>
-                <option value="1">2</option>
-                <option value="1">3</option>
-                <option value="1">4</option>
-                <option value="2">5</option>
-              </select>
-              <a href="javascript:void(0);">(Read all <%= itemMain[0].reviews.length %> reviews)</a>
+              <%- ratingProductHelpers(item.reviews) %>
+              <a href="javascript:void(0);">(Read all <%= item.reviews.length %> reviews)</a>
             </div>
-            <h1><%= itemMain[0].name %></h1>
-            <p class="ps-product__category"><a href="<%= linkPrefix + 'category/' + itemMainCategory.slug %>"> <%= itemMain[0].category.name %> shoes</a>,<a href="#"> <%= itemMain[0].brand.name %></a></p>
+            <h1><%= item.name %></h1>
+            <p class="ps-product__category"><a href="<%= linkPrefix + 'category/' + itemMainCategory.slug %>"> <%= item.category.name %> shoes</a>,<a href="#"> <%= item.brand.name %></a></p>
             <h3 class="ps-product__price">
-              <% if(itemMain[0].sale_off > 0) { %>
-                <del>$<%= itemMain[0].price %></del> $<%= itemMain[0].price - (itemMain[0].price * (itemMain[0].sale_off/100)) %>
+              <% if(item.sale_off > 0) { %>
+                <del>$<%= item.price %></del> $<%= item.price - (item.price * (item.sale_off/100)) %>
               <% } else { %>
-                $<%= itemMain[0].price%>
+                $<%= item.price%>
               <% } %>
             </h3>
             <div class="ps-product__block ps-product__quickview">
               <h4>QUICK REVIEW</h4>
-              <p><%- itemMain[0].content %></p>
+              <p><%- item.content %></p>
             </div>
            <!--  <div class="ps-product__block ps-product__style">
               <h4>CHOOSE YOUR STYLE</h4>
@@ -82,22 +71,22 @@
               <h4>CHOOSE SIZE</h4>
               <select id="size_select" class="ps-select selectpicker" name="size">
                 <option value="0">Select Size</option>
-                <% itemMain[0].size.split(',').forEach ( (item) => { %>
-                  <option value="<%= item %>"><%= item %></option>
+                <% item.size.split(',').forEach ( (data) => { %>
+                  <option value="<%= data %>"><%= data %></option>
                 <% }) %>
               </select>
+              <span data-alertid="notify_cart"></span>
             </div>
             <div class="ps-product__block ps-product__size">
               <h4>QUANTITY</h4>
               <div class="form-group">
                 <input id="quantity_input" class="form-control" type="number" name="quantity" value="1">
               </div>
-              <span data-alertid="notify_cart"></span>
             </div>
-            <input class="form-control" name="id" value="<%= itemMain[0].id %>" type="hidden" >
+            <input class="form-control" name="id" value="<%= item.id %>" type="hidden" >
             <div class="ps-product__shopping">
               <button class="ps-btn mb-10">Add to cart<i class="ps-icon-next"></i></button>
-              <div class="ps-product__actions"><a class="mr-10" href="whishlist.html"><i class="ps-icon-heart"></i></a><a href="compare.html"><i class="ps-icon-share"></i></a></div>
+              <div class="ps-product__actions"><a class="mr-10" href="#"><i class="ps-icon-heart"></i></a><a href="#"><i class="ps-icon-share"></i></a></div>
             </div>
           </div>
         </form>
@@ -112,13 +101,12 @@
         </div>
         <div class="tab-content mb-60">
           <div class="tab-pane active" role="tabpanel" id="tab_01">
-            <%- itemMain[0].content %>
+            <%- item.content %>
           </div>
           <div class="tab-pane" role="tabpanel" id="tab_02">
-            <p class="mb-20"><%= itemMain[0].reviews.length %> review for <strong><%= itemMain[0].name %></strong></p>
-            <%- reviewsHelpers(itemMain[0].reviews) %>
-            <% include ./../../elements/notify %>
-            <form class="ps-product__review" action="<%= linkShoes + 'review/' + itemMain[0].slug  %>" method="post">
+            <p class="mb-20"><%= item.reviews.length %> review for <strong><%= item.name %></strong></p>
+            <%- reviewsHelpers(item.reviews) %>
+            <form class="ps-product__review" id="review-form" action="<%= linkShoes + 'review/' + item.slug  %>" method="post">
               <h4>ADD YOUR REVIEW</h4>
               <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
@@ -132,7 +120,7 @@
                   </div>
                   <div class="form-group">
                     <label>Your rating<span></span></label>
-                    <select name="rating" class="ps-rating">
+                    <select name="rating" class="ps-rating"> 
                       <option value="1">1</option>
                       <option value="2">2</option>
                       <option value="3">3</option>
@@ -154,8 +142,8 @@
             </form>
           </div>
           <div class="tab-pane" role="tabpanel" id="tab_03">
-            <% itemMain[0].tags.split(',').forEach( (item) => { %>
-              <div class="tag"><%= item %></div>
+            <% item.tags.split(',').forEach( (data) => { %>
+              <div class="tag"><%= data %></div>
             <% }) %>
           </div>
           <div class="tab-pane" role="tabpanel" id="tab_04">
@@ -194,7 +182,7 @@
                   <div class="ps-badge ps-badge--sale ps-badge--2nd"><span>-<%= item.sale_off %>%</span></div>
                 <% } %>
                 <a class="ps-shoe__favorite" href="#"><i class="ps-icon-heart"></i></a>
-                <img src="<%= folder_upload + item.thumb[1] %>" alt="">
+                <img src="<%= folder_upload + item.thumb[0] %>" alt="">
                 <a class="ps-shoe__overlay" href="<%= linkShoes + item.slug %>"></a>
               </div>
               <div class="ps-shoe__content">

@@ -3,60 +3,54 @@ var router = express.Router();
 
 const ShoesModel = require(__path_models + 'shoes');
 const CategoryModel = require(__path_models + 'product-category');
+
 const ParamsHelpers 	= require(__path_helpers + 'params');
 
 const folderView	 = __path_views_shop + 'pages/category/';
 const layoutShop    = __path_views_shop + 'frontend';
 
-router.get('/:slug/:sort?', async (req, res, next) => {
-  let slugCategory = ParamsHelpers.getParam(req.params, 'slug', '');
-  let sort		= ParamsHelpers.getParam(req.params, 'sort', 'name-asc');
-
-  let params = {};
-  params.sortType = sort.split('-')[1];
-  params.sortField = sort.split('-')[0];
-  let titleCategory = '';
-  let itemsInCategory = [];
-
-  if(slugCategory !== 'all') {
-    console.log(slugCategory);
-    // find id of category
-    await CategoryModel.getItems({slug: slugCategory}, {task: 'get-items-by-slug'}).then( (items) => {params.id = items[0].id; titleCategory = items[0].name;});
-    // Article in Category
-    await ShoesModel.listItemsInCategory(params, {task: 'items-category'}).then( (items) => {itemsInCategory = items;});
-  } else {
-    titleCategory = 'All Shoes';
-    await ShoesModel.listItemsInCategory(params, {task: 'all-items'}).then( (items) => {itemsInCategory = items;});
+router.get('/', async (req, res, next) => {
+  let params 		 = ParamsHelpers.createParamsFrontend(req);
+  let titlePage = 'All Shoes';
+  let items = [];
+	let slugCategory 	= ParamsHelpers.getParam(req.query, 'slug', 'all');
+  if(slugCategory !== 'all') { 
+    await CategoryModel.getItems({slug: slugCategory}, {task: 'get-items-by-slug'}).then( (items) => {params.categoryID = items[0].id; titlePage = items[0].name;}); 
   }
+  await ShoesModel.listItemsInCategory(params).then( (item) => {items = item;});
   res.render(`${folderView}index`, { 
-    pageTitle : titleCategory,
+    pageTitle : titlePage,
     top_post: false,
     contact_layout: false,
     sidebar_rss: false,
     layout: layoutShop,
-    itemsInCategory,
+    items,
   });
 });
 
-router.get('/filter-category/:min-:max', async (req, res, next) => {
-  let itemsInCategory = [];
-  let minPrice = ParamsHelpers.getParam(req.params, 'min', '');
-  let maxPrice = ParamsHelpers.getParam(req.params, 'max', '');
-  await ShoesModel.listItemsFrontend({min: minPrice, max: maxPrice}, {task: 'filter-price'}).then( (items) => {itemsInCategory = items;});
+router.get('/new-releases', async (req, res, next) => {
+  await ShoesModel.listItemsFrontend(null, {task:'new-items'}).then( (item) => {items = item;});
   res.render(`${folderView}index`, { 
-    pageTitle : 'Shoes',
+    pageTitle : 'New Releases',
     top_post: false,
     contact_layout: false,
     sidebar_rss: false,
     layout: layoutShop,
-    itemsInCategory
+    items,
   });
 });
 
-// SORT
-/* router.get(('/sort/:sort_field/:sort_type'), (req, res, next) => {
-	req.session.sort_field		= ParamsHelpers.getParam(req.params, 'sort_field', 'ordering');
-	req.session.sort_type		  = ParamsHelpers.getParam(req.params, 'sort_type', 'asc');
-	res.redirect(linkIndex);
-}); */
+
+router.get('/most-popular', async (req, res, next) => {
+  await ShoesModel.listItemsFrontend(null, {task:'popular-items'}).then( (item) => {items = item;});
+  res.render(`${folderView}index`, { 
+    pageTitle : 'New Releases',
+    top_post: false,
+    contact_layout: false,
+    sidebar_rss: false,
+    layout: layoutShop,
+    items,
+  });
+});
+
 module.exports = router;

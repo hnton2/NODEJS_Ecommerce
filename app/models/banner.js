@@ -23,7 +23,7 @@ module.exports = {
     listItemsFrontend: (params = null, option = null) => {
         let find = {status:'active'};
         let select = 'link thumb ordering';
-        let limit = 2;
+        let limit = 7;
         let sort = {ordering: 'asc'};
         return Model.find(find).select(select).limit(limit).sort(sort);
     },
@@ -56,8 +56,8 @@ module.exports = {
         let data = {
             ordering: parseInt(ordering),
             modified: {
-                user_id: user.id,
-                user_name: user.username,
+                user_id: '1',
+                user_name: 'admin',
                 time: Date.now()
             }
         };
@@ -95,8 +95,8 @@ module.exports = {
     saveItems: (item, user, option = null) => {
         if(option.tasks === 'add') {
             item.created = {
-                user_id: user.id,
-				user_name: user.username,
+                user_id: '1',
+				user_name: 'admin',
 				time: Date.now()
             }
             return new Model(item).save();
@@ -108,8 +108,8 @@ module.exports = {
                 content: item.content,
                 thumb: item.thumb,
 				modified: {
-					user_id: user.id,
-					user_name: user.username,
+					user_id: '2',
+					user_name: 'admin',
 					time: Date.now()
                 }
 			});

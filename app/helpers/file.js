@@ -37,7 +37,7 @@ let uploadFile = (field, folderDes = 'users', fileNameLength = 10, fileSizeMb = 
 	return upload;
 }
 
-let uploadMultiFile = (field, folderDes = 'shoes', nFile = 10, fileNameLength = 10, fileSizeMb = 5, fileExtension = 'jpeg|jpg|png|gif') => {
+let uploadMultiFile = (field, folderDes = 'shoes', nFile = 20, fileNameLength = 10, fileSizeMb = 5, fileExtension = 'jpeg|jpg|png|gif') => {
 	const storage = multer.diskStorage({
 		destination: (req, file, cb) => {
 			cb(null, __path_uploads + folderDes + '/')

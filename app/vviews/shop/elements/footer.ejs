@@ -28,6 +28,16 @@
         <div class="col-lg-4 col-md-3 col-sm-12 col-xs-12 ">
           <aside class="ps-widget--footer ps-widget--info">
             <header>
+              <h3 class="ps-widget__title">About</h3>
+            </header>
+            <footer>
+              <p><strong><%= webConfig.address %></strong></p>
+              <p>Email: <a href='#'><%= webConfig.email %></a></p>
+              <p>Phone: +<%= webConfig.hotline %></p>
+            </footer>
+          </aside>
+          <aside class="ps-widget--footer ps-widget--info">
+            <header>
               <h3 class="ps-widget__title">Address Office</h3>
             </header>
             <footer>
@@ -37,19 +47,6 @@
             </footer>
           </aside>
         </div>
-        <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 ">
-          <!-- <aside class="ps-widget--footer ps-widget--info">
-            <header>
-              <h3 class="ps-widget__title">Address Office 2</h3>
-            </header>
-            <footer>
-              <p><strong>PO Box 16122 Collins  Victoria 3000 Australia</strong></p>
-              <p>Email: <a href='mailto:support@store.com'>support@store.com</a></p>
-              <p>Phone: +323 32434 5334</p>
-              <p>Fax: ++323 32434 5333</p>
-            </footer>
-          </aside> -->
-        </div>
         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12 ">
           <aside class="ps-widget--footer ps-widget--link">
             <header>
@@ -57,10 +54,28 @@
             </header>
             <footer>
               <ul class="ps-list--link">
-                <li><a href="#">Coupon Code</a></li>
-                <li><a href="#">SignUp For Email</a></li>
+                <li><a href="#">Promotions</a></li>
+                <li><a href="#">Sign Up For Email</a></li>
+                <li><a href="#">Order Status</a></li>
                 <li><a href="<%= linkPrefix + 'about/' %>">About us</a></li>
                 <li><a href="<%= linkPrefix + 'contact/' %>">Contact us</a></li>
+              </ul>
+            </footer>
+          </aside>
+        </div>
+        <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 ">
+          <aside class="ps-widget--footer ps-widget--link">
+            <header>
+              <h3 class="ps-widget__title">Get help</h3>
+            </header>
+            <footer>
+              <ul class="ps-list--link">
+                <li><a href="#">New Releases</a></li>
+                <li><a href="#">Most Popular</a></li>
+                <li><a href="#">Flash Sale</a></li>
+                <li><a href="#">Best Sellers</a></li>
+                <li><a href="#">Now Trending</a></li>
+                <li><a href="#">Fashion News</a></li>
               </ul>
             </footer>
           </aside>

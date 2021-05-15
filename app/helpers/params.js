@@ -25,7 +25,21 @@ let createParams = (req ) => {
 	return params;
 }
 
+
+let createParamsFrontend = (req ) => {
+    let params 		 = {};
+	let strSort		    = getParam(req.query, 'sort', 'name-asc');
+	params.sortType 	= strSort.split('-')[1];
+  	params.sortField 	= strSort.split('-')[0];
+	params.price        = getParam(req.query, 'filter-price', 'all');
+	params.size        	= getParam(req.query, 'size', 'all');
+	params.color        = getParam(req.query, 'color', 'all');
+
+	return params;
+}
+
 module.exports = {
 	getParam,
+	createParamsFrontend,
 	createParams
 }

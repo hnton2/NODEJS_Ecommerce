@@ -10,7 +10,7 @@
               <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12 ">
                 <div class="header__actions">
                   <a href="#">Login & Register</a>
-                  <a href="/orders-tracking">Tracking Order</a>
+                  <a href="/orders-tracking">Order Status</a>
                   <a href="/contact">Contact</a>
                 </div>
               </div>
@@ -23,69 +23,78 @@
           <div class="header__logo"><a class="ps-logo" href="<%= linkPrefix %>"><img src="uploads/config/<%= webConfig.logo %>" style="width:350px" alt=""></a></div>
         </div>
         <div class="navigation__column center">
-              <ul class="main-menu menu">
-                <li class="menu-item" data-active=""><a href="<%= linkPrefix %>">Home</a></li>
-                <li class="menu-item menu-item-has-children has-mega-menu" data-active="category"><a href="<%= linkPrefix + 'category/all' %>">Category</a>
-                  <div class="mega-menu">
-                    <div class="mega-wrap">
-                      <div class="mega-column">
-                        <ul class="mega-item mega-features">
-                          <li><a href="#">NEW RELEASES</a></li>
-                          <li><a href="#">FEATURES SHOES</a></li>
-                          <li><a href="#">BEST SELLERS</a></li>
-                          <li><a href="#">NOW TRENDING</a></li>
-                          <li><a href="#">SUMMER ESSENTIALS</a></li>
-                          <li><a href="#">MOTHER'S DAY COLLECTION</a></li>
-                          <li><a href="#">FAN GEAR</a></li>
-                        </ul>
-                      </div>
-                      <div class="mega-column">
-                        <h4 class="mega-heading">Shoes</h4>
-                        <ul class="mega-item">
-                          <li><a href="<%= linkPrefix + 'category/all' %>">All</a></li>
-                          <% itemsProductCategory.forEach ( (item)=>{ %>
-                            <li><a href="<%= linkPrefix + 'category/' + item.slug %>"><%= item.name %></a></li>
-                          <% }) %>
-                        </ul>
-                      </div>
-                      <div class="mega-column">
-                        <h4 class="mega-heading">Clothing</h4>
-                        <ul class="mega-item">
-                          <li><a href="#">All Shoes</a></li>
-                          <% itemsProductCategory.forEach ( (item)=>{ %>
-                            <li><a href="#"><%= item.name %></a></li>
-                          <% }) %>
-                        </ul>
-                      </div>
-                      <div class="mega-column">
-                        <h4 class="mega-heading">BRAND</h4>
-                        <ul class="mega-item">
-                          <% itemsBrand.forEach ( (item)=>{ %>
-                            <li><a href="#"><%= item.name %></a></li>
-                          <% }) %>
-                        </ul>
-                      </div>
-                    </div>
+          <ul class="main-menu menu">
+            <li class="menu-item" data-active=""><a href="<%= linkPrefix %>">Home</a></li>
+            <li class="menu-item menu-item-has-children has-mega-menu" data-active="category"><a href="<%= linkPrefix + 'category' %>">Category</a>
+              <div class="mega-menu">
+                <div class="mega-wrap">
+                  <div class="mega-column">
+                    <ul class="mega-item mega-features">
+                      <li><a href="<%= linkPrefix + 'category/new-releases'%>">NEW RELEASES</a></li>
+                      <li><a href="#">MOST POPULAR</a></li>
+                      <li><a href="#">JUST FOR YOU</a></li>
+                      <li><a href="#">FLASH SALE</a></li>
+                      <li><a href="#">BEST SELLERS</a></li>
+                      <li><a href="#">NOW TRENDING</a></li>
+                      <li><a href="#">FASHION NEWS</a></li>
+                    </ul>
                   </div>
-                </li>
-                <li class="menu-item menu-item-has-children dropdown" data-active="c-news"><a href="#">Blog</a>
-                  <ul class="sub-menu">
-                    <li class="menu-item"><a href="<%= linkPrefix + 'c-news/all' %>">View all</a></li>
-                    <li class="menu-item"><a href="<%= linkPrefix + 'c-news/trending' %>">Trends</a></li>
-                    <% itemsCategory.forEach ( (item)=>{ %>
-                      <li class="menu-item"><a href="<%= linkPrefix + 'c-news/' + item.slug %>"><%= item.name %></a></li>
-                    <% }) %>
-                  </ul>
-                </li>
-                <li class="menu-item menu-item-has-children dropdown" data-active="news-rss"><a href="<%= linkPrefix + 'news-rss' %>">News</a>
-                  <ul class="sub-menu">
-                    <li class="menu-item"><a href="<%= linkPrefix + 'news-rss' %>">Fashion news</a></li>
-                    <li class="menu-item"><a href="<%= linkPrefix + 'news-rss/local-news' %>">Local news</a></li>
-                  </ul>
-                </li>
-                <li class="menu-item" data-active="about"><a href="<%= linkPrefix + 'about' %>">About</a></li>
-                <li class="menu-item" data-active="contact"><a href="<%= linkPrefix + 'contact' %>">Contact</a></li>
+                  <div class="mega-column">
+                    <h4 class="mega-heading">Shoes</h4>
+                    <ul class="mega-item">
+                      <li><a href="<%= linkPrefix + 'category' %>">All</a></li>
+                      <% itemsProductCategory.forEach ( (item)=>{ %>
+                        <li><a href="<%= linkPrefix + 'category?slug=' + item.name %>"><%= item.name %></a></li>
+                      <% }) %>
+                    </ul>
+                  </div>
+                  <div class="mega-column">
+                    <h4 class="mega-heading">Clothing</h4>
+                    <ul class="mega-item">
+                      <li><a href="#">All</a></li>
+                      <% itemsClothingCategory.forEach ( (item)=>{ %>
+                        <li><a href="#"><%= item.name %></a></li>
+                      <% }) %>
+                    </ul>
+                  </div>
+                  <div class="mega-column">
+                    <h4 class="mega-heading">Accessories & Equipment</h4>
+                    <ul class="mega-item">
+                      <li><a href="#">All</a></li>
+                      <% itemsAccessoryCategory.forEach ( (item)=>{ %>
+                        <li><a href="#"><%= item.name %></a></li>
+                      <% }) %>
+                    </ul>
+                  </div>
+                  <div class="mega-column">
+                    <h4 class="mega-heading">BRAND</h4>
+                    <ul class="mega-item">
+                      <% itemsBrand.forEach ( (item)=>{ %>
+                        <li><a href="#"><%= item.name %></a></li>
+                      <% }) %>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li class="menu-item menu-item-has-children dropdown" data-active="c-news"><a href="#">Blog</a>
+              <ul class="sub-menu">
+                <li class="menu-item"><a href="<%= linkPrefix + 'c-news/all' %>">View all</a></li>
+                <li class="menu-item"><a href="<%= linkPrefix + 'c-news/trending' %>">Trends</a></li>
+                <% itemsCategory.forEach ( (item)=>{ %>
+                  <li class="menu-item"><a href="<%= linkPrefix + 'c-news/' + item.slug %>"><%= item.name %></a></li>
+                <% }) %>
               </ul>
+            </li>
+            <li class="menu-item menu-item-has-children dropdown" data-active="news-rss"><a href="<%= linkPrefix + 'news-rss' %>">News</a>
+              <ul class="sub-menu">
+                <li class="menu-item"><a href="<%= linkPrefix + 'news-rss' %>">Fashion news</a></li>
+                <li class="menu-item"><a href="<%= linkPrefix + 'news-rss/local-news' %>">Local news</a></li>
+              </ul>
+            </li>
+            <li class="menu-item" data-active="about"><a href="<%= linkPrefix + 'about' %>">About</a></li>
+            <li class="menu-item" data-active="contact"><a href="<%= linkPrefix + 'contact' %>">Contact</a></li>
+          </ul>
         </div>
         <div class="navigation__column right">
           <form class="ps-search--header query" action="<%=linkPrefix + 'c-news/all'%>" method="GET">
@@ -103,7 +112,7 @@
 <div class="header-services">
   <div class="ps-services owl-slider" data-owl-auto="true" data-owl-loop="true" data-owl-speed="7000" data-owl-gap="0" data-owl-nav="true" data-owl-dots="false" data-owl-item="1" data-owl-item-xs="1" data-owl-item-sm="1" data-owl-item-md="1" data-owl-item-lg="1" data-owl-duration="1000" data-owl-mousedrag="on">
     <p class="ps-service"><i class="ps-icon-delivery"></i><strong>Free delivery</strong>: Get free standard delivery on every order with Fashion Store</p>
-    <p class="ps-service"><i class="ps-icon-customer-service"></i><strong>SUPPORT</strong>: We offer a 24/7 customer hotline so you’re never alone if you have a question.</p>
+    <p class="ps-service"><i class="ps-icon-customer-service"></i><strong>Support</strong>: We offer a 24/7 customer hotline so you’re never alone if you have a question.</p>
     <p class="ps-service"><i class="ps-icon-heart"></i><strong>Prestige and quality</strong>: Product quality is the top priority</p>
   </div>
 </div>

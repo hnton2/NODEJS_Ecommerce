@@ -6736,3 +6736,53 @@ p {
   width: 60%;
   padding: 10px;
 }
+
+ .paymentBtnGroup {
+	max-width: 800px;
+	margin: auto;
+}
+.paymentBtnGroup .paymentMethod {
+	padding: 40px;
+	box-shadow: none;
+	position: relative;
+}
+.paymentBtnGroup .paymentMethod.active {
+	outline: none !important;
+}
+.paymentBtnGroup .paymentMethod.active .method {
+	border-color: #4cd264;
+	outline: none !important;
+	box-shadow: 0px 3px 22px 0px #7b7b7b;
+}
+.paymentBtnGroup .paymentMethod .method {
+	position: absolute;
+	right: 3px;
+	top: 3px;
+	bottom: 3px;
+	left: 3px;
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	border: 2px solid transparent;
+	transition: all 0.5s;
+}
+.paymentBtnGroup .paymentMethod .method.visa {
+	background-image: url("https://cdn2.iconfinder.com/data/icons/payment-flat/614/2_-_Visa-512.png");
+}
+ .paymentBtnGroup .paymentMethod .method.master-card {
+	background-image: url("https://cdn4.iconfinder.com/data/icons/simple-peyment-methods/512/mastercard-512.png");
+}
+.paymentBtnGroup .paymentMethod .method.amex {
+	background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3C_Nq14L9od4cB8DcVQaoZ94PWXUiZz2bJg&usqp=CAU");
+}
+ .paymentBtnGroup .paymentMethod .method.vishwa {
+	background-image: url("https://cdn4.iconfinder.com/data/icons/payment-method/160/payment_method_bitcoin-512.png");
+}
+.paymentBtnGroup .paymentMethod .method.ez-cash {
+	background-image: url("https://cdn1.iconfinder.com/data/icons/payment-mode/100/dollar_bill-2-512.png");
+}
+
+.paymentBtnGroup .paymentMethod .method:hover {
+	border-color: #4cd264;
+	outline: none !important;
+}

@@ -2,7 +2,7 @@
     reviewsHelpers = (listReviews) => {
         let xhtml = '';
         listReviews.forEach( (item) => {
-          let arrRating = [2, 2, 2, 2, 2];
+          let arrRating = [1, 2, 3, 4, 5];
           for(let i = 0; i < Number(item.rating); i++) {
             arrRating[i] = 1;
           }

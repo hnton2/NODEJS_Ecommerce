@@ -14,7 +14,7 @@
             <h3 class="mb-4 text-center">Have an account?</h3>
             <% include ./../../elements/errors-login %>
             <% include ./../../elements/notify %>
-            <form action="<%= linkLogin %>" name="login"  method="POST" class="signin-form">
+            <form action="<%= linkLogin %>" name="login"  method="POST" class="signin-form" id="login-form">
                <div class="form-group">
                   <input type="text" name="username" id="email" value="<%= item.username %>" class="form-control" placeholder=" Enter username" required>
                </div>

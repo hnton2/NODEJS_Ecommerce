@@ -7,11 +7,10 @@
     const folder_upload_shoes = 'uploads/shoes/';
     const folder_upload_news = 'uploads/articles/';
 %>
-
-<div class="ps-section--features-product ps-section masonry-root pt-50 pb-50"> 
+<div class="ps-section--features-product ps-section masonry-root pt-50 pb-30"> 
   <div class="ps-container">
     <div class="ps-section__header mb-50">
-      <h3 class="ps-section__title" data-mask="features">New Shoes</h3>
+      <h3 class="ps-section__title" data-mask="features">Features Shoes</h3>
       <ul class="ps-masonry__filter">
         <li class="current"><a href="#" data-filter="*">All <sup><%= lastedShoes.length %></sup></a></li>
         <% itemsBrand.forEach ( (item)=>{ %>
@@ -24,21 +23,21 @@
         <div class="ps-masonry">
           <div class="grid-sizer"></div>
           <% lastedShoes.forEach( (item) => { %>
-            <div class="grid-item <%= item.brand.name %>" style="width:360px;height: 445px;">
+            <div class="grid-item <%= item.brand.name %>" style="width:360px;height:445px;">
               <div class="grid-item__content-wrapper">
                 <div class="ps-shoe mb-30">
-                  <div class="ps-shoe__thumbnail" style="width:330px;height: 330px;">
+                  <div class="ps-shoe__thumbnail">
                     <div class="ps-badge"><span>New</span></div>
                     <% if(item.sale_off > 0) { %>
                       <div class="ps-badge ps-badge--sale ps-badge--2nd"><span>-<%= item.sale_off %>%</span></div>
                     <% } %>
-                    <a class="ps-shoe__favorite" href="javascript:void(0)" onclick="favoriteProduct('<%= item.id %>')"><i class="ps-icon-heart"></i></a>
-                    <img src="<%= folder_upload_shoes + item.thumb[1] %>" alt="">
+                    <a class="ps-shoe__favorite" href="javascript:void(0)" onclick="favoriteProduct('<%= item._id %>')"><i class="ps-icon-heart"></i></a>
+                    <img src="<%= folder_upload_shoes + item.thumb[0] %>" style="width:330px;height:330px;object-fit:cover;" alt="">
                     <a class="ps-shoe__overlay" href="<%= linkShoes + item.slug %>"></a>
                   </div>
                   <div class="ps-shoe__content">
                     <div class="ps-shoe__variants">
-                      <div class="ps-shoe__variant normal">
+                      <div class="ps-shoe__variant normal"> 
                         <% item.thumb.forEach( (image) => { %>
                           <img src="<%= folder_upload_shoes + image %>" alt="">
                         <% }) %>
@@ -71,10 +70,34 @@
     </div>
   </div>
 </div>
-<div class="ps-section--offer">
-  <% itemsBanner.forEach( (item) => { %>
-    <div class="ps-column"><a class="ps-offer" href="<%= item.link %>"><img src="uploads/banner/<%= item.thumb %>" style="height: 477px; width: 1530px;" alt=""></a></div>
-  <% }) %>
+<div class="ps-section masonry-root pt-10 pb-40">
+  <div class="ps-container">
+    <div class="ps-section__header mb-30">
+      <h3 class="ps-section__title" data-mask="Promotion">- Our Event</h3>
+    </div>
+    <div class="ps-section__content pb-50">
+      <div class="masonry-wrapper" data-col-md="3" data-col-sm="2" data-col-xs="1" data-gap="30" data-radio="100%">
+        <div class="ps-masonry" style="position: relative; height: 559.975px;">
+          <div class="grid-sizer"></div>
+          <div class="grid-item" style="position: absolute; left: 0px; top: 0px;">
+            <div class="grid-item__content-wrapper"><a class="ps-offer" href="<%= itemsBanner[0].link %>"><img src="uploads/banner/<%= itemsBanner[0].thumb %>" style="width:450px;height:250px;" alt=""></a></div>
+          </div>
+          <div class="grid-item" style="position: absolute; left: 479px; top: 0px;">
+            <div class="grid-item__content-wrapper"><a class="ps-offer" href="<%= itemsBanner[1].link %>"><img src="uploads/banner/<%= itemsBanner[1].thumb %>" style="width:450px;height:250px;" alt=""></a></div>
+          </div>
+          <div class="grid-item high" style="position: absolute; left: 959px; top: 0px;">
+            <div class="grid-item__content-wrapper"><a class="ps-offer" href="<%= itemsBanner[4].link %>"><img src="uploads/banner/<%= itemsBanner[4].thumb %>" style="width:450px;height:530px;" alt=""></a></div>
+          </div>
+          <div class="grid-item" style="position: absolute; left: 0px; top: 279px;">
+            <div class="grid-item__content-wrapper"><a class="ps-offer" href="<%= itemsBanner[3].link %>"><img src="uploads/banner/<%= itemsBanner[3].thumb %>" style="width:450px;height:250px;" alt=""></a></div>
+          </div>
+          <div class="grid-item" style="position: absolute; left: 479px; top: 279px;">
+            <div class="grid-item__content-wrapper"><a class="ps-offer" href="<%= itemsBanner[2].link %>"><img src="uploads/banner/<%= itemsBanner[2].thumb %>" style="width:450px;height:250px;" alt=""></a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <div class="ps-section ps-section--top-sales ps-owl-root pt-80 pb-80">
   <div class="ps-container">
@@ -206,6 +229,10 @@
     </div>
   </div>
 </div>
+<div class="ps-section--offer">
+  <div class="ps-column"><a class="ps-offer" href="<%= itemsBanner[5].link %>"><img src="uploads/banner/<%= itemsBanner[5].thumb %>" style="height: 477px; width: 1530px;" alt=""></a></div>
+  <div class="ps-column"><a class="ps-offer" href="<%= itemsBanner[6].link %>"><img src="uploads/banner/<%= itemsBanner[6].thumb %>" style="height: 477px; width: 1530px;" alt=""></a></div>
+</div>
 <div class="ps-section ps-section--top-sales ps-owl-root pt-40 pb-40">
   <div class="ps-container">
     <div class="ps-section__header mb-50">
@@ -231,6 +258,87 @@
             </div>
           </div>
         <% } %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="ps-home-partner pt-10 pb-30">
+  <div class="ps-container">
+    <div class="owl-slider owl-carousel owl-theme owl-loaded" data-owl-auto="true" data-owl-loop="true" data-owl-speed="5000" data-owl-gap="40" data-owl-nav="false" data-owl-dots="false" data-owl-item="6" data-owl-item-xs="2" data-owl-item-sm="4" data-owl-item-md="5" data-owl-item-lg="6" data-owl-duration="1000" data-owl-mousedrag="on">
+      <div class="owl-stage-outer">
+        <div class="owl-stage" style="transform: translate3d(-1933.34px, 0px, 0px); transition: all 1s ease 0s; width: 4833.34px;">
+          <div class="owl-item cloned" style="width: 201.667px; margin-right: 40px;">
+            <a href="#"><img src="frontend/shop/images/partner/3.png" alt=""></a>
+          </div>
+          <div class="owl-item cloned" style="width: 201.667px; margin-right: 40px;">
+            <a href="#"><img src="frontend/shop/images/partner/4.png" alt=""></a>
+          </div>
+          <div class="owl-item cloned" style="width: 201.667px; margin-right: 40px;">
+            <a href="#"><img src="frontend/shop/images/partner/5.png" alt=""></a>
+          </div>
+          <div class="owl-item cloned" style="width: 201.667px; margin-right: 40px;">
+            <a href="#"><img src="frontend/shop/images/partner/6.png" alt=""></a>
+          </div>
+          <div class="owl-item cloned" style="width: 201.667px; margin-right: 40px;">
+            <a href="#"><img src="frontend/shop/images/partner/7.png" alt=""></a>
+          </div>
+          <div class="owl-item cloned" style="width: 201.667px; margin-right: 40px;">
+            <a href="#"><img src="frontend/shop/images/partner/8.png" alt=""></a>
+          </div>
+          <div class="owl-item" style="width: 201.667px; margin-right: 40px;">
+            <a href="#"><img src="frontend/shop/images/partner/1.png" alt=""></a>
+          </div>
+          <div class="owl-item" style="width: 201.667px; margin-right: 40px;">
+            <a href="#"><img src="frontend/shop/images/partner/2.png" alt=""></a>
+          </div>
+          <div class="owl-item active" style="width: 201.667px; margin-right: 40px;">
+            <a href="#"><img src="frontend/shop/images/partner/3.png" alt=""></a>
+          </div>
+          <div class="owl-item active" style="width: 201.667px; margin-right: 40px;">
+            <a href="#"><img src="frontend/shop/images/partner/4.png" alt=""></a>
+          </div>
+          <div class="owl-item active" style="width: 201.667px; margin-right: 40px;">
+            <a href="#"><img src="frontend/shop/images/partner/5.png" alt=""></a>
+          </div>
+          <div class="owl-item active" style="width: 201.667px; margin-right: 40px;">
+            <a href="#"><img src="frontend/shop/images/partner/6.png" alt=""></a>
+          </div>
+          <div class="owl-item active" style="width: 201.667px; margin-right: 40px;">
+            <a href="#"><img src="frontend/shop/images/partner/7.png" alt=""></a>
+          </div>
+          <div class="owl-item active" style="width: 201.667px; margin-right: 40px;">
+            <a href="#"><img src="frontend/shop/images/partner/8.png" alt=""></a>
+          </div>
+          <div class="owl-item cloned" style="width: 201.667px; margin-right: 40px;">
+            <a href="#"><img src="frontend/shop/images/partner/1.png" alt=""></a>
+          </div>
+          <div class="owl-item cloned" style="width: 201.667px; margin-right: 40px;">
+            <a href="#"><img src="frontend/shop/images/partner/2.png" alt=""></a>
+          </div>
+          <div class="owl-item cloned" style="width: 201.667px; margin-right: 40px;">
+            <a href="#"><img src="frontend/shop/images/partner/3.png" alt=""></a>
+          </div>
+          <div class="owl-item cloned" style="width: 201.667px; margin-right: 40px;">
+            <a href="#"><img src="frontend/shop/images/partner/4.png" alt=""></a>
+          </div>
+          <div class="owl-item cloned" style="width: 201.667px; margin-right: 40px;">
+            <a href="#"><img src="frontend/shop/images/partner/5.png" alt=""></a>
+          </div>
+          <div class="owl-item cloned" style="width: 201.667px; margin-right: 40px;">
+            <a href="#"><img src="frontend/shop/images/partner/6.png" alt=""></a>
+          </div>
+        </div>
+      </div>
+      <div class="owl-controls">
+        <div class="owl-nav">
+          <div class="owl-prev" style="display: none;">
+            <i class="ps-icon-back"></i>
+          </div>
+          <div class="owl-next" style="display: none;">
+            <i class="ps-icon-next"></i>
+          </div>
+        </div>
+        <div class="owl-dots" style="display: none;"></div>
       </div>
     </div>
   </div>

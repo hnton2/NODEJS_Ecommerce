@@ -10,8 +10,10 @@ var schema = new mongoose.Schema({
         name: String
     },
     price: Number,
+    sale_off: Number,
     quantity: Number,
     status: String,
+    special: String,
     ordering: Number,
     category: {
         id: String,
@@ -29,6 +31,17 @@ var schema = new mongoose.Schema({
     },
     content: String,
     thumb: [String],
+    tags: String,
+    size: String,
+    color: String,
+    reviews: [{
+        name: String,
+        email: String,
+        time: Date,
+        rating: Number,
+        content: String
+    }],
+    favorite: Number,
 });
 schema.index({name: 'text', content: 'text', 'category.name': 'text', 'brand.name': 'text'});
 

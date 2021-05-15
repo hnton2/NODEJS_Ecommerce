@@ -1,99 +1,199 @@
 $(document).ready(function () {
-
-    $('select[name=sort-product]').change(function() {
-        var path = window.location.pathname.split('/');
-        console.log(path);
-        var linkRedirect = '/' + path[1] + '/' + path[2] + '/' + $(this).val();
-        window.location.pathname = linkRedirect;
-    });
-    // choose location
-    var localpicker = new LocalPicker({
-		province: "ls_province",
-		district: "ls_district",
-		ward: "ls_ward",
-        provinceText: 'Choose province / city',
-        districtText: 'Choose district',
-        wardText: 'Choose ward',
-    });
-    $('select[name=ls_province]').change(function() {       // change province and calculate shipping fee
-        let province = $(this).find('option:selected');
-        let fee = 0;
-        let totalBox = $('#total-price');
-        $('input[name=province]').val(province.text());
-        $.ajax({
-            url: '/checkout/get-shipping-fee',
-            type: 'get',
-            success:function(data){
-                data.forEach( (item) => {
-                    if(item.code === province.val()) {
-                        fee = item.cost;
-                        $('#shipping-fee').html('$ ' + fee);
-                        totalBox.html('$ ' + (Number(totalBox.text().slice(2)) + Number(fee)));
-                        $('input[name=shipping_fee]').val(fee);
-                    }
-                });
-            }
-        });
-    });
-    $('select[name=ls_district]').change(function() {
-        $('input[name=district]').val($(this).find('option:selected').text());
-    });
-    $('select[name=ls_ward]').change(function() {
-        $('input[name=ward]').val($(this).find('option:selected').text());
-    });
-
-    //active menu
+    // ---BEGIN: ACTIVE MENU HEADER---
     let pathname = window.location.pathname;
     let arrMenu = pathname.split("/");
     let currentMenu = arrMenu[1];
-    if(currentMenu.includes('category'))     $('li.menu-item[data-active=category]').addClass('current-menu-item');
+    if(currentMenu.includes('category')) $('li.menu-item[data-active=category]').addClass('current-menu-item');
     $('li.menu-item[data-active="'+currentMenu+'"]').addClass('current-menu-item');
+    // ---END: ACTIVE MENU HEADER---
 
-    // active filter by price
-    if(arrMenu[2]){
-        if(arrMenu[2].includes('filter-category')){
-            var el = $('.ac-slider');
-            var min = el.siblings().find('.ac-slider__min');
-            var max = el.siblings().find('.ac-slider__max');
-            var defaultMinValue = arrMenu[3].split('-')[0];
-            var defaultMaxValue = arrMenu[3].split('-')[1];
-            var maxValue = el.data('max');
-            var step = el.data('step');
-
-            if (el.length > 0) {
-                el.slider({
-                    min: 0,
-                    max: maxValue,
-                    step: step,
-                    range: true,
-                    values: [defaultMinValue, defaultMaxValue],
-                    slide: function(event, ui) {
-                        var $this = $(this),
-                            values = ui.values;
-
-                        min.text('$' + values[0]);
-                        max.text('$' + values[1]);
-                    }
-                });
-
-                var values = el.slider("option", "values");
-                min.text('$' + values[0]);
-                max.text('$' + values[1]);
+    let linkHref =  $(location).attr("href");
+    
+    // ---BEGIN: CHOOSE CATEGORY---
+    $('ul#category_product li').click(function(e) { 
+        $('ul#category_product li').removeClass('current');
+        var linkRedirect = '';
+        let strEnd = '';
+        let nameCategory = $(this).attr('data-name');
+        if(linkHref.includes('slug')) {
+            let splitHref = linkHref.split('slug=');
+            let strQ = splitHref[1].split('&');
+            if(strQ[1] !== undefined) strEnd = '&' + strQ[1];
+            if(strQ[0] === nameCategory) {
+                linkRedirect = splitHref[0].slice(0, splitHref[0].length - 1) + strEnd;
+            } else {
+                if(linkHref.indexOf('?') != -1) { var linkRedirect = splitHref[0] + 'slug=' + nameCategory + strEnd; } 
+                else { var linkRedirect = splitHref[0].slice(0, splitHref[0].length - 1) + '?slug=' + nameCategory + strEnd; }
             }
-            else {
-                return false;
-            }
+        } else {
+            $(this).addClass('current');
+            if(linkHref.indexOf('?') != -1) { var linkRedirect = linkHref + '&slug=' + nameCategory; } 
+            else { var linkRedirect = linkHref + '?slug=' + nameCategory; }
         }
-    }
+        window.location.href = linkRedirect;
+    });
+    // ---END: CHOOSE CATEGORY---
 
-    // active menu sidebar category
+    // ---BEGIN: SORT PRODUCT IN CATEGORY---
+    $('select[name=sort-product]').change(function() {
+        var linkRedirect = '';
+        let strEnd = '';
+        if(linkHref.includes('sort')) {
+            let splitHref = linkHref.split('sort=');
+            let strQ = splitHref[1].split('&');
+            if(strQ[1] !== undefined) strEnd = '&' + strQ[1];
+            linkRedirect = splitHref[0] + 'sort=' + $(this).val() + strEnd;
+        } else {
+            if(linkHref.indexOf('?') != -1) { linkRedirect = linkHref + '&sort=' + $(this).val(); } 
+            else { linkRedirect = linkHref + '?sort=' + $(this).val(); }
+        }
+        window.location.href = linkRedirect;
+    });
+    // ---END: SORT PRODUCT IN CATEGORY---
+
+    // ---BEGIN: CHOOSE SIZE IN CATEGORY---
+    $("#table_size").on("click", "td", function() {
+        $('#table_size td').removeClass('active');
+        var linkRedirect = '';
+        let strEnd = '';
+        if(linkHref.includes('size')) {
+            let splitHref = linkHref.split('size=');
+            let strQ = splitHref[1].split('&');
+            if(strQ[1] !== undefined) strEnd = '&' + strQ[1];
+            if(strQ[0] === $(this).text()) {
+                linkRedirect = splitHref[0].slice(0, splitHref[0].length - 1) + strEnd;
+            } else {
+                if(linkHref.indexOf('?') != -1) { var linkRedirect = splitHref[0] + 'size=' + $(this).text() + strEnd; } 
+                else { var linkRedirect = splitHref[0].slice(0, splitHref[0].length - 1) + '?size=' + $(this).text() + strEnd; }
+            }
+        } else {
+            $(this).addClass('active');
+            if(linkHref.indexOf('?') != -1) { var linkRedirect = linkHref + '&size=' + $(this).text(); } 
+            else { var linkRedirect = linkHref + '?size=' + $(this).text(); }
+        }
+        window.location.href = linkRedirect;
+    });
+    // ---END: CHOOSE SIZE IN CATEGORY---
+    
+    // ---BEGIN: CHOOSE COLOR IN CATEGORY---
+    $('ul#color_product li').click(function(e) { 
+        $('ul#color_product li').removeClass('current');
+        var linkRedirect = '';
+        let strEnd = '';
+        if(linkHref.includes('color')) {
+            let splitHref = linkHref.split('color=');
+            let strQ = splitHref[1].split('&');
+            if(strQ[1] !== undefined) strEnd = '&' + strQ[1];
+            if(strQ[0] === $(this).text()) {
+                linkRedirect = splitHref[0].slice(0, splitHref[0].length - 1) + strEnd;
+            } else {
+                if(linkHref.indexOf('?') != -1) { var linkRedirect = splitHref[0] + 'color=' + $(this).text() + strEnd; } 
+                else { var linkRedirect = splitHref[0].slice(0, splitHref[0].length - 1) + '?color=' + $(this).text() + strEnd; }
+            }
+        } else {
+            $(this).addClass('current');
+            if(linkHref.indexOf('?') != -1) { var linkRedirect = linkHref + '&color=' + $(this).text(); } 
+            else { var linkRedirect = linkHref + '?color=' + $(this).text(); }
+        }
+        window.location.href = linkRedirect;
+    });
+    // ---END: CHOOSE COLOR IN CATEGORY---
+
+    // ---BEGIN: ACTIVE SIDEBAR CATEGORY---
+    if(linkHref.includes('?')) {
+        let queryString = linkHref.slice(linkHref.indexOf('?') + 1).split('&');
+        queryString.forEach( (query) => {
+            let item = query.split('=');
+            if(item[0] === 'slug') {
+                $("ul#category_product li").filter(function() { return $(this).attr('data-name') == item[1]; }).addClass('current');
+            } else if(item[0] === 'sort') {
+                $('select[name=sort-product]').val(item[1]);
+                $('.selectpicker').selectpicker('refresh');
+            } else if(item[0] === 'filter-price') {
+                rangePrice = item[1].split('-');
+                var el = $('.ac-slider');
+                var min = el.siblings().find('.ac-slider__min');
+                var max = el.siblings().find('.ac-slider__max');
+                var defaultMinValue = rangePrice[0];
+                var defaultMaxValue = rangePrice[1];
+                var maxValue = el.data('max');
+                var step = el.data('step');
+                if (el.length > 0) {
+                    el.slider({
+                        min: 0,
+                        max: maxValue,
+                        step: step,
+                        range: true,
+                        values: [defaultMinValue, defaultMaxValue],
+                        slide: function(event, ui) {
+                            var $this = $(this),
+                                values = ui.values;
+
+                            min.text('$' + values[0]);
+                            max.text('$' + values[1]);
+                        }
+                    });
+                    var values = el.slider("option", "values");
+                    min.text('$' + values[0]);
+                    max.text('$' + values[1]);
+                } else { return false; }
+            } else if(item[0] === 'color') {
+                $("ul#color_product li").filter(function() { return $(this).text() == item[1]; }).addClass('current');
+            } else if(item[0] === 'size') {
+                $("#table_size td").filter(function() { return $(this).text() == item[1]; }).addClass('active');
+            }
+        })
+    }
+    // ---END: ACTIVE SIDEBAR CATEGORY---
+        
+    // ---BEGIN: CHOOSE LOCATION WHEN CHECKOUT---
+    if(currentMenu === 'checkout') {
+        var localpicker = new LocalPicker({
+            province: "ls_province",
+            district: "ls_district",
+            ward: "ls_ward",
+            provinceText: 'Choose your province / city',
+            districtText: 'Choose your district',
+            wardText: 'Choose your ward',
+        });
+        $('select[name=ls_province]').change(function() {       // change province and calculate shipping fee
+            let province = $(this).find('option:selected');
+            let fee = 0;
+            let totalBox = $('#total-price');
+            $('input[name=province]').val(province.text());
+            $.ajax({
+                url: '/checkout/get-shipping-fee',
+                type: 'get',
+                success:function(data){
+                    data.forEach( (item) => {
+                        if(item.code === province.val()) {
+                            fee = item.cost;
+                            $('#shipping-fee').html('$ ' + fee);
+                            totalBox.html('$ ' + (Number(totalBox.text().slice(2)) + Number(fee)));
+                            $('input[name=shipping_fee]').val(fee);
+                        }
+                    });
+                }
+            });
+        });
+        $('select[name=ls_district]').change(function() {
+            $('input[name=district]').val($(this).find('option:selected').text());
+        });
+        $('select[name=ls_ward]').change(function() {
+            $('input[name=ward]').val($(this).find('option:selected').text());
+        });
+    }
+    // ---END: CHOOSE LOCATION WHEN CHECKOUT---
+
+    // ---BEGIN: ACTIVE MENU CATEGORY IN SIDEBAR---
     if(currentMenu == 'category') {
         if(arrMenu[2]) {
             $('ul.ps-list--checked li[data-name="'+ arrMenu[2] + '"]').addClass('current'); 
         }
     }
+    // ---END: ACTIVE MENU CATEGORY IN SIDEBAR---
 
-    // rss
+    // ---BEGIN: RSS NEWS---
     let linkGold = $("#box-gold").data("url");
     let linkCoin = $("#box-coin").data("url");
     let linkWeather = $("#box-weather").data("url");
@@ -101,54 +201,127 @@ $(document).ready(function () {
         let data = JSON.parse(response);
         $("#box-gold").html(renderGoldTable(data));
     });
-    
     $("#box-coin").load(linkCoin, null, function(response, status) {
         let data = JSON.parse(response);
         $("#box-coin").html(renderCoinTable(data));
     });
-
     $("#box-weather").load(linkWeather, null, function(response, status) {
         let data = JSON.parse(response);
         $("#box-weather").html(renderWeather(data));
     });
+    // ---END: RSS NEWS---
 
-    // notify for contact
-    $("#example").bsFormAlerts({"id": "example"});
-    $(".ps-contact__form").submit(function(event ) {
-        var inputName = $('#name-input').val();
-        var inputEmail = $('#email-input').val();
-        var inputPhone = $('#phone-input').val();
-        $(document).trigger("clear-alert-id.example");
-        if (inputName.length <= 0 ) {
-            $(document).trigger("set-alert-id-example", [
-                {
-                    "message": "Please enter your name! ",
-                    "priority": "info"
-                }
-            ]);
-        }
-        if (inputEmail.length <= 0 ) {
-            $(document).trigger("set-alert-id-example", [
-                {
-                    "message": "Please enter your email! ",
-                    "priority": "info"
-                }
-            ]);
-        }
-        if (inputPhone.length <= 0) {
-            $(document).trigger("set-alert-id-example", [
-                {
-                    "message": "Please enter your phone number! ",
-                    "priority": "info"
-                }
-            ]);
-        }
-        if(inputName.length <= 0 || inputEmail.length <= 0 || inputPhone.length <= 0) {
-            event.preventDefault();
+    // ---BEGIN: NOTIFY LOGIN---
+    $('#login-form').validate({ 
+        errorElement: 'span',
+        errorClass: 'help-inline',
+        rules: {
+            username: "required",
+            password: "required",
+        },
+        messages: {
+            name: "Please enter your name",
+            password: "Please enter a valid password",
+        },
+        submitHandler: function(form) {
+            form.submit();
         }
     });
+    // ---END: NOTIFY LOGIN---
 
-    // subscribe
+    // ---BEGIN: NOTIFY CONTACT---
+    $('#contact-form').validate({ 
+        errorElement: 'span',
+        errorClass: 'help-inline',
+        rules: {
+            name: "required",
+            email: {
+                required: true,
+                email: true
+            },
+            phone: {
+                required: true,
+                minlength: 8
+            },
+        },
+        messages: {
+            name: "Please enter your name",
+            email: "Please enter a valid email address",
+            phone: {
+                required: "Please provide your phone number",
+                minlength: "Your phone number must be at least 8 characters long"
+            },
+        },
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
+    // ---END: NOTIFY CONTACT---
+
+    // ---BEGIN: NOTIFY CHECKOUT---
+    $('#checkout-form').validate({ 
+        errorElement: 'span',
+        errorClass: 'help-inline',
+        rules: {
+            name: "required",
+            email: {
+                required: true,
+                email: true
+            },
+            phone: {
+                required: true,
+                minlength: 8
+            },
+            ls_province: "required",
+            ls_district: "required",
+            ls_ward: "required",
+            address: "required",
+        },
+        messages: {
+            name: "Please enter your name",
+            email: "Please enter a valid email address",
+            phone: {
+                required: "Please provide your phone number",
+                minlength: "Your phone number must be at least 8 characters long"
+            },
+            ls_province: "Please select your province",
+            ls_district: "Please select your district",
+            ls_ward: "Please select your ward",
+            address: "Please enter your address",
+        },
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
+    // ---END: NOTIFY CHECKOUT---
+
+    // ---BEGIN: NOTIFY REVIEW---
+    $('#review-form').validate({ 
+        errorElement: 'span',
+        errorClass: 'help-inline',
+        rules: {
+            name: "required",
+            email: {
+                required: true,
+                email: true
+            },
+            rating: "required",
+            content: "required",
+        },
+        messages: {
+            name: "Please enter your name",
+            email: "Please enter a valid email address",
+            rating: "Please rating the product",
+            content: "Please enter your review",
+        },
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
+    // ---END: NOTIFY REVIEW---
+
+    // ---BEGIN: SUBSCRIBE---
+    $("#example").bsFormAlerts({"id": "example"});
     $(".ps-subscribe__form").submit(function(event ) {
         var inputEmail = $('#email-subscribe').val();
         $(document).trigger("clear-alert-id.example");
@@ -172,8 +345,9 @@ $(document).ready(function () {
             });
         }
     });
+    // ---END: SUBSCRIBE---
 
-    //add product to cart
+    // ---BEGIN: ADD TO CART---
     $("#cart_form").submit(function(event ) {
         var quantity = $('#quantity_input').val();
         var size = $('#size_select option:selected').val();
@@ -181,8 +355,8 @@ $(document).ready(function () {
         if (Number(quantity) < 1 || Number(size) < 1 ) {
             $(document).trigger("set-alert-id-notify_cart", [
                 {
-                    "message": "Please choose info product !!!",
-                    "priority": "info"
+                    "message": "Please choose size !!!",
+                    "priority": "danger"
                 }
             ]);
             event.preventDefault();
@@ -228,7 +402,9 @@ $(document).ready(function () {
             });
         }
     });
-    // show product in cart in header (get from cookie)
+    // ---END: ADD TO CART---
+
+    // ---BEGIN: SHOW PRODUCT WHEN ADD TO CART IN HEADER---
     if (typeof $.cookie('cart') !== 'undefined'){
         let data = JSON.parse($.cookie('cart').slice(2));
         $('.ps-cart__toggle').append(`<span><i>${data.length}</i></span>`);
@@ -257,8 +433,9 @@ $(document).ready(function () {
 
         $('.ps-cart').append(xhtml);
     }
+    // ---END: SHOW PRODUCT WHEN ADD TO CART IN HEADER---
 
-    // use promo code
+    // ---BEGIN: PROMO CODE---
     $("#form-promotion").submit(function(event ) {
         var input = $('input[name=code]').val();
         $(document).trigger("clear-alert-id.example");
@@ -286,6 +463,7 @@ $(document).ready(function () {
             });
         }
     });
+    // ---END: PROMO CODE---
 });
 
 function favoriteProduct(id) {
@@ -393,14 +571,20 @@ function renderCoinTable(items) {
 
 function filterPrice() {
     var el = $('.ac-slider');
+    var linkRedirect = '';
+    let strEnd = '';
+    let linkHref =  $(location).attr("href");
     if (el.length > 0) {
         var values = el.slider("option", "values");
-        var linkRedirect = 'category/filter-category/' + values[0] + '-' + values[1];
-        console.log(values[0],'-', values[1]);
-
-        window.location.pathname = linkRedirect;
+        if(linkHref.includes('filter-price')) {
+            let splitHref = linkHref.split('filter-price=');
+            let strQ = splitHref[1].split('&');
+            if(strQ[1] !== undefined) strEnd = '&' + strQ[1];
+            linkRedirect = splitHref[0] + 'filter-price=' + values[0] + '-' + values[1] + strEnd;
+        } else {
+            if(linkHref.indexOf('?') != -1) { linkRedirect = linkHref + '&filter-price=' + values[0] + '-' + values[1]; } 
+            else { linkRedirect = linkHref + '?filter-price=' + values[0] + '-' + values[1]; }
+        }
     }
-    else {
-        return false;
-    }
+    window.location.href = linkRedirect;
 }

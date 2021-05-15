@@ -71,7 +71,7 @@
 						<%- sortHelper(linkPrefix, 'Price', 'total', params.sortField, params.sortType, 'width:5%') %>
 						<th class="text-center">Register date</th>
 						<th class="text-center">Promotional Code</th>
-						<th class="text-center">Action</th>
+						<th class="text-center">Detail</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -85,7 +85,7 @@
 								<td class="text-center"><%- highlightHelper(item.code, params.keyword)%></td>
 								<td class="text-center position-relative"><%- selectBoxHelper('filter-progress', systemConfig.orders_state_value, item.status, item.id ) %></td>
 								<td class="text-sm-left">
-									<b>Name</b>: <%= item.user.first_name + ' ' + item.user.last_name %><br>
+									<b>Name</b>: <%= item.user.name %><br>
 									<b>Phone</b>: <%= item.user.phone %><br>
 								</td>
 								<td class="text-sm-left">
@@ -98,10 +98,16 @@
 									<b>Total</b>: <%= item.total %><br>
 								</td>
 								<td class="text-center"><%= moment(item.time).format(systemConfig.format_date) %></td>
-								<td class="text-center"><%= item.promo_code.name + ' - $' + item.promo_code.value %></td>
+								<td class="text-center">
+									<% if(item.promo_code.name === undefined) { %>
+										None
+									<% } else { %>
+										<%= item.promo_code.name + ' - $' + item.promo_code.value %>
+									<% } %>
+								</td>
 								<td class="text-center">
 									<a href="<%= linkPrefix %>form/<%= item.id %>" type="button" class="rounded-circle btn btn-sm btn-info" title="Edit">
-										<i class="fas fa-pencil-alt"></i>
+										<i class="fas fa-folder"></i>
 									</a>
 								</td>
 							</tr>

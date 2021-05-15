@@ -95,8 +95,8 @@ module.exports = {
     saveItems: (item, user, option = null) => {
         if(option.tasks === 'add') {
             item.created = {
-                user_id: user.id,
-				user_name: user.username,
+                user_id: '1',
+				user_name: 'admin',
 				time: Date.now()
             }
             return new Model(item).save();
@@ -109,8 +109,8 @@ module.exports = {
                 content: item.content,
                 thumb: item.thumb,
 				modified: {
-					user_id: user.id,
-					user_name: user.username,
+					user_id: '2',
+					user_name: 'admin',
 					time: Date.now()
                 }
 			});

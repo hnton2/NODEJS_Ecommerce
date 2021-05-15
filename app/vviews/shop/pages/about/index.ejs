@@ -1,33 +1,17 @@
 <% const folder_uploads = "uploads/users/"; %>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
+<div class="ps-mission bg-cover" data-background="https://img2.goodfon.com/wallpaper/nbig/b/df/botinki-makror-fon.jpg">
+	<div class="ps-container">
+	  <h3>our mission</h3>
+	  <h2>Bring inspiration and innovation <br/> to everyone in the world.</h2>
+	</div>
+</div>
 <div class="ps-section ps-ourteam pt-80 pb-80">
 	<div class="ps-container">
-		<div class="ps-section__header mb-50">
-			<h2 class="ps-section__title" data-mask="TEAM">OUR STAFF</h2>
-		</div>
-	  	<div class="ps-section__content">
-			<div class="row">
-				<% users.forEach( (item) => { %> 
-					<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 ">
-						<div class="ps-user">
-						<div class="ps-user__thumbnnail"><img src="<%= folder_uploads + item.avatar %>" style="width: 382px; height: 559px;" alt="">
-							<ul class="ps-user__social">
-							<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-							<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-							<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-							</ul>
-						</div>
-						<div class="ps-user__content">
-							<h3><%= item.name %></h3>
-							<p><%= item.group.name.toUpperCase() %></p>
-						</div>
-						</div>
-					</div>
-				<% }) %>
-			</div>
-	  </div>
+		<%- webConfig.about %>			
 	</div>
-  </div>
+</div>
   <div class="ps-all-user pt-25 pb-50">
 	<div class="ps-container">
 	  <div class="row ps-col-tiny">
@@ -82,4 +66,4 @@
 			</div>
 	  </div>
 	</div>
-  </div>
+</div>

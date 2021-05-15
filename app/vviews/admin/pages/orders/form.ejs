@@ -1,4 +1,3 @@
-
 <% include ./../../helpers/get-address %>
 <% include ./../../helpers/selectBox %>
 
@@ -16,7 +15,7 @@
 			  <div class="col-12">
 				<h4>
 				  <i class="fas fa-globe"></i> Fashion Shop, Inc.
-				  <small class="float-right">Date: 2/10/2014</small>
+				  <small class="float-right">Date: <%= moment(item.time).format(systemConfig.format_date) %></small>
 				</h4>
 				<div class="form-group">
 					<label>Status</label>
@@ -29,16 +28,16 @@
 				From
 				<address>
 				  <strong>Admin, Inc.</strong><br>
-				  <%= settingConfig.address.split(',')[0] %>, <br>
-				  <%= settingConfig.address.split(',')[1] %>, <%= settingConfig.address.split(',')[2] %> <br>
-				  Phone: <%= settingConfig.hotline %> <br>
-				  Email: <%= settingConfig.email %> 
+				  <%= infoConfig.address.split(',')[0] %>, <br>
+				  <%= infoConfig.address.split(',')[1] %>, <%= infoConfig.address.split(',')[2] %> <br>
+				  Phone: <%= infoConfig.hotline %> <br>
+				  Email: <%= infoConfig.email %> 
 				</address>
 			  </div>
 			  <div class="col-sm-4 invoice-col">
 				To
 				<address>
-				  <strong><%= item.user.first_name + ' ' + item.user.last_name %></strong><br>
+				  <strong><%= item.user.name%></strong><br>
 				  <%= addressHelper(item.user.address)[0] %><br>
 				  <%= addressHelper(item.user.address)[1] %><br>
 				  Phone: <%= item.user.phone %><br>
@@ -79,18 +78,21 @@
 			  </div>
 			</div>
 			<div class="row">
+				<div class="col-6">
+					<p class="lead">Payment Method: <%= item.payment.charAt(0).toUpperCase() + item.payment.slice(1) %></p>
+					<% if(item.promo_code.name !== undefined) { %>
+						<p class="lead">Promo code:</p>
+						<p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
+							<%= item.promo_code.name %>
+						</p>
+					<% } %>
+					<p class="lead">Message:</p>
+					<p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
+						<%= item.user.message %>
+					</p>
+				</div>
 			  <div class="col-6">
-				<p class="lead">Promo code:</p>
-				<p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
-					<%= item.promo_code.name %>
-				</p>
-				<p class="lead">Message:</p>
-				<p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
-					<%= item.user.message %>
-				</p>
-			  </div>
-			  <div class="col-6">
-				<p class="lead">Amount Due 2/22/2014</p>
+				<p class="lead">Amount Due <%= moment(item.time).format(systemConfig.format_date) %></p>
 				<div class="table-responsive">
 				  <table class="table">
 					<tbody>
@@ -98,10 +100,12 @@
 					  <th>Shipping:</th>
 					  <td>$<%= item.shipping_fee %></td>
 					</tr>
-					<tr>
-						<th>Promotional value :</th>
-						<td>$<%= item.promo_code.value %></td>
-					  </tr>
+					<% if(item.promo_code.name !== undefined) { %>
+						<tr>
+							<th>Promotional value :</th>
+							<td>$<%= item.promo_code.value %></td>
+						</tr>
+					<% } %>
 					<tr>
 					  <th>Total:</th>
 					  <td>$<%= item.total %></td>

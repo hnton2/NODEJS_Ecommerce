@@ -5,27 +5,17 @@ node2 - chương 4 -
 validator phía client
 tạo col show article trong category: Choose Layout: 'list' or 'grid'
 thêm tag cho mỗi bài viết
-thêm số lượng article cho category
 kiểm tra link category
-thêm validator cho login form
 sửa lại file me.js trong backend
-giá tiền phải là float
 ajax admin
 fix radio box cho status active - inactive
-editor: chưa lấy ảnh từ computer
 ajax change status => ajax filter status
-link footer lỗi
 active choose new shoes(all, nike, adidas,....)
 chưa có link cho category shoes ở category và home
-tên product không được giống nhau
-sửa lại notify
 admin: thêm chức năng lọc theo special
 phân trang ajax
-chưa validator cho phần reviews
-chưa show được color ra frontend
 
 jquery autocomplete
-
 
 fix mã giảm giá
 fix admin dashboard
@@ -33,5 +23,4 @@ fix admin dashboard
 category {
     id, name, slug
 }
-404
 lỗi edit upload image config admin

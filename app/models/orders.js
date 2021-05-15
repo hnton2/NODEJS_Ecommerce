@@ -48,25 +48,6 @@ module.exports = {
     changeProgress: (id, currentStatus, option = null) => {
         return Model.updateOne({_id: id}, {status: currentStatus});
     },
-    changeOrdering: async (id, ordering, user, option = null) => {
-        let data = {
-            ordering: parseInt(ordering),
-            modified: {
-                user_id: user.id,
-                user_name: user.username,
-                time: Date.now()
-            }
-        };
-        if(Array.isArray(id)) {
-            for(let index = 0; index < id.length; index ++){
-                data.ordering = parseInt(ordering[index]);
-                await Model.updateOne({_id: id[index]}, data)
-            }
-            return Promise.resolve("Success");
-        } else {
-            return Model.updateOne({_id: id}, data);
-        }
-    },
     deleteItems: (id, option = null) => {
         if(option.tasks === 'delete-one') {
             return Model.deleteOne({_id: id});
@@ -81,9 +62,7 @@ module.exports = {
         item.code = idOrder;
         item.shipping_fee = user.shipping_fee;
         item.time = Date.now();
-        product.forEach( (item) => {
-            total += item.price * item.quantity;
-        });
+        product.forEach( (item) => { total += item.price * item.quantity; });
         if(Object.keys(sale_off).length !== 0) {
             item.promo_code = {
                 name: sale_off.code,
@@ -91,21 +70,17 @@ module.exports = {
             }
             item.total = total + parseInt(user.shipping_fee) - parseInt(sale_off.saleOff);
         } else {
-            item.promo_code = {
-                name: "0",
-                value: 0
-            }
             item.total = total + parseInt(user.shipping_fee);
         }
         item.status = 'accepted';
         item.user = {
-            first_name: user.first_name, 
-            last_name: user.last_name,
+            name: user.name,
             email: user.email,
             phone: user.phone,
             address: user.address + ', ' + user.ward + ', ' + user.district + ', ' + user.province,
             message: user.message,
-        };
+        }
+        item.payment = user.payment;
         return new Model(item).save();
     }
     

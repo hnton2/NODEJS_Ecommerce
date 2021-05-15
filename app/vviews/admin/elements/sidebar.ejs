@@ -9,11 +9,17 @@
         {name: 'Groups', icon: 'fa-users', link: `${systemConfig.prefixAdmin}/groups`, activeValue: 'groups'},
         {name: 'Users', icon: 'fa-user', link: `${systemConfig.prefixAdmin}/users`, activeValue: 'users'},
     ];
-    let shopManagement = [
-        {name: 'Category', icon: 'fa-th-list', link: `${systemConfig.prefixAdmin}/product-category`, activeValue: 'category-product'},
-        {name: 'Brand', icon: 'fa-bookmark', link: `${systemConfig.prefixAdmin}/brand`, activeValue: 'brand'},
+    let shoesManagement = [
+        {name: 'Category', icon: 'fa-th-list', link: `${systemConfig.prefixAdmin}/product-category`, activeValue: 'product-category'},
         {name: 'Shoes', icon: 'fa-star', link: `${systemConfig.prefixAdmin}/shoes`, activeValue: 'shoes'},
+    ];
+    let clothingManagement = [
+        {name: 'Category', icon: 'fa-th-list', link: `${systemConfig.prefixAdmin}/clothing-category`, activeValue: 'clothing-category'},
         {name: 'Clothing', icon: 'fa-star', link: `${systemConfig.prefixAdmin}/clothing`, activeValue: 'clothing'},
+    ];
+    let accessoryManagement = [
+        {name: 'Category', icon: 'fa-th-list', link: `${systemConfig.prefixAdmin}/accessory-category`, activeValue: 'accessory-category'},
+        {name: 'Accessory', icon: 'fa-star', link: `${systemConfig.prefixAdmin}/accessory`, activeValue: 'accessory'},
     ];
     let customerManagement = [
         {name: 'Contact', icon: 'fa-user-plus', link: `${systemConfig.prefixAdmin}/contact`, activeValue: 'contact'},
@@ -63,7 +69,15 @@
         <li class="nav-header">DATABASE</li>
         <%- menuSidebarHelper('Quản lý user', userManagement, 'fa-male') %>
         <%- menuSidebarHelper('Quản lý bài viết', articleManagement, 'fa-newspaper') %>
-        <%- menuSidebarHelper('Quản lý sản phẩm', shopManagement, 'fa-shopping-cart') %>
+        <li class="nav-item">
+          <a href="/<%=systemConfig.prefixAdmin%>/brand" class="nav-link" data-active="brand">
+            <i class="nav-icon fas fa-bookmark"></i>
+            <p>Brand</p>
+          </a>
+        </li>
+        <%- menuSidebarHelper('Quản lý giày dép', shoesManagement, 'fa-shopping-cart') %>
+        <%- menuSidebarHelper('Quản lý quần áo', clothingManagement, 'fa-shopping-cart') %>
+        <%- menuSidebarHelper('Quản lý phụ kiện', accessoryManagement, 'fa-shopping-cart') %>
         <li class="nav-item">
           <a href="/<%=systemConfig.prefixAdmin%>/slider" class="nav-link" data-active="slider">
             <i class="nav-icon fas fa-map"></i>

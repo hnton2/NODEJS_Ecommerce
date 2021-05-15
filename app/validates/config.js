@@ -11,7 +11,6 @@ const options = {
     instagram: { min: 10, max: 100 },
     twitter: { min: 10, max: 100 },
     map: { min: 10, max: 300 },
-    about: { min: 0, max: 2000 }
 }
 
 module.exports = {
@@ -52,10 +51,6 @@ module.exports = {
         // map
         req.checkBody('map', util.format(notify.ERROR_NAME, options.map.min, options.map.max) )
             .isLength({ min: options.map.min, max: options.map.max });
-
-        // CONTENT
-        req.checkBody('about', util.format(notify.ERROR_NAME, options.about.min, options.about.max) )
-            .isLength({ min: options.about.min, max: options.about.max });
 
 
         let errors = req.validationErrors() !== false ? req.validationErrors() : [];  

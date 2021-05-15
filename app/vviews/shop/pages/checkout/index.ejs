@@ -3,18 +3,14 @@
 %>
 <div class="ps-checkout pt-80 pb-80">
 	<div class="ps-container">
-	  	<form class="ps-checkout__form" action="/checkout/save" method="post">
+	  	<form class="ps-checkout__form" action="/checkout/save" method="post" id="checkout-form">
 			<div class="row">
 			  	<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 ">
 					<div class="ps-checkout__billing">
 				  		<h3>Billing Detail</h3>
 						<div class="form-group form-group--inline">
-						  <label>First Name<span>*</span></label>
-						  <input class="form-control" type="text" name="first_name">
-						</div>
-						<div class="form-group form-group--inline">
-						  <label>Last Name<span>*</span></label>
-						  <input class="form-control" type="text" name="last_name">
+						  <label>Full Name<span>*</span></label>
+						  <input class="form-control" type="text" name="name">
 						</div>
 						<div class="form-group form-group--inline">
 						  <label>Email Address<span>*</span></label>
@@ -81,7 +77,7 @@
 							<div class="form-group cheque">
 								<div class="form-group form-group--inline">
 									<label><h4 style="color: #ffff;">Shipping fee:</h4></label>
-									<div class="margin-left-110" id="shipping-fee">+$ 0</div>
+									<div class="margin-left-110" id="shipping-fee">$ 0</div>
 									<input class="form-control" name="shipping_fee" value="" type="hidden" >
 								</div>
 								<% if(sale_off > 0) { %>
@@ -95,8 +91,31 @@
 									<div class="margin-left-110" id="total-price">$ <%= total - sale_off %></div>
 								</div>
 							</div>
+							<h3>Payment Method</h3>
 							<div class="form-group paypal">
-								<button class="ps-btn ps-btn--fullwidth">Place Order<i class="ps-icon-next"></i></button>
+								<div class="btn-group paymentBtnGroup btn-group-justified" data-toggle="buttons">
+									<label class="btn paymentMethod active">
+										<div class="method visa"></div>
+										<input type="radio" name="payment" value="visa" checked> 
+									</label>
+									<label class="btn paymentMethod">
+										<div class="method master-card"></div>
+										<input type="radio" name="payment" value="master-card"> 
+									</label>
+									<label class="btn paymentMethod">
+										<div class="method amex"></div>
+										<input type="radio" name="payment" value="paypal">
+									</label>
+										<label class="btn paymentMethod">
+											<div class="method vishwa"></div>
+										<input type="radio" name="payment" value="bitcoin"> 
+									</label>
+									<label class="btn paymentMethod">
+										<div class="method ez-cash"></div>
+										<input type="radio" name="payment" value="cash"> 
+									</label>
+								</div>        
+							  	<button class="ps-btn ps-btn--fullwidth">Place Order<i class="ps-icon-next"></i></button>
 							</div>
 						</footer>
 					</div>

@@ -12,9 +12,9 @@
       <h3>Category</h3>
     </div>
     <div class="ps-widget__content">
-      <ul class="ps-list--checked">
+      <ul class="ps-list--checked" id="category_product">
         <% itemsProductCategory.forEach ( (item)=>{ %> 
-          <li data-name="<%= item.slug %>"><a href="<%= linkProductCategory + item.slug %>" ><%= item.name %> (<%= item.amount %>)</a></li>
+          <li data-name="<%= item.slug %>"><a href="javascript:void(0)" ><%= item.name %> (<%= item.amount %>)</a></li>
         <% }) %>
       </ul>
     </div>
@@ -24,7 +24,7 @@
       <h3>Shop by Price</h3>
     </div>
     <div class="ps-widget__content">
-      <div class="ac-slider" data-default-min="40" data-default-max="200" data-max="500" data-step="10" data-unit="$"></div>
+      <div class="ac-slider" data-default-min="0" data-default-max="500" data-max="500" data-step="10" data-unit="$"></div>
       <p class="ac-slider__meta">Price:<span class="ac-slider__value ac-slider__min"></span>-<span class="ac-slider__value ac-slider__max"></span></p>
       <a class="ac-slider__filter ps-btn" href="javascript:void(0)" onclick="filterPrice()">Filter</a>
     </div>
@@ -41,29 +41,16 @@
       </ul>
     </div>
   </aside>
-  <aside class="ps-widget--sidebar ps-widget--category">
-    <div class="ps-widget__header">
-      <h3>Width</h3>
-    </div>
-    <div class="ps-widget__content">
-      <ul class="ps-list--checked">
-        <li class="current"><a href="product-listing.html">Narrow</a></li>
-        <li><a href="product-listing.html">Regular</a></li>
-        <li><a href="product-listing.html">Wide</a></li>
-        <li><a href="product-listing.html">Extra Wide</a></li>
-      </ul>
-    </div>
-  </aside>
   <div class="ps-sticky desktop">
     <aside class="ps-widget--sidebar">
       <div class="ps-widget__header">
         <h3>Size</h3>
       </div>
       <div class="ps-widget__content">
-        <table class="table ps-table--size">
+        <table class="table ps-table--size" id="table_size">
           <tbody>
             <tr>
-              <td class="active">3</td>
+              <td>3</td>
               <td>5.5</td>
               <td>8</td>
               <td>10.5</td>
@@ -101,25 +88,22 @@
         </table>
       </div>
     </aside>
-    <aside class="ps-widget--sidebar">
+    <aside class="ps-widget--sidebar ps-widget--category">
       <div class="ps-widget__header">
         <h3>Color</h3>
       </div>
       <div class="ps-widget__content">
-        <ul class="ps-list--color">
-          <li><a href="#"></a></li>
-          <li><a href="#"></a></li>
-          <li><a href="#"></a></li>
-          <li><a href="#"></a></li>
-          <li><a href="#"></a></li>
-          <li><a href="#"></a></li>
-          <li><a href="#"></a></li>
-          <li><a href="#"></a></li>
-          <li><a href="#"></a></li>
-          <li><a href="#"></a></li>
-          <li><a href="#"></a></li>
-          <li><a href="#"></a></li>
-          <li><a href="#"></a></li>
+        <ul class="ps-list--checked" id="color_product">
+          <li><a href="javascript:void(0)">Black</a></li>
+          <li><a href="javascript:void(0)">Blue</a></li>
+          <li><a href="javascript:void(0)">White</a></li>
+          <li><a href="javascript:void(0)">Grey</a></li>
+          <li><a href="javascript:void(0)">Green</a></li>
+          <li><a href="javascript:void(0)">Yellow</a></li>
+          <li><a href="javascript:void(0)">Red</a></li>
+          <li><a href="javascript:void(0)">Pink</a></li>
+          <li><a href="javascript:void(0)">Silver</a></li>
+          <li><a href="javascript:void(0)">Purple</a></li>
         </ul>
       </div>
     </aside>

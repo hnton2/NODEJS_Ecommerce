@@ -265,6 +265,11 @@ $(document).ready(function () {
         var linkRedirect = '/' + path[1] + '/' + path[2] + '/filter-category/' + $(this).val();
         window.location.pathname = linkRedirect;
     });
+    $('select[name=filter-brand]').change(function() {
+        var path = window.location.pathname.split('/');
+        var linkRedirect = '/' + path[1] + '/' + path[2] + '/filter-brand/' + $(this).val();
+        window.location.pathname = linkRedirect;
+    });
 
     $('select[name=category_id]').change(function() {
         console.log($(this).find('option:selected'));

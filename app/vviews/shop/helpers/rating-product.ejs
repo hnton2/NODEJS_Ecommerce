@@ -1,0 +1,16 @@
+<%
+  ratingProductHelpers = (listReviews) => {
+    let totalRating = 0;
+    if(listReviews.length > 0) {
+      listReviews.forEach( (item) => { totalRating += Number(item.rating) })
+      totalRating = Math.round(totalRating/listReviews.length)
+    }
+    let arrRating = [1, 2, 3, 4, 5];
+    for(let i = 0; i < totalRating; i++) {
+      arrRating[i] = 1;
+    }
+    return `<select class="ps-rating">
+              <option value="${arrRating[0]}">1</option> <option value="${arrRating[1]}">2</option> <option value="${arrRating[2]}">3</option> <option value="${arrRating[3]}">4</option> <option value="${arrRating[4]}">5</option>
+            </select>`;
+  }
+%>

@@ -9,6 +9,7 @@ module.exports = {
         let objWhere	 = {};
         sort[params.sortField] = params.sortType;
 	    if(params.categoryID !== 'allValue' && params.categoryID !== '') objWhere['category.id'] = params.categoryID;
+        if(params.brandID !== 'allValue' && params.brandID !== '') objWhere['brand.id'] = params.brandID;
         if(params.currentStatus !== 'all') objWhere.status = params.currentStatus;
         if(params.keyword !== '') objWhere.name = new RegExp(params.keyword, 'i');
     
@@ -19,20 +20,20 @@ module.exports = {
 		.skip((params.pagination.currentPage-1) * params.pagination.totalItemsPerPage)
 		.limit(params.pagination.totalItemsPerPage)
     },
-    listItemsInCategory: (params, option = null) => {
+    listItemsInCategory: (params) => {
         let sort 		 = {};
-        let find = {};
+        let objWhere	 = {};
         sort[params.sortField] = params.sortType;
+	    if(params.categoryID !== undefined && params.categoryID !== '') objWhere['category.id'] = params.categoryID;
+        let arrPrice = params.price.split('-');
+        if(params.price !== 'all') objWhere.price = {$gt : arrPrice[0], $lt : arrPrice[1]};
+        if(params.size !== 'all') objWhere.size = { "$in" : [params.size] };
+        if(params.color !== 'all') objWhere.color = { "$in" : [params.color.toLowerCase()] };
     
-        if(option.task === 'all-items') {
-            find = {status:'active'}
-        } else {
-            find = {status:'active', 'category.id': params.id}
-        }
         return Model
-            .find(find)
-            .select('name slug created modified category.name price quantity sale_off brand thumb')
-            .sort(sort)
+		.find(objWhere)
+		.select('name slug category.name price quantity sale_off brand thumb size color tags')
+		.sort(sort)
     },
     listItemsFrontend: (params = null, option = null) => {
         let find = {};
@@ -48,7 +49,12 @@ module.exports = {
         }
         if(option.task == 'new-items'){
             find = {status:'active'};
-            limit = 8;
+            limit = 24;
+            sort = {'created.time': 'desc'};
+        }
+        if(option.task == 'popular-items'){
+            find = {status:'active'};
+            limit = 24;
             sort = {'created.time': 'desc'};
         }
         if(option.task == 'items-special'){
@@ -56,36 +62,27 @@ module.exports = {
             sort = {ordering: 'asc'};
             limit = 8;
         }
-
-        if(option.task == 'items-trending'){
-            find = {status:'active', trending: 'active'};
-            sort = {ordering: 'asc'};
-            limit = 8;
-        }
-
         if(option.task == 'lasted-items'){
             find = {status:'active'};
             sort = {'created.time': 'desc'};
             limit = 5;
         }
-
         if(option.task == 'items-in-category'){
             find = {status:'active', 'category.id': params.id};
             select += ' content';
             limit = 50;
             sort = {ordering: 'asc'};
         }
-
         if(option.task == 'items-random'){
             return Model.aggregate([
                 { $match: {status: 'active'}},
-                { $project: {_id: 1, name: 1, created: 1, thumb: 1} },
-                { $sample: {size: 5}}
+                { $sample: {size: 20}}
             ]);
         }
         if(option.task == 'items-related'){
             find = {status:'active', 'category.id': params.category.id, '_id': {$ne: params.id} };
             sort = {ordering: 'asc'};
+            limit = 10;
         }
         if(option.task == 'filter-price'){
             find = {status:'active', 'price': {$gt : params.min, $lt : params.max}};
@@ -224,8 +221,8 @@ module.exports = {
     saveItems: (item, user, option = null) => {
         if(option.tasks === 'add') {
             item.created = {
-                user_id: user.id,
-				user_name: user.username,
+                user_id: '1',
+				user_name: 'admin',
 				time: Date.now()
             },
             item.category = {
@@ -253,8 +250,8 @@ module.exports = {
                 color: item.color,
                 tags: item.tags,
 				modified: {
-					user_id: user.id, 
-					user_name: user.username,
+					user_id: '2', 
+					user_name: 'admin',
 					time: Date.now()
                 },
                 category: {

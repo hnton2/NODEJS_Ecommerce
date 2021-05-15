@@ -14,23 +14,23 @@ const layoutShop    = __path_views_shop + 'frontend';
 /* GET home page. */
 router.get('/:slug', async (req, res, next) => {
   let slugShoes = ParamsHelpers.getParam(req.params, 'slug', ''); 
-  let itemMain= [];
+  let item= [];
   let itemMainCategory = [];
   let itemsRelated = [];
   // Main
-  await ShoesModel.getMainItems(slugShoes, null).then( (items) => {itemMain = items;});
+  await ShoesModel.getMainItems(slugShoes, null).then( (items) => {item = items[0];});
   // Main Category
-  await CategoryModel.getItems({id: itemMain[0].category.id}, {task: 'get-items-by-id'}).then( (items) => {itemMainCategory = items;});
+  await CategoryModel.getItems({id: item.category.id}, {task: 'get-items-by-id'}).then( (items) => {itemMainCategory = items;});
   // Related
-  await ShoesModel.listItemsFrontend(itemMain[0], {task: 'items-related'}).then( (items) => {itemsRelated = items;});
+  await ShoesModel.listItemsFrontend(item, {task: 'items-related'}).then( (items) => {itemsRelated = items;});
 
   res.render(`${folderView}index`, {
-    pageTitle   : itemMain[0].name,
+    pageTitle: item.name,
     top_post: false,
     contact_layout: false,
     sidebar_rss: false,
     layout: layoutShop,
-    itemMain,
+    item,
     itemMainCategory,
     itemsRelated
   });

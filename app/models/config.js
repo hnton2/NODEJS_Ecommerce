@@ -13,6 +13,9 @@ module.exports = {
     getItems: () => {
         return Model.find();
     },
+    getEmail: () => {
+        return Model.find().select('email password_email');
+    },
     countItems: (params, option = null) => {
         let objWhere	 = {};
         if(params.currentStatus !== 'all') objWhere.status = params.currentStatus;
@@ -42,8 +45,8 @@ module.exports = {
                 about: item.about,
                 logo: item.logo,
 				modified: {
-					user_id: user.id,
-					user_name: user.username,
+					user_id: '1',
+					user_name: 'admin',
 					time: Date.now()
                 }
 			});

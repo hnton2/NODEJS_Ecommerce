@@ -13,10 +13,11 @@ module.exports = {
     col_contact: 'contact',
     col_config: 'config',
     // db products
-    database_products: 'db_eShop',
+    database_products: 'shop',
     col_product_category: 'category',
     col_brand: 'brand',
     col_product: 'product',
+    col_clothing_category: 'clothing-category',
     col_clothing: 'clothing',
     col_slider: 'slider',
     col_banner: 'banner',
@@ -24,4 +25,6 @@ module.exports = {
     col_order: 'order',
     col_promo: 'promo',
     col_shipping: 'shipping',
+    col_accessory_category: 'accessory-category',
+    col_accessory: 'accessory',
 };

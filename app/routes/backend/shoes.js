@@ -16,7 +16,6 @@ const FileHelpers 		= require(__path_helpers + 'file');
 const StringHelpers 		= require(__path_helpers + 'string');
 const notify  			= require(__path_configs + 'notify');
 
-
 const linkIndex		 	= '/' + systemConfig.prefixAdmin + `/${controllerName}/`;
 const pageTitleIndex 	= UtilsHelpers.capitalize(controllerName) + ' Management';
 const pageTitleAdd   	= pageTitleIndex + ' - Add';
@@ -28,6 +27,7 @@ const uploadAvatar	 	= FileHelpers.uploadMulti('thumb', controllerName);
 router.get('(/status/:status)?', async (req, res, next) => {
 	let params 		 		= ParamsHelpers.createParams(req);
 	params.categoryID 	 	= ParamsHelpers.getParam(req.session, 'category_id', '');
+	params.brandID 	 	= ParamsHelpers.getParam(req.session, 'brand_id', '');
 	let statusFilter 		= await UtilsHelpers.createFilterStatus(params, controllerName);
 
 	let categoryItems = [];
@@ -248,6 +248,12 @@ router.get(('/sort/:sort_field/:sort_type'), (req, res, next) => {
 // FILTER-CATEGORY
 router.get(('/filter-category/:category_id'), (req, res, next) => {
 	req.session.category_id		= ParamsHelpers.getParam(req.params, 'category_id', '');
+	res.redirect(linkIndex);
+});
+
+// FILTER-BRAND
+router.get(('/filter-brand/:brand_id'), (req, res, next) => {
+	req.session.brand_id		= ParamsHelpers.getParam(req.params, 'brand_id', '');
 	res.redirect(linkIndex);
 });
 

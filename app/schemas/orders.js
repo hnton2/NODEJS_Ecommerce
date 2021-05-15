@@ -7,8 +7,7 @@ var schema = new mongoose.Schema({
     status: String,
     shipping_fee: Number,
     user: {
-        first_name: String, 
-        last_name: String,
+        name: String, 
         email: String,
         phone: String,
         address: String,
@@ -23,6 +22,7 @@ var schema = new mongoose.Schema({
         thumb: String,
         slug: String
     }],
+    payment: String,
     time: Date,
     promo_code: {
         name: String,

@@ -8,7 +8,6 @@
       <div class="ps-product-action">
         <div class="ps-product__filter"> 
           <select name="sort-product" class="ps-select selectpicker">
-            <option value="0">Sort by</option>
             <option value="name-asc">Name (a -> z)</option>
             <option value="name-desc">Name (z -> a)</option>
             <option value="price-asc">Price (Low to High)</option>
@@ -27,23 +26,23 @@
         </div>
       </div>
       <div class="ps-product__columns" id="product-area">
-        <% itemsInCategory.forEach( (item) => { %>
+        <% items.forEach( (item) => { %>
           <div class="ps-product__column" style="width:302.3px;height:372.3px">
             <div class="ps-shoe mb-30" style="width:272.3px;height:342.3px">
               <div class="ps-shoe__thumbnail">
                 <% if(item.sale_off > 0) { %>
                   <div class="ps-badge ps-badge--sale"><span>-<%= item.sale_off %>%</span></div>
                 <% } %>
-                <a class="ps-shoe__favorite" href="#"><i class="ps-icon-heart"></i></a>
-                <img src="<%= folder_upload + item.thumb[1] %>" alt=""><a class="ps-shoe__overlay" href="<%= linkShoes + item.slug %>"></a>
+                <a class="ps-shoe__favorite" href="javascript:void(0)" onclick="favoriteProduct('<%= item.id %>')"><i class="ps-icon-heart"></i></a>
+                <img src="<%= folder_upload + item.thumb[0] %>" style="width:272px;height:272px;object-fit:cover;" alt="">
+                <a class="ps-shoe__overlay" href="<%= linkShoes + item.slug %>"></a>
               </div>
               <div class="ps-shoe__content">
                 <div class="ps-shoe__variants">
                   <div class="ps-shoe__variant normal">
-                    <img src="<%= folder_upload + item.thumb[0] %>" alt="">
-                    <img src="<%= folder_upload + item.thumb[1] %>" alt="">
-                    <img src="<%= folder_upload + item.thumb[2] %>" alt="">
-                    <img src="<%= folder_upload + item.thumb[3] %>" alt="">
+                    <% item.thumb.forEach( (image) => { %>
+                      <img src="<%= folder_upload + image %>" alt="">
+                    <% }) %>
                   </div>
                   <select class="ps-rating ps-shoe__rating">
                     <option value="1">1</option>
@@ -71,10 +70,9 @@
       <div class="ps-product-action">
         <div class="ps-product__filter">
           <select name="sort-product" class="ps-select selectpicker"> 
-            <option value="0">Sort by</option>
             <option value="name-asc">Name (a -> z)</option>
             <option value="name-desc">Name (z -> a)</option>
-            <option value="price-asc">Price (Low to High)</option>
+            <option value="price-asc" class="selected">Price (Low to High)</option>
             <option value="price-desc">Price (High to Low)</option>
           </select>
         </div>

@@ -11,22 +11,26 @@
 	const folderUpload 	= "clothing/";
 	const collection 	= "clothing";
 	const linkPrefix	= systemConfig.prefixAdmin + `/${collection}/`;
-
+	const folder_upload = "uploads/clothing/";
 
 	let elementsForm = [
 		{for: 'name', label: 'Name', input: inputHelper('name', product.name, 'text', 'name_slug')},
 		{for: 'slug', label: 'Slug', input: inputHelper('slug', product.slug)},
 		{for: 'brand', label: 'Brand', input: selectBoxHelper('brand_id', brandItems, product.brand_id)},
 		{for: 'category', label: 'Category', input: selectBoxHelper('category_id', categoryItems, product.category_id)},
-		{for: 'thumb', label: 'Thumb', input: inputMultiImageHelper('thumb', product.name, 'input-multi-files')},
-		{for: 'showThumb', label: '', input: showMultiImageHelper('preview-images')},
+        {for: 'thumb', label: 'Thumb', input: inputMultiImageHelper('thumb', product.name, 'input-multi-files')},
+        {for: 'showThumb', label: '', input: showMultiImageHelper(folder_upload, product.thumb)},
 		{for: 'ordering', label: 'Ordering', input: inputHelper('ordering', product.ordering)},
+		{for: 'size', label: 'Size', input: inputHelper('size', product.size, 'text', 'tags-input')},
+		{for: 'color', label: 'Color', input: inputHelper('color', product.color, 'text', 'tags-input')},
+		{for: 'tags', label: 'Tags', input: inputHelper('tags', product.tags, 'text', 'tags-input')}, 
 		{for: 'price', label: 'Price', input: inputHelper('price', product.price)},
+		{for: 'sale_off', label: 'Sale off', input: inputHelper('sale_off', product.sale_off)},
 		{for: 'quantity', label: 'Quantity', input: inputHelper('quantity', product.quantity)},
 		{for: 'status', label: 'Status', input: selectBoxHelper('status', systemConfig.status_value, product.status)},
+		{for: 'special', label: 'Special', input: selectBoxHelper('special', systemConfig.status_value, product.special)},
 		{for: 'content', label: 'Content', input: textareaHelper('content', product.content)}
 	];
-
 	let xhtml = createFormHelper(elementsForm);
 %>
 <div class="card card-info card-outline">
@@ -36,12 +40,14 @@
 		</div>
 		<div class="card-footer">
 			<div class="col-12 col-sm-8 offset-sm-2">
-				<input class="form-control" name="id" value="<%= product.id %>" type="hidden" >
-				<input name="thumb_old" value="<%= product.thumb %>" type="hidden"  /> 
+				<input class="form-control" name="id" value="<%= product.id %>" type="hidden" />
+				<input name="thumb_old" value="<%= product.thumb %>" type="hidden"  />
+				<input name="brandID_old" value="<%= product.brand_id %>" type="hidden"  /> 
+				<input name="categoryID_old" value="<%= product.category_id %>" type="hidden"  /> 
 				<input class="form-control" name="category_name" value="<%= product.category_name %>" type="hidden" >
 				<input class="form-control" name="brand_name" value="<%= product.brand_name %>" type="hidden" >
 				<button type="submit" class="btn btn-sm btn-success mr-1"> Submit</button>
-				<a href="<%= linkPrefix %>" class="btn btn-sm btn-danger mr-1"> Cancel</a>
+				<a href="<%= linkPrefix %>" class="btn btn-sm btn-danger mr-1"> Cancel</a> 
 			</div>
 		</div>
 	</form>

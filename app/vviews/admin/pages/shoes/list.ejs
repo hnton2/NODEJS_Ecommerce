@@ -32,6 +32,7 @@
 			</div>
 			<div class="mb-1">
 				<%- selectBoxHelper('filter-category', categoryItems, params.categoryID	) %>
+				<%- selectBoxHelper('filter-brand', brandItems, params.brandID) %>
 			</div>
 			<div class="mb-1">
 				<form action="<%= linkPrefix %>status/<%= params.currentStatus %>" method="GET">
@@ -56,13 +57,10 @@
 			<button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fas fa-minus"></i></button>
 		</div>
 	</div>
-
 	<div class="card-body">
 		<!--Control-->
 		<form role="form" class="table-responsive" id="zt-form" action="" method="post">
-
 			<%- actionHelper(linkPrefix) %>
-
 			<table class="table table-bordered table-hover text-nowrap btn-table mb-0">
 				<thead>
 					<tr>
@@ -91,11 +89,19 @@
 									<%- checkboxHelper(item.id)%>
 								</td>
 								<td class="text-center"><%= index+1 %></td>
-								<td class="text-sm-left" style="width:100px">
-									<b>Name</b>: <%- highlightHelper(item.name, params.keyword)%><br>
-									<b>Slug</b>: <%= item.slug%><br>
-									<b>Brand</b>: <%= item.brand.name %> <br>
-									<b>Thumb</b>: <%- imageHelper(folderUpload, item.thumb[1], 'no-image.jpg', item.name) %>
+								<td>
+									<div class="row">
+										<div class="col-4">
+											<p><%- imageHelper(folderUpload, item.thumb[0], 'no-image.jpg', item.name) %></p>
+										</div>
+										<div class="col-8 mt-2">
+											<div style="padding-left: 20px;">
+												<p class="text-wrap"><b>Name:</b> <%- highlightHelper(item.name, params.keyword)%></p>
+												<p class="text-wrap"><b>Slug:</b> <%= item.slug %></p>
+												<p><b>Brand:</b> <%= item.brand.name %></p>
+											</div>
+										</div>
+									</div>
 								</td>
 								<td class="text-center position-relative"><%- statusHelper(linkPrefix, 'status', item.status, item.id) %></td>
 								<td class="text-center position-relative"><%- statusHelper(linkPrefix, 'special', item.special, item.id) %></td>
