@@ -9,7 +9,6 @@ module.exports = {
         if(params.currentStatus !== 'all') objWhere.status = params.currentStatus;
         if(params.keyword !== '') objWhere.name = new RegExp(params.keyword, 'i');
     
-    
         return Model
 		.find(objWhere)
 		.select('name status ordering created modified slug amount')

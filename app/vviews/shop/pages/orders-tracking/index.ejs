@@ -2,7 +2,7 @@
 <% include ./../../helpers/timeline-status %>
 
 <% 
-  const folder_uploads = "uploads/shoes/"; 
+  const folder_uploads = "uploads/"; 
   const linkPrefix = systemConfig.prefixShop + '/';
 %>
 
@@ -66,7 +66,7 @@
 					<% item.product.forEach( (product) => { %>
 					<li class="col-md-4">
 						<figure class="itemside mb-3">
-							<div class="aside"><img src="<%= folder_uploads + product.thumb %>" class="img-sm border" style="width:120px;height:120px;padding:0px;"></div>
+							<div class="aside"><img src="<%= folder_uploads + product.product_type + '/' + product.thumb %>" class="img-sm border" style="width:120px;height:120px;padding:0px;"></div>
 							<figcaption class="info align-self-center">
 								<p class="title"><%= product.name %> <br> Size: <%= product.size %> <br> Quantity: <%= product.quantity %>  </p> <span class="text-muted">$<%= product.price %> </span>
 							</figcaption>

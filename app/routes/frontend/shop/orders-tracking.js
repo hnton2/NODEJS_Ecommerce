@@ -8,7 +8,6 @@ const folderView	 = __path_views_shop + 'pages/orders-tracking/';
 const layoutShop    = __path_views_shop + 'frontend';
 
 router.get('/confirm/:id', async (req, res, next) => {
-
   let idOrder = ParamsHelpers.getParam(req.params, 'id', '');
 
   res.render(`${folderView}confirmation`, {
@@ -27,9 +26,7 @@ router.get('/', async (req, res, next) => {
   let item = [];
   let titlePage = 'Order tracking';
   if(query) titlePage = 'Invoice #' + query;
-  await OrdersModel.getItems({code: query}, {task: 'get-items-by-code-order'}).then( (data) => {
-    item = data;
-  });
+  await OrdersModel.getItems({code: query}, {task: 'get-items-by-code-order'}).then( (data) => { item = data; });
 
   res.render(`${folderView}index`, {
     pageTitle : titlePage,

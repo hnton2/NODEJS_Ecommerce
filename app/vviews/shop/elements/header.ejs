@@ -25,7 +25,7 @@
         <div class="navigation__column center">
           <ul class="main-menu menu">
             <li class="menu-item" data-active=""><a href="<%= linkPrefix %>">Home</a></li>
-            <li class="menu-item menu-item-has-children has-mega-menu" data-active="category"><a href="<%= linkPrefix + 'category' %>">Category</a>
+            <li class="menu-item menu-item-has-children has-mega-menu" data-active="category"><a href="javascript:void(0)">Category</a>
               <div class="mega-menu">
                 <div class="mega-wrap">
                   <div class="mega-column">
@@ -42,27 +42,27 @@
                   <div class="mega-column">
                     <h4 class="mega-heading">Shoes</h4>
                     <ul class="mega-item">
-                      <li><a href="<%= linkPrefix + 'category' %>">All</a></li>
+                      <li><a href="<%= linkPrefix + 'category/shoes' %>">All</a></li>
                       <% itemsProductCategory.forEach ( (item)=>{ %>
-                        <li><a href="<%= linkPrefix + 'category?slug=' + item.name %>"><%= item.name %></a></li>
+                        <li><a href="<%= linkPrefix + 'category/shoes?slug=' + item.slug %>"><%= item.name %></a></li>
                       <% }) %>
                     </ul>
                   </div>
                   <div class="mega-column">
                     <h4 class="mega-heading">Clothing</h4>
                     <ul class="mega-item">
-                      <li><a href="#">All</a></li>
+                      <li><a href="<%= linkPrefix + 'category/clothing' %>">All</a></li>
                       <% itemsClothingCategory.forEach ( (item)=>{ %>
-                        <li><a href="#"><%= item.name %></a></li>
+                        <li><a href="<%= linkPrefix + 'category/clothing?slug=' + item.slug %>"><%= item.name %></a></li>
                       <% }) %>
                     </ul>
                   </div>
                   <div class="mega-column">
                     <h4 class="mega-heading">Accessories & Equipment</h4>
                     <ul class="mega-item">
-                      <li><a href="#">All</a></li>
+                      <li><a href="<%= linkPrefix + 'category/accessory' %>">All</a></li>
                       <% itemsAccessoryCategory.forEach ( (item)=>{ %>
-                        <li><a href="#"><%= item.name %></a></li>
+                        <li><a href="<%= linkPrefix + 'category/accessory?slug=' + item.slug %>"><%= item.name %></a></li>
                       <% }) %>
                     </ul>
                   </div>
@@ -70,7 +70,7 @@
                     <h4 class="mega-heading">BRAND</h4>
                     <ul class="mega-item">
                       <% itemsBrand.forEach ( (item)=>{ %>
-                        <li><a href="#"><%= item.name %></a></li>
+                        <li><a href="<%= linkPrefix + 'trademark?brand=' + item.slug %>"><%= item.name %></a></li>
                       <% }) %>
                     </ul>
                   </div>

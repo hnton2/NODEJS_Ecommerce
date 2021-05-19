@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 
 const ShoesModel = require(__path_models + 'shoes');
+const ClothingModel = require(__path_models + 'clothing');
+const AccessoryModel = require(__path_models + 'accessory');
 const ParamsHelpers 	= require(__path_helpers + 'params');
 
 const folderView	 = __path_views_shop + 'pages/cart/';
@@ -11,14 +13,17 @@ const linkIndex     = '/cart/';
 router.post('/add-to-cart', async (req, res, next) => {
   let item = [];
   let cart = [];
+  let typeName = '';
   let isExist = false;
   let cookie = req.cookies.cart;
 
   req.body = JSON.parse(JSON.stringify(req.body));
-  await ShoesModel.getItems(req.body.id).then( (data) => {item = data;});
-  
+  await ShoesModel.getItems(req.body.id).then( (data) => {  if(data) {item = data; typeName = 'shoes';}  });
+  await ClothingModel.getItems(req.body.id).then( (data) => {  if(data) {item = data; typeName = 'clothing'}  });
+  await AccessoryModel.getItems(req.body.id).then( (data) => {  if(data) {item = data; typeName = 'accessory'}    });
+
   if(cookie === undefined) {
-    cart.push({ id: req.body.id, name: item.name, quantity: req.body.quantity, size: req.body.size, price: item.price - (item.price * (item.sale_off/100)), thumb: item.thumb[2], slug: item.slug });
+    cart.push({ id: req.body.id, name: item.name, quantity: req.body.quantity, size: req.body.size, price: item.price - (item.price * (item.sale_off/100)), thumb: item.thumb[0], product_type: typeName, slug: item.slug });
   } else {
     cart = cookie;
     for(let i = 0; i < cart.length; i++) {
@@ -27,7 +32,7 @@ router.post('/add-to-cart', async (req, res, next) => {
         cart[i].quantity = Number(cart[i].quantity) + Number(req.body.quantity);
       }
     }
-    if(isExist === false) cart.push({ id: req.body.id, name: item.name, quantity: req.body.quantity, size: req.body.size, price: item.price - (item.price * (item.sale_off/100)), thumb: item.thumb[2], slug: item.slug });
+    if(isExist === false) cart.push({ id: req.body.id, name: item.name, quantity: req.body.quantity, size: req.body.size, price: item.price - (item.price * (item.sale_off/100)), thumb: item.thumb[0], product_type: typeName, slug: item.slug });
   }
   res.cookie('cart', cart);
   res.json(cart);

@@ -12,7 +12,10 @@ const middlewareWebConfig	        = require(__path_middleware + 'shop/web-config
 router.use('/auth', require('./auth'));
 router.use('/',middlewareWebConfig, middlewareGetBrand, middlewareGetProductCategory, middlewareGetArticleCategory, middlewareGetLastedNews, middlewareGetClothingCategory, middlewareGetAccessoryCategory, require('./home'));
 router.use('/category', require('./category'));
+router.use('/trademark', require('./brand'));
 router.use('/shoes', require('./shoes'));
+router.use('/clothing', require('./clothing'));
+router.use('/accessory', require('./accessory'));
 router.use('/contact', require('./contact'));
 router.use('/about', require('./about'));
 router.use('/news', require('./article'));

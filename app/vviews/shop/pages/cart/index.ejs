@@ -1,6 +1,6 @@
 <% 
-  const folder_upload = 'uploads/shoes/';
-  const linkShoes    = systemConfig.prefixShop + '/shoes/';
+  const folder_upload = 'uploads/';
+  const linkPrefix    = systemConfig.prefixShop + '/';
   const linkCheckout    = systemConfig.prefixShop + '/checkout/';
   let total = 0;
 %>
@@ -23,8 +23,8 @@
 						<% total += item.price * item.quantity %>
 						<tr>
 							<td>
-								<a class="ps-product__preview" href="<%= linkShoes + item.slug %>">
-									<img class="mr-15" src="<%= folder_upload + item.thumb %>" style="width: 100px; height: 100px;" alt=""><%= item.name %>
+								<a class="ps-product__preview" href="<%= linkPrefix + item.type + '/' + item.slug %>">
+									<img class="mr-15" src="<%= folder_upload + item.type + '/' + item.thumb %>" style="width: 100px; height: 100px;" alt=""><%= item.name %>
 								</a>
 							</td>
 							<td><%= item.size %></td>

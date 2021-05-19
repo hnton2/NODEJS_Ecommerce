@@ -47,7 +47,7 @@ router.post('/save', async (req, res, next) => {
 
   let emailConfig = [];
   await ConfigModel.getEmail().then( (items) => { emailConfig = items[0]});
-  
+
   await OrdersModel.saveItems(invoiceCode, product, user, sale_off).then( (result) => {
     EmailHelpers.sendEmail(emailConfig, result.user.email, invoiceCode)
     res.clearCookie("cart");

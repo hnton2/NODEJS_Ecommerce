@@ -1,0 +1,143 @@
+<% include ./../../helpers/rating-product %>
+<% 
+  const folder_upload = 'uploads/accessory/';
+  const linkHref    = systemConfig.prefixShop + '/accessory/';
+%>
+
+<div class="ps-products-wrap pt-80 pb-80">
+  <div class="ps-products" data-mh="product-listing">
+    <div class="ps-product-action">
+      <div class="ps-product__filter"> 
+        <select name="sort-product" class="ps-select selectpicker">
+          <option value="name-asc">Name (a -> z)</option>
+          <option value="name-desc">Name (z -> a)</option>
+          <option value="price-asc">Price (Low to High)</option>
+          <option value="price-desc">Price (High to Low)</option>
+        </select>
+      </div>
+      <div class="ps-pagination">
+        <ul class="pagination"> 
+          <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
+          <li class="active"><a href="#">1</a></li>
+          <li><a href="#">2</a></li>
+          <li><a href="#">3</a></li>
+          <li><a href="#">...</a></li>
+          <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ps-product__columns" id="product-area">
+      <% items.forEach( (item) => { %>
+        <div class="ps-product__column" style="width:302.3px;height:372.3px">
+          <div class="ps-shoe mb-30" style="width:272.3px;height:342.3px">
+            <div class="ps-shoe__thumbnail">
+              <% if(item.sale_off > 0) { %>
+                <div class="ps-badge ps-badge--sale"><span>-<%= item.sale_off %>%</span></div>
+              <% } %>
+              <a class="ps-shoe__favorite" href="javascript:void(0)" onclick="favoriteProduct('<%= item.id %>')"><i class="ps-icon-heart"></i></a>
+              <img src="<%= folder_upload + item.thumb[0] %>" style="width:272px;height:272px;object-fit:cover;" alt="">
+              <a class="ps-shoe__overlay" href="<%= linkHref + item.slug %>"></a>
+            </div>
+            <div class="ps-shoe__content">
+              <div class="ps-shoe__variants">
+                <div class="ps-shoe__variant normal">
+                  <% item.thumb.forEach( (image) => { %>
+                    <img src="<%= folder_upload + image %>" alt="">
+                  <% }) %>
+                </div>
+                <%- ratingProductHelpers(item.reviews) %>
+              </div>
+              <div class="ps-shoe__detail"><a class="ps-shoe__name" href="<%= linkHref + item.slug %>"><%= item.name %></a>
+                <p class="ps-shoe__categories"><a href="#"><%= item.category.name %></a>,<a href="#"> <%= item.brand.name %></a></p>
+                <span class="ps-shoe__price">
+                  <% if(item.sale_off > 0) { %>
+                    <del>$<%= item.price %></del> $<%= item.price - (item.price * (item.sale_off/100)) %>
+                    <% } else { %>
+                      $<%= item.price%>
+                    <% } %>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+    <div class="ps-product-action">
+      <div class="ps-product__filter">
+        <select name="sort-product" class="ps-select selectpicker"> 
+          <option value="name-asc">Name (a -> z)</option>
+          <option value="name-desc">Name (z -> a)</option>
+          <option value="price-asc" class="selected">Price (Low to High)</option>
+          <option value="price-desc">Price (High to Low)</option>
+        </select>
+      </div>
+      <div class="ps-pagination">
+        <ul class="pagination">
+          <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
+          <li class="active"><a href="#">1</a></li>
+          <li><a href="#">2</a></li>
+          <li><a href="#">3</a></li>
+          <li><a href="#">...</a></li>
+          <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="ps-sidebar" data-mh="product-listing">
+    <aside class="ps-widget--sidebar ps-widget--category">
+      <div class="ps-widget__header">
+        <h3>Category</h3>
+      </div>
+      <div class="ps-widget__content">
+        <ul class="ps-list--checked" id="category_product">
+          <% itemsAccessoryCategory.forEach ( (item)=>{ %> 
+            <li data-name="<%= item.slug %>"><a href="javascript:void(0)" ><%= item.name %> (<%= item.amount %>)</a></li>
+          <% }) %>
+        </ul>
+      </div>
+    </aside>
+    <aside class="ps-widget--sidebar ps-widget--filter">
+      <div class="ps-widget__header">
+        <h3>Shop by Price</h3>
+      </div>
+      <div class="ps-widget__content">
+        <div class="ac-slider" data-default-min="0" data-default-max="200" data-max="200" data-step="5" data-unit="$"></div>
+        <p class="ac-slider__meta">Price:<span class="ac-slider__value ac-slider__min"></span>-<span class="ac-slider__value ac-slider__max"></span></p>
+        <a class="ac-slider__filter ps-btn" href="javascript:void(0)" onclick="filterPrice()">Filter</a>
+      </div>
+    </aside>
+    <aside class="ps-widget--sidebar ps-widget--category">
+      <div class="ps-widget__header">
+        <h3>Brand</h3>
+      </div>
+      <div class="ps-widget__content">
+        <ul class="ps-list--checked" id="brand_product">
+          <% itemsBrand.forEach ( (item)=>{ %>
+            <li data-name="<%= item.slug %>"><a href="javascript:void(0)"><%= item.name %></a></li>
+          <% }) %>
+        </ul>
+      </div>
+    </aside>
+    <div class="ps-sticky desktop">
+      <aside class="ps-widget--sidebar ps-widget--category">
+        <div class="ps-widget__header">
+          <h3>Color</h3>
+        </div>
+        <div class="ps-widget__content">
+          <ul class="ps-list--checked" id="color_product">
+            <li><a href="javascript:void(0)">Black</a></li>
+            <li><a href="javascript:void(0)">Blue</a></li>
+            <li><a href="javascript:void(0)">White</a></li>
+            <li><a href="javascript:void(0)">Grey</a></li>
+            <li><a href="javascript:void(0)">Green</a></li>
+            <li><a href="javascript:void(0)">Yellow</a></li>
+            <li><a href="javascript:void(0)">Red</a></li>
+            <li><a href="javascript:void(0)">Pink</a></li>
+            <li><a href="javascript:void(0)">Silver</a></li>
+            <li><a href="javascript:void(0)">Purple</a></li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>

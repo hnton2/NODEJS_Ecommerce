@@ -3,24 +3,13 @@ node2 - chương 4 -
     6.1
 
 validator phía client
-tạo col show article trong category: Choose Layout: 'list' or 'grid'
-thêm tag cho mỗi bài viết
 kiểm tra link category
 sửa lại file me.js trong backend
-ajax admin
 fix radio box cho status active - inactive
-ajax change status => ajax filter status
-active choose new shoes(all, nike, adidas,....)
 chưa có link cho category shoes ở category và home
-admin: thêm chức năng lọc theo special
 phân trang ajax
 
 jquery autocomplete
 
 fix mã giảm giá
 fix admin dashboard
-
-category {
-    id, name, slug
-}
-lỗi edit upload image config admin

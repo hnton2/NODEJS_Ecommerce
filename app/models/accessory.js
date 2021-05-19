@@ -15,7 +15,7 @@ module.exports = {
     
         return Model
 		.find(objWhere)
-		.select('name slug status special ordering created modified category.name price quantity sale_off brand thumb size color tags')
+		.select('name slug status special ordering created modified category.name price quantity sale_off brand thumb color tags')
 		.sort(sort)
 		.skip((params.pagination.currentPage-1) * params.pagination.totalItemsPerPage)
 		.limit(params.pagination.totalItemsPerPage)
@@ -24,20 +24,20 @@ module.exports = {
         let sort 		 = {};
         let objWhere	 = {};
         sort[params.sortField] = params.sortType;
-	    if(params.category !== 'all' && params.category !== '') objWhere['category.name'] = params.category;
+	    if(params.categoryID !== undefined && params.categoryID !== '') objWhere['category.id'] = params.categoryID;
+        if(params.brandID !== undefined && params.brandID !== '') objWhere['brand.id'] = params.brandID;
         let arrPrice = params.price.split('-');
         if(params.price !== 'all') objWhere.price = {$gt : arrPrice[0], $lt : arrPrice[1]};
-        if(params.size !== 'all') objWhere.size = { "$in" : [params.size] };
         if(params.color !== 'all') objWhere.color = { "$in" : [params.color.toLowerCase()] };
     
         return Model
-		.find(objWhere)
-		.select('name slug category.name price quantity sale_off brand thumb size color tags')
-		.sort(sort)
+            .find(objWhere)
+            .select('name slug category.name price quantity sale_off brand thumb color tags reviews')
+            .sort(sort)
     },
     listItemsFrontend: (params = null, option = null) => {
         let find = {};
-        let select = 'name slug created category.name category.id thumb brand price sale_off';
+        let select = 'name slug created category.name category.id thumb brand price sale_off reviews';
         let limit = 3;
         let sort = {};
 
@@ -97,7 +97,7 @@ module.exports = {
         return Model.find(find).select(select).limit(limit).sort(sort);
     },
     getMainItems: (slug, option = null) => { 
-        let select = 'name slug brand category.name category.id price thumb content sale_off tags color size reviews';
+        let select = 'name slug brand category.name category.id price thumb content sale_off tags color reviews';
         return Model.find({slug: slug}).select(select);
     },
     getItems: (id, option = null) => {
@@ -245,7 +245,6 @@ module.exports = {
                 sale_off: parseInt(item.sale_off),
                 content: item.content,
                 thumb: item.thumb,
-                size: item.size,
                 color: item.color,
                 tags: item.tags,
 				modified: {

@@ -24,8 +24,8 @@ module.exports = {
         if(option.task == 'get-name-items'){
             return Model.find({}, {_id: 1, name: 1});
         }
-        if(option.task == 'get-items-by-name'){
-            return Model.find({name: params.category}).select('name slug');
+        if(option.task == 'get-items-by-slug'){
+            return Model.find({slug: params.slug}).select('name slug');
         }
     },
     listItemsFrontend: (params = null, option = null) => {

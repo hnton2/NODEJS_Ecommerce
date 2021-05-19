@@ -34,6 +34,31 @@ $(document).ready(function () {
     });
     // ---END: CHOOSE CATEGORY---
 
+    // ---BEGIN: CHOOSE BRAND---
+    $('ul#brand_product li').click(function(e) { 
+        $('ul#brand_product li').removeClass('current');
+        var linkRedirect = '';
+        let strEnd = '';
+        let nameBrand = $(this).attr('data-name');
+        if(linkHref.includes('brand')) {
+            let splitHref = linkHref.split('brand=');
+            let strQ = splitHref[1].split('&');
+            if(strQ[1] !== undefined) strEnd = '&' + strQ[1];
+            if(strQ[0] === nameBrand) {
+                linkRedirect = splitHref[0].slice(0, splitHref[0].length - 1) + strEnd;
+            } else {
+                if(linkHref.indexOf('?') != -1) { var linkRedirect = splitHref[0] + 'brand=' + nameBrand + strEnd; } 
+                else { var linkRedirect = splitHref[0].slice(0, splitHref[0].length - 1) + '?brand=' + nameBrand + strEnd; }
+            }
+        } else {
+            $(this).addClass('current');
+            if(linkHref.indexOf('?') != -1) { var linkRedirect = linkHref + '&brand=' + nameBrand; } 
+            else { var linkRedirect = linkHref + '?brand=' + nameBrand; }
+        }
+        window.location.href = linkRedirect;
+    });
+    // ---END: CHOOSE BRAND---
+
     // ---BEGIN: SORT PRODUCT IN CATEGORY---
     $('select[name=sort-product]').change(function() {
         var linkRedirect = '';
@@ -106,6 +131,8 @@ $(document).ready(function () {
             let item = query.split('=');
             if(item[0] === 'slug') {
                 $("ul#category_product li").filter(function() { return $(this).attr('data-name') == item[1]; }).addClass('current');
+            } else if(item[0] === 'brand') {
+                $("ul#brand_product li").filter(function() { return $(this).attr('data-name') == item[1]; }).addClass('current');
             } else if(item[0] === 'sort') {
                 $('select[name=sort-product]').val(item[1]);
                 $('.selectpicker').selectpicker('refresh');
@@ -375,8 +402,8 @@ $(document).ready(function () {
 
                     data.forEach( (item) => {
                         xhtml += `<div class="ps-cart-item"><a class="ps-cart-item__close" href="/cart/delete/${item.id}"></a>
-                          <div class="ps-cart-item__thumbnail"><a href="shoes/${item.slug}"></a><img src="uploads/shoes/${item.thumb}" alt=""></div>
-                          <div class="ps-cart-item__content"><a class="ps-cart-item__title" href="shoes/${item.slug}">${item.name}</a>
+                          <div class="ps-cart-item__thumbnail"><a href="${item.product_type}/${item.slug}"></a><img src="uploads/${item.product_type}/${item.thumb}" alt=""></div>
+                          <div class="ps-cart-item__content"><a class="ps-cart-item__title" href="${item.product_type}/${item.slug}">${item.name}</a>
                             <p><span>Quantity:<i>${item.quantity}</i></span><span>Price:<i>$${item.price}</i></span></p>
                           </div>
                         </div>`;
@@ -415,8 +442,8 @@ $(document).ready(function () {
 
         data.forEach( (item) => {
             xhtml += `<div class="ps-cart-item"><a class="ps-cart-item__close" href="/cart/delete/${item.id}"></a>
-                <div class="ps-cart-item__thumbnail"><a href="shoes/${item.slug}"></a><img src="uploads/shoes/${item.thumb}" alt=""></div>
-                <div class="ps-cart-item__content"><a class="ps-cart-item__title" href="shoes/${item.slug}">${item.name}</a>
+                <div class="ps-cart-item__thumbnail"><a href="${item.product_type}/${item.slug}"></a><img src="uploads/${item.product_type}/${item.thumb}" alt=""></div>
+                <div class="ps-cart-item__content"><a class="ps-cart-item__title" href="${item.product_type}/${item.slug}">${item.name}</a>
                 <p><span>Quantity:<i>${item.quantity}</i></span><span>Price:<i>$${item.price}</i></span></p>
                 </div>
             </div>`;

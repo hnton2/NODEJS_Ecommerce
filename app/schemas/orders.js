@@ -20,6 +20,7 @@ var schema = new mongoose.Schema({
         size: String,
         price: Number,
         thumb: String,
+        product_type: String,
         slug: String
     }],
     payment: String,

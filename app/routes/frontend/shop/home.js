@@ -4,6 +4,8 @@ var router = express.Router();
 const SliderModel = require(__path_models + 'slider');
 const BannerModel = require(__path_models + 'banner');
 const ShoesModel = require(__path_models + 'shoes');
+const ClothingModel = require(__path_models + 'clothing');
+const AccessoryModel = require(__path_models + 'accessory');
 const ArticleModel = require(__path_models + 'articles');
 const SubscribeModel = require(__path_models + 'subscribe');
 const notify = require(__path_configs + 'notify');
@@ -17,7 +19,8 @@ router.get('/', async (req, res, next) => {
   let lastedShoes = [];
   let lastedNews = [];
   let specialNews = [];
-  let specialShoes = [];
+  let specialAccessory = [];
+  let specialClothing = [];
   let itemsBanner = [];
 
   // slider
@@ -27,9 +30,11 @@ router.get('/', async (req, res, next) => {
   // all shoes
   await ShoesModel.listItemsFrontend(null, {task:'items-random'}).then( (items) => {lastedShoes = items;});
   // Special
-  await ShoesModel.listItemsFrontend(null, {task: 'items-special'}).then( (items) => {specialShoes = items;});
-  // Special
+  await AccessoryModel.listItemsFrontend(null, {task: 'items-special'}).then( (items) => {specialAccessory = items;});
+  // Special shoes
   await ArticleModel.listItemsFrontend(null, {task: 'items-special'}).then( (items) => {specialNews = items;});
+  // Special clothing
+  await ClothingModel.listItemsFrontend(null, {task: 'items-special'}).then( (items) => {specialClothing = items;});
   // all news
   await ArticleModel.listItemsFrontend(null, {task:'items-news'}).then( (items) => {lastedNews = items;});
   res.render(`${folderView}index`, {
@@ -42,15 +47,16 @@ router.get('/', async (req, res, next) => {
     lastedShoes,
     specialNews,
     lastedNews,
-    specialShoes,
+    specialAccessory,
+    specialClothing,
     itemsBanner
   });
 });
 
 
-router.get('/get-special-shoes', async (req, res, next) => {
+router.get('/get-special-clothing', async (req, res, next) => {
   let items = [];
-  await ShoesModel.listItemsFrontend(null, {task:'items-special'}).then( (item) => {items = item;});
+  await ClothingModel.listItemsFrontend(null, {task:'items-special'}).then( (item) => {items = item;});
   res.json(items);
 });
 

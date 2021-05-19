@@ -25,6 +25,7 @@ module.exports = {
         let objWhere	 = {};
         sort[params.sortField] = params.sortType;
 	    if(params.categoryID !== undefined && params.categoryID !== '') objWhere['category.id'] = params.categoryID;
+        if(params.brandID !== undefined && params.brandID !== '') objWhere['brand.id'] = params.brandID;
         let arrPrice = params.price.split('-');
         if(params.price !== 'all') objWhere.price = {$gt : arrPrice[0], $lt : arrPrice[1]};
         if(params.size !== 'all') objWhere.size = { "$in" : [params.size] };
@@ -32,12 +33,12 @@ module.exports = {
     
         return Model
 		.find(objWhere)
-		.select('name slug category.name price quantity sale_off brand thumb size color tags')
+		.select('name slug category.name price quantity sale_off brand thumb size color tags reviews')
 		.sort(sort)
     },
     listItemsFrontend: (params = null, option = null) => {
         let find = {};
-        let select = 'name slug created category.name category.id thumb brand price sale_off';
+        let select = 'name slug created category.name category.id thumb brand price sale_off reviews';
         let limit = 3;
         let sort = {};
 
