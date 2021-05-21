@@ -90,5 +90,10 @@ module.exports = {
         { "code":"86" , "name":"Vĩnh Long"},
         { "code":"26" , "name":"Vĩnh Phúc"},
         { "code":"15" , "name":"Yên Bái"},
-    ]
+    ],
+    style_banner_value: [
+        {name: 'Choose style slider', id: 'allValue'},
+        {name: 'Dark Banner', id: 'ps-banner--black'},
+        {name: 'Light Banner', id: 'ps-banner--white'},
+    ],
 }

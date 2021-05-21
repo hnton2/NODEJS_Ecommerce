@@ -23,8 +23,8 @@
 						<% total += item.price * item.quantity %>
 						<tr>
 							<td>
-								<a class="ps-product__preview" href="<%= linkPrefix + item.type + '/' + item.slug %>">
-									<img class="mr-15" src="<%= folder_upload + item.type + '/' + item.thumb %>" style="width: 100px; height: 100px;" alt=""><%= item.name %>
+								<a class="ps-product__preview" href="<%= linkPrefix + item.product_type + '/' + item.slug %>">
+									<img class="mr-15" src="<%= folder_upload + item.product_type + '/' + item.thumb %>" style="width: 100px; height: 100px;" alt=""><%= item.name %>
 								</a>
 							</td>
 							<td><%= item.size %></td>
@@ -46,7 +46,7 @@
 			</table>
 			<div class="ps-cart__actions">
 				<div class="ps-cart__promotion" style="padding: 15px;">
-					<form action="<%= linkCheckout %>apply-promo-code" method="POST" id="form-promotion">
+					<form action="<%= linkPrefix %>cart/apply-promo-code" method="POST" id="form-promotion">
 						<div class="form-group">
 							<div class="ps-form--icon">
 								<span data-alertid="example"></span>

@@ -34,6 +34,7 @@ let createParamsFrontend = (req ) => {
 	params.price        = getParam(req.query, 'filter-price', 'all');
 	params.size        	= getParam(req.query, 'size', 'all');
 	params.color        = getParam(req.query, 'color', 'all');
+	params.keyword        = getParam(req.query, 'search', '');
 
 	return params;
 }

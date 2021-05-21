@@ -24,6 +24,7 @@ module.exports = {
         let sort 		 = {};
         let objWhere	 = {};
         sort[params.sortField] = params.sortType;
+        if(params.keyword !== '') objWhere.name = new RegExp(params.keyword, 'i');
 	    if(params.categoryID !== undefined && params.categoryID !== '') objWhere['category.id'] = params.categoryID;
         if(params.brandID !== undefined && params.brandID !== '') objWhere['brand.id'] = params.brandID;
         let arrPrice = params.price.split('-');
@@ -102,6 +103,9 @@ module.exports = {
     },
     getItems: (id, option = null) => {
         return Model.findById(id);
+    },
+    getNameOfItems: () => {
+        return Model.find().select('name');
     },
     countItems: (params, option = null) => {
         let objWhere	 = {};

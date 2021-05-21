@@ -19,6 +19,7 @@
 		{for: 'showAvatar', label: '', input: imageHelper(folderUpload, item.thumb, 'no-avatar.png', item.name, 'img-avatar-form preview-thumb', 100)},
 		{for: 'status', label: 'Status', input: selectBoxHelper('status', systemConfig.status_value, item.status)},
 		{for: 'ordering', label: 'Ordering', input: inputHelper('ordering', item.ordering)},
+		{for: 'text_position', label: 'Text Position', input: selectBoxHelper('style', systemConfig.style_banner_value, item.style)},
 		{for: 'content', label: 'Content', input: textareaHelper('content', item.content)}
 	];
 

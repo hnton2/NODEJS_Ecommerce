@@ -60,6 +60,18 @@ router.post('/change-status/:status', (req, res, next) => {
 	});
 });
 
+
+// Change status
+router.post('/change-progress/:id/:status', (req, res, next) => {
+	let currentStatus	= ParamsHelpers.getParam(req.params, 'status', 'left'); 
+	let id				= ParamsHelpers.getParam(req.params, 'id', ''); 
+	
+	MainModel.changeProgress(id, currentStatus).then( (result) => {
+		// NotifyHelpers.showNotify(req, res, linkIndex, {tasks: 'change-status-success'}); 
+		res.json({'currentStatus': currentStatus, 'message': notify.CHANGE_STATUS_SUCCESS, 'id': id});
+	});
+});
+
 // Change ordering - Multi
 router.post('/change-ordering', (req, res, next) => {
 	let cids 		= req.body.cid;
@@ -87,7 +99,7 @@ router.post('/delete', (req, res, next) => {
 // FORM
 router.get(('/form(/:id)?'), async (req, res, next) => {
 	let id		= ParamsHelpers.getParam(req.params, 'id', '');
-	let item	= {name: '', ordering: 0, status: 'allValue', content: '', link: ''};
+	let item	= {name: '', ordering: 0, status: 'allValue', content: '', link: '', style: 'allValue'};
 	let errors  = null;
 	if(id === '') { // ADD
 		res.render(`${folderView}form`, { pageTitle: pageTitleAdd, item, errors });
@@ -110,15 +122,15 @@ router.post('/save', (req, res, next) => {
 			let pageTitle = (taskCurrent === 'edit') ? pageTitleEdit : pageTitleAdd;
 			if(req.file != undefined) FileHelpers.remove(folderImage, req.file.filename);
 
-			if (taskCurrent == "edit") item.thumb = item.image_old;
+			if (taskCurrent == "edit") item.thumb = item.thumb_old;
 			res.render(`${folderView}form`, { pageTitle, item, errors});
 		} else {
 			let notifyTask = (taskCurrent === 'add') ? 'add-success' : 'edit-success';
 			if(req.file == undefined){ // không có upload lại hình
-				item.thumb = item.image_old;
+				item.thumb = item.thumb_old;
 			}else{
 				item.thumb = req.file.filename;
-				if(taskCurrent == "edit") FileHelpers.remove(folderImage, item.image_old);
+				if(taskCurrent == "edit") FileHelpers.remove(folderImage, item.thumb_old);
 			}
 
 			MainModel.saveItems(item, req.user, {tasks: taskCurrent}).then( (result) => {

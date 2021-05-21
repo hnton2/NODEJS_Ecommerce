@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 
 const OrdersModel = require(__path_models + 'orders');
-const PromoModel = require(__path_models + 'promo');
 const ShippingModel = require(__path_models + 'shipping');
 const ConfigModel = require(__path_models + 'config');
 const StringHelpers   = require(__path_helpers + 'string');
@@ -54,17 +53,6 @@ router.post('/save', async (req, res, next) => {
     res.clearCookie("sale_off");
     res.redirect(linkIndex + '/' + invoiceCode);
   });
-});
-
-router.post('/apply-promo-code', async (req, res, next) => {
-  req.body = JSON.parse(JSON.stringify(req.body));
-  let item = req.body;
-  let saleOff = 0;
-  await PromoModel.applyPromo(item.code).then( (item) => {
-    saleOff = item.price;
-  });
-  res.cookie('sale_off', {code: item.code, saleOff: saleOff});
-  res.json({saleOff: saleOff, message: 'Apply success'});
 });
 
 module.exports = router;

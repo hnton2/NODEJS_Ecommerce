@@ -5,6 +5,7 @@ module.exports = {
     listItems: (params, options = null) => {
         let sort 		 = {};
         sort[params.sortField] = params.sortType;
+        sort['time'] = 'desc';
         
         let objWhere	 = {};
         if(params.currentStatus !== 'all') objWhere.status = params.currentStatus;

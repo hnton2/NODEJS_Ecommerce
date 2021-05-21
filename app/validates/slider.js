@@ -6,6 +6,7 @@ const options = {
     ordering: { min: 0, max: 100 },
     status: { value: 'allValue' },
     link: { min: 1, max: 100 },
+    style: { value: 'allValue' },
     content: { min: 5, max: 200 }
 }
 
@@ -25,7 +26,11 @@ module.exports = {
 
         // LINK
         req.checkBody('link', util.format(notify.ERROR_NAME, options.link.min, options.link.max) )
-            .isLength({ min: options.link.min, max: options.link.max })
+            .isLength({ min: options.link.min, max: options.link.max });
+            
+        // STYLE
+        req.checkBody('style', notify.ERROR_STATUS)
+            .isNotEqual(options.style.value);
 
         // CONTENT
         req.checkBody('content', util.format(notify.ERROR_NAME, options.content.min, options.content.max) )

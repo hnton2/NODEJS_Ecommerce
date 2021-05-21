@@ -12,7 +12,7 @@ module.exports = {
     
         return Model
 		.find(objWhere)
-		.select('name status ordering created modified thumb link ')
+		.select('name status ordering created modified thumb link style content')
 		.sort(sort)
 		.skip((params.pagination.currentPage-1) * params.pagination.totalItemsPerPage)
 		.limit(params.pagination.totalItemsPerPage)
@@ -22,7 +22,7 @@ module.exports = {
     },
     listItemsFrontend: (params = null, option = null) => {
         let find = {status:'active'};
-        let select = 'name link thumb content ordering created';
+        let select = 'name link thumb content ordering created style content';
         let limit = 2;
         let sort = {ordering: 'asc'};
         return Model.find(find).select(select).limit(limit).sort(sort);
@@ -33,6 +33,9 @@ module.exports = {
         if(params.keyword !== '') objWhere.name = new RegExp(params.keyword, 'i');
 
         return Model.countDocuments(objWhere);
+    },
+    changeProgress: (id, currentStatus, option = null) => {
+        return Model.updateOne({_id: id}, {status: currentStatus});
     },
     changeStatus: (id, currentStatus, user, option = null) => {
         let status = '';
@@ -74,19 +77,19 @@ module.exports = {
     deleteItems: async (id, option = null) => {
         if(option.tasks === 'delete-one') {
             await Model.findById(id).then((item) => {
-                FileHelpers.remove(uploadFolder, item.avatar);
+                FileHelpers.remove(uploadFolder, item.thumb);
             });
             return Model.deleteOne({_id: id});
         } else if(option.tasks === 'delete-multi') {
             if(Array.isArray(id)){
                 for(let index = 0; index < id.length; index++){
                     await Model.findById(id[index]).then((item) => {
-                        FileHelpers.remove(uploadFolder, item.avatar);
+                        FileHelpers.remove(uploadFolder, item.thumb);
                     }); 
                 }
             }else{
                 await Model.findById(id).then((item) => {
-                    FileHelpers.remove(uploadFolder, item.avatar);
+                    FileHelpers.remove(uploadFolder, item.thumb);
                 });
             }
             return Model.remove({_id: {$in: id}});
@@ -106,6 +109,7 @@ module.exports = {
 				name: item.name,
                 link: item.link,
 				status: item.status,
+                style: item.style,
                 content: item.content,
                 thumb: item.thumb,
 				modified: {

@@ -477,20 +477,37 @@ $(document).ready(function () {
         } else {
             event.preventDefault();
             $.ajax({
-                url: '/checkout/apply-promo-code',
+                url: '/cart/apply-promo-code',
                 type: 'post',
                 data:$('input[name=code]').serialize(),
                 success:function(data){
-                    $('input[name=code]').notify(data.message, { position:"top", className: 'success' });
                     let textTotal = $('span#info-total-price').text();
                     let total = Number(textTotal.slice(1, textTotal.length - 2)) - data.saleOff;
                     $('span#info-total-price').html(total + ' $');
-                    $('p#notify-promotion').html("You are using a promotional code worth " + data.saleOff + "$");
+                    $('p#notify-promotion').html(data.message);
                 }
             });
         }
     });
     // ---END: PROMO CODE---
+
+    // ---BEGIN: SEARCH WITH AUTOCOMPLETE---
+    $("input#search-product").load('/all-name-product', null, function(response, status) {
+        let data = JSON.parse(response);
+        $.ui.autocomplete.prototype._renderItem = function (ul, item) {
+            var re = new RegExp($.trim(this.term.toLowerCase()));
+            var t = item.label.replace(re, "<span style='font-weight:600;color:#5C5C5C;'>" + $.trim(this.term.toLowerCase()) +
+                "</span>");
+            return $("<li></li>")
+                .data("item.autocomplete", item)
+                .append("<a>" + t + "</a>")
+                .appendTo(ul);
+        };
+        $("input#search-product").autocomplete({
+            source: data
+        });
+    });
+    // ---END: SEARCH WITH AUTOCOMPLETE---
 });
 
 function favoriteProduct(id) {

@@ -9,7 +9,6 @@ module.exports = {
         if(params.currentStatus !== 'all') objWhere.status = params.currentStatus;
         if(params.keyword !== '') objWhere.name = new RegExp(params.keyword, 'i');
     
-    
         return Model
 		.find(objWhere)
 		.select('name status price amount duration used_times')
@@ -26,8 +25,7 @@ module.exports = {
         }
     },
     applyPromo: (name) => {
-        return Model.findOneAndUpdate({name: name}, {$inc : {'used_times' : -1}});
-
+        return Model.findOneAndUpdate({name: name, used_times: {$gt : 0}}, {$inc : {'used_times' : -1}});
     },
     listItemsFrontend: (params = null, option = null) => {
         let find = {};

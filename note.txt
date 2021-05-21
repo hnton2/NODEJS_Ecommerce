@@ -1,7 +1,3 @@
-node2 - chương 4 - 
-    bài 5.2, 
-    6.1
-
 validator phía client
 kiểm tra link category
 sửa lại file me.js trong backend
@@ -9,7 +5,4 @@ fix radio box cho status active - inactive
 chưa có link cho category shoes ở category và home
 phân trang ajax
 
-jquery autocomplete
-
-fix mã giảm giá
 fix admin dashboard

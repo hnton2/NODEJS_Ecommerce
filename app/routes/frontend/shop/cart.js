@@ -4,6 +4,7 @@ var router = express.Router();
 const ShoesModel = require(__path_models + 'shoes');
 const ClothingModel = require(__path_models + 'clothing');
 const AccessoryModel = require(__path_models + 'accessory');
+const PromoModel = require(__path_models + 'promo');
 const ParamsHelpers 	= require(__path_helpers + 'params');
 
 const folderView	 = __path_views_shop + 'pages/cart/';
@@ -77,6 +78,23 @@ router.get('/change-quantity-:state/:id', (req, res, next) => {
   }
   res.cookie('cart', items);
   res.redirect(linkIndex);
+});
+
+router.post('/apply-promo-code', async (req, res, next) => {
+  req.body = JSON.parse(JSON.stringify(req.body));
+  let item = req.body;
+  let saleOff = 0;
+  let textMessage = '';
+  await PromoModel.applyPromo(item.code).then( (item) => { 
+    if(item) {
+      saleOff = item.price;
+      textMessage = `You are using a promotional code worth ${saleOff}$`;
+      res.cookie('sale_off', {code: item.code, saleOff: saleOff});
+    } else {
+      textMessage = 'This code has expired';
+    }
+  });
+  res.json({saleOff: saleOff, message: textMessage});
 });
 
 module.exports = router;

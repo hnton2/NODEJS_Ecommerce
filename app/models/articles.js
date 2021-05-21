@@ -25,9 +25,6 @@ module.exports = {
         let limit = 3;
         let sort = {};
         if(option.task == 'all-items'){
-            if(params.name !== undefined){
-                find.name = params.name;
-            }
             limit = 50;
             sort = {'created.time': 'desc'};
             select += ' summary';
