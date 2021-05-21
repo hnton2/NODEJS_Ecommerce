@@ -1,5 +1,5 @@
 const Model 	    = require(__path_schemas + 'clothing');
-const CategoryModel 	    = require(__path_schemas + 'clothing-category');
+const OrdersModel = require(__path_models + 'orders');
 const FileHelpers   = require(__path_helpers + 'file');
 const uploadFolder  = __path_uploads + 'clothing/';
 
@@ -36,9 +36,9 @@ module.exports = {
             .select('name slug category.name price quantity sale_off brand thumb size color tags reviews')
             .sort(sort)
     },
-    listItemsFrontend: (params = null, option = null) => {
+    listItemsFrontend: async (params = null, option = null) => {
         let find = {};
-        let select = 'name slug created category.name category.id thumb brand price sale_off reviews';
+        let select = 'name slug created category.name category.id thumb brand price sale_off reviews product_type';
         let limit = 3;
         let sort = {};
 
@@ -50,18 +50,46 @@ module.exports = {
         }
         if(option.task == 'new-items'){
             find = {status:'active'};
-            limit = 24;
+            limit = 12;
             sort = {'created.time': 'desc'};
         }
         if(option.task == 'popular-items'){
+            let arrID = [];
+            await OrdersModel.getItems(null, {task: 'get-product-in-items'}).then( (item) => {
+                item.forEach( (obj) => { obj.product.forEach( (data) => { arrID.push(data.id); }); });
+            });
+            find = {_id: {$in: arrID }, status:'active'};
+            limit = 12;
+            sort = {'created.time': 'desc', 'favorite': 'desc'};
+        }
+        if(option.task == 'favorite-items'){
             find = {status:'active'};
-            limit = 24;
+            limit = 12;
+            sort = {'favorite': 'desc'};
+        }
+        if(option.task == 'highly-rated-items'){
+            find = {status:'active'};
+            limit = 12;
+            sort = {'reviews.rating': 'desc'};
+        }
+        if(option.task == 'sale-items'){
+            find = {status:'active', sale_off: {$gt : 0}};
+            limit = 50;
+            sort = {'created.time': 'desc'};
+        }
+        if(option.task == 'best-sellers-items'){
+            let arrID = [];
+            await OrdersModel.getItems(null, {task: 'get-product-in-items'}).then( (item) => {
+                item.forEach( (obj) => { obj.product.forEach( (data) => { arrID.push(data.id); }); });
+            });
+            find = {_id: {$in: arrID }, status:'active'};
+            limit = 50;
             sort = {'created.time': 'desc'};
         }
         if(option.task == 'items-special'){
             find = {status:'active', special: 'active'};
             sort = {ordering: 'asc'};
-            limit = 8;
+            limit = 12;
         }
         if(option.task == 'lasted-items'){
             find = {status:'active'};
@@ -264,7 +292,8 @@ module.exports = {
                 brand: {
                     id: item.brand_id,
                     name: item.brand_name
-                }
+                },
+                product_type: 'clothing'
 			});
         } else if(option.tasks === 'change-category-name') {
             return Model.updateMany({'category.id': item.id}, {

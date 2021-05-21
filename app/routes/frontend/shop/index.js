@@ -24,5 +24,6 @@ router.use('/news-rss', require('./news-rss'));
 router.use('/cart', require('./cart'));
 router.use('/checkout', require('./checkout'));
 router.use('/orders-tracking', require('./orders-tracking'));
+router.use('/event', require('./event'));
 
 module.exports = router;

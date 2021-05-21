@@ -33,6 +33,9 @@ module.exports = {
             limit = 5;
             return Model.find().limit(limit).sort(sort);
         }
+        if(option.task == 'get-product-in-items'){
+            return Model.find().select('product');
+        }
     },
     countItems: (params, option = null) => {
         let objWhere	 = {};

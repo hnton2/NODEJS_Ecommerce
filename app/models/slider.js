@@ -23,7 +23,7 @@ module.exports = {
     listItemsFrontend: (params = null, option = null) => {
         let find = {status:'active'};
         let select = 'name link thumb content ordering created style content';
-        let limit = 2;
+        let limit = 5;
         let sort = {ordering: 'asc'};
         return Model.find(find).select(select).limit(limit).sort(sort);
     },

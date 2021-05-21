@@ -2151,8 +2151,8 @@ textarea.form-control {
   text-align: left;
   color: #fff; }
 
-.ps-banner.ps-banner--white .ps-banner__title p {
-  color: #ec4c76; }
+.ps-banner.ps-banner--white .ps-banner__title p { 
+  color: #000801; }
 
 .ps-banner.ps-banner--white .ps-banner__header:before {
   background-color: #000; }

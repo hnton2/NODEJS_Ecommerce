@@ -15,6 +15,7 @@ var schema = new mongoose.Schema({
     status: String,
     special: String,
     ordering: Number,
+    product_type: { type: String, default: 'shoes' },
     category: {
         id: String,
         name: String

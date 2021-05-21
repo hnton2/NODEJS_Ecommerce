@@ -69,29 +69,4 @@ router.get('/accessory', async (req, res, next) => {
   });
 });
 
-router.get('/new-releases', async (req, res, next) => {
-  await ShoesModel.listItemsFrontend(null, {task:'new-items'}).then( (item) => {items = item;});
-  res.render(`${folderView}index`, { 
-    pageTitle : 'New Releases',
-    top_post: false,
-    contact_layout: false,
-    sidebar_rss: false,
-    layout: layoutShop,
-    items,
-  });
-});
-
-
-router.get('/most-popular', async (req, res, next) => {
-  await ShoesModel.listItemsFrontend(null, {task:'popular-items'}).then( (item) => {items = item;});
-  res.render(`${folderView}index`, { 
-    pageTitle : 'New Releases',
-    top_post: false,
-    contact_layout: false,
-    sidebar_rss: false,
-    layout: layoutShop,
-    items,
-  });
-});
-
 module.exports = router;
