@@ -110,15 +110,15 @@ router.post('/save', (req, res, next) => {
 			let pageTitle = (taskCurrent === 'edit') ? pageTitleEdit : pageTitleAdd;
 			if(req.file != undefined) FileHelpers.remove(folderImage, req.file.filename);
 
-			if (taskCurrent == "edit") item.thumb = item.image_old;
+			if (taskCurrent == "edit") item.thumb = item.thumb_old;
 			res.render(`${folderView}form`, { pageTitle, item, errors});
 		} else {
 			let notifyTask = (taskCurrent === 'add') ? 'add-success' : 'edit-success';
 			if(req.file == undefined){ // không có upload lại hình
-				item.thumb = item.image_old;
+				item.thumb = item.thumb_old;
 			}else{
 				item.thumb = req.file.filename;
-				if(taskCurrent == "edit") FileHelpers.remove(folderImage, item.image_old);
+				if(taskCurrent == "edit") FileHelpers.remove(folderImage, item.thumb_old);
 			}
 
 			MainModel.saveItems(item, req.user, {tasks: taskCurrent}).then( (result) => {

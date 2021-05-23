@@ -1,4 +1,6 @@
 const Model 	= require(__path_schemas + 'brand');
+const FileHelpers   = require(__path_helpers + 'file');
+const uploadFolder  = 'public/uploads/brand/';
 
 module.exports = {
     listItems: (params, options = null) => {
@@ -11,7 +13,7 @@ module.exports = {
     
         return Model
 		.find(objWhere)
-		.select('name status ordering created modified slug amount')
+		.select('name status ordering thumb created modified slug amount')
 		.sort(sort)
 		.skip((params.pagination.currentPage-1) * params.pagination.totalItemsPerPage)
 		.limit(params.pagination.totalItemsPerPage)
@@ -25,6 +27,9 @@ module.exports = {
         }
         if(option.task == 'get-items-by-slug'){
             return Model.find({slug: params.slug}).select('name slug');
+        }
+        if(option.task == 'get-logo-items'){
+            return Model.find().select('slug thumb');
         }
     },
     listItemsFrontend: (params = null, option = null) => {
@@ -87,18 +92,32 @@ module.exports = {
             return Model.updateOne({_id: id}, data);
         }
     },
-    deleteItems: (id, option = null) => {
+    deleteItems: async (id, option = null) => {
         if(option.tasks === 'delete-one') {
+            await Model.findById(id).then((item) => {
+                FileHelpers.remove(uploadFolder, item.avatar);
+            });
             return Model.deleteOne({_id: id});
         } else if(option.tasks === 'delete-multi') {
+            if(Array.isArray(id)){
+                for(let index = 0; index < id.length; index++){
+                    await Model.findById(id[index]).then((item) => {
+                        FileHelpers.remove(uploadFolder, item.avatar);
+                    }); 
+                }
+            }else{
+                await Model.findById(id).then((item) => {
+                    FileHelpers.remove(uploadFolder, item.avatar);
+                });
+            }
             return Model.remove({_id: {$in: id}});
         }
     },
     saveItems: (item, user, option = null) => {
         if(option.tasks === 'add') {
             item.created = {
-                user_id: user.id,
-				user_name: user.username,
+                user_id: '1',
+				user_name: 'admin',
 				time: Date.now()
             }
             return new Model(item).save();
@@ -108,10 +127,11 @@ module.exports = {
                 name: item.name,
                 slug: item.slug,
 				status: item.status,
+                thumb: item.thumb,
 				content: item.content,
 				modified: {
-					user_id: user.id, 
-					user_name: user.username,
+					user_id: '1' ,
+					user_name: 'admin',
 					time: Date.now()
 				}   
 			});

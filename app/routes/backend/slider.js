@@ -18,7 +18,7 @@ const pageTitleIndex 	= UtilsHelpers.capitalize(controllerName) + ' Management';
 const pageTitleAdd   	= pageTitleIndex + ' - Add';
 const pageTitleEdit  	= pageTitleIndex + ' - Edit';
 const folderView	 	= __path_views_admin + `pages/${controllerName}/`;
-const uploadAvatar	 	= FileHelpers.upload('thumb', controllerName);
+const uploadAvatar	 	= FileHelpers.upload('thumb', controllerName, 10, 10); 
 
 // List users
 router.get('(/status/:status)?', async (req, res, next) => {

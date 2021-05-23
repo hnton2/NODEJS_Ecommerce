@@ -5,6 +5,7 @@ var db      = mongoose.createConnection(`mongodb+srv://${databaseConfig.username
 var schema = new mongoose.Schema({ 
     name: String, 
     status: String,
+    thumb: String,
     ordering: Number,
     amount: Number,
     slug: String,

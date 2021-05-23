@@ -309,6 +309,8 @@ $(document).ready(function () {
     });
     
      //tags
+     var arrPathname = window.location.pathname.split('/');
+     if(arrPathname[2] === 'shoes' || arrPathname[2] === 'accessory' || arrPathname[2] === 'clothing')
      if($('input#tags-input').val() !== '') {    //edit
         $('input#tags-input[name=size]').tagEditor({ initialTags: $('input#tags-input[name=size]').val().split(',') });
         $('input#tags-input[name=color]').tagEditor({ initialTags: $('input#tags-input[name=color]').val().split(',') });

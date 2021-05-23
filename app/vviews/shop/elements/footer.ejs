@@ -2,6 +2,7 @@
     const linkPrefix      = systemConfig.prefixShop + '/';
     const linkSubscribe      = systemConfig.prefixShop + '/subscribe';
 %>
+<% include ./../helpers/format-summary %>
 <div class="ps-subscribe">
   <div class="ps-container">
     <div class="row">
@@ -31,9 +32,7 @@
               <h3 class="ps-widget__title">About</h3>
             </header>
             <footer>
-              <p><strong><%= webConfig.address %></strong></p>
-              <p>Email: <a href='#'><%= webConfig.email %></a></p>
-              <p>Phone: +<%= webConfig.hotline %></p>
+              <p><%- formatSummaryHelper(webConfig.about, 395) %></p>
             </footer>
           </aside>
           <aside class="ps-widget--footer ps-widget--info">
@@ -56,7 +55,7 @@
               <ul class="ps-list--link">
                 <li><a href="#">Promotions</a></li>
                 <li><a href="#">Sign Up For Email</a></li>
-                <li><a href="#">Order Status</a></li>
+                <li><a href="<%= linkPrefix + 'orders-tracking' %>">Order Status</a></li> 
                 <li><a href="<%= linkPrefix + 'about/' %>">About us</a></li>
                 <li><a href="<%= linkPrefix + 'contact/' %>">Contact us</a></li>
               </ul>
@@ -70,12 +69,13 @@
             </header>
             <footer>
               <ul class="ps-list--link">
-                <li><a href="#">New Releases</a></li>
-                <li><a href="#">Most Popular</a></li>
-                <li><a href="#">Flash Sale</a></li>
-                <li><a href="#">Best Sellers</a></li>
-                <li><a href="#">Now Trending</a></li>
-                <li><a href="#">Fashion News</a></li>
+                <li><a href="<%= linkPrefix + 'event/new-releases' %>">New Releases</a></li>
+                <li><a href="<%= linkPrefix + 'event/most-popular' %>">Most Popular</a></li>
+                <li><a href="<%= linkPrefix + 'event/highly-rated-product' %>">Highly Rated Products</a></li>
+                <li><a href="<%= linkPrefix + 'event/flash-sale' %>">Flash Sale</a></li>
+                <li><a href="<%= linkPrefix + 'event/best-sellers' %>">Best Sellers</a></li>
+                <li><a href="<%= linkPrefix + 'event/trending-product' %>">Now Trending</a></li>
+                <li><a href="<%= linkPrefix + 'c-news/trending' %>">Fashion News</a></li>
               </ul>
             </footer>
           </aside>
@@ -83,12 +83,12 @@
         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12 ">
           <aside class="ps-widget--footer ps-widget--link">
             <header>
-              <h3 class="ps-widget__title">Products</h3>
+              <h3 class="ps-widget__title">Others Products</h3>
             </header>
             <footer>
               <ul class="ps-list--line">
-                <% itemsProductCategory.forEach ( (item)=>{ %>
-                  <li><a href="<%= linkPrefix + 'category/' + item.slug %>"><%= item.name %></a></li>
+                <% itemsClothingCategory.forEach ( (item)=>{ %>
+                  <li><a href="<%= linkPrefix + 'category/clothing?slug=' + item.slug %>"><%= item.name %></a></li>
                 <% }) %>
               </ul>
             </footer>

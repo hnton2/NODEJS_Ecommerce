@@ -8,6 +8,7 @@ const ClothingModel = require(__path_models + 'clothing');
 const AccessoryModel = require(__path_models + 'accessory');
 const ArticleModel = require(__path_models + 'articles');
 const SubscribeModel = require(__path_models + 'subscribe');
+const BrandModel = require(__path_models + 'brand');
 const ParamsHelpers 	= require(__path_helpers + 'params');
 const notify = require(__path_configs + 'notify');
 const systemConfig  	= require(__path_configs + 'system');
@@ -26,6 +27,7 @@ router.get('/', async (req, res, next) => {
   let specialAccessory = [];
   let specialClothing = [];
   let itemsBanner = [];
+  let itemBrand = [];
 
   // slider
   await SliderModel.listItemsFrontend().then( (items) => {itemsSlider = items;});
@@ -41,6 +43,9 @@ router.get('/', async (req, res, next) => {
   await ClothingModel.listItemsFrontend(null, {task: 'items-special'}).then( (items) => {specialClothing = items;});
   // all news
   await ArticleModel.listItemsFrontend(null, {task:'items-news'}).then( (items) => {lastedNews = items;});
+
+  await BrandModel.getItems(null, {task:'get-logo-items'}).then( (items) => {itemBrand = items;});
+
   res.render(`${folderView}index`, {
     pageTitle : 'Home',
     top_post: true,
@@ -53,7 +58,8 @@ router.get('/', async (req, res, next) => {
     lastedNews,
     specialAccessory,
     specialClothing,
-    itemsBanner
+    itemsBanner,
+    itemBrand
   });
 });
 
