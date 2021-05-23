@@ -1,8 +1,0 @@
-<% Object.keys(message).forEach( (type) => {  %>
-	<div class="alert alert-<%= ((type === 'error')? 'warning':type) %> alert-dismissible" role="alert">
-		<% message[type].forEach( (message) => {  %>
-			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-			<h4><i class="gg-danger"></i> <%= message %></h4>
-		<% }) %>
-	</div>
-<% }) %>

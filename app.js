@@ -82,7 +82,6 @@ app.locals.fs = fs;
 
 // Setup router
 app.use(`/${systemConfig.prefixAdmin}`, require(__path_routers + 'backend/index'));
-app.use(`/${systemConfig.prefixBlog}`, require(__path_routers + 'frontend/blog/index'));
 app.use(`/${systemConfig.prefixShop}`, require(__path_routers + 'frontend/shop/index'));
 
 // catch 404 and forward to error handler
