@@ -6,9 +6,10 @@ const folderView	 = __path_views_admin + 'pages/home/';
 const OrderSchemas 	= require(__path_schemas + 'orders');
 const ContactSchemas	= require(__path_schemas + 'contact');
 const ShoesModel 	= require(__path_models + 'shoes');
+const ClothingModel 	= require(__path_models + 'clothing');
+const AccessoryModel 	= require(__path_models + 'accessory');
 const OrdersModel 	= require(__path_models + 'orders');
 const ContactModel 	= require(__path_models + 'contact');
-
 
 const UtilsHelpers 	= require(__path_helpers + 'utils');
 
@@ -28,6 +29,12 @@ router.get('/', async function(req, res, next) {
   await ContactModel.getItems(null, {task: 'lasted-item'}).then( (item) => { lastedContact = item; });
   await ShoesModel.listItemsFrontend(null, {task: 'lasted-item'}).then((item) => { lastedShoes = item; });
 
+  let items = [];
+  await ShoesModel.listItemsFrontend(null, {task: 'best-sellers-items'}).then( (data) => {items = items.concat(data);});
+  await AccessoryModel.listItemsFrontend(null, {task: 'best-sellers-items'}).then( (data) => {items = items.concat(data);});
+  await ClothingModel.listItemsFrontend(null, {task: 'best-sellers-items'}).then( (data) => {items = items.concat(data);});
+  items = UtilsHelpers.shuffleArray(items);
+
   res.render(`${folderView}index`, { 
     pageTitle   : 'HomePage',
     totalOrders,
@@ -37,6 +44,7 @@ router.get('/', async function(req, res, next) {
     lastedContact,
     lastedOrders,
     lastedShoes,
+    items,
   });
 });
 
