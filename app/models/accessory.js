@@ -15,7 +15,7 @@ module.exports = {
     
         return Model
 		.find(objWhere)
-		.select('name slug status special ordering created modified category.name price quantity sale_off brand thumb color tags')
+		.select('name slug status special ordering created modified category.name price quantity sale_off brand thumb sold')
 		.sort(sort)
 		.skip((params.pagination.currentPage-1) * params.pagination.totalItemsPerPage)
 		.limit(params.pagination.totalItemsPerPage)
@@ -33,7 +33,7 @@ module.exports = {
     
         return Model
             .find(objWhere)
-            .select('name slug category.name price quantity sale_off brand thumb color tags reviews')
+            .select('name slug category.name price quantity sale_off brand thumb color tags reviews product_type')
             .sort(sort)
     },
     listItemsFrontend: async (params = null, option = null) => {
@@ -132,6 +132,9 @@ module.exports = {
     getItems: (id, option = null) => {
         return Model.findById(id);
     },
+    getItemsBySlug: (slugName, option = null) => {
+        return Model.find({slug: slugName});
+    },
     getNameOfItems: () => {
         return Model.find().select('name');
     },
@@ -156,8 +159,8 @@ module.exports = {
         let data = {
             status: status,
             modified: {
-                user_id: user.id,
-                user_name: user.username,
+                user_id: '1',
+                user_name: 'admin',
                 time: Date.now()
             }
         };
@@ -174,8 +177,8 @@ module.exports = {
         let data = {
             special: special,
             modified: {
-                user_id: user.id,
-                user_name: user.username,
+                user_id: '1',
+                user_name: 'admin',
                 time: Date.now()
             }
         };
@@ -315,5 +318,8 @@ module.exports = {
     },
     favoriteItem: (id) => {
         return Model.findOneAndUpdate({_id :id}, {$inc : {'favorite' : 1}}).exec();
+    },
+    soldItem: (id) => {
+        return Model.findOneAndUpdate({_id :id}, {$inc : {'sold' : 1}}).exec();
     }
 }

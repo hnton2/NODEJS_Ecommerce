@@ -28,7 +28,6 @@ router.get('/:slug', async (req, res, next) => {
     pageTitle: item.name,
     top_post: false,
     contact_layout: false,
-    sidebar_rss: false,
     layout: layoutShop,
     item,
     itemMainCategory,

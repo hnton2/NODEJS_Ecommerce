@@ -12,6 +12,7 @@ var schema = new mongoose.Schema({
     price: Number,
     sale_off: Number,
     quantity: Number,
+    sold: {type: Number, default: 0},
     status: String,
     special: String,
     ordering: Number,

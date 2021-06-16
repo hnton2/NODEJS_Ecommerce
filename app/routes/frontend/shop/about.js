@@ -13,7 +13,6 @@ router.get('/',  async (req, res, next) => {
     pageTitle : 'About us',
     top_post: false,
     contact_layout: false,
-    sidebar_rss: false,
     layout: layoutShop,
     users,
   });

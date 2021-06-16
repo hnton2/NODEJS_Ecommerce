@@ -1,9 +1,9 @@
 <% include ./../../helpers/rating-product %>
+<% include ./../../helpers/highlight %>
 <% 
   const folder_upload = 'uploads/';
   const linkPrefix    = systemConfig.prefixShop + '/';
 %>
-
 <div class="ps-products-wrap pt-80 pb-80">
   <div class="ps-products" data-mh="product-listing">
     <div class="ps-product-action">
@@ -27,7 +27,7 @@
       </div>
     </div>
     <div class="ps-product__columns" id="product-area">
-      <% itemsClothing.forEach( (item) => { %>
+      <% items.forEach( (item) => { %>
         <div class="ps-product__column" style="width:302.3px;height:372.3px">
           <div class="ps-shoe mb-30" style="width:272.3px;height:342.3px">
             <div class="ps-shoe__thumbnail">
@@ -35,87 +35,19 @@
                 <div class="ps-badge ps-badge--sale"><span>-<%= item.sale_off %>%</span></div>
               <% } %>
               <a class="ps-shoe__favorite" href="javascript:void(0)" onclick="favoriteProduct('<%= item.id %>')"><i class="ps-icon-heart"></i></a>
-              <img src="<%= folder_upload + 'clothing/' + item.thumb[0] %>" style="width:272px;height:272px;object-fit:cover;" alt="">
-              <a class="ps-shoe__overlay" href="<%= linkPrefix + 'clothing/' + item.slug %>"></a>
+              <img src="<%= folder_upload + item.product_type + '/' + item.thumb[0] %>" style="width:272px;height:272px;object-fit:cover;" alt="">
+              <a class="ps-shoe__overlay" href="<%= linkPrefix + item.product_type + '/' + item.slug %>"></a>
             </div>
             <div class="ps-shoe__content">
               <div class="ps-shoe__variants">
                 <div class="ps-shoe__variant normal">
                   <% item.thumb.forEach( (image) => { %>
-                    <img src="<%= folder_upload + 'clothing/' + image %>" alt="">
+                    <img src="<%= folder_upload + item.product_type + '/' + image %>" alt="">
                   <% }) %>
                 </div>
                 <%- ratingProductHelpers(item.reviews) %>
               </div>
-              <div class="ps-shoe__detail"><a class="ps-shoe__name" href="<%= linkPrefix + 'clothing/' + item.slug %>"><%= item.name %></a>
-                <p class="ps-shoe__categories"><a href="#"><%= item.category.name %></a>,<a href="#"> <%= item.brand.name %></a></p>
-                <span class="ps-shoe__price">
-                  <% if(item.sale_off > 0) { %>
-                    <del>$<%= item.price %></del> $<%= item.price - (item.price * (item.sale_off/100)) %>
-                    <% } else { %>
-                      $<%= item.price%>
-                    <% } %>
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      <% }) %>
-      <% itemsShoes.forEach( (item) => { %>
-        <div class="ps-product__column" style="width:302.3px;height:372.3px">
-          <div class="ps-shoe mb-30" style="width:272.3px;height:342.3px">
-            <div class="ps-shoe__thumbnail">
-              <% if(item.sale_off > 0) { %>
-                <div class="ps-badge ps-badge--sale"><span>-<%= item.sale_off %>%</span></div>
-              <% } %>
-              <a class="ps-shoe__favorite" href="javascript:void(0)" onclick="favoriteProduct('<%= item.id %>')"><i class="ps-icon-heart"></i></a>
-              <img src="<%= folder_upload + 'shoes/' + item.thumb[0] %>" style="width:272px;height:272px;object-fit:cover;" alt="">
-              <a class="ps-shoe__overlay" href="<%= linkPrefix + 'shoes/' + item.slug %>"></a>
-            </div>
-            <div class="ps-shoe__content">
-              <div class="ps-shoe__variants">
-                <div class="ps-shoe__variant normal">
-                  <% item.thumb.forEach( (image) => { %>
-                    <img src="<%= folder_upload + 'shoes/' + image %>" alt="">
-                  <% }) %>
-                </div>
-                <%- ratingProductHelpers(item.reviews) %>
-              </div>
-              <div class="ps-shoe__detail"><a class="ps-shoe__name" href="<%= linkPrefix + 'shoes/' + item.slug %>"><%= item.name %></a>
-                <p class="ps-shoe__categories"><a href="#"><%= item.category.name %></a>,<a href="#"> <%= item.brand.name %></a></p>
-                <span class="ps-shoe__price">
-                  <% if(item.sale_off > 0) { %>
-                    <del>$<%= item.price %></del> $<%= item.price - (item.price * (item.sale_off/100)) %>
-                    <% } else { %>
-                      $<%= item.price%>
-                    <% } %>
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      <% }) %>
-      <% itemsAccessory.forEach( (item) => { %>
-        <div class="ps-product__column" style="width:302.3px;height:372.3px">
-          <div class="ps-shoe mb-30" style="width:272.3px;height:342.3px">
-            <div class="ps-shoe__thumbnail">
-              <% if(item.sale_off > 0) { %>
-                <div class="ps-badge ps-badge--sale"><span>-<%= item.sale_off %>%</span></div>
-              <% } %>
-              <a class="ps-shoe__favorite" href="javascript:void(0)" onclick="favoriteProduct('<%= item.id %>')"><i class="ps-icon-heart"></i></a>
-              <img src="<%= folder_upload + 'accessory/'  + item.thumb[0] %>" style="width:272px;height:272px;object-fit:cover;" alt="">
-              <a class="ps-shoe__overlay" href="<%= linkPrefix + 'accessory/'  + item.slug %>"></a>
-            </div>
-            <div class="ps-shoe__content">
-              <div class="ps-shoe__variants">
-                <div class="ps-shoe__variant normal">
-                  <% item.thumb.forEach( (image) => { %>
-                    <img src="<%= folder_upload + 'accessory/'  + image %>" alt="">
-                  <% }) %>
-                </div>
-                <%- ratingProductHelpers(item.reviews) %>
-              </div>
-              <div class="ps-shoe__detail"><a class="ps-shoe__name" href="<%= linkPrefix + 'accessory/'  + item.slug %>"><%= item.name %></a>
+              <div class="ps-shoe__detail"><a class="ps-shoe__name" href="<%= linkPrefix + item.product_type + '/' + item.slug %>"><%- highlightHelper(item.name, params.keyword) %></a>
                 <p class="ps-shoe__categories"><a href="#"><%= item.category.name %></a>,<a href="#"> <%= item.brand.name %></a></p>
                 <span class="ps-shoe__price">
                   <% if(item.sale_off > 0) { %>

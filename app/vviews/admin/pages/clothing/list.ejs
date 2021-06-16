@@ -109,12 +109,10 @@
 								</td>
 								<td class="text-center"><%= item.category.name %></td>
 								<td class="text-sm-left">
-									<b>Price</b>: <%= item.price %> <br>
-									<b>Sale off</b>: <%= item.sale_off %> <br>
+									<b>Price</b>: $<%= item.price %> <br>
+									<b>Sale off</b>: <%= item.sale_off %>% <br>
 									<b>Quantity</b>: <%= item.quantity %> <br>
-									<b>Size</b>: <%= item.size %> <br>
-									<b>Color</b>: <%= item.color %> <br>
-									<b>Tags</b>: <%= item.tags %>
+									<b>Sold</b>: <%= item.sold %> <br>
 								</td>
 								<% if(item.modified.user_name === undefined) { %>
 									<td class="text-center"><%- userHelper(item.created.user_name, item.created.time) %></td>

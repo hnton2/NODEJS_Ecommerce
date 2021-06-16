@@ -12,8 +12,9 @@ const options = {
     special: { value: 'allValue' },
     category: { value: 'allValue' },
     content: { min: 5, max: 20000 },
-    size: { min: 1},
-    color: { min: 1},
+    size: { value: '' },
+    color: { value: '' },
+    tags: { value: '' },
 }
 
 module.exports = {
@@ -45,7 +46,7 @@ module.exports = {
         req.checkBody('status', notify.ERROR_STATUS)
             .isNotEqual(options.status.value);
 
-         // STATUS
+         // SPECIAL
          req.checkBody('special', notify.ERROR_STATUS)
             .isNotEqual(options.special.value);
 
@@ -58,12 +59,16 @@ module.exports = {
             .isLength({ min: options.content.min, max: options.content.max });
         
         // SIZE
-        req.checkBody('size', util.format(notify.ERROR_SIZE, options.size.min))
-            .isLength({ min: options.size.min});
+        req.checkBody('size', notify.ERROR_STATUS)
+        .isNotEqual(options.size.value);
 
         // COLOR
-        req.checkBody('color', util.format(notify.ERROR_COLOR, options.color.min))
-            .isLength({ min: options.color.min});
+        req.checkBody('color', notify.ERROR_STATUS)
+        .isNotEqual(options.color.value);
+
+        // TAGS
+        req.checkBody('tags', notify.ERROR_STATUS)
+        .isNotEqual(options.tags.value);
 
         let errors = req.validationErrors() !== false ? req.validationErrors() : [];  
 		if (errUpload) {

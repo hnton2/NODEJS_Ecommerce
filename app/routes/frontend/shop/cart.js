@@ -6,6 +6,7 @@ const ClothingModel = require(__path_models + 'clothing');
 const AccessoryModel = require(__path_models + 'accessory');
 const PromoModel = require(__path_models + 'promo');
 const ParamsHelpers 	= require(__path_helpers + 'params');
+const UtilsHelpers 	= require(__path_helpers + 'utils');
 
 const folderView	 = __path_views_shop + 'pages/cart/';
 const layoutShop    = __path_views_shop + 'frontend';
@@ -48,7 +49,6 @@ router.get('/', async (req, res, next) => {
     pageTitle : 'Cart',
     top_post: false,
     contact_layout: false,
-    sidebar_rss: false,
     layout: layoutShop,
     items,
   });
@@ -66,7 +66,7 @@ router.get('/delete/:id', (req, res, next) => {
 });
 
 // change-quantity
-router.get('/change-quantity-:state/:id', (req, res, next) => {
+router.post('/change-quantity-:state/:id', (req, res, next) => {
 	let id				  = ParamsHelpers.getParam(req.params, 'id', '');
   let state				= ParamsHelpers.getParam(req.params, 'state', '');
   let value       = (state === 'increase') ? 1 : -1;
@@ -77,24 +77,22 @@ router.get('/change-quantity-:state/:id', (req, res, next) => {
     }
   }
   res.cookie('cart', items);
-  res.redirect(linkIndex);
+  res.json({message: "Change quantity success !!!"});
 });
 
 router.post('/apply-promo-code', async (req, res, next) => {
   req.body = JSON.parse(JSON.stringify(req.body));
-  let item = req.body;
-  let saleOff = 0;
-  let textMessage = '';
-  await PromoModel.applyPromo(item.code).then( (item) => { 
-    if(item) {
-      saleOff = item.price;
-      textMessage = `You are using a promotional code worth ${saleOff}$`;
-      res.cookie('sale_off', {code: item.code, saleOff: saleOff});
-    } else {
-      textMessage = 'This code has expired';
+	let item = Object.assign(req.body); 
+  let discount = 0;
+  let textMessage = 'This code is not valid ';
+  await PromoModel.getItems({name: item.discount_code}, {task: 'get-items-by-name'}).then( async (item) => {
+    if(UtilsHelpers.validCode(item[0])) {
+      discount = item[0].price;
+      textMessage = `You get a $${discount} discount on your bill`;
+      res.cookie('sale_off', {name: item[0].name, discount: discount});
     }
   });
-  res.json({saleOff: saleOff, message: textMessage});
+  res.json({discount: discount, message: textMessage});
 });
 
 module.exports = router;

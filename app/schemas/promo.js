@@ -7,7 +7,7 @@ var schema = new mongoose.Schema({
     status: String,
     price: Number,
     amount: Number,
-    used_times: Number,
+    used_times: {type: Number, default: 0},
     duration: String,
 });
 

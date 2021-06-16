@@ -1,6 +1,6 @@
 <% 
   const folder_upload = 'uploads/';
-  const linkPrefix    = systemConfig.prefixShop + '/';
+  const linkPrefix    	= systemConfig.prefixShop + '/';
   const linkCheckout    = systemConfig.prefixShop + '/checkout/';
   let total = 0;
 %>
@@ -11,7 +11,6 @@
 				<thead>
 					<tr>
 					<th>All Products</th>
-					<th>Size</th>
 					<th>Price</th>
 					<th>Quantity</th>
 					<th>Total</th>
@@ -24,41 +23,40 @@
 						<tr>
 							<td>
 								<a class="ps-product__preview" href="<%= linkPrefix + item.product_type + '/' + item.slug %>">
-									<img class="mr-15" src="<%= folder_upload + item.product_type + '/' + item.thumb %>" style="width: 100px; height: 100px;" alt=""><%= item.name %>
+									<img class="mr-15" src="<%= folder_upload + item.product_type + '/' + item.thumb %>" style="width: 100px; height: 100px;" alt="">
+									<%= item.name %> 
+									<% if('size' in item) { %>  
+										- Size: <%= item.size %>
+									<% } %>
 								</a>
 							</td>
-							<td><%= item.size %></td>
 							<td><div id="price-<%= item.id %>">$<%= item.price %></div></td>
 							<td>
 								<div class="form-group--number">
-								<a href="/cart/change-quantity-decrease/<%= item.id %>"><button class="minus"><span>-</span></button></a>
-								<input id="quantity-<%= item.id %>" class="form-control" type="text" value="<%= item.quantity %>">
-								<a href="/cart/change-quantity-increase/<%= item.id %>"><button class="plus"><span>+</span></button></a>
+									<button class="minus" onclick="changeQuantity('<%= linkPrefix %>cart/change-quantity-decrease/<%= item.id %>')"><span>-</span></button></a>
+									<input id="quantity-<%= item.id %>" class="form-control" type="text" value="<%= item.quantity %>">
+									<button class="plus" onclick="changeQuantity('<%= linkPrefix %>cart/change-quantity-increase/<%= item.id %>')"><span>+</span></button></a>
 								</div>
 							</td>
 							<td><div id="total-<%= item.id %>">$<%= item.price * item.quantity %></div></td>
-							<td>
-								<a class="ps-remove" href="/cart/delete/<%= item.id %>"></a>
-							</td>
+							<td><a class="ps-remove" href="<%= linkPrefix %>cart/delete/<%= item.id %>"></a></td>
 						</tr>
 					<% }) %>
 				</tbody>
 			</table>
 			<div class="ps-cart__actions">
-				<div class="ps-cart__promotion" style="padding: 15px;">
+				<div class="ps-cart__promotion"> 
 					<form action="<%= linkPrefix %>cart/apply-promo-code" method="POST" id="form-promotion">
 						<div class="form-group">
 							<div class="ps-form--icon">
-								<span data-alertid="example"></span>
-								<input class="form-control" name="code" type="text" placeholder="Promo Code">
+								<input class="form-control" type="text" name="discount_code" placeholder="Promo Code">
+								<button class="btn" style="background-color: #2AC37D;color: aliceblue;">Apply <i class="fa fa-check" style="color: aliceblue;"></i></button>
 							</div>
-						</div>
-						<p id="notify-promotion" style="color: red;"></p>
-						<button type="submit" class="btn" style="background-color: #2AC37D;">Apply<i class="fa fa-check"></i></button>
+						</div>	
 					</form>
-				</div>
+				  </div>
 				<div class="ps-cart__total">
-					<h3>Total Price: <span id="info-total-price"> <%= total %> $</span></h3><a class="ps-btn" href="<%= linkCheckout %>">Process to checkout<i class="ps-icon-next"></i></a>
+					<h3>Total Price: <span id="info-total-price">$<%= total %></span></h3><a class="ps-btn" href="<%= linkCheckout %>">Process to checkout<i class="ps-icon-next"></i></a>
 				</div>
 			</div>
 	  	</div>

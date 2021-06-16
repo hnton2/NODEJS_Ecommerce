@@ -20,6 +20,7 @@ const ClothingCategoryModel 	= require(__path_schemas + 'clothing-category');
 const ClothingModel 	= require(__path_schemas + 'clothing');
 const AccessoryCategoryModel 	= require(__path_schemas + 'accessory-category');
 const AccessoryModel 	= require(__path_schemas + 'accessory');
+const EventsModel 	= require(__path_schemas + 'events');
 
 const folderView	 = __path_views_admin + 'pages/dashboard/';
 const UtilsHelpers 	= require(__path_helpers + 'utils');
@@ -45,6 +46,7 @@ router.get('/', async function(req, res, next) {
   let totalClothing = await UtilsHelpers.countCollections(ClothingModel);
   let totalAccessoryCategory = await UtilsHelpers.countCollections(AccessoryCategoryModel);
   let totalAccessory = await UtilsHelpers.countCollections(AccessoryModel);
+  let totalEvents = await UtilsHelpers.countCollections(EventsModel);
   
   res.render(`${folderView}index`, { 
     pageTitle: 'Dashboard',
@@ -67,6 +69,7 @@ router.get('/', async function(req, res, next) {
     totalClothing,
     totalAccessoryCategory,
     totalAccessory,
+    totalEvents,
   });
 });
 

@@ -389,6 +389,12 @@ $(document).ready(function () {
             event.preventDefault();
         } else {
             event.preventDefault();
+            Swal.fire({
+                title: 'Add to cart success!',
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 3000
+            });
             $.ajax({
                 url: '/cart/add-to-cart',
                 type: 'post',
@@ -419,12 +425,6 @@ $(document).ready(function () {
                     </div>`;
 
                     $('.ps-cart').append(xhtml);
-                    Swal.fire({
-                        title: 'Add to cart success!',
-                        icon: 'success',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
                 }
             });
         }
@@ -463,28 +463,37 @@ $(document).ready(function () {
     // ---END: SHOW PRODUCT WHEN ADD TO CART IN HEADER---
 
     // ---BEGIN: PROMO CODE---
-    $("#form-promotion").submit(function(event ) {
-        var input = $('input[name=code]').val();
-        $(document).trigger("clear-alert-id.example");
-        if (input.length <= 0 ) {
-            $(document).trigger("set-alert-id-example", [
-                {
-                    "message": "Please enter code promotion!",
-                    "priority": "info"
-                }
-            ]);
-            event.preventDefault();
-        } else {
-            event.preventDefault();
+    $('#form-promotion').validate({ 
+        errorElement: 'span',
+        errorClass: 'help-inline',
+        rules: {
+            discount_code: {
+                required: true,
+                minlength: 5,
+            }
+        },
+        messages: {
+            discount_code: {
+                required: "Please enter code promotion!",
+                minlength: "Code promotion must be more than 5 characters"
+            }
+        },
+        errorPlacement: function (error, element) {
+            element.closest('.form-group').append(error);
+        },
+        submitHandler: function(form) {
+            $('#notify_message').remove();
+            $('.form-group').append('<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>');
             $.ajax({
                 url: '/cart/apply-promo-code',
-                type: 'post',
-                data:$('input[name=code]').serialize(),
-                success:function(data){
-                    let textTotal = $('span#info-total-price').text();
-                    let total = Number(textTotal.slice(1, textTotal.length - 2)) - data.saleOff;
+                type: 'POST',
+                data:$('input[name=discount_code]').serialize(),
+                success:function(data) {
+                    let textTotal = $('span#info-total-price').text().substring(1);
+                    let total = Number(textTotal) - data.discount;
                     $('span#info-total-price').html(total + ' $');
-                    $('p#notify-promotion').html(data.message);
+                    $('div.lds-ellipsis').remove();
+                    $('.form-group').append(`<div id="notify_message">${data.message}</div>`);
                 }
             });
         }
@@ -508,28 +517,85 @@ $(document).ready(function () {
         });
     });
     // ---END: SEARCH WITH AUTOCOMPLETE---
+
+    // ---BEGIN: SHOW IMAGE BRAND---
+    let linkLogoBrand = $("#logo-brand").data("url");
+    $("#logo-brand").load(linkLogoBrand, null, function(response, status) {
+        let data = JSON.parse(response);
+        $("#logo-brand").html(renderLogoBrand(data));
+    });
+    // ---END: SHOW IMAGE BRAND---
+
+    // ---BEGIN: SHOW INFO PRODUCT EVENTS---
+    $.ajax({
+        url: '/event-shoes',
+        type: 'get',
+        success:function(data){
+            let price = data[0].price - (data[0].price * data[0].sale_off);
+            $('#product__price').html(`Only: <span>$${price}</span>`);
+            $('#product__sold').html(`Already sold: <span>${data[0].sold}</span>`);
+            $('#product__available').html(`Avaiable: <span>${data[0].quantity}</span>`);
+            let progressValue = Math.floor(data[0].sold/data[0].quantity * 100);
+            $('#progress__bar').html(`<div class="progress-bar" role="progressbar" aria-valuenow="${progressValue}" aria-valuemin="0" aria-valuemax="100" style="width: ${progressValue}%;"></div>`);
+        }
+    });
+    // ---END: SHOW INFO PRODUCT EVENTS---
+
+
 });
+
+function getFormattedDate(date) {
+    date = new Date(date);
+    var year = date.getFullYear();
+  
+    var month = (1 + date.getMonth()).toString();
+    month = month.length > 1 ? month : '0' + month;
+  
+    var day = date.getDate().toString();
+    day = day.length > 1 ? day : '0' + day;
+    
+    return month + '/' + day + '/' + year;
+}
 
 function favoriteProduct(id) {
     link = '/shoes/favorite/' + id;
+    Swal.fire({
+        title: 'Favorite product success!',
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 1500
+    });
     $.ajax({
         url: link,
         type: 'post',
         success:function(data){
-            Swal.fire({
-                title: data.message,
-                icon: 'success',
-            });
+            
         }
     });
 }
 
-function changeQuantity(id, state) {
-    let counter = $('#quantity-' + id).val();
-    let price = $('#price-' + id).text().slice(1);
-    counter = Number(counter) + state ;
-    $('#quantity-' + id).val(counter);
-    $('#total-' + id).html('$' + price * Number(counter));
+function changeQuantity(link) {
+    let elementLink = link.split('/');
+    let state = elementLink[2].split('-');
+    let index = $('#quantity-' + elementLink[3]);
+    let allTotal = $('#info-total-price');
+    let price = $('#price-' + elementLink[3]).text().substring(1);
+    let operator = (state[2] === 'increase') ? 1 : -1;
+    let quantity = Number(index.val()) + operator;
+    if(quantity >= 0) {
+        $.ajax({
+            url: link,
+            type: 'post',
+            success:function(data){
+                index.val(quantity);
+                $('#total-' + elementLink[3]).text('$' + (Number(price) * Number(quantity)));
+                allTotal.text('$' + (Number(price)*operator + Number(allTotal.text().substring(1))));
+                index.notify(data.message, { position:"top", className: 'success' });
+            }
+        });
+    } else {
+        alert("Quantity must be greater than 0 !!!")
+    }
 }
 
 function renderWeather(items) {
@@ -611,6 +677,14 @@ function renderCoinTable(items) {
                 ${xhtml}
             </tbody>
         </table>`;
+}
+
+function renderLogoBrand(items) {
+    let xhtml = '';
+    items.forEach( (item) => {
+        xhtml +=`<a class="ps-offer" href="/trademark?brand=${item.slug}" style="padding: 20px;"><img src="uploads/brand/${item.thumb}" style="height: 250px; width: 250px;" alt=""></a>`;
+    });
+    return xhtml;
 }
 
 function filterPrice() {

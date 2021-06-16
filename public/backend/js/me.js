@@ -89,12 +89,15 @@ function changeShippingFee(id) {
 
 $(document).ready(function () {
 
+    //Date and time picker
+    $('#datetimepicker').datetimepicker({ icons: { time: 'far fa-clock' } });
+
     // date-range picker
     $('input[name="duration"]').daterangepicker({
         opens: 'left',
-        locale: {
+        /* locale: {
             format: 'MMMM D, YYYY'
-        }
+        } */
     });
 
     // Summernote
@@ -312,12 +315,63 @@ $(document).ready(function () {
      var arrPathname = window.location.pathname.split('/');
      if(arrPathname[2] === 'shoes' || arrPathname[2] === 'accessory' || arrPathname[2] === 'clothing')
      if($('input#tags-input').val() !== '') {    //edit
-        $('input#tags-input[name=size]').tagEditor({ initialTags: $('input#tags-input[name=size]').val().split(',') });
-        $('input#tags-input[name=color]').tagEditor({ initialTags: $('input#tags-input[name=color]').val().split(',') });
         $('input#tags-input[name=tags]').tagEditor({ initialTags: $('input#tags-input[name=tags]').val().split(',') });
     } else {    //add
         $('input#tags-input').tagEditor({ initialTags: [''] });
     }
+
+    $('#slb-multiple-size').select2({placeholder: 'Select size'});
+    $('#slb-multiple-color').select2({placeholder: 'Select color'});
+
+    $.validator.addMethod('minStrict', function (value, el, param) {
+        return value > param;
+    });
+    $.validator.addMethod("valueNotEquals", function(value, element, arg){
+        return arg !== value;
+    }, "Value must not equal arg.");
+    $('#items-form').validate({ 
+        errorClass: 'help-inline',
+        rules: {
+            name: {
+                required: true,
+                minlength: 5,
+            },
+            ordering: {
+                required: true,
+                minStrict: 1
+            },
+            status: {
+                valueNotEquals: "allValue"
+            },
+        },
+        messages: {
+            name: {
+                required: "Please enter Name !!!",
+                minlength: "Your name must be at least 5 characters long"
+            },
+            ordering: {
+                required: "Please enter Ordering !!!",
+                minStrict: "Ordering must be greater than 0"
+            },
+            status: { 
+                valueNotEquals: "Please select status !!!"
+            }
+        },
+        errorElement: 'span',
+        errorPlacement: function (error, element) {
+        error.addClass('invalid-feedback');
+        element.closest('.form-group .col-sm-8').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+        $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+        $(element).removeClass('is-invalid');
+        },
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
 });
 
 

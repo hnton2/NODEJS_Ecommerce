@@ -41,8 +41,8 @@ module.exports = {
         let data = {
             status: status,
             modified: {
-                user_id: user.id,
-                user_name: user.username,
+                user_id: '1',
+                user_name: 'admin',
                 time: Date.now()
             }
         };

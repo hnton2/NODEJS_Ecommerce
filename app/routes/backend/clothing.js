@@ -142,7 +142,7 @@ router.get(('/form(/:id)?'), async (req, res, next) => {
 	let id		= ParamsHelpers.getParam(req.params, 'id', '');
 	let product	= {name: '', slug: '', brand: '', ordering: 0, status: 'allValue', special: 'allValue', 
 					content: '', category_id: '', category_name: '', brand_id: '', brand_name: '', quantity: 0,
-					 price: 0, sale_off: 0, size: '', color: '', tag: ''};
+					 price: 0, sale_off: 0, size: '', color: '', tags: ''};
 	let errors  = null;
 	let categoryItems = [];
 	await CategoryModel.getItems(null, {task: 'get-name-items'}).then( (items) => {

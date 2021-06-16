@@ -51,7 +51,6 @@ router.get('/:event', async (req, res, next) => {
     pageTitle : titlePage,
     top_post: false,
     contact_layout: false,
-    sidebar_rss: false,
     layout: layoutShop,
     items
   });

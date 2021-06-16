@@ -21,10 +21,13 @@ module.exports = {
     },
     listItemsFrontend: (params = null, option = null) => {
         let find = {status:'active'};
-        let select = 'name slug created category.name category.id thumb';
+        let select = 'name slug created category.name category.id thumb comments';
         let limit = 3;
-        let sort = {};
+        let sort = {};       
+
         if(option.task == 'all-items'){
+            if(params.keyword !== '')   find = {name: new RegExp(params.keyword, 'i'), status:'active', trending: 'active'};
+            else find = {status:'active', trending: 'active'};
             limit = 50;
             sort = {'created.time': 'desc'};
             select += ' summary';
@@ -37,7 +40,8 @@ module.exports = {
         }
 
         if(option.task == 'items-trending'){
-            find = {status:'active', trending: 'active'};
+            if(params.keyword !== '')   find = {name: new RegExp(params.keyword, 'i'), status:'active', trending: 'active'};
+            else find = {status:'active', trending: 'active'};
             sort = {ordering: 'asc'};
             limit = 8;
             select += ' summary';
@@ -51,7 +55,8 @@ module.exports = {
         }
 
         if(option.task == 'items-in-category'){
-            find = {status:'active', 'category.id': params.id};
+            if(params.keyword !== '')   find = {name: new RegExp(params.keyword, 'i'), status:'active', 'category.id': params.id};
+            else find = {status:'active', 'category.id': params.id};
             select += ' summary';
             sort = {ordering: 'asc'};
         }
@@ -59,8 +64,8 @@ module.exports = {
         if(option.task == 'items-random'){
             return Model.aggregate([
                 { $match: {status: 'active'}},
-                { $project: {_id: 1, name: 1, created: 1, thumb: 1} },
-                { $sample: {size: 5}}
+                { $project: {_id: 1, name: 1, created: 3, thumb: 1} },
+                { $sample: {size: 8}}
             ]);
         }
         if(option.task == 'items-related'){

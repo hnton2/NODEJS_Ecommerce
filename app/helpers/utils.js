@@ -1,3 +1,9 @@
+var moment = require('moment');
+
+const ShoesModel = require(__path_models + 'shoes');
+const ClothingModel = require(__path_models + 'clothing');
+const AccessoryModel = require(__path_models + 'accessory');
+
 let createFilterStatus =  async (params, collection) => {
 	const Model = require(__path_schemas +  collection);
     let statusFilter = [
@@ -56,9 +62,33 @@ let shuffleArray = (array) => {
   
 	return array;
 }
+
+let countingSoldProduct = async (id, product_type) => {
+    if(product_type === 'shoes') {
+		await ShoesModel.soldItem(id).then();
+	} else if(product_type === 'clothing') {
+		await ClothingModel.soldItem(id).then();
+	} else if(product_type === 'accessory') {
+		await AccessoryModel.soldItem(id).then();
+	}
+	return;
+}
+
+let validCode = (item) => {
+	let fromD = new Date(item.duration.split('-')[0]).getTime();
+	let toD =  new Date(item.duration.split('-')[1]).getTime();
+	let now = new Date().getTime();
+	if(item.status !== 'active') return false;
+	if(item.used_times >= item.amount) return false;
+	if(fromD >=  now || now >= toD) return false;
+	return true;
+}
+
 module.exports = {
 	createFilterStatus: createFilterStatus,
 	capitalize: capitalize,
 	countCollections,
 	shuffleArray,
+	countingSoldProduct,
+	validCode,
 }

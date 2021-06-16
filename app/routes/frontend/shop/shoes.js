@@ -28,7 +28,6 @@ router.get('/:slug', async (req, res, next) => {
     pageTitle: item.name,
     top_post: false,
     contact_layout: false,
-    sidebar_rss: false,
     layout: layoutShop,
     item,
     itemMainCategory,
@@ -46,7 +45,7 @@ router.post('/review/:slug', async (req, res, next) => {
   req.body = JSON.parse(JSON.stringify(req.body));
 	let item = Object.assign(req.body);
   item.time = Date.now();
-	ShoesModel.saveReview(id, item).then( (result) => {
+	await ShoesModel.saveReview(id, item).then( (result) => {
 		NotifyHelpers.showNotify(req, res, linkIndex, {tasks: 'add-review-success'});
 	});
 });

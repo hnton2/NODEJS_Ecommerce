@@ -14,7 +14,6 @@ router.get('/confirm/:id', async (req, res, next) => {
     pageTitle : 'Confirm',
     top_post: false,
     contact_layout: false,
-    sidebar_rss: false,
     layout: layoutShop,
     idOrder,
   });
@@ -32,7 +31,6 @@ router.get('/', async (req, res, next) => {
     pageTitle : titlePage,
     top_post: false,
     contact_layout: false,
-    sidebar_rss: false,
     layout: layoutShop,
     query,
     item,

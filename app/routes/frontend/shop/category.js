@@ -25,7 +25,6 @@ router.get('/shoes', async (req, res, next) => {
     pageTitle : titlePage,
     top_post: false,
     contact_layout: false,
-    sidebar_rss: false,
     layout: layoutShop,
     items,
   });
@@ -44,7 +43,6 @@ router.get('/clothing', async (req, res, next) => {
     pageTitle : titlePage,
     top_post: false,
     contact_layout: false,
-    sidebar_rss: false,
     layout: layoutShop,
     items,
   });
@@ -63,7 +61,6 @@ router.get('/accessory', async (req, res, next) => {
     pageTitle : titlePage,
     top_post: false,
     contact_layout: false,
-    sidebar_rss: false,
     layout: layoutShop,
     items,
   });

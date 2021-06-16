@@ -1,5 +1,4 @@
 const Model 	= require(__path_schemas + 'orders');
-const StringHelpers   = require(__path_helpers + 'string');
 
 module.exports = {
     listItems: (params, options = null) => {
@@ -69,10 +68,10 @@ module.exports = {
         product.forEach( (item) => { total += item.price * item.quantity; });
         if(Object.keys(sale_off).length !== 0) {
             item.promo_code = {
-                name: sale_off.code,
-                value: sale_off.saleOff
+                name: sale_off.name,
+                value: sale_off.discount
             }
-            item.total = total + parseInt(user.shipping_fee) - parseInt(sale_off.saleOff);
+            item.total = total + parseInt(user.shipping_fee) - parseInt(sale_off.discount);
         } else {
             item.total = total + parseInt(user.shipping_fee);
         }

@@ -1,6 +1,6 @@
 <% 
-    inputHelper = (name, value, type='text', id = '') => {
-        return 	`<input type="${type}" name="${name}" value="${value}" class="form-control form-control-sm" id='${id}'>`;
+    inputHelper = (name, value, type='text', id = '', placeholderName = '') => {
+        return 	`<input type="${type}" name="${name}" value="${value}" class="form-control form-control-sm" id='${id}' placeholder="${placeholderName}">`;
     }
 %>
 

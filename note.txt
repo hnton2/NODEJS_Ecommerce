@@ -6,3 +6,6 @@ chưa có link cho category shoes ở category và home
 phân trang ajax
 
 fix admin dashboard
+ajax ordering admin
+
+- Không chỉnh được kích thước ảnh tại sidebar category news

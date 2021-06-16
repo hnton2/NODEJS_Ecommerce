@@ -79,6 +79,12 @@
         <%- menuSidebarHelper('Quản lý quần áo', clothingManagement, 'fa-shopping-cart') %>
         <%- menuSidebarHelper('Quản lý phụ kiện', accessoryManagement, 'fa-shopping-cart') %>
         <li class="nav-item">
+          <a href="/<%=systemConfig.prefixAdmin%>/events" class="nav-link" data-active="events">
+            <i class="nav-icon fas fa-calendar-times"></i>
+            <p>Events</p>
+          </a>
+        </li>
+        <li class="nav-item">
           <a href="/<%=systemConfig.prefixAdmin%>/slider" class="nav-link" data-active="slider">
             <i class="nav-icon fas fa-map"></i>
             <p>Slider</p>

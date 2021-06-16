@@ -15,7 +15,6 @@ router.get('/',   async (req, res, next) => {
     pageTitle : 'Contact',
     top_post: false,
     contact_layout: true,
-    sidebar_rss: false,
     layout: layoutShop,
   });
 });

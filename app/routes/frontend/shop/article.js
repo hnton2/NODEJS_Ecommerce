@@ -27,8 +27,9 @@ router.get('/:slug', async (req, res, next) => {
     pageTitle   : itemMain[0].name,
     top_post: false,
     contact_layout: false,
-    sidebar_rss: false,
     layout: layoutShop,
+    categorySlug: 'all',
+    keyword: '',
     itemMain,
     itemMainCategory,
     itemsRelated

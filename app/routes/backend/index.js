@@ -26,5 +26,6 @@ router.use('/clothing-category', require('./clothing-category'));
 router.use('/clothing', require('./clothing'));
 router.use('/accessory-category', require('./accessory-category'));
 router.use('/accessory', require('./accessory'));
+router.use('/events', require('./events'));
 
 module.exports = router;

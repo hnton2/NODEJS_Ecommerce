@@ -3,7 +3,7 @@ var router = express.Router();
 var RSSCombiner = require('rss-combiner');
 const rp = require('request-promise');
 var weather = require('openweather-apis');
-
+const { all } = require('./news-category');
 
 const RSSModel = require(__path_models + 'rss');
 const RSSHelpers = require(__path_helpers + 'rss');
@@ -33,7 +33,6 @@ router.get('/',  async (req, res, next) => {
       pageTitle   : 'Fashion News', 
       top_post: false,
       contact_layout: false,
-      sidebar_rss: false,
       layout: layoutShop,
       itemsRSS
     });
@@ -63,8 +62,9 @@ router.get('/local-news',  async (req, res, next) => {
       pageTitle   : 'Local News', 
       top_post: false,
       contact_layout: false,
-      sidebar_rss: true,
       layout: layoutShop,
+      categorySlug: 'all',
+      keyword: '',
       itemsRSS
     });
   });
@@ -72,8 +72,9 @@ router.get('/local-news',  async (req, res, next) => {
 
 // Get gold
 router.get('/get-gold',  async (req, res, next) => {
-  let linkGoldPrice = 'https://www.sjc.com.vn/xml/tygiavang.xml';
+  let linkGoldPrice = 'http://www.giavangsjc.com/nd5/getrss.html/?param=4250LShvX0dUeERk';
   await RSSHelpers.xmlToJson(linkGoldPrice, (err, data) => {
+    console.log(data)
     if (err) { return console.err(err); }
     let items = data.root.ratelist[0].city[0].item;
     res.json(items);

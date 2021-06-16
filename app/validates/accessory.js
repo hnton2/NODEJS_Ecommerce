@@ -12,7 +12,8 @@ const options = {
     special: { value: 'allValue' },
     category: { value: 'allValue' },
     content: { min: 5, max: 20000 },
-    color: { min: 1},
+    color: { value: '' },
+    tags: { value: '' },
 }
 
 module.exports = {
@@ -57,8 +58,12 @@ module.exports = {
             .isLength({ min: options.content.min, max: options.content.max });
 
         // COLOR
-        req.checkBody('color', util.format(notify.ERROR_COLOR, options.color.min))
-            .isLength({ min: options.color.min});
+        req.checkBody('color', notify.ERROR_STATUS)
+        .isNotEqual(options.color.value);
+
+        // TAGS
+        req.checkBody('tags', notify.ERROR_STATUS)
+        .isNotEqual(options.tags.value);
 
         let errors = req.validationErrors() !== false ? req.validationErrors() : [];  
 		if (errUpload) {

@@ -27,4 +27,5 @@ module.exports = {
     col_shipping: 'shipping',
     col_accessory_category: 'accessory-category',
     col_accessory: 'accessory',
+    col_event: 'event',
 };
