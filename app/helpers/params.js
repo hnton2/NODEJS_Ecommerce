@@ -35,7 +35,12 @@ let createParamsFrontend = (req ) => {
 	params.size        	= getParam(req.query, 'size', 'all');
 	params.color        = getParam(req.query, 'color', 'all');
 	params.keyword        = getParam(req.query, 'search', '');
-
+	params.pagination 	 = {
+		totalItems		 : 1,
+		totalItemsPerPage: 24,
+		currentPage		 : parseInt(getParam(req.query, 'page', 1)),
+		pageRanges		 : 3
+	};
 	return params;
 }
 

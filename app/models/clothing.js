@@ -35,6 +35,8 @@ module.exports = {
             .find(objWhere)
             .select('name slug category.name price quantity sale_off brand thumb size color tags reviews product_type')
             .sort(sort)
+            .skip((params.pagination.currentPage-1) * params.pagination.totalItemsPerPage)
+		    .limit(params.pagination.totalItemsPerPage)
     },
     listItemsFrontend: async (params = null, option = null) => {
         let find = {};

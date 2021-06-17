@@ -36,6 +36,8 @@ module.exports = {
 		.find(objWhere)
 		.select('name slug category.name price quantity sale_off brand thumb size color tags reviews product_type')
 		.sort(sort)
+        .skip((params.pagination.currentPage-1) * params.pagination.totalItemsPerPage)
+		.limit(params.pagination.totalItemsPerPage)
     },
     listItemsFrontend: async (params = null, option = null) => {
         let find = {};
@@ -142,7 +144,6 @@ module.exports = {
     },
     countItems: (params, option = null) => {
         let objWhere	 = {};
-        if(params.currentStatus !== 'all') objWhere.status = params.currentStatus;
         if(params.keyword !== '') objWhere.name = new RegExp(params.keyword, 'i');
         if(params.categoryID !== '') objWhere.categoryID = params.categoryID;
         

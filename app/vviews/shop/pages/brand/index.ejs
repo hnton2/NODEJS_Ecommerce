@@ -1,5 +1,6 @@
 <% include ./../../helpers/rating-product %>
 <% include ./../../helpers/highlight %>
+<% include ./../../helpers/pagination %>
 <% 
   const folder_upload = 'uploads/';
   const linkPrefix    = systemConfig.prefixShop + '/';
@@ -15,16 +16,7 @@
           <option value="price-desc">Price (High to Low)</option>
         </select>
       </div>
-      <div class="ps-pagination">
-        <ul class="pagination"> 
-          <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
-          <li class="active"><a href="#">1</a></li>
-          <li><a href="#">2</a></li>
-          <li><a href="#">3</a></li>
-          <li><a href="#">...</a></li>
-          <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-        </ul>
-      </div>
+      <%- paginationHelper(params.pagination, linkPrefix + 'trademark', params, 'all', slugBrand) %>
     </div>
     <div class="ps-product__columns" id="product-area">
       <% items.forEach( (item) => { %>
@@ -71,16 +63,7 @@
           <option value="price-desc">Price (High to Low)</option>
         </select>
       </div>
-      <div class="ps-pagination">
-        <ul class="pagination">
-          <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
-          <li class="active"><a href="#">1</a></li>
-          <li><a href="#">2</a></li>
-          <li><a href="#">3</a></li>
-          <li><a href="#">...</a></li>
-          <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-        </ul>
-      </div>
+      <%- paginationHelper(params.pagination, linkPrefix + 'trademark', params, 'all', slugBrand) %>
     </div>
   </div>
   <div class="ps-sidebar" data-mh="product-listing">
@@ -102,9 +85,9 @@
       </div>
       <div class="ps-widget__content">
         <ul class="ps-list--checked" id="category_product">
-          <li><a href="<%= linkPrefix + 'category/shoes' %>" >Shoes</a></li>
-          <li><a href="<%= linkPrefix + 'category/clothing' %>" >Clothing</a></li>
-          <li><a href="<%= linkPrefix + 'category/accessory' %>" >Accessories & Equipment</a></li>
+          <li><a href="<%= linkPrefix + 'category/shoes' %>" target="_blank">Shoes</a></li>
+          <li><a href="<%= linkPrefix + 'category/clothing' %>" target="_blank">Clothing</a></li>
+          <li><a href="<%= linkPrefix + 'category/accessory' %>" target="_blank">Accessories & Equipment</a></li>
         </ul>
       </div>
     </aside>

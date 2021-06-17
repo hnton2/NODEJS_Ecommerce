@@ -20,6 +20,7 @@ router.get('/', async (req, res, next) => {
   await ShoesModel.listItemsInCategory(params).then( (data) => {items = items.concat(data);});
   await ClothingModel.listItemsInCategory(params).then( (data) => {items = items.concat(data);});
   await AccessoryModel.listItemsInCategory(params).then( (data) => {items = items.concat(data);});
+  params.pagination.totalItems = items.length;
   items = UtilsHelpers.shuffleArray(items);
   res.render(`${folderView}index`, { 
     pageTitle : titlePage,
@@ -28,6 +29,7 @@ router.get('/', async (req, res, next) => {
     layout: layoutShop,
     items,
     params,
+    slugBrand
   });
 });
 
