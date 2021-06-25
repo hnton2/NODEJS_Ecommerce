@@ -488,7 +488,7 @@ $(document).ready(function () {
                 success:function(data) {
                     let textTotal = $('span#info-total-price').text().substring(1);
                     let total = Number(textTotal) - data.discount;
-                    $('span#info-total-price').html(total + ' $');
+                    $('span#info-total-price').html('$' + total);
                     $('div.lds-ellipsis').remove();
                     $('.form-group').append(`<div id="notify_message">${data.message}</div>`);
                 }

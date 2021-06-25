@@ -86,7 +86,7 @@ router.post('/apply-promo-code', async (req, res, next) => {
   let discount = 0;
   let textMessage = 'This code is not valid ';
   await PromoModel.getItems({name: item.discount_code}, {task: 'get-items-by-name'}).then( async (item) => {
-    if(UtilsHelpers.validCode(item[0])) {
+    if(item[0] !== undefined && UtilsHelpers.validCode(item[0])) {
       discount = item[0].price;
       textMessage = `You get a $${discount} discount on your bill`;
       res.cookie('sale_off', {name: item[0].name, discount: discount});
