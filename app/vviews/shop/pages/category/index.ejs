@@ -3,7 +3,7 @@
 
 <% 
   const folder_upload = 'uploads/shoes/';
-  const linkShoes    = systemConfig.prefixShop + 'category/shoes';
+  const linkPrefix    = systemConfig.prefixShop + '/';
 %>
 
 <div class="ps-products-wrap pt-80 pb-80">
@@ -17,7 +17,7 @@
           <option value="price-desc">Price (High to Low)</option>
         </select>
       </div>
-      <%- paginationHelper(params.pagination, linkShoes, params, slugCategory, slugBrand) %>
+      <%- paginationHelper(params.pagination, linkPrefix + 'category/shoes', params) %>
     </div>
     <div class="ps-product__columns" id="product-area">
       <% items.forEach( (item) => { %>
@@ -27,9 +27,9 @@
               <% if(item.sale_off > 0) { %>
                 <div class="ps-badge ps-badge--sale"><span>-<%= item.sale_off %>%</span></div>
               <% } %>
-              <a class="ps-shoe__favorite" href="javascript:void(0)" onclick="favoriteProduct('<%= item.id %>')"><i class="ps-icon-heart"></i></a>
+              <a class="ps-shoe__favorite" href="javascript:void(0)" onclick="favoriteProduct('<%= item._id %>', '<%= item.name %>', '<%= item.product_type %>', '<%= item.thumb[0] %>')"><i class="ps-icon-heart"></i></a>
               <img src="<%= folder_upload + item.thumb[0] %>" style="width:272px;height:272px;object-fit:cover;" alt="">
-              <a class="ps-shoe__overlay" href="<%= linkShoes + item.slug %>"></a>
+              <a class="ps-shoe__overlay" href="<%= linkPrefix + 'shoes/' + item.slug %>"></a>
             </div>
             <div class="ps-shoe__content">
               <div class="ps-shoe__variants">
@@ -40,7 +40,7 @@
                 </div>
                 <%- ratingProductHelpers(item.reviews) %>
               </div>
-              <div class="ps-shoe__detail"><a class="ps-shoe__name" href="<%= linkShoes + item.slug %>"><%= item.name %></a>
+              <div class="ps-shoe__detail"><a class="ps-shoe__name" href="<%= linkPrefix + 'shoes/' + item.slug %>"><%= item.name %></a>
                 <p class="ps-shoe__categories"><a href="#"><%= item.category.name %> shoes</a>,<a href="#"> <%= item.brand.name %></a></p>
                 <span class="ps-shoe__price">
                   <% if(item.sale_off > 0) { %>
@@ -60,14 +60,24 @@
         <select name="sort-product" class="ps-select selectpicker"> 
           <option value="name-asc">Name (a -> z)</option>
           <option value="name-desc">Name (z -> a)</option>
-          <option value="price-asc" class="selected">Price (Low to High)</option>
+          <option value="price-asc">Price (Low to High)</option>
           <option value="price-desc">Price (High to Low)</option>
         </select>
       </div>
-      <%- paginationHelper(params.pagination, linkShoes, params, slugCategory, slugBrand) %>
+      <%- paginationHelper(params.pagination, linkPrefix + 'category/shoes', params) %>
     </div>
   </div>
-  <div class="ps-sidebar" data-mh="product-listing">
+  <div class="ps-sidebar" data-mh="product-listing">   
+    <aside class="ps-widget--sidebar ps-widget--category">
+      <div class="ps-product__filter">
+        <select name="all-product" class="ps-select selectpicker"> 
+          <option value="trademark">All</option>
+          <option value="shoes">Shoes</option>
+          <option value="clothing">Clothing</option>
+          <option value="accessory">Accessories & Equipment</option>
+        </select>
+      </div>
+    </aside>
     <aside class="ps-widget--sidebar ps-widget--category">
       <div class="ps-widget__header">
         <h3>Shoes Category</h3>
@@ -87,7 +97,7 @@
       <div class="ps-widget__content">
         <div class="ac-slider" data-default-min="0" data-default-max="500" data-max="500" data-step="10" data-unit="$"></div>
         <p class="ac-slider__meta">Price:<span class="ac-slider__value ac-slider__min"></span>-<span class="ac-slider__value ac-slider__max"></span></p>
-        <a class="ac-slider__filter ps-btn" href="javascript:void(0)" onclick="filterPrice()">Filter</a>
+        <a class="ac-slider__filter ps-btn" id="filter-price" href="javascript:void(0)">Filter</a>
       </div>
     </aside>
     <aside class="ps-widget--sidebar ps-widget--category">
@@ -166,6 +176,11 @@
             <li><a href="javascript:void(0)">Silver</a></li>
             <li><a href="javascript:void(0)">Purple</a></li>
           </ul>
+        </div>
+      </aside>
+      <aside class="ps-widget--sidebar ps-widget--category">
+        <div class="ps-widget__content">
+          <button class="ps-btn ps-btn--fullwidth" id="apply-filter">Apply</button>
         </div>
       </aside>
     </div>

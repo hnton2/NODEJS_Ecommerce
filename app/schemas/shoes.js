@@ -34,7 +34,7 @@ var schema = new mongoose.Schema({
     content: String,
     thumb: [String],
     tags: String,
-    size: String,
+    size: [String],
     color: String,
     reviews: [{
         name: String,

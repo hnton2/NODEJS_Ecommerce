@@ -17,8 +17,8 @@
                   <tr>
                     <th style="width: 10px">#</th>
                     <th>Name</th>
-                    <th style="width: 80px">Type</th>
-                    <th style="width: 80px">Brand</th>
+                    <th style="width: 150px">Type</th>
+                    <th style="width: 100px">Brand</th>
                     <th style="width: 40px">Price</th>
                   </tr>
                 </thead>
@@ -162,7 +162,7 @@
               <% lastedOrders.forEach( (item, index) => { %>
                 <tr>
                   <td><a href="<%= linkOrder + item.id %>"><%= item.code %></a></td>
-                  <td><%= item.user.first_name + ' ' + item.user.last_name %><br> </td>
+                  <td><%= item.user.name %><br> </td>
                   <td><%= item.user.address %><br> </td>
                   <td><span class="badge badge-success"><%= item.status %></span></td>
                   <td>

@@ -71,7 +71,7 @@
               <h4>CHOOSE SIZE</h4>
               <select id="size_select" class="ps-select selectpicker" name="size">
                 <option value="0">Select Size</option>
-                <% item.size.split(',').forEach ( (data) => { %>
+                <% item.size.forEach ( (data) => { %>
                   <option value="<%= data %>"><%= data %></option>
                 <% }) %>
               </select>
@@ -86,7 +86,10 @@
             <input class="form-control" name="id" value="<%= item.id %>" type="hidden" >
             <div class="ps-product__shopping">
               <button class="ps-btn mb-10">Add to cart<i class="ps-icon-next"></i></button>
-              <div class="ps-product__actions"><a class="mr-10" href="#"><i class="ps-icon-heart"></i></a><a href="#"><i class="ps-icon-share"></i></a></div>
+              <div class="ps-product__actions">
+                <a class="mr-10" href="javascript:void(0)" onclick="favoriteProduct('<%= item._id %>', '<%= item.name %>', '<%= item.product_type %>', '<%= item.thumb[0] %>')"><i class="ps-icon-heart"></i></a>
+                <a href="#"><i class="ps-icon-share"></i></a>
+              </div>
             </div>
           </div>
         </form>
@@ -181,8 +184,8 @@
                 <% if(item.sale_off > 0) { %>
                   <div class="ps-badge ps-badge--sale ps-badge--2nd"><span>-<%= item.sale_off %>%</span></div>
                 <% } %>
-                <a class="ps-shoe__favorite" href="#"><i class="ps-icon-heart"></i></a>
-                <img src="<%= folder_upload + item.thumb[0] %>" alt="">
+                <a class="ps-shoe__favorite" href="javascript:void(0)" onclick="favoriteProduct('<%= item._id %>', '<%= item.name %>', '<%= item.product_type %>', '<%= item.thumb[0] %>')"><i class="ps-icon-heart"></i></a>
+                <img src="<%= folder_upload + item.thumb[0] %>" style="width:330px;height:330px;object-fit:cover;" alt="<%= item.name %>">
                 <a class="ps-shoe__overlay" href="<%= linkShoes + item.slug %>"></a>
               </div>
               <div class="ps-shoe__content">

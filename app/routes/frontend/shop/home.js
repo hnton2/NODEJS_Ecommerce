@@ -27,7 +27,6 @@ router.get('/', async (req, res, next) => {
   let specialNews = [];
   let specialAccessory = [];
   let specialClothing = [];
-  let itemsBanner = [];
   let itemEvents = [];
   let lastedNews = [];
 

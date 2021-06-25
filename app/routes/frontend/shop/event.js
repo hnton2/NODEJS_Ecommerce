@@ -26,8 +26,8 @@ router.get('/:event', async (req, res, next) => {
   } else if(currentCurrent === 'most-popular') { 
     titlePage = 'Most Popular';
     taskEvent = 'popular-items';
-  } else if(currentCurrent === 'just-for-you') { 
-    titlePage = 'Just For You';
+  } else if(currentCurrent === 'most-favourite') { 
+    titlePage = 'Most Favourite';
     taskEvent = 'favorite-items';
   } else if(currentCurrent === 'highly-rated-product') { 
     titlePage = 'Highly Rated Product';

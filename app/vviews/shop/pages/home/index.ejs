@@ -89,7 +89,7 @@
                     <% if(item.sale_off > 0) { %>
                       <div class="ps-badge ps-badge--sale ps-badge--2nd"><span>-<%= item.sale_off %>%</span></div>
                     <% } %>
-                    <a class="ps-shoe__favorite" href="javascript:void(0)" onclick="favoriteProduct('<%= item._id %>')"><i class="ps-icon-heart"></i></a>
+                    <a class="ps-shoe__favorite" href="javascript:void(0)" onclick="favoriteProduct('<%= item._id %>', '<%= item.name %>', '<%= item.product_type %>', '<%= item.thumb[0] %>')"><i class="ps-icon-heart"></i></a>
                     <img src="<%= folder_upload_shoes + item.thumb[0] %>" style="width:330px;height:330px;object-fit:cover;" alt="">
                     <a class="ps-shoe__overlay" href="<%= linkShoes + item.slug %>"></a>
                   </div>
@@ -146,8 +146,8 @@
                 <% if(item.sale_off > 0) { %>
                   <div class="ps-badge ps-badge--sale"><span>-<%= item.sale_off %>%</span></div>
                 <% } %>
-                <a class="ps-shoe__favorite" href="#"><i class="ps-icon-heart"></i></a>
-                <img src="<%= folder_upload_clothing + item.thumb[0] %>" alt="">
+                <a class="ps-shoe__favorite" href="javascript:void(0)" onclick="favoriteProduct('<%= item._id %>', '<%= item.name %>', '<%= item.product_type %>', '<%= item.thumb[0] %>')"><i class="ps-icon-heart"></i></a>
+                <img src="<%= folder_upload_clothing + item.thumb[0] %>" style="width:330px;height:330px;object-fit:cover;" alt="<%= item.name %>">
                 <a class="ps-shoe__overlay" href="<%= linkClothing + item.slug %>"></a>
               </div>
               <div class="ps-shoe__content">
@@ -198,8 +198,8 @@
                 <% if(item.sale_off > 0) { %>
                   <div class="ps-badge ps-badge--sale"><span>-<%= item.sale_off %>%</span></div>
                 <% } %>
-                <a class="ps-shoe__favorite" href="#"><i class="ps-icon-heart"></i></a>
-                <img src="<%= folder_upload_accessory + item.thumb[0] %>" alt="">
+                <a class="ps-shoe__favorite" href="javascript:void(0)" onclick="favoriteProduct('<%= item._id %>', '<%= item.name %>', '<%= item.product_type %>', '<%= item.thumb[0] %>')"><i class="ps-icon-heart"></i></a>
+                <img src="<%= folder_upload_accessory + item.thumb[0] %>" style="width:330px;height:330px;object-fit:cover;" alt="<%= item.name %>">
                 <a class="ps-shoe__overlay" href="<%= linkAccessory + item.slug %>"></a>
               </div>
               <div class="ps-shoe__content">

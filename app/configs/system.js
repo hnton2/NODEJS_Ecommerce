@@ -3,7 +3,7 @@ module.exports = {
     prefixAdmin: 'admin',
     prefixBlog: 'blog',
     prefixShop: '',
-    env: 'dev', // production dev
+    env: 'production', // production dev
     format_date: 'DD-MM-YYYY',
     format_date_2: 'MMMM Do YYYY, h:mm:ss a',
     status_value: [

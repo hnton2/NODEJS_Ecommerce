@@ -59,7 +59,10 @@ app.use(validator({
   customValidators: {
     isNotEqual: (value1, value2) => {
       return value1!==value2;
-    }
+    },
+    notEmptyArray: function(array) {
+      return array.length > 0;
+   }
   }
 }));
 

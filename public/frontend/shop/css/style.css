@@ -1865,7 +1865,7 @@ textarea.form-control {
   flex-flow: row nowrap; }
   .ps-post--sidebar .ps-post__thumbnail {
     position: relative;
-    width: 70px; }
+    max-width: 100px; }
     .ps-post--sidebar .ps-post__thumbnail a {
       position: absolute;
       top: 0;

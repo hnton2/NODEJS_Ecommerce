@@ -8,123 +8,102 @@ $(document).ready(function () {
     // ---END: ACTIVE MENU HEADER---
 
     let linkHref =  $(location).attr("href");
-    
-    // ---BEGIN: CHOOSE CATEGORY---
-    $('ul#category_product li').click(function(e) { 
-        $('ul#category_product li').removeClass('current');
-        var linkRedirect = '';
-        let strEnd = '';
-        let nameCategory = $(this).attr('data-name');
-        if(linkHref.includes('slug')) {
-            let splitHref = linkHref.split('slug=');
-            let strQ = splitHref[1].split('&');
-            if(strQ[1] !== undefined) strEnd = '&' + strQ[1];
-            if(strQ[0] === nameCategory) {
-                linkRedirect = splitHref[0].slice(0, splitHref[0].length - 1) + strEnd;
-            } else {
-                if(linkHref.indexOf('?') != -1) { var linkRedirect = splitHref[0] + 'slug=' + nameCategory + strEnd; } 
-                else { var linkRedirect = splitHref[0].slice(0, splitHref[0].length - 1) + '?slug=' + nameCategory + strEnd; }
-            }
-        } else {
-            $(this).addClass('current');
-            if(linkHref.indexOf('?') != -1) { var linkRedirect = linkHref + '&slug=' + nameCategory; } 
-            else { var linkRedirect = linkHref + '?slug=' + nameCategory; }
+    let arrQuery = {};
+    // ---BEGIN: CHANGE TYPE OF PRODUCT---
+    $('select[name=all-product]').change(function() {
+        let link =  $(location).attr("href");
+        if(link.includes('shoes')) {
+            link = link.replace('shoes', $(this).val())
+        } else if(link.includes('clothing')) {
+            link = link.replace('clothing', $(this).val())
+        } else if(link.includes('accessory')) {
+            link = link.replace('accessory', $(this).val())
+        } else if(link.includes('trademark')) {
+            link = link.replace('trademark', $(this).val())
         }
-        window.location.href = linkRedirect;
+        window.location.href = link;
+    });
+    // ---END: CHANGE TYPE OF PRODUCT---
+
+    // ---BEGIN: CHOOSE CATEGORY---
+    $('ul#category_product li').click(function(e) {
+        if($(this).hasClass('current')) {
+            $('ul#category_product li').removeClass('current');
+            arrQuery.category = '';
+        } else {
+            $('ul#category_product li').removeClass('current');
+            $(this).addClass('current');
+            arrQuery.category = $(this).attr('data-name');
+        }
     });
     // ---END: CHOOSE CATEGORY---
 
+    // ---BEGIN: FILTER PRICE---
+    $('a#filter-price').click(function(e) { 
+        var el = $('.ac-slider');
+        if (el.length > 0) {
+            var values = el.slider("option", "values");
+            arrQuery.filter_price = values[0] + '-' + values[1];
+        }
+    });
+    // ---END: FILTER PRICE---
+
     // ---BEGIN: CHOOSE BRAND---
     $('ul#brand_product li').click(function(e) { 
-        $('ul#brand_product li').removeClass('current');
-        var linkRedirect = '';
-        let strEnd = '';
-        let nameBrand = $(this).attr('data-name');
-        if(linkHref.includes('brand')) {
-            let splitHref = linkHref.split('brand=');
-            let strQ = splitHref[1].split('&');
-            if(strQ[1] !== undefined) strEnd = '&' + strQ[1];
-            if(strQ[0] === nameBrand) {
-                linkRedirect = splitHref[0].slice(0, splitHref[0].length - 1) + strEnd;
-            } else {
-                if(linkHref.indexOf('?') != -1) { var linkRedirect = splitHref[0] + 'brand=' + nameBrand + strEnd; } 
-                else { var linkRedirect = splitHref[0].slice(0, splitHref[0].length - 1) + '?brand=' + nameBrand + strEnd; }
-            }
+        if($(this).hasClass('current')) {
+            $('ul#brand_product li').removeClass('current');
+            arrQuery.brand = '';
         } else {
+            $('ul#brand_product li').removeClass('current');
             $(this).addClass('current');
-            if(linkHref.indexOf('?') != -1) { var linkRedirect = linkHref + '&brand=' + nameBrand; } 
-            else { var linkRedirect = linkHref + '?brand=' + nameBrand; }
+            arrQuery.brand = $(this).attr('data-name');
         }
-        window.location.href = linkRedirect;
     });
     // ---END: CHOOSE BRAND---
 
     // ---BEGIN: SORT PRODUCT IN CATEGORY---
     $('select[name=sort-product]').change(function() {
-        var linkRedirect = '';
-        let strEnd = '';
-        if(linkHref.includes('sort')) {
-            let splitHref = linkHref.split('sort=');
-            let strQ = splitHref[1].split('&');
-            if(strQ[1] !== undefined) strEnd = '&' + strQ[1];
-            linkRedirect = splitHref[0] + 'sort=' + $(this).val() + strEnd;
-        } else {
-            if(linkHref.indexOf('?') != -1) { linkRedirect = linkHref + '&sort=' + $(this).val(); } 
-            else { linkRedirect = linkHref + '?sort=' + $(this).val(); }
-        }
-        window.location.href = linkRedirect;
+        arrQuery.sort = $(this).val();
     });
     // ---END: SORT PRODUCT IN CATEGORY---
 
     // ---BEGIN: CHOOSE SIZE IN CATEGORY---
     $("#table_size").on("click", "td", function() {
-        $('#table_size td').removeClass('active');
-        var linkRedirect = '';
-        let strEnd = '';
-        if(linkHref.includes('size')) {
-            let splitHref = linkHref.split('size=');
-            let strQ = splitHref[1].split('&');
-            if(strQ[1] !== undefined) strEnd = '&' + strQ[1];
-            if(strQ[0] === $(this).text()) {
-                linkRedirect = splitHref[0].slice(0, splitHref[0].length - 1) + strEnd;
-            } else {
-                if(linkHref.indexOf('?') != -1) { var linkRedirect = splitHref[0] + 'size=' + $(this).text() + strEnd; } 
-                else { var linkRedirect = splitHref[0].slice(0, splitHref[0].length - 1) + '?size=' + $(this).text() + strEnd; }
-            }
+        if($(this).hasClass('current')) {
+            $('#table_size td').removeClass('active');
+            arrQuery.size = '';
         } else {
-            $(this).addClass('active');
-            if(linkHref.indexOf('?') != -1) { var linkRedirect = linkHref + '&size=' + $(this).text(); } 
-            else { var linkRedirect = linkHref + '?size=' + $(this).text(); }
+            $('#table_size td').removeClass('active');
+            $(this).addClass('active')
+            arrQuery.size = $(this).text();
         }
-        window.location.href = linkRedirect;
     });
     // ---END: CHOOSE SIZE IN CATEGORY---
     
     // ---BEGIN: CHOOSE COLOR IN CATEGORY---
     $('ul#color_product li').click(function(e) { 
-        $('ul#color_product li').removeClass('current');
-        var linkRedirect = '';
-        let strEnd = '';
-        if(linkHref.includes('color')) {
-            let splitHref = linkHref.split('color=');
-            let strQ = splitHref[1].split('&');
-            if(strQ[1] !== undefined) strEnd = '&' + strQ[1];
-            if(strQ[0] === $(this).text()) {
-                linkRedirect = splitHref[0].slice(0, splitHref[0].length - 1) + strEnd;
-            } else {
-                if(linkHref.indexOf('?') != -1) { var linkRedirect = splitHref[0] + 'color=' + $(this).text() + strEnd; } 
-                else { var linkRedirect = splitHref[0].slice(0, splitHref[0].length - 1) + '?color=' + $(this).text() + strEnd; }
-            }
+        if($(this).hasClass('current')) {
+            $('ul#color_product li').removeClass('current');
+            arrQuery.color = '';
         } else {
-            $(this).addClass('current');
-            if(linkHref.indexOf('?') != -1) { var linkRedirect = linkHref + '&color=' + $(this).text(); } 
-            else { var linkRedirect = linkHref + '?color=' + $(this).text(); }
+            $('ul#color_product li').removeClass('current');
+            $(this).addClass('current')
+            arrQuery.color = $(this).text();
         }
-        window.location.href = linkRedirect;
     });
     // ---END: CHOOSE COLOR IN CATEGORY---
 
     // ---BEGIN: ACTIVE SIDEBAR CATEGORY---
+    if(linkHref.includes('shoes')) {
+        $('select[name=all-product]').val('shoes');
+        $('.selectpicker').selectpicker('refresh');
+    } else if(linkHref.includes('clothing')) {
+        $('select[name=all-product]').val('clothing');
+        $('.selectpicker').selectpicker('refresh');
+    } else if(linkHref.includes('accessory')) {
+        $('select[name=all-product]').val('accessory');
+        $('.selectpicker').selectpicker('refresh');
+    }
     if(linkHref.includes('?')) {
         let queryString = linkHref.slice(linkHref.indexOf('?') + 1).split('&');
         queryString.forEach( (query) => {
@@ -172,6 +151,24 @@ $(document).ready(function () {
         })
     }
     // ---END: ACTIVE SIDEBAR CATEGORY---
+
+    // ---BEGIN: APPLY FILTER CATEGORY---
+    $('button#apply-filter').click(function(e) {
+        let linkPrefix =  $(location).attr("href").split('?')[0];
+        let linkRedirect = linkPrefix;
+        if(Object.keys(arrQuery).length !== 0) {
+            linkRedirect += '?';
+            if('category' in arrQuery && arrQuery.category !== '') linkRedirect += 'slug=' + arrQuery.category + '&';
+            if('filter_price' in arrQuery && arrQuery.filter_price !== '') linkRedirect += 'filter_price=' + arrQuery.filter_price + '&';
+            if('brand' in arrQuery && arrQuery.brand !== '') linkRedirect += 'brand=' + arrQuery.brand + '&';
+            if('sort' in arrQuery && arrQuery.sort !== '') linkRedirect += 'sort=' + arrQuery.sort + '&'; 
+            if('size' in arrQuery && arrQuery.size !== '') linkRedirect += 'size=' + arrQuery.size + '&';
+            if('color' in arrQuery && arrQuery.color !== '') linkRedirect += 'color=' + arrQuery.color + '&';
+        }
+        linkRedirect = linkRedirect.slice(0, -1);
+        window.location.href = linkRedirect;
+    })
+    // ---END: APPLY FILTER CATEGORY---
         
     // ---BEGIN: CHOOSE LOCATION WHEN CHECKOUT---
     if(currentMenu === 'checkout') {
@@ -557,21 +554,33 @@ function getFormattedDate(date) {
     return month + '/' + day + '/' + year;
 }
 
-function favoriteProduct(id) {
-    link = '/shoes/favorite/' + id;
+function favoriteProduct(id, name, type, thumb) {
+    link = `/${type}/favorite/` + id;
     Swal.fire({
-        title: 'Favorite product success!',
-        icon: 'success',
-        showConfirmButton: false,
-        timer: 1500
-    });
-    $.ajax({
-        url: link,
-        type: 'post',
-        success:function(data){
-            
+        title: name,
+        icon: 'info',
+        html: 'Do you like this ' + type,
+        imageUrl: 'uploads/' + type + '/' + thumb,
+        imageAlt: name,
+        showCloseButton: true,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        focusConfirm: false,
+        confirmButtonText: '<i class="fa fa-thumbs-up"></i> Like!',
+        confirmButtonAriaLabel: 'Thumbs up, like!',
+        cancelButtonText: 'Cancel',
+        cancelButtonAriaLabel: 'Cancel'
+    }).then( (result) => {
+        if (result.isConfirmed) {
+            Swal.fire('Like Success!', '', 'success')
+            $.ajax({
+                url: link,
+                type: 'post',
+                success:function(data) { }
+            });
         }
-    });
+    })
 }
 
 function changeQuantity(link) {
@@ -685,24 +694,4 @@ function renderLogoBrand(items) {
         xhtml +=`<a class="ps-offer" href="/trademark?brand=${item.slug}" style="padding: 20px;"><img src="uploads/brand/${item.thumb}" style="height: 250px; width: 250px;" alt=""></a>`;
     });
     return xhtml;
-}
-
-function filterPrice() {
-    var el = $('.ac-slider');
-    var linkRedirect = '';
-    let strEnd = '';
-    let linkHref =  $(location).attr("href");
-    if (el.length > 0) {
-        var values = el.slider("option", "values");
-        if(linkHref.includes('filter-price')) {
-            let splitHref = linkHref.split('filter-price=');
-            let strQ = splitHref[1].split('&');
-            if(strQ[1] !== undefined) strEnd = '&' + strQ[1];
-            linkRedirect = splitHref[0] + 'filter-price=' + values[0] + '-' + values[1] + strEnd;
-        } else {
-            if(linkHref.indexOf('?') != -1) { linkRedirect = linkHref + '&filter-price=' + values[0] + '-' + values[1]; } 
-            else { linkRedirect = linkHref + '?filter-price=' + values[0] + '-' + values[1]; }
-        }
-    }
-    window.location.href = linkRedirect;
 }

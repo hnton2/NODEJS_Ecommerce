@@ -12,7 +12,6 @@ const options = {
     special: { value: 'allValue' },
     category: { value: 'allValue' },
     content: { min: 5, max: 20000 },
-    size: { value: '' },
     color: { value: '' },
     tags: { value: '' },
 }
@@ -60,7 +59,7 @@ module.exports = {
         
         // SIZE
         req.checkBody('size', notify.ERROR_STATUS)
-        .isNotEqual(options.size.value);
+        .notEmptyArray();
 
         // COLOR
         req.checkBody('color', notify.ERROR_STATUS)

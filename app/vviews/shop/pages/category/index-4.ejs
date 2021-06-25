@@ -16,7 +16,7 @@
           <option value="price-desc">Price (High to Low)</option>
         </select>
       </div>
-      <%- paginationHelper(params.pagination, linkPrefix + 'trademark', params, 'all', slugBrand) %>
+      <%- paginationHelper(pagination, linkPrefix + 'category/trademark', params) %>
     </div>
     <div class="ps-product__columns" id="product-area">
       <% items.forEach( (item) => { %>
@@ -26,7 +26,7 @@
               <% if(item.sale_off > 0) { %>
                 <div class="ps-badge ps-badge--sale"><span>-<%= item.sale_off %>%</span></div>
               <% } %>
-              <a class="ps-shoe__favorite" href="javascript:void(0)" onclick="favoriteProduct('<%= item.id %>')"><i class="ps-icon-heart"></i></a>
+              <a class="ps-shoe__favorite" href="javascript:void(0)" onclick="favoriteProduct('<%= item._id %>', '<%= item.name %>', '<%= item.product_type %>', '<%= item.thumb[0] %>')"><i class="ps-icon-heart"></i></a>
               <img src="<%= folder_upload + item.product_type + '/' + item.thumb[0] %>" style="width:272px;height:272px;object-fit:cover;" alt="">
               <a class="ps-shoe__overlay" href="<%= linkPrefix + item.product_type + '/' + item.slug %>"></a>
             </div>
@@ -39,7 +39,8 @@
                 </div>
                 <%- ratingProductHelpers(item.reviews) %>
               </div>
-              <div class="ps-shoe__detail"><a class="ps-shoe__name" href="<%= linkPrefix + item.product_type + '/' + item.slug %>"><%- highlightHelper(item.name, params.keyword) %></a>
+              <div class="ps-shoe__detail">
+                <a class="ps-shoe__name" href="<%= linkPrefix + item.product_type + '/' + item.slug %>"><%- highlightHelper(item.name, params.keyword) %></a>
                 <p class="ps-shoe__categories"><a href="#"><%= item.category.name %></a>,<a href="#"> <%= item.brand.name %></a></p>
                 <span class="ps-shoe__price">
                   <% if(item.sale_off > 0) { %>
@@ -63,10 +64,20 @@
           <option value="price-desc">Price (High to Low)</option>
         </select>
       </div>
-      <%- paginationHelper(params.pagination, linkPrefix + 'trademark', params, 'all', slugBrand) %>
+      <%- paginationHelper(pagination, linkPrefix + 'category/trademark', params) %>
     </div>
   </div>
   <div class="ps-sidebar" data-mh="product-listing">
+    <aside class="ps-widget--sidebar ps-widget--category">
+      <div class="ps-product__filter">
+        <select name="all-product" class="ps-select selectpicker"> 
+          <option value="trademark">All</option>
+          <option value="shoes">Shoes</option>
+          <option value="clothing">Clothing</option>
+          <option value="accessory">Accessories & Equipment</option>
+        </select>
+      </div>
+    </aside>
     <aside class="ps-widget--sidebar ps-widget--category">
       <div class="ps-widget__header">
         <h3>Brand</h3>
@@ -79,18 +90,6 @@
         </ul>
       </div>
     </aside>
-    <aside class="ps-widget--sidebar ps-widget--category">
-      <div class="ps-widget__header">
-        <h3>Category</h3>
-      </div>
-      <div class="ps-widget__content">
-        <ul class="ps-list--checked" id="category_product">
-          <li><a href="<%= linkPrefix + 'category/shoes' %>" target="_blank">Shoes</a></li>
-          <li><a href="<%= linkPrefix + 'category/clothing' %>" target="_blank">Clothing</a></li>
-          <li><a href="<%= linkPrefix + 'category/accessory' %>" target="_blank">Accessories & Equipment</a></li>
-        </ul>
-      </div>
-    </aside>
     <aside class="ps-widget--sidebar ps-widget--filter">
       <div class="ps-widget__header">
         <h3>Shop by Price</h3>
@@ -98,7 +97,7 @@
       <div class="ps-widget__content">
         <div class="ac-slider" data-default-min="0" data-default-max="500" data-max="500" data-step="10" data-unit="$"></div>
         <p class="ac-slider__meta">Price:<span class="ac-slider__value ac-slider__min"></span>-<span class="ac-slider__value ac-slider__max"></span></p>
-        <a class="ac-slider__filter ps-btn" href="javascript:void(0)" onclick="filterPrice()">Filter</a>
+        <a class="ac-slider__filter ps-btn" href="javascript:void(0)"id="filter-price">Filter</a>
       </div>
     </aside>
     <div class="ps-sticky desktop">
@@ -119,6 +118,11 @@
             <li><a href="javascript:void(0)">Silver</a></li>
             <li><a href="javascript:void(0)">Purple</a></li>
           </ul>
+        </div>
+      </aside>
+      <aside class="ps-widget--sidebar ps-widget--category">
+        <div class="ps-widget__content">
+          <button class="ps-btn ps-btn--fullwidth" id="apply-filter">Apply</button>
         </div>
       </aside>
     </div>

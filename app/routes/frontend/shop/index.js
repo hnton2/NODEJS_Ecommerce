@@ -18,7 +18,6 @@ router.use('/',
             middlewareGetAccessoryCategory, middlewareGetBestShoes, middlewareGetBanner,
             require('./home'));
 router.use('/category', require('./category'));
-router.use('/trademark', require('./brand'));
 router.use('/shoes', require('./shoes'));
 router.use('/clothing', require('./clothing'));
 router.use('/accessory', require('./accessory'));

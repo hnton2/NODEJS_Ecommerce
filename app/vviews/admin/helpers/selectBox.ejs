@@ -1,12 +1,17 @@
 <% 
-    selectBoxHelper = (name, items, optionSelected = '', idName = '') => {
+    selectBoxHelper = (name, items, optionSelected = '', idName = '', multipleValue = false) => {
         let xhtml = '';
+        let selected = '';
         items.forEach((item) =>{
-            let selected = (item.id == optionSelected) ? `selected="selected"` : '';
+            if(multipleValue === true) {
+                selected = optionSelected.includes(item.id) ? `selected="selected"` : '';
+            } else { 
+                selected = (item.id == optionSelected) ? `selected="selected"` : '';
+            }
             let id       = (item.id == undefined) ? 'allValue' : item.id;
             xhtml += `<option value="${id}" ${selected} >${item.name}</option>`;
         });
-        
+        if(multipleValue === true) return `<select id="${idName}" name="${name}" multiple="multiple" class="custom-select custom-select-sm mr-1">${xhtml}</select>`;
         return `<select id="${idName}" name="${name}" class="custom-select custom-select-sm mr-1">${xhtml}</select>`;
     }
 %>

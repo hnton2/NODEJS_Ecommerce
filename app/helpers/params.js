@@ -31,6 +31,8 @@ let createParamsFrontend = (req ) => {
 	let strSort		    = getParam(req.query, 'sort', 'name-asc');
 	params.sortType 	= strSort.split('-')[1];
   	params.sortField 	= strSort.split('-')[0];
+	params.category 	= getParam(req.query, 'slug', 'all');
+	params.brand 	  = getParam(req.query, 'brand', 'all');
 	params.price        = getParam(req.query, 'filter-price', 'all');
 	params.size        	= getParam(req.query, 'size', 'all');
 	params.color        = getParam(req.query, 'color', 'all');

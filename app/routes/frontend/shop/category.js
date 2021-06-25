@@ -11,15 +11,14 @@ const BrandModel = require(__path_models + 'brand');
 const ParamsHelpers 	= require(__path_helpers + 'params');
 const folderView	 = __path_views_shop + 'pages/category/';
 const layoutShop    = __path_views_shop + 'frontend';
+const UtilsHelpers 		= require(__path_helpers + 'utils');
 
 router.get('/shoes', async (req, res, next) => {
   let params 		 = ParamsHelpers.createParamsFrontend(req);
   let titlePage = 'Shoes';
   let items = [];
-	let slugCategory 	= ParamsHelpers.getParam(req.query, 'slug', 'all');
-  let slugBrand 	  = ParamsHelpers.getParam(req.query, 'brand', 'all');
-  if(slugCategory !== 'all') { await ShoesCategoryModel.getItems({slug: slugCategory}, {task: 'get-items-by-slug'}).then( (items) => {params.categoryID = items[0].id; titlePage = items[0].name;}); }
-  if(slugBrand !== 'all') { await BrandModel.getItems({slug: slugBrand}, {task: 'get-items-by-slug'}).then( (items) => {params.brandID = items[0].id; titlePage = items[0].name;}); }
+  if(params.category !== 'all') { await ShoesCategoryModel.getItems({slug: params.category}, {task: 'get-items-by-slug'}).then( (items) => {params.categoryID = items[0].id; titlePage = items[0].name;}); }
+  if(params.brand !== 'all') { await BrandModel.getItems({slug: params.brand}, {task: 'get-items-by-slug'}).then( (items) => {params.brandID = items[0].id; titlePage = items[0].name;}); }
   await ShoesModel.countItems(params).then( (data) => { params.pagination.totalItems = data; })
   await ShoesModel.listItemsInCategory(params).then( (item) => {items = item;});
   res.render(`${folderView}index`, { 
@@ -28,8 +27,6 @@ router.get('/shoes', async (req, res, next) => {
     contact_layout: false,
     layout: layoutShop,
     items,
-    slugCategory,
-    slugBrand,
     params,
   });
 });
@@ -38,10 +35,8 @@ router.get('/clothing', async (req, res, next) => {
   let params 		 = ParamsHelpers.createParamsFrontend(req);
   let titlePage = 'Clothing';
   let items = [];
-	let slugCategory 	= ParamsHelpers.getParam(req.query, 'slug', 'all');
-  let slugBrand 	  = ParamsHelpers.getParam(req.query, 'brand', 'all');
-  if(slugCategory !== 'all') { await ClothingCategoryModel.getItems({slug: slugCategory}, {task: 'get-items-by-slug'}).then( (items) => {params.categoryID = items[0].id; titlePage = items[0].name;}); }
-  if(slugBrand !== 'all') { await BrandModel.getItems({slug: slugBrand}, {task: 'get-items-by-slug'}).then( (items) => {params.brandID = items[0].id; titlePage = items[0].name;}); }
+  if(params.category !== 'all') { await ClothingCategoryModel.getItems({slug: params.category}, {task: 'get-items-by-slug'}).then( (items) => {params.categoryID = items[0].id; titlePage = items[0].name;}); }
+  if(params.brand !== 'all') { await BrandModel.getItems({slug: params.brand}, {task: 'get-items-by-slug'}).then( (items) => {params.brandID = items[0].id; titlePage = items[0].name;}); }
   await ClothingModel.countItems(params).then( (data) => { params.pagination.totalItems = data; })
   await ClothingModel.listItemsInCategory(params).then( (item) => {items = item;});
   res.render(`${folderView}index-2`, { 
@@ -50,8 +45,6 @@ router.get('/clothing', async (req, res, next) => {
     contact_layout: false,
     layout: layoutShop,
     items,
-    slugCategory,
-    slugBrand,
     params,
   });
 });
@@ -60,10 +53,8 @@ router.get('/accessory', async (req, res, next) => {
   let params 		 = ParamsHelpers.createParamsFrontend(req);
   let titlePage = 'Accessories & Equipment';
   let items = [];
-	let slugCategory 	= ParamsHelpers.getParam(req.query, 'slug', 'all');
-  let slugBrand 	  = ParamsHelpers.getParam(req.query, 'brand', 'all');
-  if(slugCategory !== 'all') { await AccessoryCategoryModel.getItems({slug: slugCategory}, {task: 'get-items-by-slug'}).then( (items) => {params.categoryID = items[0].id; titlePage = items[0].name;}); }
-  if(slugBrand !== 'all') { await BrandModel.getItems({slug: slugBrand}, {task: 'get-items-by-slug'}).then( (items) => {params.brandID = items[0].id; titlePage = items[0].name;}); }
+  if(params.category !== 'all') { await AccessoryCategoryModel.getItems({slug: params.category}, {task: 'get-items-by-slug'}).then( (items) => {params.categoryID = items[0].id; titlePage = items[0].name;}); }
+  if(params.brand !== 'all') { await BrandModel.getItems({slug: params.brand}, {task: 'get-items-by-slug'}).then( (items) => {params.brandID = items[0].id; titlePage = items[0].name;}); }
   await AccessoryModel.countItems(params).then( (data) => { params.pagination.totalItems = data; })
   await AccessoryModel.listItemsInCategory(params).then( (item) => {items = item;});
   res.render(`${folderView}index-3`, { 
@@ -72,9 +63,38 @@ router.get('/accessory', async (req, res, next) => {
     contact_layout: false,
     layout: layoutShop,
     items,
-    slugCategory,
-    slugBrand,
     params,
+  });
+});
+
+
+router.get('/trademark', async (req, res, next) => {
+  let params 		 = ParamsHelpers.createParamsFrontend(req);
+  let titlePage = 'Brand';
+  let items = [];
+
+  if(params.brand !== 'all') { await BrandModel.getItems({slug: params.brand}, {task: 'get-items-by-slug'}).then( (items) => {params.brandID = items[0].id; titlePage = items[0].name;}); }
+  
+  await ShoesModel.listItemsInCategory2(params).then( (data) => {items = items.concat(data);});
+  await ClothingModel.listItemsInCategory2(params).then( (data) => {items = items.concat(data);});
+  await AccessoryModel.listItemsInCategory2(params).then( (data) => {items = items.concat(data);});
+  let pagination 	 = {
+		totalItems		 : 1,
+		totalItemsPerPage: 20,
+		currentPage		 : parseInt(ParamsHelpers.getParam(req.query, 'page', 1)),
+		pageRanges		 : 3,
+    totalItems: items.length
+	};
+  items = items.slice((pagination.currentPage - 1) * pagination.totalItemsPerPage, pagination.currentPage * pagination.totalItemsPerPage);
+  items = UtilsHelpers.shuffleArray(items);
+  res.render(`${folderView}index-4`, { 
+    pageTitle : titlePage,
+    top_post: false,
+    contact_layout: false,
+    layout: layoutShop,
+    items,
+    params,
+    pagination,
   });
 });
 

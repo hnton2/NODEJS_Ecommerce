@@ -21,7 +21,7 @@
         {for: 'thumb', label: 'Thumb', input: inputMultiImageHelper('thumb', product.name, 'input-multi-files')},
         {for: 'showThumb', label: '', input: showMultiImageHelper(folder_upload, product.thumb)},
 		{for: 'ordering', label: 'Ordering', input: inputHelper('ordering', product.ordering)},
-		{for: 'size', label: 'Size', input: selectBoxHelper('size', systemConfig.size_shoe_value, product.size, 'slb-multiple-size')},
+		{for: 'size', label: 'Size', input: selectBoxHelper('size', systemConfig.size_clothing_value, product.size, 'slb-multiple-size', true)},
 		{for: 'color', label: 'Color', input: selectBoxHelper('color', systemConfig.color_value, product.color, 'slb-multiple-color')},
 		{for: 'tags', label: 'Tags', input: inputHelper('tags', product.tags, 'text', 'tags-input')}, 
 		{for: 'price', label: 'Price', input: inputHelper('price', product.price)},

@@ -1,9 +1,7 @@
 validator phía client
-kiểm tra link category
 sửa lại file me.js trong backend
 fix radio box cho status active - inactive
 chưa có link cho category shoes ở category và home
-phân trang ajax
 
 fix admin dashboard
 ajax ordering admin

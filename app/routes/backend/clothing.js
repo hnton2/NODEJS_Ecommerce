@@ -46,7 +46,7 @@ router.get('(/status/:status)?', async (req, res, next) => {
 	await MainModel.countItems(params).then( (data) => {
 		params.pagination.totalItems = data;
 	});
-	
+	console.log(params)
 	MainModel.listItems(params)
 		.then( (items) => {
 			res.render(`${folderView}list`, { 

@@ -95,13 +95,7 @@ $(document).ready(function () {
     // date-range picker
     $('input[name="duration"]').daterangepicker({
         opens: 'left',
-        /* locale: {
-            format: 'MMMM D, YYYY'
-        } */
     });
-
-    // Summernote
-    $('#summernote').summernote()
 
     // change order status
     $('select[name=filter-progress]').change(function() {
@@ -342,7 +336,7 @@ $(document).ready(function () {
             },
             status: {
                 valueNotEquals: "allValue"
-            },
+            }
         },
         messages: {
             name: {
@@ -359,19 +353,25 @@ $(document).ready(function () {
         },
         errorElement: 'span',
         errorPlacement: function (error, element) {
-        error.addClass('invalid-feedback');
-        element.closest('.form-group .col-sm-8').append(error);
+            error.addClass('invalid-feedback');
+            element.closest('.form-group .col-sm-8').append(error);
         },
         highlight: function (element, errorClass, validClass) {
-        $(element).addClass('is-invalid');
+            $(element).addClass('is-invalid');
         },
         unhighlight: function (element, errorClass, validClass) {
-        $(element).removeClass('is-invalid');
+            $(element).removeClass('is-invalid');
         },
         submitHandler: function(form) {
             form.submit();
         }
     });
+
+
+    // Summernote
+    $('#summernote').summernote({
+        height: 200,
+    })
 });
 
 

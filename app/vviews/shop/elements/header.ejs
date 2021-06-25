@@ -31,7 +31,7 @@
                     <ul class="mega-item mega-features">
                       <li><a href="<%= linkPrefix + 'event/new-releases'%>">NEW RELEASES</a></li>  <!-- Sản phẩm mới -->
                       <li><a href="<%= linkPrefix + 'event/most-popular'%>">MOST POPULAR</a></li> <!-- sản phẩm được mua nhiều và yêu thích nhiều -->
-                      <li><a href="<%= linkPrefix + 'event/just-for-you'%>">JUST FOR YOU</a></li> <!-- sản phẩm được yêu thích nhiều -->
+                      <li><a href="<%= linkPrefix + 'event/most-favourite'%>">MOST FAVOURITE</a></li> <!-- sản phẩm được yêu thích nhiều -->
                       <li><a href="<%= linkPrefix + 'event/highly-rated-product'%>">HIGHLY RATED PRODUCT</a></li> <!-- sản phẩm được được đánh giá cao -->
                       <li><a href="<%= linkPrefix + 'event/flash-sale'%>">FLASH SALE</a></li> <!-- sản phẩm giảm giá -->
                       <li><a href="<%= linkPrefix + 'event/best-sellers'%>">BEST SELLERS</a></li> <!-- sản phẩm được mua nhiều -->
@@ -69,8 +69,9 @@
                   <div class="mega-column">
                     <h4 class="mega-heading">BRAND</h4>
                     <ul class="mega-item">
+                      <li><a href="<%= linkPrefix + 'category/trademark' %>">All</a></li>
                       <% itemsBrand.forEach ( (item)=>{ %>
-                        <li><a href="<%= linkPrefix + 'trademark?brand=' + item.slug %>"><%= item.name %></a></li>
+                        <li><a href="<%= linkPrefix + 'category/trademark?brand=' + item.slug %>"><%= item.name %></a></li>
                       <% }) %>
                     </ul>
                   </div>

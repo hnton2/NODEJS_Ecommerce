@@ -39,6 +39,21 @@ module.exports = {
         .skip((params.pagination.currentPage-1) * params.pagination.totalItemsPerPage)
 		.limit(params.pagination.totalItemsPerPage)
     },
+    listItemsInCategory2: (params) => {
+        let sort 		 = {};
+        let objWhere	 = {};
+        sort[params.sortField] = params.sortType;
+        if(params.keyword !== '') objWhere.name = new RegExp(params.keyword, 'i');
+        if(params.brandID !== undefined && params.brandID !== '') objWhere['brand.id'] = params.brandID;
+        let arrPrice = params.price.split('-');
+        if(params.price !== 'all') objWhere.price = {$gt : arrPrice[0], $lt : arrPrice[1]};
+        if(params.color !== 'all') objWhere.color = { "$in" : [params.color.toLowerCase()] };
+    
+        return Model
+		.find(objWhere)
+		.select('name slug category.name price quantity sale_off brand thumb size color tags reviews product_type')
+		.sort(sort)
+    },
     listItemsFrontend: async (params = null, option = null) => {
         let find = {};
         let select = 'name slug created category.name category.id thumb brand price sale_off reviews product_type';
@@ -130,7 +145,7 @@ module.exports = {
         return Model.find(find).select(select).limit(limit).sort(sort);
     },
     getMainItems: (slug, option = null) => { 
-        let select = 'name slug brand category.name category.id price thumb content sale_off tags color size reviews';
+        let select = 'name slug brand category.name category.id price thumb content sale_off tags color size reviews product_type';
         return Model.find({slug: slug}).select(select);
     },
     getItems: (id, option = null) => {
