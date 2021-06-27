@@ -33,9 +33,9 @@
 							<td><div id="price-<%= item.id %>">$<%= item.price %></div></td>
 							<td>
 								<div class="form-group--number">
-									<button class="minus" onclick="changeQuantity('<%= linkPrefix %>cart/change-quantity-decrease/<%= item.id %>')"><span>-</span></button></a>
+									<button class="minus" onclick="changeQuantity('<%= linkPrefix %>cart/change-quantity-decrease/<%= item.id %>')"><span>-</span></button>
 									<input id="quantity-<%= item.id %>" class="form-control" type="text" value="<%= item.quantity %>">
-									<button class="plus" onclick="changeQuantity('<%= linkPrefix %>cart/change-quantity-increase/<%= item.id %>')"><span>+</span></button></a>
+									<button class="plus" onclick="changeQuantity('<%= linkPrefix %>cart/change-quantity-increase/<%= item.id %>')"><span>+</span></button>
 								</div>
 							</td>
 							<td><div id="total-<%= item.id %>">$<%= item.price * item.quantity %></div></td>

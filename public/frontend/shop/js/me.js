@@ -185,6 +185,7 @@ $(document).ready(function () {
             let fee = 0;
             let totalBox = $('#total-price');
             $('input[name=province]').val(province.text());
+            $('#shipping-fee').html('<div class="lds-ring"><div></div><div></div><div></div><div></div></div>')
             $.ajax({
                 url: '/checkout/get-shipping-fee',
                 type: 'get',
@@ -192,8 +193,13 @@ $(document).ready(function () {
                     data.forEach( (item) => {
                         if(item.code === province.val()) {
                             fee = item.cost;
-                            $('#shipping-fee').html('$ ' + fee);
-                            totalBox.html('$ ' + (Number(totalBox.text().slice(2)) + Number(fee)));
+                            if($('input[name=shipping_fee]').val() !== 0) {
+                                let total = Number(totalBox.text().slice(1)) + Number(fee) - Number($('input[name=shipping_fee]').val());
+                                totalBox.html('$' + total);
+                            } else {
+                                totalBox.html('$' + (Number(totalBox.text().slice(1)) + Number(fee)));
+                            }
+                            $('#shipping-fee').html('$' + fee);
                             $('input[name=shipping_fee]').val(fee);
                         }
                     });
@@ -592,6 +598,14 @@ function changeQuantity(link) {
     let operator = (state[2] === 'increase') ? 1 : -1;
     let quantity = Number(index.val()) + operator;
     if(quantity >= 0) {
+        Swal.fire({
+            title: 'Please wait !!!',
+            html: 'Processing...',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+        });
+        Swal.showLoading()
         $.ajax({
             url: link,
             type: 'post',
@@ -599,11 +613,16 @@ function changeQuantity(link) {
                 index.val(quantity);
                 $('#total-' + elementLink[3]).text('$' + (Number(price) * Number(quantity)));
                 allTotal.text('$' + (Number(price)*operator + Number(allTotal.text().substring(1))));
-                index.notify(data.message, { position:"top", className: 'success' });
+                Swal.close();
             }
         });
     } else {
-        alert("Quantity must be greater than 0 !!!")
+        Swal.fire({
+            title: 'Quantity must be greater than 0 !!!',
+            icon: 'error',
+            showConfirmButton: false,
+            timer: 3000
+        });
     }
 }
 
