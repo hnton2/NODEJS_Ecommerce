@@ -157,18 +157,14 @@ module.exports = {
     getNameOfItems: () => {
         return Model.find().select('name');
     },
-    countItems: (params, option = null) => {
+    countItems: (params = null, option = null) => {
         let objWhere	 = {};
-        if(params.keyword !== '') objWhere.name = new RegExp(params.keyword, 'i');
-        if(params.categoryID !== '') objWhere.categoryID = params.categoryID;
-        
+        if(params != null) {
+            if(params.currentStatus !== 'all') objWhere.status = params.currentStatus;
+            if(params.keyword !== '') objWhere.name = new RegExp(params.keyword, 'i');
+            if(params.categoryID !== '') objWhere.categoryID = params.categoryID;
+        }        
         return Model.countDocuments(objWhere);
-    },
-    countingInventory: () => {
-        return Model.aggregate([
-            { $match: {status: 'active'}},
-            { $group: { _id: null, quantity: { $sum: "$quantity" } } }
-        ]);
     },
     changeStatus: (id, currentStatus, user, option = null) => {
         let status = '';

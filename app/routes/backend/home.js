@@ -15,7 +15,7 @@ const UtilsHelpers 	= require(__path_helpers + 'utils');
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
-  let nInventory = 0;
+  let nProducts = 0;
   let nSales = 0;
   let lastedContact = [];
   let lastedOrders = [];
@@ -23,7 +23,10 @@ router.get('/', async function(req, res, next) {
 
   let totalOrders = await UtilsHelpers.countCollections(OrderSchemas);
   let totalContact = await UtilsHelpers.countCollections(ContactSchemas);
-  await ShoesModel.countingInventory().then((item) => { nInventory = item[0].quantity; });
+  await ShoesModel.countItems().then((data) => { nProducts += data; });
+  await AccessoryModel.countItems().then((data) => { nProducts += data; });
+  await ClothingModel.countItems().then((data) => { nProducts += data; });
+
   await OrdersModel.countingSales().then((item) => { nSales = item[0].total; });
   await OrdersModel.getItems(null, {task: 'lasted-item'}).then( (item) => { lastedOrders = item; });
   await ContactModel.getItems(null, {task: 'lasted-item'}).then( (item) => { lastedContact = item; });
@@ -34,12 +37,13 @@ router.get('/', async function(req, res, next) {
   await AccessoryModel.listItemsFrontend(null, {task: 'best-sellers-items'}).then( (data) => {items = items.concat(data);});
   await ClothingModel.listItemsFrontend(null, {task: 'best-sellers-items'}).then( (data) => {items = items.concat(data);});
   items = UtilsHelpers.shuffleArray(items);
+  items = items.slice(0, 5);
 
   res.render(`${folderView}index`, { 
-    pageTitle   : 'HomePage',
+    pageTitle   : 'Home',
     totalOrders,
     totalContact,
-    nInventory,
+    nProducts,
     nSales,
     lastedContact,
     lastedOrders,

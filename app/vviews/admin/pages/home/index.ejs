@@ -17,16 +17,18 @@
                   <tr>
                     <th style="width: 10px">#</th>
                     <th>Name</th>
-                    <th style="width: 150px">Type</th>
+                    <th style="width: 100px">Type</th>
+                    <th style="width: 150px">Category</th>
                     <th style="width: 100px">Brand</th>
                     <th style="width: 40px">Price</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <% items.forEach( (item, index) => { %>
+                  <% items.forEach( (item, index) => { %> 
                     <tr>
                       <td><%= index + 1 %></td>
                       <td><%= item.name %></td>
+                      <td><%= item.product_type %></td>
                       <td><%= item.category.name %></td>
                       <td><%= item.brand.name %></td>
                       <td><span class="badge bg-danger">$<%= item.price %></span></td>
@@ -36,23 +38,14 @@
               </table>
             </div>
             <!-- /.card-body -->
-            <div class="card-footer clearfix">
-              <ul class="pagination pagination-sm m-0 float-right">
-                <li class="page-item"><a class="page-link" href="#">«</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">»</a></li>
-              </ul>
-            </div>
         </div>
     </div>
     <div class="col-md-4">
         <div class="info-box mb-3 bg-warning">
             <span class="info-box-icon"><i class="fas fa-tag"></i></span>
             <div class="info-box-content">
-              <span class="info-box-text">Inventory</span>
-              <span class="info-box-number"><%= nInventory %></span>
+              <span class="info-box-text">Products</span>
+              <span class="info-box-number"><%= nProducts %></span>
             </div>
             <!-- /.info-box-content -->
         </div>
@@ -88,7 +81,7 @@
       <div class="card">
         <div class="card-header">
           <h3 class="card-title">List contact</h3>
-          <div class="card-tools">
+          <!-- <div class="card-tools">
             <div class="input-group input-group-sm" style="width: 150px;">
               <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
               <div class="input-group-append">
@@ -97,7 +90,7 @@
                 </button>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
         <!-- /.card-header -->
         <div class="card-body table-responsive p-0">

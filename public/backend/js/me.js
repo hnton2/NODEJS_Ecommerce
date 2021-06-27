@@ -317,59 +317,8 @@ $(document).ready(function () {
     $('#slb-multiple-size').select2({placeholder: 'Select size'});
     $('#slb-multiple-color').select2({placeholder: 'Select color'});
 
-    $.validator.addMethod('minStrict', function (value, el, param) {
-        return value > param;
-    });
-    $.validator.addMethod("valueNotEquals", function(value, element, arg){
-        return arg !== value;
-    }, "Value must not equal arg.");
-    $('#items-form').validate({ 
-        errorClass: 'help-inline',
-        rules: {
-            name: {
-                required: true,
-                minlength: 5,
-            },
-            ordering: {
-                required: true,
-                minStrict: 1
-            },
-            status: {
-                valueNotEquals: "allValue"
-            }
-        },
-        messages: {
-            name: {
-                required: "Please enter Name !!!",
-                minlength: "Your name must be at least 5 characters long"
-            },
-            ordering: {
-                required: "Please enter Ordering !!!",
-                minStrict: "Ordering must be greater than 0"
-            },
-            status: { 
-                valueNotEquals: "Please select status !!!"
-            }
-        },
-        errorElement: 'span',
-        errorPlacement: function (error, element) {
-            error.addClass('invalid-feedback');
-            element.closest('.form-group .col-sm-8').append(error);
-        },
-        highlight: function (element, errorClass, validClass) {
-            $(element).addClass('is-invalid');
-        },
-        unhighlight: function (element, errorClass, validClass) {
-            $(element).removeClass('is-invalid');
-        },
-        submitHandler: function(form) {
-            form.submit();
-        }
-    });
-
-
     // Summernote
-    $('#summernote').summernote({
+    $('.summernote').summernote({
         height: 200,
     })
 });
