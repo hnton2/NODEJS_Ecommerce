@@ -61,33 +61,22 @@
           <a href="/<%=systemConfig.prefixAdmin%>/config" class="nav-link" data-active="config">
             <i class="nav-icon fas fa-book-dead"></i>
             <p>
-              Config
-              <span class="right badge badge-danger">New</span>
+              Config website
             </p>
           </a>
         </li>
-        <li class="nav-header">DATABASE</li>
-        <%- menuSidebarHelper('Quản lý user', userManagement, 'fa-male') %>
-        <%- menuSidebarHelper('Quản lý bài viết', articleManagement, 'fa-newspaper') %>
-        <li class="nav-item">
-          <a href="/<%=systemConfig.prefixAdmin%>/brand" class="nav-link" data-active="brand">
-            <i class="nav-icon fas fa-bookmark"></i>
-            <p>Brand</p>
-          </a>
-        </li>
-        <%- menuSidebarHelper('Quản lý giày dép', shoesManagement, 'fa-shopping-cart') %>
-        <%- menuSidebarHelper('Quản lý quần áo', clothingManagement, 'fa-shopping-cart') %>
-        <%- menuSidebarHelper('Quản lý phụ kiện', accessoryManagement, 'fa-shopping-cart') %>
-        <li class="nav-item">
-          <a href="/<%=systemConfig.prefixAdmin%>/events" class="nav-link" data-active="events">
-            <i class="nav-icon fas fa-calendar-times"></i>
-            <p>Events</p>
-          </a>
-        </li>
+        <li class="nav-header">MANAGEMENT</li>
+        <%- menuSidebarHelper('User', userManagement, 'fa-male') %>
         <li class="nav-item">
           <a href="/<%=systemConfig.prefixAdmin%>/slider" class="nav-link" data-active="slider">
             <i class="nav-icon fas fa-map"></i>
             <p>Slider</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/<%=systemConfig.prefixAdmin%>/brand" class="nav-link" data-active="brand">
+            <i class="nav-icon fas fa-bookmark"></i>
+            <p>Brand</p>
           </a>
         </li>
         <li class="nav-item">
@@ -96,22 +85,32 @@
             <p>Banner</p>
           </a>
         </li>
+        <%- menuSidebarHelper('Articles', articleManagement, 'fa-newspaper') %>
+        <%- menuSidebarHelper('Shoes', shoesManagement, 'fa-shopping-cart') %>
+        <%- menuSidebarHelper('Clothing', clothingManagement, 'fa-shopping-cart') %>
+        <%- menuSidebarHelper('Accessory & Equipments', accessoryManagement, 'fa-shopping-cart') %>
         <li class="nav-item">
           <a href="/<%=systemConfig.prefixAdmin%>/orders" class="nav-link" data-active="orders">
             <i class="nav-icon fas fa-file"></i>
-            <p>Quản lý đơn hàng</p>
+            <p>Orders</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/<%=systemConfig.prefixAdmin%>/events" class="nav-link" data-active="events">
+            <i class="nav-icon fas fa-calendar-times"></i>
+            <p>Events</p>
           </a>
         </li>
         <li class="nav-item">
           <a href="/<%=systemConfig.prefixAdmin%>/promo" class="nav-link" data-active="promo">
             <i class="nav-icon fas ion-cash"></i>
-            <p>Quản lý mã giảm giá</p>
+            <p>Promo Code</p>
           </a>
         </li>
         <li class="nav-item">
           <a href="/<%=systemConfig.prefixAdmin%>/shipping" class="nav-link" data-active="shipping">
             <i class="nav-icon fas ion-flash"></i>
-            <p>Quản lý phí vận chuyển<span class="badge badge-info right">63</span></p>
+            <p>Shipping Fee<span class="badge badge-info right">63</span></p>
           </a>
         </li>
         <li class="nav-item">

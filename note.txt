@@ -1,9 +1,0 @@
-validator phía client
-sửa lại file me.js trong backend
-fix radio box cho status active - inactive
-chưa có link cho category shoes ở category và home
-
-fix admin dashboard
-ajax ordering admin
-
-- Không chỉnh được kích thước ảnh tại sidebar category news

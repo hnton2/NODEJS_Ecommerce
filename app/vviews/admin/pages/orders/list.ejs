@@ -64,13 +64,11 @@
 						</th>
 						<th class="text-center">ID</th> 
 						<%- sortHelper(linkPrefix, 'Code', 'code', params.sortField, params.sortType, 'width:10%') %>
-						<th class="text-center">Status</th>
+						<th class="text-center" style="width:10%;">Status</th>
 						<th class="text-center">Customer</th>
 						<th class="text-center">Product</th>
-						<%- sortHelper(linkPrefix, 'Price', 'total', params.sortField, params.sortType, 'width:5%') %>
-						<th class="text-center">Register date</th>
-						<th class="text-center">Promotional Code</th>
 						<th class="text-center">Detail</th>
+						<th class="text-center">View</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -89,19 +87,18 @@
 								</td>
 								<td class="text-sm-left">
 									<% item.product.forEach( (x) => { %>
-										<b><%= x.name %></b> (<%= x.size %>) <br>
+										<b><%= x.name %></b> 
+										<% if(x.size !== undefined) { %>
+											(<%= x.size %>)
+										<% } %>
+										<br>
 									<% }) %>
 								</td>
 								<td class="text-sm-left">
-									<b>Shipping</b>: <%= item.shipping_fee %><br>
-									<b>Total</b>: <%= item.total %><br>
-								</td>
-								<td class="text-center"><%= moment(item.time).format(systemConfig.format_date) %></td>
-								<td class="text-center">
-									<% if(item.promo_code.name === undefined) { %>
-										None
-									<% } else { %>
-										<%= item.promo_code.name + ' - $' + item.promo_code.value %>
+									<b>Register date</b>: <%= moment(item.time).format(systemConfig.format_date) %><br>
+									<b>Total</b>: $<%= item.total %><br>
+									<% if(item.promo_code.name !== undefined) { %>
+										<b>Promotional Code</b>:<%= item.promo_code.name + ' - $' + item.promo_code.value %>
 									<% } %>
 								</td>
 								<td class="text-center">

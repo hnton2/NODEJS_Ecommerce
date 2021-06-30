@@ -1,5 +1,6 @@
 var express = require('express');
 var router 	= express.Router();
+var fs = require('fs');
 
 const controllerName 	= 'orders';
 
@@ -69,9 +70,19 @@ router.get(('/form(/:id)?'), async (req, res, next) => {
 	await ConfigModel.getItems().then( (items) => {infoConfig = items[0]})
 	MainModel.getItems({id: id}, {task: 'get-items-by-id'}).then( (item) =>{
 		res.render(`${folderView}form`, { pageTitle: 'Invoice #' + item.code, item, infoConfig, errors});
-	});	
+	});
 });
 
+// INVOICE PRINT
+router.get(('/print/:id'), async (req, res, next) => {
+	let id		= ParamsHelpers.getParam(req.params, 'id', '');
+	let errors   = null;
+	let infoConfig = [];
+	await ConfigModel.getItems().then( (items) => {infoConfig = items[0]})
+	MainModel.getItems({id: id}, {task: 'get-items-by-id'}).then( (item) =>{
+		res.render(`${folderView}invoice-print`, { layout: false, pageTitle: 'Invoice #' + item.code, item, infoConfig, errors});
+	});
+});
 
 // SORT
 router.get(('/sort/:sort_field/:sort_type'), (req, res, next) => {
