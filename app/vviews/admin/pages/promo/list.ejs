@@ -67,6 +67,7 @@
 						</th>
 						<th class="text-center">ID</th>
 						<%- sortHelper(linkPrefix, 'Name', 'name', params.sortField, params.sortType, 'width:20%') %>
+						<%- sortHelper(linkPrefix, 'Code', 'code', params.sortField, params.sortType, 'width:20%') %>
 						<%- sortHelper(linkPrefix, 'Value ($)', 'price', params.sortField, params.sortType) %>
 						<%- sortHelper(linkPrefix, 'Status', 'status', params.sortField, params.sortType) %>
 						<%- sortHelper(linkPrefix, 'Amount', 'amount', params.sortField, params.sortType) %>
@@ -84,6 +85,7 @@
 								</td>
 								<td class="text-center"><%= index+1 %></td>
 								<td class="text-center"><%- highlightHelper(item.name, params)%></td>
+								<td class="text-center"><%- item.code%></td>
 								<td class="text-center"><%- item.price%></td>
 								<td class="text-center position-relative"><%- statusHelper(linkPrefix, 'status', item.status, item.id) %></td>
 								<td class="text-center position-relative"><input type="number" name="ordering<%= item.id %>" value="<%= item.amount %>" class="ordering form-control form-control-sm m-auto text-center" style="width: 65px" id="ordering<%= item.id %>" data-id="<%= item.id %>" min="1"></td>

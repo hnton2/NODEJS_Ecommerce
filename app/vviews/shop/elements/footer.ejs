@@ -37,6 +37,17 @@
               <p>Phone: +<%= webConfig.hotline %></p>
             </footer>
           </aside>
+          <hr>
+          <aside class="ps-widget--footer ps-widget--info">
+            <!-- <header>
+              <h3 class="ps-widget__title">Address Office 2</h3>
+            </header> -->
+            <footer>
+              <p><strong>5/2 Ho Van Long Street, Bình Tân District, Ho Chi Minh City</strong></p>
+              <p>Email: <a href='#'>sonnnguyen3301@gmail.com</a></p>
+              <p>Phone: +0708756525</p>
+            </footer>
+          </aside>
         </div>
         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12 ">
           <aside class="ps-widget--footer ps-widget--link">
@@ -45,7 +56,7 @@
             </header>
             <footer>
               <ul class="ps-list--link">
-                <li><a href="#">Promotions</a></li>
+                <li><a href="<%= linkPrefix + 'promotion' %>">Promotions</a></li>
                 <li><a href="#">Sign Up For Email</a></li>
                 <li><a href="<%= linkPrefix + 'orders-tracking' %>">Order Status</a></li> 
                 <li><a href="<%= linkPrefix + 'about/' %>">About us</a></li>
@@ -107,14 +118,14 @@
     <div class="ps-container">
       <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
-          <p>&copy; <%= webConfig.name_website %>, Inc. All rights Resevered. Design by <a href="#"> Alena Studio</a></p>
+          <p>&copy; <%= webConfig.name_website %>, Inc. All rights Reserved</p>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
           <ul class="ps-social">
-            <li><a href="<%= webConfig.facebook %>"><i class="fa fa-facebook"></i></a></li>
-            <li><a href="<%= webConfig.instagram %>"><i class="fa fa-google-plus"></i></a></li>
-            <li><a href="<%= webConfig.twitter %>"><i class="fa fa-twitter"></i></a></li>
-            <li><a href="<%= webConfig.instagram %>"><i class="fa fa-instagram"></i></a></li>
+            <li><a href="<%= webConfig.facebook %>" target="_blank"><i class="fa fa-facebook"></i></a></li>
+            <li><a href="<%= webConfig.instagram %>" target="_blank"><i class="fa fa-google-plus"></i></a></li>
+            <li><a href="<%= webConfig.twitter %>" target="_blank"><i class="fa fa-twitter"></i></a></li>
+            <li><a href="<%= webConfig.instagram %>" target="_blank"><i class="fa fa-instagram"></i></a></li>
           </ul>
         </div>
       </div>

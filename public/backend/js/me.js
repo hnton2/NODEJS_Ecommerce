@@ -89,6 +89,11 @@ function changeShippingFee(id) {
 
 $(document).ready(function () {
 
+    // Summernote
+    $('#summernote').summernote({
+        height: 200,
+    })
+
     //Date and time picker
     $('#datetimepicker').datetimepicker({ icons: { time: 'far fa-clock' } });
 
@@ -316,11 +321,6 @@ $(document).ready(function () {
 
     $('#slb-multiple-size').select2({placeholder: 'Select size'});
     $('#slb-multiple-color').select2({placeholder: 'Select color'});
-
-    // Summernote
-    $('.summernote').summernote({
-        height: 200,
-    })
 });
 
 

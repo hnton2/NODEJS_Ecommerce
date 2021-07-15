@@ -87,7 +87,7 @@ router.post('/delete', (req, res, next) => {
 router.get(('/form(/:id)?'), (req, res, next) => {
 	let id		= ParamsHelpers.getParam(req.params, 'id', '');
 	let rdString = StringHelpers.generateCode(6);
-	let item	= {name: rdString, price: 0, status: 'allValue', amount: 1, duration: ''};
+	let item	= {name: '', code: rdString, price: 0, status: 'allValue', amount: 1, duration: '', content: ''};
 	let errors   = null;
 	if(id === '') { // ADD
 		res.render(`${folderView}form`, { pageTitle: pageTitleAdd, item, errors});

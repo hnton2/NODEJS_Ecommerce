@@ -48,7 +48,7 @@ router.post('/save', async (req, res, next) => {
   let emailConfig = [];
   await ConfigModel.getEmail().then( (items) => { emailConfig = items[0]});
   UtilsHelpers.countingSoldProduct(product[0].id, product[0].product_type);
-  await PromoModel.increasingUsedTimes(sale_off.name).then( (result) => { });
+  await PromoModel.increasingUsedTimes(sale_off.code).then( (result) => { });
   
   await OrdersModel.saveItems(invoiceCode, product, user, sale_off).then( (result) => {
     EmailHelpers.sendEmail(emailConfig, result.user.email, invoiceCode)

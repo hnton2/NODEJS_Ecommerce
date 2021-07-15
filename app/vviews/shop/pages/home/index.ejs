@@ -1,6 +1,7 @@
 <% include ./../../helpers/format-date %>
 <% include ./../../helpers/format-summary %>
 <% include ./../../helpers/rating-product %>
+<% include ./../../helpers/product %>
 <% 
   const linkLogoBrand = systemConfig.prefixShop + '/all-brand-product';
   const linkPrefix    = systemConfig.prefixShop + '/';
@@ -33,7 +34,7 @@
               <p class="ps-product__price" id="product__price">Only: <span>...</span></p>
               <div class="ps-product__status">
                 <div class="sold" id="product__sold">Already sold: <span>...</span></div>
-                <div class="avaiable" id="product__available">Avaiable: <span>...</span></div>
+                <div class="avaiable" id="product__available">Available: <span>...</span></div>
               </div>
               <div class="progress" id="progress__bar">
                 <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
@@ -81,38 +82,10 @@
       <div class="masonry-wrapper" data-col-md="4" data-col-sm="2" data-col-xs="1" data-gap="30" data-radio="100%">
         <div class="ps-masonry">
           <% lastedShoes.forEach( (item) => { %>
-            <div class="grid-item <%= item.brand.name %>" style="width:360px;height:445px;">
+            <div class="grid-item ${item.brand.name}" style="width:360px;height:445px;">
               <div class="grid-item__content-wrapper">
                 <div class="ps-shoe mb-30">
-                  <div class="ps-shoe__thumbnail">
-                    <div class="ps-badge"><span>New</span></div>
-                    <% if(item.sale_off > 0) { %>
-                      <div class="ps-badge ps-badge--sale ps-badge--2nd"><span>-<%= item.sale_off %>%</span></div>
-                    <% } %>
-                    <a class="ps-shoe__favorite" href="javascript:void(0)" onclick="favoriteProduct('<%= item._id %>', '<%= item.name %>', '<%= item.product_type %>', '<%= item.thumb[0] %>')"><i class="ps-icon-heart"></i></a>
-                    <img src="<%= folder_upload_shoes + item.thumb[0] %>" style="width:330px;height:330px;object-fit:cover;" alt="">
-                    <a class="ps-shoe__overlay" href="<%= linkShoes + item.slug %>"></a>
-                  </div>
-                  <div class="ps-shoe__content">
-                    <div class="ps-shoe__variants">
-                      <div class="ps-shoe__variant normal"> 
-                        <% item.thumb.forEach( (image) => { %>
-                          <img src="<%= folder_upload_shoes + image %>" alt="">
-                        <% }) %>
-                      </div>
-                      <%- ratingProductHelpers(item.reviews) %>
-                    </div>
-                    <div class="ps-shoe__detail"><a class="ps-shoe__name" href="<%= linkShoes + item.slug %>"><%= item.name %></a>
-                      <p class="ps-shoe__categories"><a href="#"><%= item.category.name %> shoes</a>,<a href="#"> <%= item.brand.name %></a></p>
-                      <span class="ps-shoe__price" style="top:20px">
-                        <% if(item.sale_off > 0) { %>
-                        <del>$<%= item.price %></del> $<%= item.price - (item.price * (item.sale_off/100)) %>
-                        <% } else { %>
-                          $<%= item.price%>
-                        <% } %>
-                      </span>
-                    </div>
-                  </div>
+                  <%- productHelper(folder_upload_shoes, linkShoes, item) %>
                 </div>
               </div>
             </div>
@@ -272,29 +245,22 @@
     </div>
   </div>
 </div>
-<div class="ps-section--features-product ps-section masonry-root pt-50 pb-30"> 
+<div class="ps-section--features-product ps-section masonry-root pt-50 pb-5"> 
   <div class="ps-container">
     <div class="ps-section__header mb-50">
       <h3 class="ps-section__title" data-mask="Hots News">- News</h3>
-      <ul class="ps-masonry__filter">
-        <li class="current"><a href="#" data-filter="*">All</a></li>
-        <% itemsCategory.forEach ( (item)=>{ %>
-          <li><a href="#" data-filter=".<%= item.name %>"><%= item.name %></a></li>
-        <% }) %>
-      </ul>
     </div>
     <div class="ps-section__content pb-50">
       <div class="masonry-wrapper" data-col-md="4" data-col-sm="2" data-col-xs="1" data-gap="30" data-radio="100%">
         <div class="ps-masonry">
           <div class="grid-sizer"></div>
           <% for(let i = 0; i < lastedNews.length; i++) { %>
-            <div class="grid-item <%= lastedNews[i].category.name %>" style="width: 360px;height: 438px;">
+            <div class="grid-item <%= lastedNews[i].category.name %>" style="width: 360px;height: 400px;">
               <div class="grid-item__content-wrapper">
                   <div class="ps-post">
-                    <div class="ps-post__thumbnail"><a class="ps-post__overlay" href="<%= linkNews + lastedNews[i].slug %>"></a><img src="<%= folder_upload_news + lastedNews[i].thumb %>" style="height: 235px; width: 450px;" alt=""></div>
+                    <div class="ps-post__thumbnail" data-category='<%= formatDate(lastedNews[i].created.time, "LL") %>'><a class="ps-post__overlay" href="<%= linkNews + lastedNews[i].slug %>"></a><img src="<%= folder_upload_news + lastedNews[i].thumb %>" style="height: 235px; width: 450px;" alt=""></div>
                     <div class="ps-post__content"><a class="ps-post__title" href="<%= linkNews + lastedNews[i].slug %>"><%= lastedNews[i].name %></a>
-                      <p class="ps-post__meta"><span>By:<a class="mr-5" href="#">Alena Studio</a></span> -<span class="ml-5"><%= formatDate(lastedNews[i].created.time) %></span></p>
-                      <p><%= formatSummaryHelper(lastedNews[i].summary) %>…</p><a class="ps-morelink" href="<%= linkNews + lastedNews[i].slug %>">Read more<i class="fa fa-long-arrow-right"></i></a>
+                      <p><%= formatSummaryHelper(lastedNews[i].summary, 100) %>…</p>
                     </div>
                   </div>
               </div>
@@ -304,35 +270,33 @@
     </div>
   </div>
 </div>
-<div class="ps-section ps-section--top-sales ps-owl-root pt-40 pb-40">
+<div class="ps-section ps-home-blog pt-80 pb-80">
   <div class="ps-container">
     <div class="ps-section__header mb-50">
-      <div class="row">
-        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 ">
-          <h3 class="ps-section__title" data-mask="Trending News">- Trending News</h3>
-        </div>
-        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 ">
-          <div class="ps-owl-actions"><a class="ps-prev" href="#"><i class="ps-icon-arrow-right"></i>Prev</a><a class="ps-next" href="#">Next<i class="ps-icon-arrow-left"></i></a></div>
-        </div>
-      </div>
+      <h2 class="ps-section__title" data-mask="Trending News">- Trending News</h2>
+      <div class="ps-section__action"><a class="ps-morelink text-uppercase" href="<%= linkPrefix + 'c-news/all' %>">View all post<i class="fa fa-long-arrow-right"></i></a></div>
     </div>
     <div class="ps-section__content">
-      <div class="ps-owl--colection owl-slider" data-owl-auto="true" data-owl-loop="true" data-owl-speed="5000" data-owl-gap="30" data-owl-nav="false" data-owl-dots="false" data-owl-item="4" data-owl-item-xs="1" data-owl-item-sm="2" data-owl-item-md="3" data-owl-item-lg="4" data-owl-duration="1000" data-owl-mousedrag="on">
-        <% for(let i = 0; i < specialNews.length; i++) { %>
-          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+      <div class="row">
+        <% specialNews.forEach( (item) => { %>
+          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
             <div class="ps-post">
-              <div class="ps-post__thumbnail"><a class="ps-post__overlay" href="<%= linkNews + specialNews[i].slug %>"></a><img src="<%= folder_upload_news + specialNews[i].thumb %>" style="height: 235px; width: 450px;" alt=""></div>
-              <div class="ps-post__content"><a class="ps-post__title" href="<%= linkNews + specialNews[i].slug %>"><%= specialNews[i].name %></a>
-                <p class="ps-post__meta"><span>By:<a class="mr-5" href="#">Alena Studio</a></span> -<span class="ml-5"><%= formatDate(specialNews[i].created.time) %></span></p>
-                <p><%= formatSummaryHelper(specialNews[i].summary) %>…</p><a class="ps-morelink" href="<%= linkNews + specialNews[i].slug %>">Read more<i class="fa fa-long-arrow-right"></i></a>
+              <div class="ps-post__thumbnail">
+                <a class="ps-post__overlay" href="<%= linkNews + item.slug %>"></a>
+                <img src="<%= folder_upload_news + item.thumb %>" style="width:450px;height:250px;object-fit:cover;" alt="">
+              </div>
+              <div class="ps-post__content"><a class="ps-post__title" href="<%= linkNews + item.slug %>"><%= item.name %></a>
+                <p class="ps-post__meta"><span>By:<a class="mr-5" href="#">Admin</a></span> -<span class="ml-5"><%= formatDate(item.created.time, "LL") %></span></p>
+                <p><%= formatSummaryHelper(item.summary, 100) %>…</p>
+                <a class="ps-morelink" href="<%= linkNews + item.slug %>">Read more<i class="fa fa-long-arrow-right"></i></a>
               </div>
             </div>
           </div>
-        <% } %>
+        <% }) %>
       </div>
     </div>
   </div>
 </div>
 <div class="ps-section--offer" id="logo-brand" data-url="<%= linkLogoBrand%>" style="margin-left: 25px;">
-  <div class="text-center"><img src="frontend/shop/images/loading.gif" alt=""></div>
+  <div style="margin: 10px auto;"><img src="frontend/shop/images/loading.gif" alt=""></div>
 </div>

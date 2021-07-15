@@ -9,11 +9,13 @@
 	const linkPrefix = systemConfig.prefixAdmin + `/${collection}/`;
 
 	let elementsForm = [
-		{for: 'name', label: 'Name', input: inputHelper('name', item.name, 'text', 'name_slug')},
+		{for: 'name', label: 'Name', input: inputHelper('name', item.name, 'text')},
+		{for: 'code', label: 'Code', input: inputHelper('code', item.code, 'text')},
 		{for: 'price', label: 'Price', input: inputHelper('price', item.price)},
 		{for: 'amount', label: 'Amount', input: inputHelper('amount', item.amount)},
 		{for: 'status', label: 'Status', input: selectBoxHelper('status', systemConfig.status_value, item.status)},
 		{for: 'duration', label: 'Duration', input: inputHelper('duration', item.amount)},
+		{for: 'content', label: 'Content', input: textareaHelper('content', item.content)},
 	];
 
 	let xhtml = createFormHelper(elementsForm);

@@ -1,0 +1,32 @@
+<% include ./rating-product %>
+<%
+    productHelper = (folder_upload, linkHref, item) => {
+        let badgeSaleOff = item.sale_off > 0 ? `<div class="ps-badge ps-badge--sale ps-badge--2nd"><span>-${item.sale_off}%</span></div>` : '';
+        let listImage = '';
+        item.thumb.forEach( (image) => {
+            listImage += `<img src="${folder_upload+ image}" alt="${item.name}">`
+        })
+        let priceSaleOff = item.sale_off > 0 ? `<del>$${item.price}</del> $${item.price - (item.price * (item.sale_off/100))}` : `$${item.price}`;
+        return `<div class="ps-shoe__thumbnail">
+                  <div class="ps-badge"><span>New</span></div>
+                  ${badgeSaleOff}
+                  <a class="ps-shoe__favorite" href="javascript:void(0)" onclick="favoriteProduct('${item._id}', '${item.name}', '${item.product_type}', '${item.thumb[0]}')"><i class="ps-icon-heart"></i></a>
+                  <img src="${folder_upload + item.thumb[0]}" style="width:330px;height:330px;object-fit:cover;" alt="">
+                  <a class="ps-shoe__overlay" href="{linkHref + item.slug}"></a>
+                </div>
+                <div class="ps-shoe__content">
+                  <div class="ps-shoe__variants">
+                    <div class="ps-shoe__variant normal">
+                      ${listImage}
+                    </div>
+                    ${ratingProductHelpers(item.reviews)}
+                  </div>
+                  <div class="ps-shoe__detail"><a class="ps-shoe__name" href="${linkHref + item.slug}">${item.name}</a>
+                    <p class="ps-shoe__categories"><a href="#">${item.category.name}</a>,<a href="#"> ${item.brand.name}</a></p>
+                    <span class="ps-shoe__price" style="top:20px">
+                      ${priceSaleOff}
+                    </span>
+                  </div>
+                </div>`;
+    }
+%>

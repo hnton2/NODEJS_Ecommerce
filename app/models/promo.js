@@ -11,7 +11,7 @@ module.exports = {
     
         return Model
 		.find(objWhere)
-		.select('name status price amount duration used_times')
+		.select('name code status price amount duration used_times')
 		.sort(sort)
 		.skip((params.pagination.currentPage-1) * params.pagination.totalItemsPerPage)
 		.limit(params.pagination.totalItemsPerPage)
@@ -32,7 +32,7 @@ module.exports = {
     },
     listItemsFrontend: (params = null, option = null) => {
         let find = {};
-        let select = 'name amount';
+        let select = 'name code amount price duration content';
         let limit = 10;
         let sort = {};
 
@@ -99,9 +99,11 @@ module.exports = {
             return Model.updateOne({_id: item.id}, {
 				amount: parseInt(item.amount),
                 name: item.name,
+                code: item.code,
                 price:  parseInt(item.price),
 				status: item.status,
 				duration: item.duration,
+                content: item.content
 			});
         }
     }

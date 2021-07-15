@@ -30,5 +30,6 @@ router.use('/cart', require('./cart'));
 router.use('/checkout', require('./checkout'));
 router.use('/orders-tracking', require('./orders-tracking'));
 router.use('/event', require('./event'));
+router.use('/promotion', require('./promotion'));
 
 module.exports = router;

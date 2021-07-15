@@ -1,5 +1,5 @@
 <%
-    formatDate = (time) => {
-        return moment(time).format(systemConfig.format_date);
+    formatDate = (time, type=systemConfig.format_date) => {
+        return moment(time).format(type);
     }
 %>

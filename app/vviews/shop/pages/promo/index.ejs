@@ -1,0 +1,26 @@
+<% include ./../../helpers/format-date %>
+<% include ./../../helpers/coupon-list %>
+
+<% 
+  const folder_uploads = "uploads/"; 
+  const linkPrefix = systemConfig.prefixShop + '/';
+%>
+
+<div class="ps-checkout pt-80 pb-80">
+	<div class="ps-container">
+		<div class="row">
+			<div class="ps-section__header mb-50 ml-30">
+				<h2 class="ps-section__title" data-mask="Promotion"> Coupon</h2>
+			</div>
+			<div class="ps-section__content">
+				<section id="labels">
+					<div class="container">
+						<div class="row">
+							<%- couponHelper(items) %>
+					  </div>
+					</div>
+				</section>
+			</div>
+		</div>
+	</div>
+</div>

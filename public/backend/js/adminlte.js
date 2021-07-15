@@ -24,6 +24,7 @@
     var DATA_KEY = 'lte.controlsidebar';
     var EVENT_KEY = "." + DATA_KEY;
     var JQUERY_NO_CONFLICT = $.fn[NAME];
+    var SELECTOR_PRELOADER = '.preloader';
     var Event = {
       COLLAPSED: "collapsed" + EVENT_KEY,
       EXPANDED: "expanded" + EVENT_KEY
@@ -139,6 +140,16 @@
             _this._fixScrollHeight();
           }
         });
+        setTimeout(function () {
+          var $preloader = $__default['default'](SELECTOR_PRELOADER);
+  
+          if ($preloader) {
+            $preloader.css('height', 0);
+            setTimeout(function () {
+              $preloader.children().hide();
+            }, 200);
+          }
+        }, this._config.preloadDuration);
       };
 
       _proto._fixScrollHeight = function _fixScrollHeight() {

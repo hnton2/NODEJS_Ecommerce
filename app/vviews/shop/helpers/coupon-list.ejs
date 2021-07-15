@@ -1,0 +1,32 @@
+<%
+    couponHelper = (items) => {
+        let xhtml = '';
+        let mainColor = 'alizarin';
+        items.forEach( (item, index) => {
+            if(item.price <= 20) mainColor = 'peter-river';
+            else if(item.price > 20 && item.price <= 50) mainColor = 'amethyst';
+            else if(item.price > 50) mainColor = 'emerald';
+            xhtml += `<div class="col-sm-6 col-md-3 pb-80">
+                <div class="dl">
+                <div class="brand">
+                    <h2>${item.name}</h2>
+                </div>
+                <div class="discount ${mainColor}">${item.price}$
+                    <div class="type">off</div>
+                </div>
+                <div class="descr">
+                    <strong>Expiry: ${item.duration.split('-')[1]}*.</strong> <br>
+                </div>
+                <div class="ends">
+                    <small>* Conditions and restrictions apply.</small>
+                </div>
+                <div class="coupon midnight-blue">
+                    <a data-toggle="collapse" href="#code-${index+1}" class="open-code">Get a code</a>
+                    <div id="code-${index+1}" class="collapse code">${item.code}</div>
+                </div>
+                </div>
+            </div>`;
+        })
+        return xhtml;
+    }
+%>

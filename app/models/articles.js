@@ -35,7 +35,7 @@ module.exports = {
         if(option.task == 'items-special'){
             find = {status:'active', special: 'active'};
             sort = {ordering: 'asc'};
-            limit = 6;
+            limit = 3;
             select += ' summary';
         }
 

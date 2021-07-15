@@ -89,7 +89,7 @@ router.post('/apply-promo-code', async (req, res, next) => {
     if(item[0] !== undefined && UtilsHelpers.validCode(item[0])) {
       discount = item[0].price;
       textMessage = `You get a $${discount} discount on your bill`;
-      res.cookie('sale_off', {name: item[0].name, discount: discount});
+      res.cookie('sale_off', {name: item[0].code, discount: discount});
     }
   });
   res.json({discount: discount, message: textMessage});
