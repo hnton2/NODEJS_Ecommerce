@@ -10,22 +10,23 @@
 	<div class="ps-container">
 		<div class="card-header">
 			<aside class="ps-widget--sidebar ps-widget--search">
-				<form class="ps-search--widget" action="/orders-tracking" method="get">
+				<form class="ps-search--widget" action="<%= linkPrefix %>orders-tracking" method="get">
 				  <input class="form-control" name="code" value="<%= query %>" type="text" placeholder="Enter ID Order..." style="border-radius:5px;height: 50px;">
-				  <button type="button"><i class="ps-icon-search"></i></button>
+				  <button type="submit"><i class="ps-icon-search"></i></button>
 				</form>
 			</aside>
 		</div>
 		<hr>
-		<% if(item.length > 0) { item = item[0]; %>
+		<% if(item !== undefined) { %>
 			<div class="card-body">
 				<h5>Order ID: <%= item.code %></h5>
 				<div class="card">
 					<div class="card-body row border">
 						<div class="col-md-3"> <strong>Customer name:</strong> <br> <%= item.user.name%> | <i class="fa fa-phone"></i> <%= item.user.phone %> </div>
 						<div class="col-md-3"> <strong>Address:</strong> <br> <%= item.user.address %> </div>
-						<div class="col-md-3"> <strong>Status:</strong> <br> <%= viewStatusHelper(systemConfig.orders_state_value, item.status) %> </div>
-						<div class="col-md-3"> <strong>Total cost:</strong> <br> $ <%= item.total %> </div>
+						<div class="col-md-2"> <strong>Status:</strong> <br> <%= viewStatusHelper(systemConfig.orders_state_value, item.status) %> </div>
+						<div class="col-md-2"> <strong>Total cost:</strong> <br> $ <%= item.total %> </div>
+						<div class="col-md-2"> <strong>Shipping Fee:</strong> <br> $ <%= item.shipping_fee %> </div>
 					</div>
 				</div>
 				<hr>
@@ -75,7 +76,21 @@
 					<% }) %>
 				</ul>
 				<hr>
-				<a href="<%= linkPrefix %>category" class="btn btn-warning" data-abc="true"> <i class="fa fa-chevron-left"></i> Continue shopping</a>
+				<a href="<%= linkPrefix %>category/trademark" class="btn btn-warning" data-abc="true"> <i class="fa fa-chevron-left"></i> Continue Shopping</a>
+			</div>
+		<% } else if(query !== '') { %>
+			<div class="cs-404-body">
+				<div class="cs-404-container">
+					<aside><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/4424790/Mirror.png" alt="404 Image" /></aside>
+					<main>
+					  <h1>Sorry!</h1>
+					  <p>
+						Your invoice code is incorrect or it doesn't exist <br>
+						<em>Please check again !!!</em>
+					  </p>
+					  <button>Back to Home!</button>
+					</main>
+				</div>
 			</div>
 		<% } %>
 	</div>

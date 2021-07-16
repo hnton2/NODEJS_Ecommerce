@@ -22,11 +22,11 @@ router.get('/confirm/:id', async (req, res, next) => {
 
 router.get('/', async (req, res, next) => {
   let query = ParamsHelpers.getParam(req.query, 'code', '');
+  query = query.startsWith('#') ? query.slice(1) : query;
   let item = [];
   let titlePage = 'Order tracking';
   if(query) titlePage = 'Invoice #' + query;
-  await OrdersModel.getItems({code: query}, {task: 'get-items-by-code-order'}).then( (data) => { item = data; });
-
+  await OrdersModel.getItems({code: query}, {task: 'get-items-by-code-order'}).then( (data) => { item = data[0]; });
   res.render(`${folderView}index`, {
     pageTitle : titlePage,
     top_post: false,

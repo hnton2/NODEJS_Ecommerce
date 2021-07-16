@@ -394,3 +394,93 @@
   .dl .coupon{min-height:50px;text-align:center;text-transform:uppercase;font-weight:700;font-size:18px;padding:20px 15px}
   .dl .coupon a.open-code{color:#16a085}
   .dl .coupon .code{letter-spacing:1px;border-radius:4px;margin-top:10px;padding:10px 15px;color:#f1c40f;background:#f0f0f0}
+
+
+
+@import url("https://fonts.googleapis.com/css2?family=Fontdiner+Swanky&family=Roboto:wght@500&display=swap");
+div.cs-404-body {
+  background: linear-gradient(to right, white 50%, #383838 50%);
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: white;
+  height: 500px;
+}
+
+div.cs-404-container {
+  display: flex;
+  align-items: center;
+  height: 500px;
+  max-width: 1000px;
+  width: calc(100% - 4rem);
+  margin: 0 auto;
+}
+div.cs-404-container > * {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  height: 500px;
+  max-width: 500px;
+  width: 100%;
+  padding: 2.5rem;
+}
+div.cs-404-container aside {
+  background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/4424790/right-edges.png");
+  background-position: top right;
+  background-repeat: no-repeat;
+  background-size: 25px 100%;
+}
+div.cs-404-container aside img {
+  display: block;
+  height: auto;
+  width: 100%;
+}
+div.cs-404-container main {
+  text-align: center;
+}
+div.cs-404-container main h1 {
+  font-family: "Fontdiner Swanky", cursive;
+  font-size: 10rem;
+  color: #c5dc50;
+  margin-bottom: 1rem;
+}
+div.cs-404-container main p {
+  margin-bottom: 2.5rem;
+  font-size: 19px;
+}
+div.cs-404-container main p em {
+  font-style: italic;
+  color: #c5dc50;
+}
+div.cs-404-container main button {
+  font-family: "Fontdiner Swanky", cursive;
+  font-size: 1rem;
+  color: #383838;
+  border: none;
+  background-color: #f36a6f;
+  padding: 1rem 2.5rem;
+  transform: skew(-5deg);
+  transition: all 0.1s ease;
+}
+div.cs-404-container main button:hover {
+  background-color: #c5dc50;
+  transform: scale(1.15);
+}
+@media (max-width: 700px) {
+  div.cs-404-container {
+    flex-flow: column;
+  }
+  div.cs-404-container > * {
+    max-width: 700px;
+    height: 100%;
+  }
+  div.cs-404-container aside {
+    background-image: none;
+    background-color: white;
+  }
+  div.cs-404-container aside img {
+    max-width: 300px;
+  }
+}
