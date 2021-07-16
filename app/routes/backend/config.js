@@ -8,7 +8,6 @@ const systemConfig  	= require(__path_configs + 'system');
 const MainModel 		= require(__path_models + controllerName);
 const MainValidate		= require(__path_validates + controllerName);
 const UtilsHelpers 		= require(__path_helpers + 'utils');
-const ParamsHelpers 	= require(__path_helpers + 'params');
 const NotifyHelpers 	= require(__path_helpers + 'notify');
 const FileHelpers 		= require(__path_helpers + 'file');
 

@@ -1,47 +1,151 @@
 <% include ./../../helpers/format-date %>
 <% include ./../../helpers/format-summary %>
 <% include ./../../helpers/highlight %>
+<% include ./../../helpers/pagination %>
 
 <% 
-  const folder_uploads = "uploads/articles/"; 
-  const linkCategory = systemConfig.prefixShop + '/news-category/';
+  const folder_uploads = "uploads/news/"; 
+  const linkCategory = systemConfig.prefixShop + '/blog-news/';
   const linkNews = systemConfig.prefixShop + '/news/';
+  const linkRecentNews    = systemConfig.prefixShop + '/lasted-news/'; 
+  const linkBestSeller    = systemConfig.prefixShop + '/best-shoes/';
+  const linkAdsBanner    = systemConfig.prefixShop + '/ads-banner/';
+  const linkGold = systemConfig.prefixShop + '/news-rss/get-gold';
+  const linkCoin = systemConfig.prefixShop + '/news-rss/get-coin'; 
+  const linkWeather = systemConfig.prefixShop + '/news-rss/get-weather';
+  const linkBrand = systemConfig.prefixShop + 'category/trademark?brand=';
 %>
 <div class="ps-blog-grid pt-80 pb-80"> 
   <div class="ps-container">
     <div class="row">
       <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 ">
-        <% itemsInCategory.forEach( (item) => { %>
-          <div class="ps-post--2">
-            <div class="ps-post__thumbnail">
-              <a class="ps-post__overlay" href="<%= linkNews + item.slug %>" target="_blank"></a>
-              <img src="<%= folder_uploads + item.thumb %>" style="width: 450px; height: 250px;" alt="<%= item.name %>">
-            </div>
-            <div class="ps-post__container">
-              <header class="ps-post__header"><a class="ps-post__title" href="<%= linkNews + item.slug %>" target="_blank" style="font-size: 22px;"><%- highlightHelper(item.name, keyword) %></a>
-                <p>Posted by <a href="#">Alena Studio</a> on <%= formatDate(item.created.time) %> </p>
-              </header>
-              <div class="ps-post__content">
-                <p><%- formatSummaryHelper(item.summary, 200) %>….</p>
+        <div class="ps-section__header mb-50">
+          <h2 class="ps-section__title" data-mask="News"> News</h2>
+        </div>
+        <div class="ps-section__content">
+          <% itemsInCategory.forEach( (item) => { %>
+            <div class="ps-post--2">
+              <div class="ps-post__thumbnail">
+                <a class="ps-post__overlay" href="<%= linkNews + item.slug %>" target="_blank"></a>
+                <img src="<%= folder_uploads + item.thumb %>" style="width: 450px; height: 250px;" alt="<%= item.name %>">
               </div>
-              <footer class="ps-post__footer"><a class="ps-post__morelink" href="<%= linkNews + item.slug %>" target="_blank">READ MORE<i class="ps-icon-arrow-left"></i></a>
-                <div class="ps-post__actions">
-                  <span><i class="fa fa-comments"></i> <%= item.comments.length %> Comments</span>
-                  <!-- <span><i class="fa fa-heart"></i>  likes</span> -->
-                  <!-- <div class="ps-post__social"><i class="fa fa-share-alt"></i><a href="#">Share</a>
-                    <ul>
-                      <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                      <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                      <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                    </ul>
-                  </div> -->
+              <div class="ps-post__container">
+                <header class="ps-post__header"><a class="ps-post__title" href="<%= linkNews + item.slug %>" target="_blank" style="font-size: 22px;"><%- highlightHelper(item.name, keyword) %></a>
+                  <p>Posted by <a href="#">Admin</a> on <%= formatDate(item.created.time) %> </p>
+                </header>
+                <div class="ps-post__content">
+                  <p><%- formatSummaryHelper(item.summary, 200) %>….</p>
                 </div>
-              </footer>
+                <footer class="ps-post__footer"><a class="ps-post__morelink" href="<%= linkNews + item.slug %>" target="_blank">READ MORE<i class="ps-icon-arrow-left"></i></a>
+                  <div class="ps-post__actions">
+                    <span><i class="fa fa-comments"></i> <%= item.comments.length %> Comments</span>
+                    <!-- <span><i class="fa fa-heart"></i>  likes</span> -->
+                    <!-- <div class="ps-post__social"><i class="fa fa-share-alt"></i><a href="#">Share</a>
+                      <ul>
+                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                      </ul>
+                    </div> -->
+                  </div>
+                </footer>
+              </div>
+            </div>
+          <% }) %>
+        </div>
+        <div class="mt-30">
+          <%- paginationHelper(pagination, linkCategory + categorySlug, params) %>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 ">
+        <aside class="ps-widget--sidebar ps-widget--search">
+          <form class="ps-search--widget" action="<%= linkCategory + categorySlug %>" method="GET">
+            <input class="form-control" name="keyword" value="<%= keyword %>" type="text" placeholder="Search posts...">
+            <button><i class="ps-icon-search"></i></button>
+          </form>
+        </aside>
+        <aside class="ps-widget--sidebar">
+          <div class="ps-widget__header">
+            <h3>Blog</h3>
+          </div>
+          <div class="ps-widget__content">
+            <ul class="ps-list--arrow"> 
+              <% itemsCategory.forEach ( (item)=>{ %>
+                <li class="current"><a href="<%= linkCategory + item.slug %>"><%= item.name %> (<%= item.amount %>)</a></li>
+              <% }) %>
+            </ul>
+          </div>
+        </aside>
+        <aside class="ps-widget--sidebar">
+          <div class="ps-widget__header">
+            <h3>Ads Banner</h3>
+          </div>
+          <div class="ps-widget__content" id="ads-banners" data-url="<%= linkAdsBanner %>" data-number='6' data-size='width: 282px; height: 154px;'>
+              <div style="margin: 10px auto;"><img src="frontend/shop/images/loading.gif" alt=""></div>
+          </div>
+        </aside> 
+        <aside class="ps-widget--sidebar">
+          <div class="ps-widget__header">
+            <h3>Recent Posts</h3>
+          </div>
+          <div class="ps-widget__content" id="recent-news" data-url="<%= linkRecentNews %>" >
+            <div style="margin: 10px auto;"><img src="frontend/shop/images/loading.gif" alt=""></div>
+          </div>
+        </aside>
+        <aside class="ps-widget--sidebar">
+          <div class="ps-widget__header">
+            <h3>Brand</h3>
+          </div>
+          <div class="ps-widget__content">
+            <ul class="ps-tags">
+              <% itemsBrand.forEach ( (item)=>{ %>
+                <li><a href="<%= linkBrand + item.slug %>"><%= item.name %></a></li>
+              <% }) %>
+            </ul>
+          </div>
+        </aside>
+        <aside class="ps-widget--sidebar">
+          <div class="ps-widget__header">
+            <h3>Best Seller</h3>
+          </div>
+          <div class="ps-widget__content" id="sb-best-shoes" data-url="<%= linkBestSeller %>">
+            <div style="margin: 10px auto;"><img src="frontend/shop/images/loading.gif" alt=""></div>
+          </div>
+        </aside>
+        <aside class="ps-widget--sidebar">
+          <link href='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css' rel='stylesheet'>
+          <div class="ps-widget__header"><h3>Weather</h3></div>
+          <div class="ps-widget__content">
+            <div id="box-weather" data-url="<%- linkWeather%>">
+              <div class="text-center">
+                  <img style="width: 150px" src="frontend/shop/images/loading.gif" alt="">
+              </div>
             </div>
           </div>
-        <% }) %>
+        </aside>
+        <aside class="ps-widget--sidebar">
+          <div class="ps-widget__header"><h3>Coin Price</h3></div>
+          <div class="ps-widget__content">
+            <div id="box-coin" data-url="<%- linkCoin%>">
+              <div class="text-center">
+                  <img style="width: 150px" src="frontend/shop/images/loading.gif" alt="">
+              </div>
+            </div>
+          </div>
+          <!-- <aside class="ps-widget--sidebar">
+            <div class="ps-widget__header"> 
+              <h3>Gold Price</h3>
+            </div>
+            <div class="ps-widget__content">
+              <div id="box-gold" data-url="<%- linkGold%>">
+                <div class="text-center">
+                    <img style="width: 150px" src="frontend/shop/images/loading.gif" alt="">
+                </div>
+              </div>
+            </div>
+          </aside> -->
+        </aside>
       </div>
-      <% include ./../../elements/sidebar %>
     </div>
   </div>
 </div>

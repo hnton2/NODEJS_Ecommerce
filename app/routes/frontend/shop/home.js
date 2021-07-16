@@ -6,7 +6,7 @@ const BannerModel = require(__path_models + 'banner');
 const ShoesModel = require(__path_models + 'shoes');
 const ClothingModel = require(__path_models + 'clothing');
 const AccessoryModel = require(__path_models + 'accessory');
-const ArticleModel = require(__path_models + 'articles');
+const ArticleModel = require(__path_models + 'news');
 const SubscribeModel = require(__path_models + 'subscribe');
 const BrandModel = require(__path_models + 'brand');
 const EventsModel = require(__path_models + 'events');
@@ -41,7 +41,7 @@ router.get('/', async (req, res, next) => {
   // Special clothing
   await ClothingModel.listItemsFrontend(null, {task: 'items-special'}).then( (items) => {specialClothing = items;});
   // Event
-  await EventsModel.listItemsFrontend().then( (items) => {itemEvents = items;});
+  await EventsModel.listItemsFrontend().then( (items) => {itemEvents = items[0];});
   await ArticleModel.listItemsFrontend(null, {task:'items-news'}).then( (data) => {lastedNews = data;});
 
   res.render(`${folderView}index`, {
@@ -97,5 +97,28 @@ router.get('/all-name-product', async (req, res, next) => {
   res.json(arrName)
 });
 
+router.get('/ads-banner', async (req, res, next) => {
+  let items = [];
+  await BannerModel
+        .listItemsFrontend()
+        .then( (data) => { items = data;});
+  res.json(items)
+});
+
+router.get('/lasted-news', async (req, res, next) => {
+  let items = [];
+  await ArticleModel
+    .listItemsFrontend(null, {task: 'items-news'})
+    .then( (data) => {items = data;});
+  res.json(items)
+});
+
+router.get('/best-shoes', async (req, res, next) => {
+  let items = [];
+  await ShoesModel
+        .listItemsFrontend(null, {task: 'best-sellers-items'})
+        .then( (data) => { items = data;});
+  res.json(items)
+});
 
 module.exports = router;

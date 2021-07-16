@@ -1,4 +1,4 @@
-const CategoryModel = require(__path_models + 'category');
+const CategoryModel = require(__path_models + 'news-category');
 
 module.exports = async (req, res, next) => {
     await CategoryModel

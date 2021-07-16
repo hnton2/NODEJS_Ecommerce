@@ -1,8 +1,8 @@
 <% include ./../helpers/menu-sidebar %>
 <%
-    let articleManagement = [
-        {name: 'Category', icon: 'fa-table', link: `${systemConfig.prefixAdmin}/category`, activeValue: 'category'},
-        {name: 'Articles', icon: 'fa-book-open', link: `${systemConfig.prefixAdmin}/articles`, activeValue: 'articles'},
+    let newsManagement = [
+        {name: 'Category', icon: 'fa-table', link: `${systemConfig.prefixAdmin}/news-category`, activeValue: 'news-category'},
+        {name: 'News', icon: 'fa-book-open', link: `${systemConfig.prefixAdmin}/news`, activeValue: 'news'},
         {name: 'Rss', icon: 'fa-tag', link: `${systemConfig.prefixAdmin}/rss`, activeValue: 'rss'},
     ];
     let userManagement = [
@@ -10,7 +10,7 @@
         {name: 'Users', icon: 'fa-user', link: `${systemConfig.prefixAdmin}/users`, activeValue: 'users'},
     ];
     let shoesManagement = [
-        {name: 'Category', icon: 'fa-th-list', link: `${systemConfig.prefixAdmin}/product-category`, activeValue: 'product-category'},
+        {name: 'Category', icon: 'fa-th-list', link: `${systemConfig.prefixAdmin}/shoes-category`, activeValue: 'shoes-category'},
         {name: 'Shoes', icon: 'fa-star', link: `${systemConfig.prefixAdmin}/shoes`, activeValue: 'shoes'},
     ];
     let clothingManagement = [
@@ -85,7 +85,7 @@
             <p>Banner</p>
           </a>
         </li>
-        <%- menuSidebarHelper('Articles', articleManagement, 'fa-newspaper') %>
+        <%- menuSidebarHelper('News', newsManagement, 'fa-newspaper') %>
         <%- menuSidebarHelper('Shoes', shoesManagement, 'fa-shopping-cart') %>
         <%- menuSidebarHelper('Clothing', clothingManagement, 'fa-shopping-cart') %>
         <%- menuSidebarHelper('Accessory & Equipments', accessoryManagement, 'fa-shopping-cart') %>

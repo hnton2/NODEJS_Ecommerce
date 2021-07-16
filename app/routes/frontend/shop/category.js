@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 const ShoesModel = require(__path_models + 'shoes');
-const ShoesCategoryModel = require(__path_models + 'product-category');
+const ShoesCategoryModel = require(__path_models + 'shoes-category');
 const ClothingModel = require(__path_models + 'clothing');
 const ClothingCategoryModel = require(__path_models + 'clothing-category');
 const AccessoryModel = require(__path_models + 'accessory');

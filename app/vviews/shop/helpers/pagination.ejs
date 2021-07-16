@@ -16,13 +16,13 @@
             let xhtmlNext = '<li class="disabled"><a href="#"><i class="fa fa-angle-right"></i></a></li>' ;
             let xhtmlEnd = '<li class="disabled"><a href="#"><i class="fa fa-angle-double-right"></i></a></li>';
             let link       = linkPrefix;
-            if(params.category !== 'all') link += '?slug=' + params.category;
-            if(params.brand !== 'all') link += '?brand=' + params.brand;
-            if(params.keyword !== '') link += '?search=' + params.keyword;
-            if(params.color !== 'all') link += '?color=' + params.color;
-            if(params.size !== 'all') link += '?size=' + params.size;
-            if(params.price !== 'all') link += '?filter-price=' + params.price;
-            if(params.sortField !== 'name' && params.sortType !== 'asc') link += '?sort=' + params.sortField + '-' + params.sortType;
+            if(params.category !== 'all' && params.category !== undefined) link += '?slug=' + params.category;
+            if(params.brand !== 'all' && params.brand !== undefined) link += '?brand=' + params.brand;
+            if(params.keyword !== '' && params.keyword !== undefined) link += '?search=' + params.keyword;
+            if(params.color !== 'all' && params.color !== undefined) link += '?color=' + params.color;
+            if(params.size !== 'all' && params.size !== undefined) link += '?size=' + params.size;
+            if(params.price !== 'all' && params.price !== undefined) link += '?filter-price=' + params.price;
+            if(params.sortField !== 'name' && params.sortType !== 'asc' && params.sortField !== undefined) link += '?sort=' + params.sortField + '-' + params.sortType;
             link += '?page=';
 
             if(currentPage > 1){

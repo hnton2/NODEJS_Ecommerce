@@ -241,6 +241,33 @@ $(document).ready(function () {
     });
     // ---END: RSS NEWS---
 
+    // ---BEGIN: SIDEBAR ADS BANNER---
+    let linkAdsBanner = $("#ads-banners").data("url");
+    let indexBanner = $("#ads-banners").data("number");
+    let size = $("#ads-banners").data("size");
+    let className = $("#ads-banners").data("class");
+    $("#ads-banners").load(linkAdsBanner, null, function(response, status) {
+        let data = JSON.parse(response);
+        $("#ads-banners").html(renderBanner(data[indexBanner], className, size));
+    });
+    // ---END: SIDEBAR ADS BANNER---
+
+    // ---BEGIN: SIDEBAR RECENT NEWS---
+    let linkRecentNews = $("#recent-news").data("url");
+    $("#recent-news").load(linkRecentNews, null, function(response, status) {
+        let data = JSON.parse(response);
+        $("#recent-news").html(renderSidebarRecentNews(data));
+    });
+    // ---END: SIDEBAR RECENT NEWS---
+
+    // ---BEGIN: SIDEBAR BEST SELLER---
+    let linkBestSeller = $("#sb-best-shoes").data("url");
+    $("#sb-best-shoes").load(linkBestSeller, null, function(response, status) {
+        let data = JSON.parse(response);
+        $("#sb-best-shoes").html(renderSidebarBestSeller(data));
+    });
+    // ---END: SIDEBAR BEST SELLER---
+
     // ---BEGIN: NOTIFY LOGIN---
     $('#login-form').validate({ 
         errorElement: 'span',
@@ -624,6 +651,45 @@ function changeQuantity(link) {
             timer: 3000
         });
     }
+}
+
+function renderBanner(item, className, size) {
+    return `<a class="${className}" href="/${item.link}"><img src="uploads/banner/${item.thumb}" style="${size}" alt="Ads Banner"></a>`;
+}
+
+function renderSidebarRecentNews(items) {
+    let xhtml = '';
+    items.forEach ( (item)=> {
+        xhtml += `<div class="ps-post--sidebar">
+            <div class="ps-post__thumbnail">
+                <a href="/news/${item.slug}"></a><img src="uploads/news/${item.thumb}" alt="${item.name}">
+            </div>
+            <div class="ps-post__content">
+                <a class="ps-post__title" href="/news/${item.slug}">${item.name}</a>
+            </div>
+        </div>`
+    })
+    return xhtml;
+}
+
+function renderSidebarBestSeller(items) {
+    let xhtml = '';
+    items.forEach ( (item)=> {
+        let price = item.sale_off > 0 ? `<del>$${item.price}</del> $${item.price - (item.price * (item.sale_off/100))}` : `$${item.price}`
+        xhtml += `<div class="ps-shoe--sidebar">
+                    <div class="ps-shoe__thumbnail">
+                        <a href="/shoes/${item.slug}"></a><img src="uploads/shoes/${item.thumb[0]}" alt="${item.name}">
+                    </div>
+                    <div class="ps-shoe__content">
+                        <a class="ps-shoe__title" href="/shoes/${item.slug}">${item.name}</a>
+                        <p>
+                            ${price}
+                        </p>
+                        <a class="ps-btn" href="/shoes/${item.slug}">PURCHASE</a>
+                    </div>
+                </div>`
+    })
+    return xhtml;
 }
 
 function renderWeather(items) {

@@ -1,0 +1,5 @@
+<%
+    priceHelper = (sale_off, price) => {
+        return sale_off > 0 ? `<del>$${price}</del> $${price - (price * (sale_off/100))}` : `$${price}`;
+    }
+%>

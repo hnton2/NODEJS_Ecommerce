@@ -1784,7 +1784,7 @@ textarea.form-control {
   .ps-post .ps-post__thumbnail {
     position: relative;
     margin-bottom: 10px;}
-    .ps-post .ps-post__thumbnail::after {
+    #category-hot-news::after {
       content: attr(data-category);
       position: absolute;
       top: 0;

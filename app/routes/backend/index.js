@@ -3,16 +3,16 @@ var router = express.Router();
 
 const authentication  	= require(__path_middleware + 'auth');
 
-router.use('/', require('./home'));
+router.use('/', authentication, require('./home'));
 router.use('/dashboard', require('./dashboard'));
 router.use('/items', require('./items'));
 router.use('/contact', require('./contact'));
 router.use('/groups', require('./groups'));
 router.use('/users', require('./users'));
-router.use('/category', require('./category'));
-router.use('/articles', require('./articles'));
+router.use('/news-category', require('./news-category'));
+router.use('/news', require('./news'));
 router.use('/rss', require('./rss'));
-router.use('/product-category', require('./product-category'));
+router.use('/news-category', require('./shoes-category'));
 router.use('/brand', require('./brand'));
 router.use('/shoes', require('./shoes'));
 router.use('/slider', require('./slider'));

@@ -1,4 +1,4 @@
-const ArticleModel = require(__path_models + 'articles');
+const ArticleModel = require(__path_models + 'news');
 
 module.exports = async (req, res, next) => {
     await ArticleModel

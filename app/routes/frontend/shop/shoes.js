@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 const ShoesModel = require(__path_models + 'shoes');
-const CategoryModel = require(__path_models + 'product-category');
+const CategoryModel = require(__path_models + 'shoes-category');
 const ParamsHelpers 	= require(__path_helpers + 'params');
 const NotifyHelpers		= require(__path_helpers + 'notify');
 const StringHelpers		= require(__path_helpers + 'string');

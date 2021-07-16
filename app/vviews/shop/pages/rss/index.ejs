@@ -2,33 +2,34 @@
 <% include ./../../helpers/get-src %>
 <% include ./../../helpers/get-description %>
 <% include ./../../helpers/format-summary %>
+<% include ./../../helpers/pagination %>
+
+<% 
+  const linkIndex = systemConfig.prefixShop + '/news-rss';
+%>
 
 <div class="ps-blog-grid pt-80 pb-80">
   <div class="ps-container">
     <div class="row">
-      <% itemsRSS.forEach( (item) => { %> 
-        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="width:480px;height:461px;">
-          <div class="ps-post mb-30">
-            <div class="ps-post__thumbnail"><a class="ps-post__overlay" href="<%= item.url %>"></a><img src="<%- getSrc(item.description) %>" style="width: 450px; height: 250px;" alt="<%= item.title %>"></div>
-            <div class="ps-post__content"><a class="ps-post__title" href="<%= item.url %>"><%= item.title %></a>
-              <p class="ps-post__meta"><span>By:<a class="mr-5" href="#">Alena Studio</a></span> -<span class="ml-5"><%= formatDate(item.date) %></span></p>
-              <p><%- formatSummaryHelper(getDescription(item.description), 100) %>…</p><a class="ps-morelink" href="<%= item.url %>">Read more<i class="fa fa-long-arrow-right"></i></a>
+      <div class="ps-section__header mb-50">
+        <h2 class="ps-section__title" data-mask="Fashion News"> Fashion News</h2>
+      </div>
+      <div class="ps-section__content">
+        <% itemsRSS.forEach( (item) => { %> 
+          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="width:480px;height:461px;">
+            <div class="ps-post mb-30">
+              <div class="ps-post__thumbnail"><a class="ps-post__overlay" href="<%= item.url %>"></a><img src="<%- getSrc(item.description) %>" style="width: 450px; height: 250px;" alt="<%= item.title %>"></div>
+              <div class="ps-post__content"><a class="ps-post__title" href="<%= item.url %>"><%= item.title %></a>
+                <p class="ps-post__meta"><span>By:<a class="mr-5" href="#">Admin</a></span> -<span class="ml-5"><%= formatDate(item.date) %></span></p>
+                <p><%- formatSummaryHelper(getDescription(item.description), 100) %>…</p><a class="ps-morelink" href="<%= item.url %>">Read more<i class="fa fa-long-arrow-right"></i></a>
+              </div>
             </div>
           </div>
-        </div>
-      <% }) %>
+        <% }) %>
+      </div>
     </div>
     <div class="mt-30">
-      <div class="ps-pagination">
-        <ul class="pagination">
-          <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
-          <li class="active"><a href="#">1</a></li>
-          <li><a href="#">2</a></li>
-          <li><a href="#">3</a></li>
-          <li><a href="#">...</a></li>
-          <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-        </ul>
-      </div>
+      <%- paginationHelper(pagination, linkIndex, {}) %>
     </div>
   </div>
 </div>

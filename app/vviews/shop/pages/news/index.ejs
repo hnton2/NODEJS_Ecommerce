@@ -3,9 +3,17 @@
 <% include ./../../helpers/format-summary %>
 
 <% 
-    const folder_uploads = "uploads/articles/";
+    const folder_uploads = "uploads/news/";
+    const linkPrefix = systemConfig.prefixShop + '/';
+    const linkShoes = systemConfig.prefixShop + '/shoes/'; 
+    const linkRecentNews    = systemConfig.prefixShop + '/lasted-news/'; 
+    const linkBestSeller    = systemConfig.prefixShop + '/best-shoes/';
+    const linkAdsBanner    = systemConfig.prefixShop + '/ads-banner/';
     const linkNews    = systemConfig.prefixShop + '/news/';
-    const linkCategory    = systemConfig.prefixShop + '/news-category/';
+    const linkCategory    = systemConfig.prefixShop + '/blog-news/';
+    const linkGold = systemConfig.prefixShop + '/news-rss/get-gold';
+    const linkCoin = systemConfig.prefixShop + '/news-rss/get-coin'; 
+    const linkWeather = systemConfig.prefixShop + '/news-rss/get-weather';
 %>
 
 <div class="ps-blog-grid pt-80 pb-80"> 
@@ -13,21 +21,21 @@
     <div class="row">
       <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 ">
         <div class="ps-post--detail">
-          <div class="ps-post__thumbnail"><img src="<%= folder_uploads + itemMain[0].thumb %>" alt=""></div>
+          <div class="ps-post__thumbnail"><img src="<%= folder_uploads + itemMain.thumb %>" alt=""></div>
           <div class="ps-post__header">
-            <h3 class="ps-post__title"><%= itemMain[0].name %></h3>
-            <p class="ps-post__meta">Posted by <a href="">Alena Studio</a> on <%= formatDate(itemMain[0].created.time) %></p>
+            <h3 class="ps-post__title"><%= itemMain.name %></h3>
+            <p class="ps-post__meta">Posted by <a href="">Admin</a> on <%= formatDate(itemMain.created.time) %></p>
           </div>
           <div class="ps-post__content">
             <blockquote>
-              <p><%= itemMain[0].summary %></p>
+              <p><%= itemMain.summary %></p>
             </blockquote>
-            <p><%- itemMain[0].content %></p>
+            <p><%- itemMain.content %></p>
           </div>
           <div class="ps-post__footer">
-            <p class="ps-post__tags"><i class="fa fa-tags"></i><a href="<%= linkCategory + itemMainCategory.slug %>"><%= itemMain[0].category.name %></a></p>
+            <p class="ps-post__tags"><i class="fa fa-tags"></i><a href="<%= linkCategory + itemMainCategory.slug %>"><%= itemMain.category.name %></a></p>
             <div class="ps-post__actions">
-              <span><i class="fa fa-comments"></i> <%= itemMain[0].comments.length %> Comments</span>
+              <span><i class="fa fa-comments"></i> <%= itemMain.comments.length %> Comments</span>
               <!-- <span><i class="fa fa-heart"></i>  likes</span> -->
               <!-- <div class="ps-post__social"><i class="fa fa-share-alt"></i><a href="#">Share</a>
                 <ul>
@@ -50,8 +58,8 @@
           </div>
         </div> -->
         <div class="ps-comments">
-          <h3>Comment (<%= itemMain[0].comments.length %>)</h3>
-          <%- commentsHelpers(itemMain[0].comments) %>
+          <h3>Comment (<%= itemMain.comments.length %>)</h3>
+          <%- commentsHelpers(itemMain.comments) %>
           <!-- <div class="ps-comment ps-comment--reply">
             <div class="ps-comment__thumbnail"><img src="images/user/3.jpg" alt=""></div>
             <div class="ps-comment__content">
@@ -62,7 +70,7 @@
             </div>
           </div> -->
         </div>
-        <form class="ps-form--comment" action="<%= linkNews + 'comments/' + itemMain[0].slug  %>" method="post">
+        <form class="ps-form--comment" action="<%= linkNews + 'comments/' + itemMain.slug  %>" method="post">
           <h3>LEAVE A COMMENT</h3>
           <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
@@ -86,7 +94,83 @@
           </div>
         </form>
       </div>
-      <% include ./../../elements/sidebar %>
+      <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 ">
+        <aside class="ps-widget--sidebar ps-widget--search">
+          <form class="ps-search--widget" action="<%= linkCategory + categorySlug %>" method="GET">
+            <input class="form-control" name="keyword" value="<%= keyword %>" type="text" placeholder="Search posts...">
+            <button><i class="ps-icon-search"></i></button>
+          </form>
+        </aside>
+        <aside class="ps-widget--sidebar">
+          <div class="ps-widget__header">
+            <h3>Blog</h3>
+          </div>
+          <div class="ps-widget__content">
+            <ul class="ps-list--arrow"> 
+              <% itemsCategory.forEach ( (item)=>{ %>
+                <li class="current"><a href="<%= linkCategory + item.slug %>"><%= item.name %> (<%= item.amount %>)</a></li>
+              <% }) %>
+            </ul>
+          </div>
+        </aside>
+        <aside class="ps-widget--sidebar">
+          <div class="ps-widget__header">
+            <h3>Ads Banner</h3>
+          </div>
+          <div class="ps-widget__content" id="ads-banners" data-url="<%= linkAdsBanner %>" data-number='6' data-size='width: 282px; height: 154px;'>
+              <div style="margin: 10px auto;"><img src="frontend/shop/images/loading.gif" alt=""></div>
+          </div>
+        </aside> 
+        <aside class="ps-widget--sidebar">
+          <div class="ps-widget__header">
+            <h3>Recent Posts</h3>
+          </div>
+          <div class="ps-widget__content" id="recent-news" data-url="<%= linkRecentNews %>" >
+            <div style="margin: 10px auto;"><img src="frontend/shop/images/loading.gif" alt=""></div>
+          </div>
+        </aside>
+        <aside class="ps-widget--sidebar">
+          <div class="ps-widget__header">
+            <h3>Best Seller</h3>
+          </div>
+          <div class="ps-widget__content" id="sb-best-shoes" data-url="<%= linkBestSeller %>">
+            <div style="margin: 10px auto;"><img src="frontend/shop/images/loading.gif" alt=""></div>
+          </div>
+        </aside>
+        <aside class="ps-widget--sidebar">
+          <link href='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css' rel='stylesheet'>
+          <div class="ps-widget__header"><h3>Weather</h3></div>
+          <div class="ps-widget__content">
+            <div id="box-weather" data-url="<%- linkWeather%>">
+              <div class="text-center">
+                  <img style="width: 150px" src="frontend/shop/images/loading.gif" alt="">
+              </div>
+            </div>
+          </div>
+        </aside>
+        <aside class="ps-widget--sidebar">
+          <!-- <div class="ps-widget__header"><h3>Coin Price</h3></div>
+          <div class="ps-widget__content">
+            <div id="box-coin" data-url="<%- linkCoin%>">
+              <div class="text-center">
+                  <img style="width: 150px" src="frontend/shop/images/loading.gif" alt="">
+              </div>
+            </div>
+          </div> -->
+          <!-- <aside class="ps-widget--sidebar">
+            <div class="ps-widget__header"> 
+              <h3>Gold Price</h3>
+            </div>
+            <div class="ps-widget__content">
+              <div id="box-gold" data-url="<%- linkGold%>">
+                <div class="text-center">
+                    <img style="width: 150px" src="frontend/shop/images/loading.gif" alt="">
+                </div>
+              </div>
+            </div>
+          </aside> -->
+        </aside>
+      </div>
     </div>
   </div>
 </div>
@@ -109,7 +193,7 @@
             <div class="ps-post">
               <div class="ps-post__thumbnail"><a class="ps-post__overlay" href="<%= linkNews + itemsRelated[i].slug %>"></a><img src="<%= folder_uploads + itemsRelated[i].thumb %>" style="height: 235px; width: 450px;" alt=""></div>
               <div class="ps-post__content"><a class="ps-post__title" href="<%= linkNews + itemsRelated[i].slug %>"><%= itemsRelated[i].name %></a>
-                <p class="ps-post__meta"><span>By:<a class="mr-5" href="#">Alena Studio</a></span> -<span class="ml-5"><%= formatDate(itemsRelated[i].created.time) %></span></p>
+                <p class="ps-post__meta"><span>By:<a class="mr-5" href="#">Admin</a></span> -<span class="ml-5"><%= formatDate(itemsRelated[i].created.time) %></span></p>
                 <p><%= formatSummaryHelper(itemsRelated[i].summary) %>…</p><a class="ps-morelink" href="<%= linkNews + itemsRelated[i].slug %>">Read more<i class="fa fa-long-arrow-right"></i></a>
               </div>
             </div>
