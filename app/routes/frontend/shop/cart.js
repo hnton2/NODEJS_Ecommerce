@@ -84,12 +84,12 @@ router.post('/apply-promo-code', async (req, res, next) => {
   req.body = JSON.parse(JSON.stringify(req.body));
 	let item = Object.assign(req.body); 
   let discount = 0;
-  let textMessage = 'This code is not valid ';
-  await PromoModel.getItems({name: item.discount_code}, {task: 'get-items-by-name'}).then( async (item) => {
+  let textMessage = 'This code is Invalid ';
+  await PromoModel.getItems({code: item.discount_code}, {task: 'get-items-by-code-name'}).then( async (item) => {
     if(item[0] !== undefined && UtilsHelpers.validCode(item[0])) {
       discount = item[0].price;
       textMessage = `You get a $${discount} discount on your bill`;
-      res.cookie('sale_off', {name: item[0].code, discount: discount});
+      res.cookie('sale_off', {code: item[0].code, discount: discount});
     }
   });
   res.json({discount: discount, message: textMessage});

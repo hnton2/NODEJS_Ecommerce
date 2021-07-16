@@ -1,6 +1,8 @@
 <% include ./../../helpers/rating-product %>
 <% include ./../../helpers/highlight %>
 <% include ./../../helpers/pagination %>
+<% include ./../../helpers/price %>
+
 <% 
   const folder_upload = 'uploads/';
   const linkPrefix    = systemConfig.prefixShop + '/';
@@ -43,11 +45,7 @@
                 <a class="ps-shoe__name" href="<%= linkPrefix + item.product_type + '/' + item.slug %>"><%- highlightHelper(item.name, params.keyword) %></a>
                 <p class="ps-shoe__categories"><a href="#"><%= item.category.name %></a>,<a href="#"> <%= item.brand.name %></a></p>
                 <span class="ps-shoe__price">
-                  <% if(item.sale_off > 0) { %>
-                    <del>$<%= item.price %></del> $<%= item.price - (item.price * (item.sale_off/100)) %>
-                    <% } else { %>
-                      $<%= item.price%>
-                    <% } %>
+                  <%- priceHelper(item.sale_off, item.price) %>
                 </span>
               </div>
             </div>

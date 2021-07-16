@@ -15,12 +15,12 @@ const layoutShop    = __path_views_shop + 'frontend';
 router.get('/:slug', async (req, res, next) => {
   let slug = ParamsHelpers.getParam(req.params, 'slug', ''); 
   let item= [];
-  let itemMainCategory = [];
+  let mainCategory = [];
   let itemsRelated = [];
   // Main
   await AccessoryModel.getMainItems(slug, null).then( (items) => {item = items[0];});
   // Main Category
-  await CategoryModel.getItems({id: item.category.id}, {task: 'get-items-by-id'}).then( (items) => {itemMainCategory = items;});
+  await CategoryModel.getItems({id: item.category.id}, {task: 'get-items-by-id'}).then( (items) => {mainCategory = items;});
   // Related
   await AccessoryModel.listItemsFrontend(item, {task: 'items-related'}).then( (items) => {itemsRelated = items;});
 
@@ -30,7 +30,7 @@ router.get('/:slug', async (req, res, next) => {
     contact_layout: false,
     layout: layoutShop,
     item,
-    itemMainCategory,
+    mainCategory,
     itemsRelated
   });
 

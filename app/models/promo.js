@@ -20,15 +20,15 @@ module.exports = {
         if(option.task == 'get-items-by-id'){
             return Model.findById(params.id);
         }
-        if(option.task == 'get-items-by-name'){
-            return Model.find({name: params.name});
+        if(option.task == 'get-items-by-code-name'){
+            return Model.find({code: params.code});
         }
         if(option.task == 'get-name-items'){
             return Model.find({}, {_id: 1, name: 1});
         }
     },
     increasingUsedTimes: (code) => {
-        return Model.updateOne({name :code}, {$inc : {'used_times' : 1}}).exec();
+        return Model.updateOne({code :code}, {$inc : {'used_times' : 1}}).exec();
     },
     listItemsFrontend: (params = null, option = null) => {
         let find = {};

@@ -1,5 +1,6 @@
 <% 
   let total = 0;
+  const linkCart    	= systemConfig.prefixShop + '/cart';
 %>
 <div class="ps-checkout pt-80 pb-80">
 	<div class="ps-container">
@@ -44,6 +45,9 @@
 							<label>Order Notes</label>
 							<textarea class="form-control" rows="5" name="message" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
 						</div>
+					</div>
+					<div class="mt-100">
+						<a class="ps-btn" href="<%= linkCart %>"><i class="ps-icon-arrow-right" style="margin:0 10px 0 0"></i>Return Card</a>
 					</div>
 			  	</div>
 			  	<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">

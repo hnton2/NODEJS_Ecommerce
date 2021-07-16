@@ -1,18 +1,13 @@
 <% include ./../../helpers/show-reviews %>
 <% include ./../../helpers/rating-product %>
+<% include ./../../helpers/price %>
 
 <% 
   const folder_upload = 'uploads/clothing/'; 
   const linkPrefix     = systemConfig.prefixShop + '/';
   const linkClothing    = systemConfig.prefixShop + '/clothing/';
 %>
-<div class="test"> 
-  <div class="container">
-    <div class="row"> 
-      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 "></div>
-    </div>
-  </div>
-</div>
+
 <div class="ps-product--detail pt-60">
   <div class="ps-container">
     <div class="row">
@@ -46,13 +41,9 @@
               <a href="javascript:void(0);">(Read all <%= item.reviews.length %> reviews)</a>
             </div>
             <h1><%= item.name %></h1>
-            <p class="ps-product__category"><a href="<%= linkPrefix + 'category/' + itemMainCategory.slug %>"> <%= item.category.name %> clothing</a>,<a href="#"> <%= item.brand.name %></a></p>
+            <p class="ps-product__category"><a href="<%= linkPrefix + 'category/' + mainCategory.slug %>"> <%= item.category.name %> clothing</a>,<a href="#"> <%= item.brand.name %></a></p>
             <h3 class="ps-product__price">
-              <% if(item.sale_off > 0) { %>
-                <del>$<%= item.price %></del> $<%= item.price - (item.price * (item.sale_off/100)) %>
-              <% } else { %>
-                $<%= item.price%>
-              <% } %>
+              <%- priceHelper(item.sale_off, item.price) %>
             </h3>
             <div class="ps-product__block ps-product__quickview">
               <h4>QUICK REVIEW</h4>
@@ -189,13 +180,9 @@
                   <%- ratingProductHelpers(item.reviews) %>
                 </div>
                 <div class="ps-shoe__detail"><a class="ps-shoe__name" href="<%= linkClothing + item.slug %>"><%= item.name %></a>
-                  <p class="ps-shoe__categories"><a href="<%= linkPrefix + 'category/' + itemMainCategory.slug %>"> <%= item.category.name %> clothing</a>,<a href="#"> <%= item.brand.name %></a></p>
+                  <p class="ps-shoe__categories"><a href="<%= linkPrefix + 'category/' + mainCategory.slug %>"> <%= item.category.name %> clothing</a>,<a href="#"> <%= item.brand.name %></a></p>
                   <span class="ps-shoe__price">
-                    <% if(item.sale_off > 0) { %>
-                      <del>$<%= item.price %></del> $<%= item.price - (item.price * (item.sale_off/100)) %>
-                      <% } else { %>
-                        $<%= item.price%>
-                      <% } %>
+                    <%- priceHelper(item.sale_off, item.price) %>
                   </span>
                 </div>
               </div>

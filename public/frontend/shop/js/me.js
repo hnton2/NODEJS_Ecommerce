@@ -517,7 +517,7 @@ $(document).ready(function () {
             $.ajax({
                 url: '/cart/apply-promo-code',
                 type: 'POST',
-                data:$('input[name=discount_code]').serialize(),
+                data:$('#form-promotion').serialize(),
                 success:function(data) {
                     let textTotal = $('span#info-total-price').text().substring(1);
                     let total = Number(textTotal) - data.discount;
@@ -592,7 +592,7 @@ function favoriteProduct(id, name, type, thumb) {
     Swal.fire({
         title: name,
         icon: 'info',
-        html: 'Do you like this ' + type,
+        html: 'Do you like this ' + type + '?',
         imageUrl: 'uploads/' + type + '/' + thumb,
         imageAlt: name,
         showCloseButton: true,
