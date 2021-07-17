@@ -4,11 +4,11 @@
 <% include ./../../helpers/price %>
 <% 
   const linkPrefix    = systemConfig.prefixShop + '/';
-  const linkLogoBrand = `${linkPrefix}all-brand-product`;
   const linkShoes     = `${linkPrefix}shoes/`;
   const linkClothing  = `${linkPrefix}clothing/`;
   const linkAccessory = `${linkPrefix}accessory/`;
   const linkNews      = `${linkPrefix}news/`;
+  const linkRecentNews= `${linkPrefix}lasted-news/`; 
 
   const folder_upload_shoes     = 'uploads/shoes/';
   const folder_upload_clothing  = 'uploads/clothing/';
@@ -20,7 +20,7 @@
 <div class="ps-section ps-section--hotdeal-3 pt-80 pb-40">
   <div class="ps-container">
     <div class="ps-section__header mb-50">
-      <h3 class="ps-section__title" data-mask="Event">- Event</h3>
+      <span class="ps-section__title title-header" data-mask="Event">- Flash Sale <img src="https://frontend.tikicdn.com/_desktop-next/static/img/dealFlashIcon.svg" alt="Flash Sale" style="width:65px;"> Today -</span>
     </div>
     <div class="ps-section__content">
       <div class="row">
@@ -52,11 +52,9 @@
           </div>
         </div>
         <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 ">
-          
           <a class="ps-offer mb-40" href="<%= linkPrefix + bannerImg[3].link %>">
             <img src="uploads/banner/<%= bannerImg[3].thumb %>" alt="">
           </a>
-          
           <a class="ps-offer" href="<%= linkPrefix + bannerImg[4].link %>">
             <img src="uploads/banner/<%= bannerImg[4].thumb %>" alt="">
           </a>
@@ -73,7 +71,7 @@
 <div class="ps-section--features-product ps-section masonry-root pt-50 pb-30"> 
   <div class="ps-container">
     <div class="ps-section__header mb-50">
-      <h3 class="ps-section__title" data-mask="Shoes">- Features Shoes</h3>
+      <h3 class="ps-section__title title-header" data-mask="Shoes">- Features Shoes -</h3>
       <ul class="ps-masonry__filter">
         <li class="current"><a href="#" data-filter="*">All <sup><%= lastedShoes.length %></sup></a></li>
         <% itemsBrand.forEach ( (item)=>{ %>
@@ -89,15 +87,15 @@
               <div class="grid-item__content-wrapper">
                 <div class="ps-shoe mb-30">
                   <div class="ps-shoe__thumbnail">
-                    <div class="ps-badge"><span>New</span></div>
+                    <!-- <div class="ps-badge"><span>New</span></div> -->
                     <% if(item.sale_off > 0) { %>
-                      <div class="ps-badge ps-badge--sale ps-badge--2nd"><span>-<%= item.sale_off %>%</span></div>
+                      <div class="ps-badge ps-badge--sale"><span>-<%= item.sale_off %>%</span></div>
                     <% } %>
                     <a class="ps-shoe__favorite" href="javascript:void(0)" onclick="favoriteProduct('<%= item._id %>', '<%= item.name %>', '<%= item.product_type %>', '<%= item.thumb[0] %>')"><i class="ps-icon-heart"></i></a>
                     <img src="<%= folder_upload_shoes + item.thumb[0] %>" style="width:330px;height:330px;object-fit:cover;" alt="">
                     <a class="ps-shoe__overlay" href="<%= linkShoes + item.slug %>"></a>
                   </div>
-                  <div class="ps-shoe__content">
+                  <div class="ps-shoe__content">  
                     <div class="ps-shoe__variants">
                       <div class="ps-shoe__variant normal">
                         <% item.thumb.forEach( (image) => { %>
@@ -130,7 +128,7 @@
     <div class="ps-section__header mb-50">
       <div class="row">
         <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 ">
-          <h3 class="ps-section__title" data-mask="Clothing">- Features Clothing</h3>
+          <h3 class="ps-section__title title-header" data-mask="Clothing">- Features Clothing -</h3>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 ">
           <div class="ps-owl-actions"><a class="ps-prev" href="#"><i class="ps-icon-arrow-right"></i>Prev</a><a class="ps-next" href="#">Next<i class="ps-icon-arrow-left"></i></a></div>
@@ -178,7 +176,7 @@
     <div class="ps-section__header mb-50">
       <div class="row">
         <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 ">
-          <h3 class="ps-section__title" data-mask="Accessory">- Features Accessory</h3>
+          <h3 class="ps-section__title title-header" data-mask="Accessory">- Features Accessory -</h3>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 ">
           <div class="ps-owl-actions"><a class="ps-prev" href="#"><i class="ps-icon-arrow-right"></i>Prev</a><a class="ps-next" href="#">Next<i class="ps-icon-arrow-left"></i></a></div>
@@ -267,24 +265,15 @@
 <div class="ps-section--features-product ps-section masonry-root pt-50 pb-5"> 
   <div class="ps-container">
     <div class="ps-section__header mb-50">
-      <h3 class="ps-section__title" data-mask="Hots News">- News</h3>
+      <h3 class="ps-section__title title-header" data-mask="Hots News">- Recent News -</h3>
     </div>
-    <div class="ps-section__content pb-50">
-      <div class="masonry-wrapper" data-col-md="4" data-col-sm="2" data-col-xs="1" data-gap="30" data-radio="100%">
-        <div class="ps-masonry">
-          <div class="grid-sizer"></div>
-          <% for(let i = 0; i < lastedNews.length; i++) { %>
-            <div class="grid-item <%= lastedNews[i].category.name %>" style="width: 360px;height: 400px;">
-              <div class="grid-item__content-wrapper">
-                  <div class="ps-post">
-                    <div class="ps-post__thumbnail" id="category-hot-news" data-category='<%= formatDate(lastedNews[i].created.time, "LL") %>'><a class="ps-post__overlay" href="<%= linkNews + lastedNews[i].slug %>"></a><img src="<%= folder_upload_news + lastedNews[i].thumb %>" style="height: 235px; width: 450px;" alt=""></div>
-                    <div class="ps-post__content"><a class="ps-post__title" href="<%= linkNews + lastedNews[i].slug %>"><%= lastedNews[i].name %></a>
-                      <p><%= formatSummaryHelper(lastedNews[i].summary, 100) %>…</p>
-                    </div>
-                  </div>
-              </div>
-            </div>
-          <% } %>
+    <div class="ps-section__content pb-10">
+      <div class="trending-main">
+        <div class="row" id="recent-news--home-page" data-url="<%= linkRecentNews %>">
+          <div style="padding-left: 680px">
+            <div class="lds-hourglass"></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -292,7 +281,7 @@
 <div class="ps-section ps-home-blog pt-80 pb-80">
   <div class="ps-container">
     <div class="ps-section__header mb-50">
-      <h2 class="ps-section__title" data-mask="Trending News">- Trending News</h2>
+      <h2 class="ps-section__title title-header" data-mask="Trending News">- Trending News -</h2>
       <div class="ps-section__action"><a class="ps-morelink text-uppercase" href="<%= linkPrefix + 'blog-news/all' %>">View all post<i class="fa fa-long-arrow-right"></i></a></div>
     </div>
     <div class="ps-section__content">
@@ -315,7 +304,4 @@
       </div>
     </div>
   </div>
-</div>
-<div class="ps-section--offer" id="logo-brand" data-url="<%= linkLogoBrand%>" style="margin-left: 25px;">
-  <div style="margin: 10px auto;"><img src="frontend/shop/images/loading.gif" alt=""></div>
 </div>

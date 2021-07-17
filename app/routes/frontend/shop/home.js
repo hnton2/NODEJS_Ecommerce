@@ -42,7 +42,6 @@ router.get('/', async (req, res, next) => {
   await ClothingModel.listItemsFrontend(null, {task: 'items-special'}).then( (items) => {specialClothing = items;});
   // Event
   await EventsModel.listItemsFrontend().then( (items) => {itemEvents = items[0];});
-  await ArticleModel.listItemsFrontend(null, {task:'items-news'}).then( (data) => {lastedNews = data;});
 
   res.render(`${folderView}index`, {
     pageTitle : 'Home',
@@ -55,7 +54,6 @@ router.get('/', async (req, res, next) => {
     specialAccessory,
     specialClothing,
     itemEvents,
-    lastedNews,
   });
 });
 

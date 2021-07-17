@@ -373,6 +373,39 @@
     }
   }
 
+  .lds-hourglass {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+  }
+  .lds-hourglass:after {
+    content: " ";
+    display: block;
+    border-radius: 50%;
+    width: 0;
+    height: 0;
+    margin: 8px;
+    box-sizing: border-box;
+    border: 32px solid #2AC37D;
+    border-color: #2AC37D transparent #2AC37D transparent;
+    animation: lds-hourglass 1.2s infinite;
+  }
+  @keyframes lds-hourglass {
+    0% {
+      transform: rotate(0);
+      animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+    }
+    50% {
+      transform: rotate(900deg);
+      animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+    100% {
+      transform: rotate(1800deg);
+    }
+  }
+
+
   section{padding:5% 0}
   .alizarin{background:#e74c3c}
   .amethyst{background:#9b59b6}
@@ -484,3 +517,176 @@ div.cs-404-container main button:hover {
     max-width: 300px;
   }
 }
+
+.title-header {
+  font-size: 60px;
+  color: #2AC37D;
+}
+
+
+.trending-main {
+	border-bottom: 1px solid #eeeeee
+}
+
+.trending-main .trending-top .trend-top-img {
+	overflow: hidden;
+	position: relative
+}
+
+.trending-main .trending-top .trend-top-img::before {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	bottom: 0;
+	content: ""
+}
+
+.trending-main .trending-top .trend-top-img img {
+	width: 100%;
+	border-radius: 7px
+}
+
+.trending-main .trending-top .trend-top-img .trend-top-cap {
+	position: absolute;
+	bottom: 25px;
+	left: 31px
+}
+
+@media (max-width: 767px) {
+	.trending-main .trending-top .trend-top-img .trend-top-cap {
+		bottom: -2px;
+		left: 5px
+	}
+}
+
+.trending-main .trending-top .trend-top-img .trend-top-cap span {
+	background: #fff9c6;
+	color: #000;
+	padding: 9px 20px;
+	border-radius: 5px;
+	text-transform: uppercase;
+	font-weight: 500;
+	font-size: 11px;
+	line-height: 1;
+	margin-bottom: 19px;
+	display: inline-block
+}
+
+.trending-main .trending-top .trend-top-img .trend-top-cap h2 {
+	font-size: 30px
+}
+
+@media (max-width: 767px) {
+  .trending-main .trending-top .trend-top-img .trend-top-cap h2 {
+		font-size: 15px
+	}
+}
+
+.trending-main .trending-top .trend-top-img .trend-top-cap h2 a {
+	color: #fff;
+	font-weight: 700;
+	line-height: 1.3
+}
+
+.trending-main .trending-bottom .single-bottom .trend-bottom-img {
+	overflow: hidden
+}
+
+.trending-main .trending-bottom .single-bottom .trend-bottom-img img {
+	width: 100%;
+	border-radius: 5px;
+	transform: scale(1);
+	transition: all 0.5s ease-out 0s
+}
+
+.trending-main .trending-bottom .single-bottom .trend-bottom-cap span {
+	color: #000;
+	text-transform: uppercase;
+	font-size: 11px;
+	font-weight: 400;
+	padding: 10px 15px;
+	line-height: 1;
+	margin-bottom: 15px;
+	display: inline-block;
+  position: absolute;
+	bottom: 99px;
+	left: 30px
+}
+
+.trending-main .trending-bottom .single-bottom .trend-bottom-cap h4 {
+	font-size: 18px
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+	.trending-main .trending-bottom .single-bottom .trend-bottom-cap h4 {
+		font-size: 16px
+	}
+}
+
+.trending-main .trending-bottom .single-bottom .trend-bottom-cap h4 a {
+	font-weight: 500;
+	line-height: 1.4
+}
+
+.trending-main .trending-bottom .single-bottom .trend-bottom-cap h4 a:hover {
+	color: #fc3f00
+}
+
+.trending-main .trand-right-single {
+	margin-bottom: 20px;
+	padding-bottom: 20px;
+	border-bottom: 1px solid #eee
+}
+
+.trending-main .trand-right-single:last-child {
+	border-bottom: 0
+}
+
+.trending-main .trand-right-single .trand-right-img img {
+	border-radius: 6px
+}
+
+.trending-main .trand-right-single .trand-right-cap {
+	padding-left: 18px
+}
+
+.trending-main .trand-right-single .trand-right-cap span {
+	color: #000;
+	text-transform: uppercase;
+	font-size: 11px;
+	font-weight: 400;
+	padding: 10px 15px;
+	line-height: 1;
+	margin-bottom: 15px;
+	display: inline-block
+}
+
+.trending-main .trand-right-single .trand-right-cap h4 {
+	font-size: 18px
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .trending-main .trand-right-single .trand-right-cap h4 {
+		font-size: 15px
+	}
+}
+
+.trending-main .trand-right-single .trand-right-cap h4 a {
+	font-weight: 500;
+	line-height: 1.4
+}
+
+.trending-main .trand-right-single .trand-right-cap h4 a:hover {
+	color: #fc3f00
+}
+
+.single-bottom:hover .trend-bottom-img img {
+	transform: scale(1.1)
+}
+
+
+.color1 {
+	background: #ffe7e6
+}
+
+.d-flex{display:-ms-flexbox!important;display:flex!important}

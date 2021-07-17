@@ -260,6 +260,14 @@ $(document).ready(function () {
     });
     // ---END: SIDEBAR RECENT NEWS---
 
+    // ---BEGIN: HOMEPAGE RECENT NEWS---
+    let linkRecentNewsHomePage = $("#recent-news--home-page").data("url");
+    $("#recent-news--home-page").load(linkRecentNewsHomePage, null, function(response, status) {
+        let data = JSON.parse(response);
+        $("#recent-news--home-page").html(renderSidebarRecentNewsHomePage(data));
+    });
+    // ---END: HOMEPAGE RECENT NEWS---
+
     // ---BEGIN: SIDEBAR BEST SELLER---
     let linkBestSeller = $("#sb-best-shoes").data("url");
     $("#sb-best-shoes").load(linkBestSeller, null, function(response, status) {
@@ -548,14 +556,6 @@ $(document).ready(function () {
     });
     // ---END: SEARCH WITH AUTOCOMPLETE---
 
-    // ---BEGIN: SHOW IMAGE BRAND---
-    let linkLogoBrand = $("#logo-brand").data("url");
-    $("#logo-brand").load(linkLogoBrand, null, function(response, status) {
-        let data = JSON.parse(response);
-        $("#logo-brand").html(renderLogoBrand(data));
-    });
-    // ---END: SHOW IMAGE BRAND---
-
     // ---BEGIN: SHOW INFO PRODUCT EVENTS---
     $.ajax({
         url: '/event-shoes',
@@ -672,6 +672,55 @@ function renderSidebarRecentNews(items) {
     return xhtml;
 }
 
+function renderSidebarRecentNewsHomePage(items) {
+    let topHtml = `<div class="trending-top mb-30">
+                    <div class="trend-top-img">
+                        <img src="uploads/news/${items[0].thumb}" alt="${items[0].name}">
+                        <div class="trend-top-cap">
+                            <span>${items[0].category.name}</span>
+                            <h2><a href="/news/${items[0].slug}">${items[0].name}</a></h2>
+                        </div>
+                    </div>
+                </div>`;
+    let bottomHtml = '';
+    let rightHtml = '';
+    for(let i = 1; i < 4; i++) {
+        bottomHtml += `<div class="col-lg-4">
+                        <div class="single-bottom mb-35">
+                        <div class="trend-bottom-img mb-30">
+                            <img src="uploads/news/${items[i].thumb}" alt="${items[i].name}" style="max-width:330px;">
+                        </div>
+                        <div class="trend-bottom-cap">
+                            <span class="color1">${items[i].category.name}</span>
+                            <h4><a href="/news/${items[i].slug}">${items[i].name}</a></h4>
+                        </div>
+                        </div>
+                    </div>`;
+    }
+    for(let i = 4; i < 9; i++) {
+        rightHtml += `<div class="trand-right-single d-flex">
+                        <div class="trand-right-img" style="width:220px;">
+                            <img src="uploads/news/${items[i].thumb}" style="max-width:220px;object-fit:cover;" alt="${items[i].name}">
+                        </div>
+                        <div class="trand-right-cap">
+                            <span class="color1">${items[i].category.name}</span>
+                            <h4><a href="/news/${items[i].slug}">${items[i].name}</a></h4>
+                        </div>
+                    </div>`;
+    }
+    return `<div class="col-lg-8">
+                ${topHtml}
+                <div class="trending-bottom">
+                    <div class="row">
+                        ${bottomHtml}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                ${rightHtml}
+            </div>`;
+}
+
 function renderSidebarBestSeller(items) {
     let xhtml = '';
     items.forEach ( (item)=> {
@@ -771,12 +820,4 @@ function renderCoinTable(items) {
                 ${xhtml}
             </tbody>
         </table>`;
-}
-
-function renderLogoBrand(items) {
-    let xhtml = '';
-    items.forEach( (item) => {
-        xhtml +=`<a class="ps-offer" href="/trademark?brand=${item.slug}" style="padding: 20px;"><img src="uploads/brand/${item.thumb}" style="height: 250px; width: 250px;" alt=""></a>`;
-    });
-    return xhtml;
 }

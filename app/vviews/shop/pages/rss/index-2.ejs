@@ -21,7 +21,7 @@
     <div class="row">
       <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 ">
         <div class="ps-section__header mb-50">
-          <h2 class="ps-section__title" data-mask="Local News"> Local News</h2>
+          <h2 class="ps-section__title title-header" data-mask="Local News">- Local News -</h2>
         </div>
         <div class="ps-section__content">
           <% itemsRSS.forEach( (item) => { %>
@@ -64,7 +64,9 @@
             <h3>Ads Banner</h3>
           </div>
           <div class="ps-widget__content" id="ads-banners" data-url="<%= linkAdsBanner %>" data-number='6' data-size='width: 282px; height: 154px;'>
-              <div style="margin: 10px auto;"><img src="frontend/shop/images/loading.gif" alt=""></div>
+            <div style="padding-left: 120px">
+              <div class="lds-hourglass"></div>
+            </div>
           </div>
         </aside> 
         <aside class="ps-widget--sidebar">
@@ -72,7 +74,9 @@
             <h3>Recent Posts</h3>
           </div>
           <div class="ps-widget__content" id="recent-news" data-url="<%= linkRecentNews %>" >
-            <div style="margin: 10px auto;"><img src="frontend/shop/images/loading.gif" alt=""></div>
+            <div style="padding-left: 120px">
+              <div class="lds-hourglass"></div>
+            </div>
           </div>
         </aside>
         <div class="ps-widget__content">
@@ -87,7 +91,9 @@
             <h3>Best Seller</h3>
           </div>
           <div class="ps-widget__content" id="sb-best-shoes" data-url="<%= linkBestSeller %>">
-            <div style="margin: 10px auto;"><img src="frontend/shop/images/loading.gif" alt=""></div>
+            <div style="padding-left: 120px">
+              <div class="lds-hourglass"></div>
+            </div>
           </div>
         </aside>
         <aside class="ps-widget--sidebar">
@@ -95,8 +101,8 @@
           <div class="ps-widget__header"><h3>Weather</h3></div>
           <div class="ps-widget__content">
             <div id="box-weather" data-url="<%- linkWeather%>">
-              <div class="text-center">
-                  <img style="width: 150px" src="frontend/shop/images/loading.gif" alt="">
+              <div style="padding-left: 120px">
+                <div class="lds-hourglass"></div>
               </div>
             </div>
           </div>
@@ -105,23 +111,11 @@
           <div class="ps-widget__header"><h3>Coin Price</h3></div>
           <div class="ps-widget__content">
             <div id="box-coin" data-url="<%- linkCoin%>">
-              <div class="text-center">
-                  <img style="width: 150px" src="frontend/shop/images/loading.gif" alt="">
+              <div style="padding-left: 120px">
+                <div class="lds-hourglass"></div>
               </div>
             </div>
           </div>
-          <!-- <aside class="ps-widget--sidebar">
-            <div class="ps-widget__header"> 
-              <h3>Gold Price</h3>
-            </div>
-            <div class="ps-widget__content">
-              <div id="box-gold" data-url="<%- linkGold%>">
-                <div class="text-center">
-                    <img style="width: 150px" src="frontend/shop/images/loading.gif" alt="">
-                </div>
-              </div>
-            </div>
-          </aside> -->
         </aside>
       </div>
     </div>

@@ -118,7 +118,9 @@
             <h3>Ads Banner</h3>
           </div>
           <div class="ps-widget__content" id="ads-banners" data-url="<%= linkAdsBanner %>" data-number='6' data-size='width: 282px; height: 154px;'>
-              <div style="margin: 10px auto;"><img src="frontend/shop/images/loading.gif" alt=""></div>
+            <div style="padding-left: 120px">
+              <div class="lds-hourglass"></div>
+            </div>
           </div>
         </aside> 
         <aside class="ps-widget--sidebar">
@@ -126,7 +128,9 @@
             <h3>Recent Posts</h3>
           </div>
           <div class="ps-widget__content" id="recent-news" data-url="<%= linkRecentNews %>" >
-            <div style="margin: 10px auto;"><img src="frontend/shop/images/loading.gif" alt=""></div>
+            <div style="padding-left: 120px">
+              <div class="lds-hourglass"></div>
+            </div>
           </div>
         </aside>
         <aside class="ps-widget--sidebar">
@@ -134,41 +138,10 @@
             <h3>Best Seller</h3>
           </div>
           <div class="ps-widget__content" id="sb-best-shoes" data-url="<%= linkBestSeller %>">
-            <div style="margin: 10px auto;"><img src="frontend/shop/images/loading.gif" alt=""></div>
-          </div>
-        </aside>
-        <aside class="ps-widget--sidebar">
-          <link href='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css' rel='stylesheet'>
-          <div class="ps-widget__header"><h3>Weather</h3></div>
-          <div class="ps-widget__content">
-            <div id="box-weather" data-url="<%- linkWeather%>">
-              <div class="text-center">
-                  <img style="width: 150px" src="frontend/shop/images/loading.gif" alt="">
-              </div>
+            <div style="padding-left: 120px">
+              <div class="lds-hourglass"></div>
             </div>
           </div>
-        </aside>
-        <aside class="ps-widget--sidebar">
-          <!-- <div class="ps-widget__header"><h3>Coin Price</h3></div>
-          <div class="ps-widget__content">
-            <div id="box-coin" data-url="<%- linkCoin%>">
-              <div class="text-center">
-                  <img style="width: 150px" src="frontend/shop/images/loading.gif" alt="">
-              </div>
-            </div>
-          </div> -->
-          <!-- <aside class="ps-widget--sidebar">
-            <div class="ps-widget__header"> 
-              <h3>Gold Price</h3>
-            </div>
-            <div class="ps-widget__content">
-              <div id="box-gold" data-url="<%- linkGold%>">
-                <div class="text-center">
-                    <img style="width: 150px" src="frontend/shop/images/loading.gif" alt="">
-                </div>
-              </div>
-            </div>
-          </aside> -->
         </aside>
       </div>
     </div>
@@ -188,17 +161,17 @@
     </div>
     <div class="ps-section__content">
       <div class="ps-owl--colection owl-slider" data-owl-auto="true" data-owl-loop="true" data-owl-speed="5000" data-owl-gap="30" data-owl-nav="false" data-owl-dots="false" data-owl-item="4" data-owl-item-xs="1" data-owl-item-sm="2" data-owl-item-md="3" data-owl-item-lg="4" data-owl-duration="1000" data-owl-mousedrag="on">
-        <% for(let i = 0; i < itemsRelated.length; i++) { %>
+        <% itemsRelated.forEach( (item) => { %>
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
             <div class="ps-post">
-              <div class="ps-post__thumbnail"><a class="ps-post__overlay" href="<%= linkNews + itemsRelated[i].slug %>"></a><img src="<%= folder_uploads + itemsRelated[i].thumb %>" style="height: 235px; width: 450px;" alt=""></div>
-              <div class="ps-post__content"><a class="ps-post__title" href="<%= linkNews + itemsRelated[i].slug %>"><%= itemsRelated[i].name %></a>
-                <p class="ps-post__meta"><span>By:<a class="mr-5" href="#">Admin</a></span> -<span class="ml-5"><%= formatDate(itemsRelated[i].created.time) %></span></p>
-                <p><%= formatSummaryHelper(itemsRelated[i].summary) %>…</p><a class="ps-morelink" href="<%= linkNews + itemsRelated[i].slug %>">Read more<i class="fa fa-long-arrow-right"></i></a>
+              <div class="ps-post__thumbnail"><a class="ps-post__overlay" href="<%= linkNews + item.slug %>"></a><img src="<%= folder_uploads + item.thumb %>" style="height: 235px; width: 450px;" alt=""></div>
+              <div class="ps-post__content"><a class="ps-post__title" href="<%= linkNews + item.slug %>"><%= item.name %></a>
+                <p class="ps-post__meta"><span>By:<a class="mr-5" href="#">Admin</a></span> -<span class="ml-5"><%= formatDate(item.created.time) %></span></p>
+                <p><%= formatSummaryHelper(item.summary) %>…</p><a class="ps-morelink" href="<%= linkNews + item.slug %>">Read more<i class="fa fa-long-arrow-right"></i></a>
               </div>
             </div>
           </div>
-        <% } %>
+        <% }) %>
       </div>
     </div>
   </div>
