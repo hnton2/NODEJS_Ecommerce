@@ -100,7 +100,7 @@ module.exports = {
         {name: 'Choose Type of Product', id: 'allValue'},
         {name: 'Shoes', id: 'shoes'},
         {name: 'Clothing', id: 'clothing'},
-        {name: 'ccessory', id: 'accessory'},
+        {name: 'Accessory', id: 'accessory'},
     ],
     color_value: [
         {name: 'Black', id: 'black'},

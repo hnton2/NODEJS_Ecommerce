@@ -7,14 +7,13 @@
   const linkShoes     = `${linkPrefix}shoes/`;
   const linkClothing  = `${linkPrefix}clothing/`;
   const linkAccessory = `${linkPrefix}accessory/`;
-  const linkNews      = `${linkPrefix}news/`;
-  const linkRecentNews= `${linkPrefix}lasted-news/`; 
+  const linkHotNews   = `${linkPrefix}special-news/`; 
+  const linkEvent   = `${linkPrefix}/event-shoes/`; 
+  const linkAdsBanner    = systemConfig.prefixShop + '/ads-banner/';
 
   const folder_upload_shoes     = 'uploads/shoes/';
   const folder_upload_clothing  = 'uploads/clothing/';
   const folder_upload_accessory = 'uploads/accessory/';
-  const folder_upload_news      = 'uploads/news/';
-  const folder_upload_brand     = 'uploads/brand/';
   const folder_upload_events    = 'uploads/events/';
 %>
 <div class="ps-section ps-section--hotdeal-3 pt-80 pb-40">
@@ -25,7 +24,7 @@
     <div class="ps-section__content">
       <div class="row">
         <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 ">
-          <div class="ps-product--hotdeal reverse">
+          <div class="ps-product--hotdeal reverse" id="event-box" data-url="<%= linkEvent %>">
             <div class="ps-product__thumbnail">
               <a class="ps-product__overlay" href="<%= linkPrefix + itemEvents.type + '/' + itemEvents.slug %>"></a>
               <img src="<%= folder_upload_events + itemEvents.thumb %>" alt="">
@@ -262,14 +261,15 @@
     </div>
   </div>
 </div>
-<div class="ps-section--features-product ps-section masonry-root pt-50 pb-5"> 
+<div class="ps-section ps-home-blog pt-80 pb-80">
   <div class="ps-container">
     <div class="ps-section__header mb-50">
-      <h3 class="ps-section__title title-header" data-mask="Hots News">- Recent News -</h3>
+      <h2 class="ps-section__title title-header" data-mask="Trending News">- Hot News -</h2>
+      <div class="ps-section__action"><a class="ps-morelink text-uppercase" href="<%= linkPrefix + 'blog/all' %>">View all post<i class="fa fa-long-arrow-right"></i></a></div>
     </div>
-    <div class="ps-section__content pb-10">
-      <div class="trending-main">
-        <div class="row" id="recent-news--home-page" data-url="<%= linkRecentNews %>">
+    <div class="ps-section__content">
+      <div class="row">
+        <div class="row" id="hot-news--home-page" data-url="<%= linkHotNews %>">
           <div style="padding-left: 680px">
             <div class="lds-hourglass"></div>
           </div>
@@ -278,30 +278,12 @@
     </div>
   </div>
 </div>
-<div class="ps-section ps-home-blog pt-80 pb-80">
+<div class="ps-home-partner">
   <div class="ps-container">
-    <div class="ps-section__header mb-50">
-      <h2 class="ps-section__title title-header" data-mask="Trending News">- Trending News -</h2>
-      <div class="ps-section__action"><a class="ps-morelink text-uppercase" href="<%= linkPrefix + 'blog-news/all' %>">View all post<i class="fa fa-long-arrow-right"></i></a></div>
-    </div>
-    <div class="ps-section__content">
-      <div class="row">
-        <% specialNews.forEach( (item) => { %>
-          <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
-            <div class="ps-post">
-              <div class="ps-post__thumbnail">
-                <a class="ps-post__overlay" href="<%= linkNews + item.slug %>"></a>
-                <img src="<%= folder_upload_news + item.thumb %>" style="width:450px;height:250px;object-fit:cover;" alt="">
-              </div>
-              <div class="ps-post__content"><a class="ps-post__title" href="<%= linkNews + item.slug %>"><%= item.name %></a>
-                <p class="ps-post__meta"><span>By:<a class="mr-5" href="#">Admin</a></span> -<span class="ml-5"><%= formatDate(item.created.time, "LL") %></span></p>
-                <p><%= formatSummaryHelper(item.summary, 100) %>…</p>
-                <a class="ps-morelink" href="<%= linkNews + item.slug %>">Read more<i class="fa fa-long-arrow-right"></i></a>
-              </div>
-            </div>
-          </div>
-        <% }) %>
-      </div>
+    <div class="owl-slider" data-owl-auto="true" data-owl-loop="true" data-owl-speed="5000" data-owl-gap="40" data-owl-nav="false" data-owl-dots="false" data-owl-item="6" data-owl-item-xs="2" data-owl-item-sm="4" data-owl-item-md="5" data-owl-item-lg="6" data-owl-duration="1000" data-owl-mousedrag="on">
+      <% items.forEach( (item) => { %>
+        <a href="<%= linkPrefix + 'category/trademark?brand=' + item.slug %>"><img src="uploads/brand/<%= item.thumb %>" style="max-width: 201.667px;max-height: 201.667px; object-fit: cover;" alt=""></a>
+      <% }) %>
     </div>
   </div>
 </div>

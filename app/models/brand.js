@@ -29,7 +29,7 @@ module.exports = {
             return Model.find({slug: params.slug}).select('name slug');
         }
         if(option.task == 'get-logo-items'){
-            return Model.find().select('slug thumb link');
+            return Model.find().select('slug thumb link name');
         }
     },
     listItemsFrontend: (params = null, option = null) => {

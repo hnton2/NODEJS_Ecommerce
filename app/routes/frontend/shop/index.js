@@ -22,7 +22,7 @@ router.use('/accessory', require('./accessory'));
 router.use('/contact', require('./contact'));
 router.use('/about', require('./about'));
 router.use('/news', require('./news'));
-router.use('/blog-news', require('./news-category'));
+router.use('/blog', require('./news-category'));
 router.use('/news-rss', require('./news-rss'));
 router.use('/cart', require('./cart'));
 router.use('/checkout', require('./checkout'));

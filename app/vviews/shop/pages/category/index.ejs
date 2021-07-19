@@ -3,7 +3,7 @@
 <% include ./../../helpers/price %>
 
 <% 
-  const folder_upload = 'uploads/shoes/';
+  const folder_upload = 'uploads/';
   const linkPrefix    = systemConfig.prefixShop + '/';
 %>
 
@@ -20,7 +20,7 @@
       </div>
       <%- paginationHelper(params.pagination, linkPrefix + 'category/shoes', params) %>
     </div>
-    <div class="ps-product__columns" id="product-area">
+    <div class="ps-product__columns">
       <% items.forEach( (item) => { %>
         <div class="ps-product__column" style="width:302.3px;height:372.3px">
           <div class="ps-shoe mb-30" style="width:272.3px;height:342.3px">
@@ -29,14 +29,14 @@
                 <div class="ps-badge ps-badge--sale"><span>-<%= item.sale_off %>%</span></div>
               <% } %>
               <a class="ps-shoe__favorite" href="javascript:void(0)" onclick="favoriteProduct('<%= item._id %>', '<%= item.name %>', '<%= item.product_type %>', '<%= item.thumb[0] %>')"><i class="ps-icon-heart"></i></a>
-              <img src="<%= folder_upload + item.thumb[0] %>" style="width:272px;height:272px;object-fit:cover;" alt="">
+              <img src="<%= folder_upload + item.product_type + '/' + item.thumb[0] %>" style="width:272px;height:272px;object-fit:cover;" alt="">
               <a class="ps-shoe__overlay" href="<%= linkPrefix + 'shoes/' + item.slug %>"></a>
             </div>
             <div class="ps-shoe__content">
               <div class="ps-shoe__variants">
                 <div class="ps-shoe__variant normal">
                   <% item.thumb.forEach( (image) => { %>
-                    <img src="<%= folder_upload + image %>" alt="">
+                    <img src="<%= folder_upload + item.product_type + '/' + item.thumb[0] %>" alt="">
                   <% }) %>
                 </div>
                 <%- ratingProductHelpers(item.reviews) %>

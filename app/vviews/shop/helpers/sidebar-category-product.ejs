@@ -1,0 +1,26 @@
+<%
+    sidebarCategoryHelper = (type) => {
+        let items;
+        let xhtml = '';
+        if(type === 'shoes') {
+            items = itemsProductCategory;
+        } else if(type === 'clothing') {
+            items = itemsClothingCategory;
+        } else if(type === 'accessory') {
+            items = itemsAccessoryCategory;
+        }
+        items.forEach ((item) => {
+            xhtml += `<li data-name="${item.slug}"><a href="javascript:void(0)" >${item.name} (${item.amount})</a></li>`
+        })
+        return `<aside class="ps-widget--sidebar ps-widget--category">
+            <div class="ps-widget__header">
+              <h3>${type.toUpperCase()} Category</h3>
+            </div>
+            <div class="ps-widget__content">
+              <ul class="ps-list--checked" id="category_product">
+                ${xhtml}
+              </ul>
+            </div>
+        </aside>`;
+    }
+%>

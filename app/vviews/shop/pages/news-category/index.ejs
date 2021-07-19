@@ -5,7 +5,7 @@
 
 <% 
   const folder_uploads = "uploads/news/"; 
-  const linkCategory = systemConfig.prefixShop + '/blog-news/';
+  const linkCategory = systemConfig.prefixShop + '/blog/';
   const linkNews = systemConfig.prefixShop + '/news/';
   const linkRecentNews    = systemConfig.prefixShop + '/lasted-news/'; 
   const linkBestSeller    = systemConfig.prefixShop + '/best-shoes/';
@@ -19,40 +19,35 @@
   <div class="ps-container">
     <div class="row">
       <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 ">
-        <div class="ps-section__header mb-50">
-          <h2 class="ps-section__title title-header" data-mask="News">- News -</h2>
-        </div>
-        <div class="ps-section__content">
-          <% itemsInCategory.forEach( (item) => { %>
-            <div class="ps-post--2">
-              <div class="ps-post__thumbnail">
-                <a class="ps-post__overlay" href="<%= linkNews + item.slug %>" target="_blank"></a>
-                <img src="<%= folder_uploads + item.thumb %>" style="width: 450px; height: 250px;" alt="<%= item.name %>">
-              </div>
-              <div class="ps-post__container">
-                <header class="ps-post__header"><a class="ps-post__title" href="<%= linkNews + item.slug %>" target="_blank" style="font-size: 22px;"><%- highlightHelper(item.name, keyword) %></a>
-                  <p>Posted by <a href="#">Admin</a> on <%= formatDate(item.created.time) %> </p>
-                </header>
-                <div class="ps-post__content">
-                  <p><%- formatSummaryHelper(item.summary, 200) %>….</p>
-                </div>
-                <footer class="ps-post__footer"><a class="ps-post__morelink" href="<%= linkNews + item.slug %>" target="_blank">READ MORE<i class="ps-icon-arrow-left"></i></a>
-                  <div class="ps-post__actions">
-                    <span><i class="fa fa-comments"></i> <%= item.comments.length %> Comments</span>
-                    <!-- <span><i class="fa fa-heart"></i>  likes</span> -->
-                    <!-- <div class="ps-post__social"><i class="fa fa-share-alt"></i><a href="#">Share</a>
-                      <ul>
-                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                      </ul>
-                    </div> -->
-                  </div>
-                </footer>
-              </div>
+        <% itemsInCategory.forEach( (item) => { %>
+          <div class="ps-post--2">
+            <div class="ps-post__thumbnail">
+              <a class="ps-post__overlay" href="<%= linkNews + item.slug %>" target="_blank"></a>
+              <img src="<%= folder_uploads + item.thumb %>" style="width: 450px; height: 250px;" alt="<%= item.name %>">
             </div>
-          <% }) %>
-        </div>
+            <div class="ps-post__container">
+              <header class="ps-post__header"><a class="ps-post__title" href="<%= linkNews + item.slug %>" target="_blank" style="font-size: 22px;"><%- highlightHelper(item.name, keyword) %></a>
+                <p>Posted by <a href="#">Admin</a> on <%= formatDate(item.created.time) %> </p>
+              </header>
+              <div class="ps-post__content">
+                <p><%- formatSummaryHelper(item.summary, 200) %>….</p>
+              </div>
+              <footer class="ps-post__footer"><a class="ps-post__morelink" href="<%= linkNews + item.slug %>" target="_blank">READ MORE<i class="ps-icon-arrow-left"></i></a>
+                <div class="ps-post__actions">
+                  <span><i class="fa fa-comments"></i> <%= item.comments.length %> Comments</span>
+                  <!-- <span><i class="fa fa-heart"></i>  likes</span> -->
+                  <!-- <div class="ps-post__social"><i class="fa fa-share-alt"></i><a href="#">Share</a>
+                    <ul>
+                      <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                      <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                      <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                    </ul>
+                  </div> -->
+                </div>
+              </footer>
+            </div>
+          </div>
+        <% }) %>
         <div class="mt-30">
           <%- paginationHelper(pagination, linkCategory + categorySlug, params) %>
         </div>

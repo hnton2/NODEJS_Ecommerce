@@ -24,11 +24,9 @@ const layoutShop    = __path_views_shop + 'frontend';
 router.get('/', async (req, res, next) => {
   let itemsSlider = [];
   let lastedShoes = [];
-  let specialNews = [];
   let specialAccessory = [];
   let specialClothing = [];
   let itemEvents = [];
-  let lastedNews = [];
 
   // slider
   await SliderModel.listItemsFrontend().then( (items) => {itemsSlider = items;});
@@ -36,12 +34,11 @@ router.get('/', async (req, res, next) => {
   await ShoesModel.listItemsFrontend(null, {task:'items-random'}).then( (items) => {lastedShoes = items;});
   // Special
   await AccessoryModel.listItemsFrontend(null, {task: 'items-special'}).then( (items) => {specialAccessory = items;});
-  // Special shoes
-  await ArticleModel.listItemsFrontend(null, {task: 'items-special'}).then( (items) => {specialNews = items;});
   // Special clothing
   await ClothingModel.listItemsFrontend(null, {task: 'items-special'}).then( (items) => {specialClothing = items;});
   // Event
   await EventsModel.listItemsFrontend().then( (items) => {itemEvents = items[0];});
+  await BrandModel.getItems(null, {task:'get-logo-items'}).then( (data) => {items = data;});
 
   res.render(`${folderView}index`, {
     pageTitle : 'Home',
@@ -50,10 +47,10 @@ router.get('/', async (req, res, next) => {
     layout: layoutShop,
     itemsSlider,
     lastedShoes,
-    specialNews,
     specialAccessory,
     specialClothing,
     itemEvents,
+    items,
   });
 });
 
@@ -76,7 +73,7 @@ router.get('/all-brand-product', async (req, res, next) => {
 
 router.get('/search', async (req, res, next) => {
   let keyword 	= ParamsHelpers.getParam(req.query, 'keyword', '');
-  res.redirect(linkIndex +  'trademark?search=' + keyword);
+  res.redirect(linkIndex +  'category/trademark?search=' + keyword);
 });
 
 router.post('/subscribe', async (req, res, next) => {
@@ -108,6 +105,13 @@ router.get('/lasted-news', async (req, res, next) => {
   await ArticleModel
     .listItemsFrontend(null, {task: 'items-news'})
     .then( (data) => {items = data;});
+  res.json(items)
+});
+
+
+router.get('/special-news', async (req, res, next) => {
+  let items = [];
+  await ArticleModel.listItemsFrontend(null, {task: 'items-special'}).then( (data) => {items = data;});
   res.json(items)
 });
 
