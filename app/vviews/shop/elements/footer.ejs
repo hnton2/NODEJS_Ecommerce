@@ -105,7 +105,7 @@
             <footer>
               <ul class="ps-list--line">
                 <% itemsBrand.forEach ( (item)=>{ %>
-                  <li><a href=""><%= item.name %></a></li>
+                  <li><a href="<%= linkPrefix + 'category/trademark?brand=' + item.slug %>"><%= item.name %></a></li>
                 <% }) %>
               </ul>
             </footer>

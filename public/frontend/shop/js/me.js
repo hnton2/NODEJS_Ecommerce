@@ -166,7 +166,7 @@ $(document).ready(function () {
             if('color' in arrQuery && arrQuery.color !== '') linkRedirect += 'color=' + arrQuery.color + '&';
         }
         linkRedirect = linkRedirect.slice(0, -1);
-        //window.location.href = linkRedirect;
+        window.location.href = linkRedirect;
     })
     // ---END: APPLY FILTER CATEGORY---
         

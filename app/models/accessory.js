@@ -22,7 +22,7 @@ module.exports = {
     },
     listItemsInCategory: (params) => {
         let sort 		 = {};
-        let objWhere	 = {};
+        let objWhere	 = {status: 'active'};
         sort[params.sortField] = params.sortType;
         if(params.keyword !== '') objWhere.name = new RegExp(params.keyword, 'i');
 	    if(params.categoryID !== undefined && params.categoryID !== '') objWhere['category.id'] = params.categoryID;
@@ -40,7 +40,7 @@ module.exports = {
     },
     listItemsInCategory2: (params) => {
         let sort 		 = {};
-        let objWhere	 = {};
+        let objWhere	 = {status: 'active'};
         sort[params.sortField] = params.sortType;
         if(params.keyword !== '') objWhere.name = new RegExp(params.keyword, 'i');
         if(params.brandID !== undefined && params.brandID !== '') objWhere['brand.id'] = params.brandID;
@@ -160,11 +160,24 @@ module.exports = {
     },
     countItems: (params, option = null) => {
         let objWhere	 = {};
-        if(params != null) {
-            if(params.currentStatus !== 'all') objWhere.status = params.currentStatus;
+        let sort 		 = {};
+        if(option.task == 'all-items') {
+            sort[params.sortField] = params.sortType;
             if(params.keyword !== '') objWhere.name = new RegExp(params.keyword, 'i');
-            if(params.categoryID !== '') objWhere.categoryID = params.categoryID;
-        }        
+            if(params.categoryID !== undefined && params.categoryID !== '') objWhere['category.id'] = params.categoryID;
+            if(params.brandID !== undefined && params.brandID !== '') objWhere['brand.id'] = params.brandID;
+            let arrPrice = params.price.split('-');
+            if(params.price !== 'all') objWhere.price = {$gt : arrPrice[0], $lt : arrPrice[1]};
+            if(params.size !== 'all') objWhere.size = { "$in" : [params.size] };
+            if(params.color !== 'all') objWhere.color = { "$in" : [params.color.toLowerCase()] };
+        }
+        if(option.task === 'all-items-server') {
+            if(params !== null) {
+                if(params.currentStatus !== 'all') objWhere.status = params.currentStatus;
+                if(params.keyword !== '') objWhere.name = new RegExp(params.keyword, 'i');
+                if(params.categoryID !== '') objWhere.categoryID = params.categoryID;
+            }
+        }      
         return Model.countDocuments(objWhere);
     },
     changeStatus: (id, currentStatus, user, option = null) => {

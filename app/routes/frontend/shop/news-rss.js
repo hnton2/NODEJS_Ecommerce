@@ -11,7 +11,6 @@ const RSSHelpers = require(__path_helpers + 'rss');
 router.get('/get-gold',  async (req, res, next) => {
   let linkGoldPrice = 'http://www.giavangsjc.com/nd5/getrss.html/?param=4250LShvX0dUeERk';
   await RSSHelpers.xmlToJson(linkGoldPrice, (err, data) => {
-    console.log(data)
     if (err) { return console.err(err); }
     let items = data.root.ratelist[0].city[0].item;
     res.json(items);

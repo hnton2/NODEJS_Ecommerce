@@ -43,7 +43,7 @@ router.get('(/status/:status)?', async (req, res, next) => {
 		brandItems.unshift({_id: 'allValue', name: 'All brand'});
 	});
 
-	await MainModel.countItems(params).then( (data) => {
+	await MainModel.countItems(params, {task: 'all-items-server'}).then( (data) => {
 		params.pagination.totalItems = data;
 	});
 	

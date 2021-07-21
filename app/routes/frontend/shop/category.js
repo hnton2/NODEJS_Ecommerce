@@ -19,7 +19,7 @@ router.get('/shoes', async (req, res, next) => {
   let items = [];
   if(params.category !== 'all') { await ShoesCategoryModel.getItems({slug: params.category}, {task: 'get-items-by-slug'}).then( (items) => {params.categoryID = items[0].id; titlePage = items[0].name;}); }
   if(params.brand !== 'all') { await BrandModel.getItems({slug: params.brand}, {task: 'get-items-by-slug'}).then( (items) => {params.brandID = items[0].id; titlePage = items[0].name;}); }
-  await ShoesModel.countItems(params).then( (data) => { params.pagination.totalItems = data; })
+  await ShoesModel.countItems(params, {task: 'all-items'}).then( (data) => { params.pagination.totalItems = data; })
   await ShoesModel.listItemsInCategory(params).then( (item) => {items = item;});
   res.render(`${folderView}index`, { 
     pageTitle : titlePage,
@@ -37,7 +37,7 @@ router.get('/clothing', async (req, res, next) => {
   let items = [];
   if(params.category !== 'all') { await ClothingCategoryModel.getItems({slug: params.category}, {task: 'get-items-by-slug'}).then( (items) => {params.categoryID = items[0].id; titlePage = items[0].name;}); }
   if(params.brand !== 'all') { await BrandModel.getItems({slug: params.brand}, {task: 'get-items-by-slug'}).then( (items) => {params.brandID = items[0].id; titlePage = items[0].name;}); }
-  await ClothingModel.countItems(params).then( (data) => { params.pagination.totalItems = data; })
+  await ClothingModel.countItems(params, {task: 'all-items'}).then( (data) => { params.pagination.totalItems = data; })
   await ClothingModel.listItemsInCategory(params).then( (item) => {items = item;});
   res.render(`${folderView}index-2`, { 
     pageTitle : titlePage,
@@ -55,7 +55,7 @@ router.get('/accessory', async (req, res, next) => {
   let items = [];
   if(params.category !== 'all') { await AccessoryCategoryModel.getItems({slug: params.category}, {task: 'get-items-by-slug'}).then( (items) => {params.categoryID = items[0].id; titlePage = items[0].name;}); }
   if(params.brand !== 'all') { await BrandModel.getItems({slug: params.brand}, {task: 'get-items-by-slug'}).then( (items) => {params.brandID = items[0].id; titlePage = items[0].name;}); }
-  await AccessoryModel.countItems(params).then( (data) => { params.pagination.totalItems = data; })
+  await AccessoryModel.countItems(params, {task: 'all-items'}).then( (data) => { params.pagination.totalItems = data; })
   await AccessoryModel.listItemsInCategory(params).then( (item) => {items = item;});
   res.render(`${folderView}index-3`, { 
     pageTitle : titlePage,

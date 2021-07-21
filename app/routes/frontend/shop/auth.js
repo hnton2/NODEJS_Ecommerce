@@ -7,14 +7,9 @@ const systemConfig  	= require(__path_configs + 'system');
 const MainValidate		= require(__path_validates + 'login');
 const StringHelpers  	= require(__path_helpers + 'string');
 
-const middlewareGetUserInfo  	        = require(__path_middleware + 'get-user-info');
-const middlewareGetCategoryForMenu  	= require(__path_middleware + 'blog/get-category-for-menu');
-const middlewareGetRandomArticles	    = require(__path_middleware + 'blog/get-random-articles');
-const middlewareGetTrendingArticles	    = require(__path_middleware + 'blog/get-trending-articles');
-
 const folderView 		= __path_views_shop + 'pages/auth/';
 const layoutLogin   	= __path_views_shop + 'login';
-const layoutBlog    = __path_views_shop + 'frontend';
+const layoutBlog    	= __path_views_shop + 'frontend';
 
 const linkIndex		 	= StringHelpers.formatLink('/' + systemConfig.prefixShop + '/' + systemConfig.prefixAdmin);
 const linkLogin		 	= StringHelpers.formatLink('/' + systemConfig.prefixShop+ '/auth/login/');
@@ -35,16 +30,12 @@ router.get('/login', (req, res, next) => {
 });
 
 /* GET no-permission page. */
-router.get('/no-permission', middlewareGetUserInfo, middlewareGetCategoryForMenu, middlewareGetRandomArticles, middlewareGetTrendingArticles, function(req, res, next) {
+router.get('/no-permission', function(req, res, next) {
 	req.logout();
 	res.render(`${folderView}no-permission`, {
 		pageTitle   : 'No Permission',
 		layout: layoutBlog, 
 		top_post: false,
-		trending_post: false,
-		layout_rss: false,
-		layout_contact: false,
-		layout_article: false,
 	 });
 });
 

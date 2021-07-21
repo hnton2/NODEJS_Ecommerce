@@ -290,6 +290,9 @@ $(document).ready(function () {
     $("input[name=thumb]").change(function() {
         readURL(this, 'img.preview-thumb');
     });
+    $("input[name=logo]").change(function() {
+        readURL(this, 'img.preview-logo');
+    });
 
     // show multi image
     let imagesPreview = function(input, placeToInsertImagePreview) {

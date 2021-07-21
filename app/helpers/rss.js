@@ -30,8 +30,6 @@ let getDataInURL = async (linkURL) => {
     await xmlToJson(item.link, (err, data) => {
       if (err) { return console.err(err); }
       items.push(data.rss.channel[0].item);
-      console.log(item.link, '-', items.length);
-      console.log(items[0].length);
     });
   }
   return items;

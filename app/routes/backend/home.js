@@ -23,9 +23,9 @@ router.get('/', async function(req, res, next) {
 
   let totalOrders = await UtilsHelpers.countCollections(OrderSchemas);
   let totalContact = await UtilsHelpers.countCollections(ContactSchemas);
-  await ShoesModel.countItems().then((data) => { nProducts += data; });
-  await AccessoryModel.countItems().then((data) => { nProducts += data; });
-  await ClothingModel.countItems().then((data) => { nProducts += data; });
+  await ShoesModel.countItems(null, {task: 'all-items-server'}).then((data) => { nProducts += data; });
+  await AccessoryModel.countItems(null, {task: 'all-items-server'}).then((data) => { nProducts += data; });
+  await ClothingModel.countItems(null, {task: 'all-items-server'}).then((data) => { nProducts += data; });
 
   await OrdersModel.countingSales().then((item) => { nSales = item[0].total; });
   await OrdersModel.getItems(null, {task: 'lasted-item'}).then( (item) => { lastedOrders = item; });
