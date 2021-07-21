@@ -16,7 +16,6 @@ const FileHelpers 		= require(__path_helpers + 'file');
 const StringHelpers 		= require(__path_helpers + 'string');
 const notify  			= require(__path_configs + 'notify');
 
-
 const linkIndex		 	= '/' + systemConfig.prefixAdmin + `/${controllerName}/`;
 const pageTitleIndex 	= UtilsHelpers.capitalize(controllerName) + ' Management';
 const pageTitleAdd   	= pageTitleIndex + ' - Add';

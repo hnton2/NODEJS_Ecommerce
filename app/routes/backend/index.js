@@ -12,7 +12,7 @@ router.use('/users', require('./users'));
 router.use('/news-category', require('./news-category'));
 router.use('/news', require('./news'));
 router.use('/rss', require('./rss'));
-router.use('/news-category', require('./shoes-category'));
+router.use('/shoes-category', require('./shoes-category'));
 router.use('/brand', require('./brand'));
 router.use('/shoes', require('./shoes'));
 router.use('/slider', require('./slider'));
